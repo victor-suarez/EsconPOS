@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>EsconPOS</RootNamespace>
     <AssemblyName>EsconPOS</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -44,6 +44,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Release\System.Data.SQLite.dll</HintPath>
     </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Windows.Forms.Ribbon">
+      <HintPath>..\Ribbon\Ribbon_Release_2018-03-19_NET461\System.Windows.Forms.Ribbon.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,6 +62,7 @@
     <Compile Include="classes\Datos.cs" />
     <Compile Include="classes\ClsGlobal.cs" />
     <Compile Include="classes\Empleados.cs" />
+    <Compile Include="classes\Identificaciones.cs" />
     <Compile Include="forms\FrmCaja.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +74,12 @@
     </Compile>
     <Compile Include="forms\FrmCliente.Designer.cs">
       <DependentUpon>FrmCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\FrmConfiguracion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FrmConfiguracion.Designer.cs">
+      <DependentUpon>FrmConfiguracion.cs</DependentUpon>
     </Compile>
     <Compile Include="forms\FrmEmpleado.cs">
       <SubType>Form</SubType>
@@ -100,13 +111,28 @@
     <Compile Include="forms\FrmProducto.Designer.cs">
       <DependentUpon>FrmProducto.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\MDIEsconPos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\MDIEsconPos.Designer.cs">
+      <DependentUpon>MDIEsconPos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="forms\FrmConfiguracion.resx">
+      <DependentUpon>FrmConfiguracion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmEmpleado.resx">
+      <DependentUpon>FrmEmpleado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\FrmEntrada.resx">
       <DependentUpon>FrmEntrada.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\FrmEsconPOS.resx">
       <DependentUpon>FrmEsconPOS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\MDIEsconPos.resx">
+      <DependentUpon>MDIEsconPos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -129,6 +155,17 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\CajaCerrada.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Empresas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Empleados.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clientes.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

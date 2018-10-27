@@ -15,7 +15,7 @@ namespace EsconPOS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmEsconPOS());
+            Application.Run(new forms.FrmEntrada());
         }
     }
 }

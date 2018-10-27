@@ -10,20 +10,26 @@ namespace EsconPOS.classes
     public class Datos
     {
         private const string CnxStr = "Data Source=./database/EsconPOS.db;Version=3;FailIfMissing=True;Foreign Keys=True;";
-        private readonly SQLiteConnection Conx = new SQLiteConnection(CnxStr);
-        private bool IsCnxOpen = false;
+        private static SQLiteConnection _Conx = new SQLiteConnection(CnxStr);
+        private static readonly Datos _instance;
 
-         // Abrir conexión a la base de datos.
-       public Datos()
+        static Datos()
+        {
+            _instance = new Datos();
+        }
+        // Abrir conexión a la base de datos.
+        public static Datos Conx
+        {
+            get { return _instance; }
+        }
+        public void OpenDatabase()
         {
             try
             {
-                if (!IsCnxOpen) Conx.Open();
-                IsCnxOpen = true;
+                _Conx.Open();
             }
             catch (SQLiteException ex)
             {
-                IsCnxOpen = false;
                 throw new Exception("OpenDatabase", ex);
             }
         }
@@ -32,8 +38,7 @@ namespace EsconPOS.classes
         {
             try
             {
-                Conx.Close();
-                IsCnxOpen = false;
+                _Conx.Close();
             }
             catch (SQLiteException ex)
             {
@@ -45,7 +50,7 @@ namespace EsconPOS.classes
         {
             try
             {
-                SQLiteCommand command = new SQLiteCommand(Query, Conx);
+                SQLiteCommand command = new SQLiteCommand(Query, _Conx);
                 return command.ExecuteNonQuery();
             }
             catch (SQLiteException ex)
@@ -60,7 +65,7 @@ namespace EsconPOS.classes
             Dictionary<string, string> Rec = new Dictionary<string, string>();
             try
             {
-                SQLiteCommand command = new SQLiteCommand(Query, Conx);
+                SQLiteCommand command = new SQLiteCommand(Query, _Conx);
                 SQLiteDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {

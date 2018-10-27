@@ -8,64 +8,92 @@ namespace EsconPOS.classes
 {
     class Empleados
     {
-        public int EmpleadoID { get; set; }
-        public int IdentificacionID { get; set; }
-        public string NroDocIdent { get; set; }
-        public string Nombre { get; set; }
-        public string Direccion { get; set; }
-        public string Telefonos { get; set; }
-        public string CorreoElectronico { get; set; }
-        public string Login { get; set; }
-        public byte[] Password { get; set; }
-        public bool EsSupervisor { get; set; }
-        public bool EsAdministrador { get; set; }
+        private Datos _Conx;
+        Dictionary<string, string> record;
+        List<object> recordset;
 
-        public Empleados()
+        private readonly int _EmpleadoID;
+        private readonly int _IdentificacionID;
+        private readonly string _NroDocIdent;
+        private readonly string _Nombre;
+        private readonly string _Direccion;
+        private readonly string _Telefonos;
+        private readonly string _CorreoElectronico;
+        private readonly string _Login;
+        private readonly byte[] _Password;
+        private readonly bool _EsSupervisor;
+        private readonly bool _EsAdministrador;
+
+        public int EmpleadoID { get => _EmpleadoID; }
+        public int IdentificacionID { get => _IdentificacionID; }
+        public string NroDocIdent { get => _NroDocIdent; }
+        public string Nombre { get => _Nombre; }
+        public string Direccion { get => _Direccion; }
+        public string Telefonos { get => _Telefonos; }
+        public string CorreoElectronico { get => _CorreoElectronico; }
+        public string Login { get => _Login; }
+        public byte[] Password { get; }
+        public bool EsSupervisor { get => _EsSupervisor; }
+        public bool EsAdministrador { get => _EsAdministrador; }
+
+        public Empleados(Datos Conx)
         {
+            _Conx = Conx;
         }
-        public Empleados(int _EmpleadoID, int _IdentificacionID, string _NroDocIdent, string _Nombre,
-                         string _Direccion, string _Telefonos, string _CorreoElectronico,
-                         bool _EsSupervisor, bool _EsAdministrador)
+        public Empleados(int EmpleadoID, int IdentificacionID, string NroDocIdent, string Nombre,
+                         string Direccion, string Telefonos, string CorreoElectronico,
+                         bool EsSupervisor, bool EsAdministrador)
         {
-            EmpleadoID = _EmpleadoID;
-            IdentificacionID = _IdentificacionID;
-            NroDocIdent = _NroDocIdent;
-            Nombre = _Nombre;
-            Direccion = _Direccion;
-            Telefonos = _Telefonos;
-            CorreoElectronico = _CorreoElectronico;
-            EsSupervisor = _EsSupervisor;
-            EsAdministrador = _EsAdministrador;
+            _EmpleadoID = EmpleadoID;
+            _IdentificacionID = IdentificacionID;
+            _NroDocIdent = NroDocIdent;
+            _Nombre = Nombre;
+            _Direccion = Direccion;
+            _Telefonos = Telefonos;
+            _CorreoElectronico = CorreoElectronico;
+            _EsSupervisor = EsSupervisor;
+            _EsAdministrador = EsAdministrador;
         }
-        public Empleados Entrada(string Login, string Password, Datos CDatos)
+        public bool EmpleadoAdminDefinido()
         {
-            string sql = "SELECT * FROM Empleados WHERE Login='" + Login + "' AND PasswdHash='" + GetStringSha256Hash(Password) + "'";
+            string sql = "SELECT COUNT(*) AS EmpleadoAdminDefinido FROM Empleados WHERE EsAdministrador=1;";
             try
             {
-                List<object> recordset = CDatos.ExecActionQry(sql);
-                Dictionary<string, string> record = new Dictionary<string, string>();
-                Empleados emp;
-                if (recordset.Count < 1)
-                {
-                    throw new Exception("Usuario o contraseña inválido.");
-                }
-                Dictionary<string, string> rec = (Dictionary<string, string>)recordset[0];
-                emp = new Empleados(int.Parse(rec["EmpleadoID"]),
-                                    int.Parse(rec["IdentificacionID"]),
-                                    rec["NroDocIdent"].ToString(),
-                                    rec["Nombre"].ToString(),
-                                    rec["Direccion"].ToString(),
-                                    rec["Telefonos"].ToString(),
-                                    rec["CorreoElectronico"].ToString(),
-                                    int.Parse(rec["EsSupervisor"]) == 1,
-                                    int.Parse(rec["EsAdministrador"]) == 1);
-                return emp;
+                recordset = _Conx.ExecActionQry(sql);
+                record = (Dictionary<string, string>)recordset[0];
+                return (int.Parse(record["EmpleadoAdminDefinido"]) > 0);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
+        }
+        public Empleados Entrada(string Login, string Password)
+        {
+            string sql = "SELECT * FROM Empleados WHERE Login='" + Login + "' AND PasswdHash='" + GetStringSha256Hash(Password) + "'";
+            try
+            {
+                recordset = _Conx.ExecActionQry(sql);
+                if (recordset.Count < 1)
+                {
+                    throw new Exception("Usuario no defnido en el sistema.");
+                }
+                // Sólo puede haber uno!
+                record = (Dictionary<string, string>)recordset[0];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return new Empleados(int.Parse(record["EmpleadoID"]),
+                                 int.Parse(record["IdentificacionID"]),
+                                 record["NroDocIdent"],
+                                 record["Nombre"],
+                                 record["Direccion"],
+                                 record["Telefonos"],
+                                 record["CorreoElectronico"],
+                                 int.Parse(record["EsSupervisor"]) == 1,
+                                 int.Parse(record["EsAdministrador"]) == 1);
         }
         internal static string GetStringSha256Hash(string text)
         {
@@ -78,6 +106,10 @@ namespace EsconPOS.classes
                 byte[] hash = sha.ComputeHash(textData);
                 return BitConverter.ToString(hash).Replace("-", String.Empty);
             }
+        }
+        public override string ToString()
+        {
+            return Nombre;
         }
     }
 }

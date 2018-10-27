@@ -34,8 +34,9 @@ namespace EsconPOS.forms
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.txtContrasenia = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnAbrir = new System.Windows.Forms.Button();
+            this.btnEntrar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -78,16 +79,16 @@ namespace EsconPOS.forms
             this.label2.TabIndex = 2;
             this.label2.Text = "&Contraseña:";
             // 
-            // btnAbrir
+            // btnEntrar
             // 
-            this.btnAbrir.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAbrir.Location = new System.Drawing.Point(75, 90);
-            this.btnAbrir.Name = "btnAbrir";
-            this.btnAbrir.Size = new System.Drawing.Size(108, 37);
-            this.btnAbrir.TabIndex = 4;
-            this.btnAbrir.Text = "&Abrir";
-            this.btnAbrir.UseVisualStyleBackColor = true;
-            this.btnAbrir.Click += new System.EventHandler(this.BtnAbrir_Click);
+            this.btnEntrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEntrar.Location = new System.Drawing.Point(75, 90);
+            this.btnEntrar.Name = "btnEntrar";
+            this.btnEntrar.Size = new System.Drawing.Size(108, 37);
+            this.btnEntrar.TabIndex = 4;
+            this.btnEntrar.Text = "&Entrar";
+            this.btnEntrar.UseVisualStyleBackColor = true;
+            this.btnEntrar.Click += new System.EventHandler(this.BtnEntrar_Click);
             // 
             // btnCancelar
             // 
@@ -100,13 +101,25 @@ namespace EsconPOS.forms
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // lblStatus
+            // 
+            this.lblStatus.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.Location = new System.Drawing.Point(0, 141);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(373, 18);
+            this.lblStatus.TabIndex = 6;
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // FrmEntrada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(373, 142);
+            this.ClientSize = new System.Drawing.Size(373, 159);
+            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnAbrir);
+            this.Controls.Add(this.btnEntrar);
             this.Controls.Add(this.txtContrasenia);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtUsuario);
@@ -132,7 +145,8 @@ namespace EsconPOS.forms
         private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.TextBox txtContrasenia;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnAbrir;
+        private System.Windows.Forms.Button btnEntrar;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Label lblStatus;
     }
 }

@@ -13,28 +13,80 @@ namespace EsconPOS.forms
 {
     public partial class FrmEntrada : Form
     {
-        public Datos cBD;
+        private Datos Conx = Datos.Conx;
+        public bool LoggedIN = false;
+
         public FrmEntrada()
         {
             InitializeComponent();
-
-            cBD = new Datos();
         }
-        private void AbrirCaja()
+        private void Entrada()
         {
+            try
+            {
+                Conx.OpenDatabase();
+                Empleados Usuario = new Empleados(Conx);
+                if(Usuario.EmpleadoAdminDefinido())
+                {
+                    Usuario = Usuario.Entrada(txtUsuario.Text, txtContrasenia.Text);
+                }
+                else
+                {
 
-        }
-        private void BtnAbrir_Click(object sender, EventArgs e)
-        {
-            Empleados Usr = new Empleados().Entrada(txtUsuario.Text, txtContrasenia.Text, cBD);
+                }
+            }
+            catch (Exception ex)
+            {
+                if(ex.Message == "Usuario no defnido en el sistema.")
+
+                MessageBox.Show(ex.Message, "Error en la entrada al sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            try
+            {
+                Cajas Caja = new Cajas(Conx);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error en la entrada al sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            LoggedIN = true;
             Close();
+        }
+        private void SetStatus(string StrStatus, bool Error = false)
+        {
+            if (Error)
+                lblStatus.ForeColor = Color.Red;
+            else
+                lblStatus.ForeColor = SystemColors.ControlText;
+            lblStatus.Text = StrStatus;
+            lblStatus.Refresh();
+        }
+        private bool ValEntReq()
+        {
+            if (txtUsuario.Text.Trim().Length == 0)
+            {
+                txtUsuario.Focus();
+                MessageBox.Show("Debe transcribir el código del usuario.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (txtContrasenia.Text.Trim().Length == 0)
+            {
+                txtContrasenia.Focus();
+                MessageBox.Show("Debe transcribir la contraseña del usuario.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            return true;
+        }
+        private void BtnEntrar_Click(object sender, EventArgs e)
+        {
+            if(ValEntReq()) Entrada();
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
-            Dispose();
+            Close();
         }
-
         private void TxtUsuario_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Return))
@@ -43,7 +95,6 @@ namespace EsconPOS.forms
                 SelectNextControl((TextBox)sender, true, true, true, false);
             }
         }
-
         private void TxtContrasenia_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Return))
