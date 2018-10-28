@@ -60,7 +60,7 @@
   <ItemGroup>
     <Compile Include="classes\Cajas.cs" />
     <Compile Include="classes\Datos.cs" />
-    <Compile Include="classes\ClsGlobal.cs" />
+    <Compile Include="classes\Global.cs" />
     <Compile Include="classes\Empleados.cs" />
     <Compile Include="classes\Identificaciones.cs" />
     <Compile Include="forms\FrmCaja.cs">
@@ -166,6 +166,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Clientes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Guardar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Salir.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

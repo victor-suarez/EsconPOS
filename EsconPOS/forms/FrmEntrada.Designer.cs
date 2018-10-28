@@ -57,6 +57,7 @@ namespace EsconPOS.forms
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(217, 29);
             this.txtUsuario.TabIndex = 1;
+            this.txtUsuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtUsuario_KeyPress);
             // 
             // txtContrasenia
             // 
@@ -128,7 +129,9 @@ namespace EsconPOS.forms
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmEntrada";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Abrir Caja";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmEntrada_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

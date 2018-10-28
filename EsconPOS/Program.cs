@@ -16,6 +16,8 @@ namespace EsconPOS
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new forms.FrmEntrada());
+            if(classes.Global.LoggedIN)
+                Application.Run(new forms.MDIEsconPos());
         }
     }
 }

@@ -12,14 +12,15 @@ namespace EsconPOS.classes
         private List<object> recordset;
         private Dictionary<string, string> record;
 
-        private int _IdentificacionID;
-        private string _Codigo;
-        private string _Identificacion;
-        private string _Iniciales;
+        private readonly int _IdentificacionID;
+        private readonly string _Codigo;
+        private readonly string _Identificacion;
+        private readonly string _Iniciales;
         public int IdentificacionID { get => _IdentificacionID; }
         public string Codigo { get => _Codigo; }
         public string Identificacion { get => _Identificacion; }
         public string Iniciales { get => _Iniciales; }
+        public Identificaciones() { }
         public Identificaciones(Datos Conx)
         {
             _Conx = Conx;

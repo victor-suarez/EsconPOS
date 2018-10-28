@@ -46,6 +46,13 @@
             this.RibBtnEmpresas = new System.Windows.Forms.RibbonButton();
             this.RibBtnEmpleados = new System.Windows.Forms.RibbonButton();
             this.RibBtnClientes = new System.Windows.Forms.RibbonButton();
+            this.TmrHora = new System.Windows.Forms.Timer(this.components);
+            this.ribbonOrbMenuItem1 = new System.Windows.Forms.RibbonOrbMenuItem();
+            this.ribbonOrbMenuItem2 = new System.Windows.Forms.RibbonOrbMenuItem();
+            this.ribbonOrbRecentItem1 = new System.Windows.Forms.RibbonOrbRecentItem();
+            this.ribbonOrbRecentItem2 = new System.Windows.Forms.RibbonOrbRecentItem();
+            this.ribbonOrbOptionButton1 = new System.Windows.Forms.RibbonOrbOptionButton();
+            this.ribbonOrbOptionButton2 = new System.Windows.Forms.RibbonOrbOptionButton();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,44 +65,39 @@
             this.TsslEmpleado,
             this.TsslFecha,
             this.TsslHora});
-            this.statusStrip.Location = new System.Drawing.Point(0, 382);
+            this.statusStrip.Location = new System.Drawing.Point(0, 386);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
-            this.statusStrip.Size = new System.Drawing.Size(948, 26);
+            this.statusStrip.Size = new System.Drawing.Size(948, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "StatusStrip";
             // 
             // TsslStatus
             // 
             this.TsslStatus.Name = "TsslStatus";
-            this.TsslStatus.Size = new System.Drawing.Size(383, 21);
+            this.TsslStatus.Size = new System.Drawing.Size(894, 17);
             this.TsslStatus.Spring = true;
-            this.TsslStatus.Text = "Status";
             this.TsslStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // TsslCaja
             // 
             this.TsslCaja.Name = "TsslCaja";
-            this.TsslCaja.Size = new System.Drawing.Size(62, 21);
-            this.TsslCaja.Text = "Caja #1";
+            this.TsslCaja.Size = new System.Drawing.Size(0, 17);
             // 
             // TsslEmpleado
             // 
             this.TsslEmpleado.Name = "TsslEmpleado";
-            this.TsslEmpleado.Size = new System.Drawing.Size(173, 21);
-            this.TsslEmpleado.Text = "Nombres del empleado";
+            this.TsslEmpleado.Size = new System.Drawing.Size(0, 17);
             // 
             // TsslFecha
             // 
             this.TsslFecha.Name = "TsslFecha";
-            this.TsslFecha.Size = new System.Drawing.Size(226, 21);
-            this.TsslFecha.Text = "Sábado, 27 de octubre de 2018";
+            this.TsslFecha.Size = new System.Drawing.Size(0, 17);
             // 
             // TsslHora
             // 
             this.TsslHora.Name = "TsslHora";
-            this.TsslHora.Size = new System.Drawing.Size(81, 21);
-            this.TsslHora.Text = "10:36 a.m.";
+            this.TsslHora.Size = new System.Drawing.Size(0, 17);
             // 
             // Ribbon
             // 
@@ -120,7 +122,7 @@
             this.Ribbon.QuickAccessToolbar.Items.Add(this.ribbonButton1);
             this.Ribbon.QuickAccessToolbar.Items.Add(this.ribbonButton2);
             this.Ribbon.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
-            this.Ribbon.Size = new System.Drawing.Size(948, 131);
+            this.Ribbon.Size = new System.Drawing.Size(948, 120);
             this.Ribbon.TabIndex = 4;
             this.Ribbon.Tabs.Add(this.RibTabInicio);
             this.Ribbon.TabsMargin = new System.Windows.Forms.Padding(5, 2, 20, 0);
@@ -194,6 +196,62 @@
             this.RibBtnClientes.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnClientes.SmallImage")));
             this.RibBtnClientes.Text = "Clientes";
             // 
+            // TmrHora
+            // 
+            this.TmrHora.Interval = 60000;
+            this.TmrHora.Tick += new System.EventHandler(this.TmrHora_Tick);
+            // 
+            // ribbonOrbMenuItem1
+            // 
+            this.ribbonOrbMenuItem1.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.ribbonOrbMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem1.Image")));
+            this.ribbonOrbMenuItem1.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem1.LargeImage")));
+            this.ribbonOrbMenuItem1.Name = "ribbonOrbMenuItem1";
+            this.ribbonOrbMenuItem1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem1.SmallImage")));
+            this.ribbonOrbMenuItem1.Text = "Salir";
+            this.ribbonOrbMenuItem1.Click += new System.EventHandler(this.ribbonOrbMenuItem1_Click);
+            // 
+            // ribbonOrbMenuItem2
+            // 
+            this.ribbonOrbMenuItem2.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.ribbonOrbMenuItem2.Image = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem2.Image")));
+            this.ribbonOrbMenuItem2.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem2.LargeImage")));
+            this.ribbonOrbMenuItem2.Name = "ribbonOrbMenuItem2";
+            this.ribbonOrbMenuItem2.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem2.SmallImage")));
+            this.ribbonOrbMenuItem2.Text = "Nose que";
+            // 
+            // ribbonOrbRecentItem1
+            // 
+            this.ribbonOrbRecentItem1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonOrbRecentItem1.Image")));
+            this.ribbonOrbRecentItem1.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbRecentItem1.LargeImage")));
+            this.ribbonOrbRecentItem1.Name = "ribbonOrbRecentItem1";
+            this.ribbonOrbRecentItem1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbRecentItem1.SmallImage")));
+            this.ribbonOrbRecentItem1.Text = "ribbonOrbRecentItem1";
+            // 
+            // ribbonOrbRecentItem2
+            // 
+            this.ribbonOrbRecentItem2.Image = ((System.Drawing.Image)(resources.GetObject("ribbonOrbRecentItem2.Image")));
+            this.ribbonOrbRecentItem2.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbRecentItem2.LargeImage")));
+            this.ribbonOrbRecentItem2.Name = "ribbonOrbRecentItem2";
+            this.ribbonOrbRecentItem2.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbRecentItem2.SmallImage")));
+            this.ribbonOrbRecentItem2.Text = "ribbonOrbRecentItem2";
+            // 
+            // ribbonOrbOptionButton1
+            // 
+            this.ribbonOrbOptionButton1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton1.Image")));
+            this.ribbonOrbOptionButton1.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton1.LargeImage")));
+            this.ribbonOrbOptionButton1.Name = "ribbonOrbOptionButton1";
+            this.ribbonOrbOptionButton1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton1.SmallImage")));
+            this.ribbonOrbOptionButton1.Text = "ribbonOrbOptionButton1";
+            // 
+            // ribbonOrbOptionButton2
+            // 
+            this.ribbonOrbOptionButton2.Image = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton2.Image")));
+            this.ribbonOrbOptionButton2.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton2.LargeImage")));
+            this.ribbonOrbOptionButton2.Name = "ribbonOrbOptionButton2";
+            this.ribbonOrbOptionButton2.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton2.SmallImage")));
+            this.ribbonOrbOptionButton2.Text = "ribbonOrbOptionButton2";
+            // 
             // MDIEsconPos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -207,6 +265,8 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MDIEsconPos";
             this.Text = "EsconPOS";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.MDIEsconPos_Load);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -230,6 +290,13 @@
         private System.Windows.Forms.RibbonButton RibBtnEmpresas;
         private System.Windows.Forms.RibbonButton RibBtnEmpleados;
         private System.Windows.Forms.RibbonButton RibBtnClientes;
+        private System.Windows.Forms.Timer TmrHora;
+        private System.Windows.Forms.RibbonOrbMenuItem ribbonOrbMenuItem1;
+        private System.Windows.Forms.RibbonOrbMenuItem ribbonOrbMenuItem2;
+        private System.Windows.Forms.RibbonOrbRecentItem ribbonOrbRecentItem1;
+        private System.Windows.Forms.RibbonOrbRecentItem ribbonOrbRecentItem2;
+        private System.Windows.Forms.RibbonOrbOptionButton ribbonOrbOptionButton1;
+        private System.Windows.Forms.RibbonOrbOptionButton ribbonOrbOptionButton2;
     }
 }
 

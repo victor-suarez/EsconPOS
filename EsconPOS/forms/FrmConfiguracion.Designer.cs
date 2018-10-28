@@ -30,28 +30,28 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmConfiguracion));
             this.GboxAdministrador = new System.Windows.Forms.GroupBox();
-            this.GboxCaja = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.CmbIdentificacionID = new System.Windows.Forms.ComboBox();
-            this.TxtNroDocIdent = new System.Windows.Forms.TextBox();
-            this.TxtNombre = new System.Windows.Forms.TextBox();
-            this.TxtDireccion = new System.Windows.Forms.TextBox();
-            this.TxtTelefonos = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.TxtCorreoElectronico = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.TxtLogin = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.ChkEsSupervisor = new System.Windows.Forms.CheckBox();
             this.TxtPassword = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.ChkEsSupervisor = new System.Windows.Forms.CheckBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.TxtLogin = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.TxtCorreoElectronico = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.TxtTelefonos = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.TxtDireccion = new System.Windows.Forms.TextBox();
+            this.TxtNombre = new System.Windows.Forms.TextBox();
+            this.TxtNroDocIdent = new System.Windows.Forms.TextBox();
+            this.CmbIdentificacionID = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.GboxCaja = new System.Windows.Forms.GroupBox();
             this.NumCajaID = new System.Windows.Forms.NumericUpDown();
+            this.TxtDescripcion = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.RibbonMenu = new System.Windows.Forms.Ribbon();
             this.RibTabInicio = new System.Windows.Forms.RibbonTab();
             this.RibPanelAcciones = new System.Windows.Forms.RibbonPanel();
@@ -90,162 +90,6 @@
             this.GboxAdministrador.TabStop = false;
             this.GboxAdministrador.Text = "Administrador";
             // 
-            // GboxCaja
-            // 
-            this.GboxCaja.Controls.Add(this.NumCajaID);
-            this.GboxCaja.Controls.Add(this.textBox2);
-            this.GboxCaja.Controls.Add(this.label10);
-            this.GboxCaja.Controls.Add(this.label9);
-            this.GboxCaja.Location = new System.Drawing.Point(20, 490);
-            this.GboxCaja.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.GboxCaja.Name = "GboxCaja";
-            this.GboxCaja.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.GboxCaja.Size = new System.Drawing.Size(665, 99);
-            this.GboxCaja.TabIndex = 1;
-            this.GboxCaja.TabStop = false;
-            this.GboxCaja.Text = "Caja";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(186, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Tipo de Identificación:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 63);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(180, 20);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Nro de Identificación:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 97);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(85, 20);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Nombres:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 128);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(89, 20);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Dirección:";
-            // 
-            // CmbIdentificacionID
-            // 
-            this.CmbIdentificacionID.FormattingEnabled = true;
-            this.CmbIdentificacionID.Location = new System.Drawing.Point(196, 26);
-            this.CmbIdentificacionID.Name = "CmbIdentificacionID";
-            this.CmbIdentificacionID.Size = new System.Drawing.Size(454, 28);
-            this.CmbIdentificacionID.TabIndex = 1;
-            // 
-            // TxtNroDocIdent
-            // 
-            this.TxtNroDocIdent.Location = new System.Drawing.Point(196, 60);
-            this.TxtNroDocIdent.MaxLength = 20;
-            this.TxtNroDocIdent.Name = "TxtNroDocIdent";
-            this.TxtNroDocIdent.Size = new System.Drawing.Size(211, 26);
-            this.TxtNroDocIdent.TabIndex = 3;
-            this.TxtNroDocIdent.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // TxtNombre
-            // 
-            this.TxtNombre.Location = new System.Drawing.Point(196, 94);
-            this.TxtNombre.MaxLength = 100;
-            this.TxtNombre.Name = "TxtNombre";
-            this.TxtNombre.Size = new System.Drawing.Size(454, 26);
-            this.TxtNombre.TabIndex = 5;
-            // 
-            // TxtDireccion
-            // 
-            this.TxtDireccion.Location = new System.Drawing.Point(196, 128);
-            this.TxtDireccion.MaxLength = 255;
-            this.TxtDireccion.Multiline = true;
-            this.TxtDireccion.Name = "TxtDireccion";
-            this.TxtDireccion.Size = new System.Drawing.Size(454, 65);
-            this.TxtDireccion.TabIndex = 7;
-            // 
-            // TxtTelefonos
-            // 
-            this.TxtTelefonos.Location = new System.Drawing.Point(196, 199);
-            this.TxtTelefonos.MaxLength = 100;
-            this.TxtTelefonos.Name = "TxtTelefonos";
-            this.TxtTelefonos.Size = new System.Drawing.Size(454, 26);
-            this.TxtTelefonos.TabIndex = 9;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 202);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(93, 20);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Teléfonos:";
-            // 
-            // TxtCorreoElectronico
-            // 
-            this.TxtCorreoElectronico.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
-            this.TxtCorreoElectronico.Location = new System.Drawing.Point(196, 231);
-            this.TxtCorreoElectronico.MaxLength = 255;
-            this.TxtCorreoElectronico.Name = "TxtCorreoElectronico";
-            this.TxtCorreoElectronico.Size = new System.Drawing.Size(454, 26);
-            this.TxtCorreoElectronico.TabIndex = 11;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(7, 234);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(90, 20);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Correo E.:";
-            // 
-            // TxtLogin
-            // 
-            this.TxtLogin.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.TxtLogin.Location = new System.Drawing.Point(196, 263);
-            this.TxtLogin.MaxLength = 20;
-            this.TxtLogin.Name = "TxtLogin";
-            this.TxtLogin.Size = new System.Drawing.Size(211, 26);
-            this.TxtLogin.TabIndex = 13;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 266);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(76, 20);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "Usuario:";
-            // 
-            // TxtPassword
-            // 
-            this.TxtPassword.Location = new System.Drawing.Point(196, 297);
-            this.TxtPassword.MaxLength = 20;
-            this.TxtPassword.Name = "TxtPassword";
-            this.TxtPassword.Size = new System.Drawing.Size(211, 26);
-            this.TxtPassword.TabIndex = 15;
-            this.TxtPassword.UseSystemPasswordChar = true;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(7, 300);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(107, 20);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "Contraseña:";
-            // 
             // ChkEsSupervisor
             // 
             this.ChkEsSupervisor.AutoSize = true;
@@ -257,31 +101,170 @@
             this.ChkEsSupervisor.Text = "Es supervisor?";
             this.ChkEsSupervisor.UseVisualStyleBackColor = true;
             // 
-            // label9
+            // TxtPassword
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(7, 30);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(108, 20);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Nro de Caja:";
+            this.TxtPassword.Location = new System.Drawing.Point(196, 297);
+            this.TxtPassword.MaxLength = 20;
+            this.TxtPassword.Name = "TxtPassword";
+            this.TxtPassword.Size = new System.Drawing.Size(211, 26);
+            this.TxtPassword.TabIndex = 15;
+            this.TxtPassword.UseSystemPasswordChar = true;
+            this.TxtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
-            // textBox2
+            // label8
             // 
-            this.textBox2.Location = new System.Drawing.Point(196, 59);
-            this.textBox2.MaxLength = 100;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(454, 26);
-            this.textBox2.TabIndex = 3;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(7, 300);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(107, 20);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Contraseña:";
             // 
-            // label10
+            // TxtLogin
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(7, 62);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(108, 20);
-            this.label10.TabIndex = 2;
-            this.label10.Text = "Descripción:";
+            this.TxtLogin.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.TxtLogin.Location = new System.Drawing.Point(196, 263);
+            this.TxtLogin.MaxLength = 20;
+            this.TxtLogin.Name = "TxtLogin";
+            this.TxtLogin.Size = new System.Drawing.Size(211, 26);
+            this.TxtLogin.TabIndex = 13;
+            this.TxtLogin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(7, 266);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(76, 20);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Usuario:";
+            // 
+            // TxtCorreoElectronico
+            // 
+            this.TxtCorreoElectronico.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
+            this.TxtCorreoElectronico.Location = new System.Drawing.Point(196, 231);
+            this.TxtCorreoElectronico.MaxLength = 255;
+            this.TxtCorreoElectronico.Name = "TxtCorreoElectronico";
+            this.TxtCorreoElectronico.Size = new System.Drawing.Size(454, 26);
+            this.TxtCorreoElectronico.TabIndex = 11;
+            this.TxtCorreoElectronico.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(7, 234);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(90, 20);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Correo E.:";
+            // 
+            // TxtTelefonos
+            // 
+            this.TxtTelefonos.Location = new System.Drawing.Point(196, 199);
+            this.TxtTelefonos.MaxLength = 100;
+            this.TxtTelefonos.Name = "TxtTelefonos";
+            this.TxtTelefonos.Size = new System.Drawing.Size(454, 26);
+            this.TxtTelefonos.TabIndex = 9;
+            this.TxtTelefonos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 202);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(93, 20);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Teléfonos:";
+            // 
+            // TxtDireccion
+            // 
+            this.TxtDireccion.Location = new System.Drawing.Point(196, 128);
+            this.TxtDireccion.MaxLength = 255;
+            this.TxtDireccion.Multiline = true;
+            this.TxtDireccion.Name = "TxtDireccion";
+            this.TxtDireccion.Size = new System.Drawing.Size(454, 65);
+            this.TxtDireccion.TabIndex = 7;
+            this.TxtDireccion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
+            // 
+            // TxtNombre
+            // 
+            this.TxtNombre.Location = new System.Drawing.Point(196, 94);
+            this.TxtNombre.MaxLength = 100;
+            this.TxtNombre.Name = "TxtNombre";
+            this.TxtNombre.Size = new System.Drawing.Size(454, 26);
+            this.TxtNombre.TabIndex = 5;
+            this.TxtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
+            // 
+            // TxtNroDocIdent
+            // 
+            this.TxtNroDocIdent.Location = new System.Drawing.Point(196, 60);
+            this.TxtNroDocIdent.MaxLength = 20;
+            this.TxtNroDocIdent.Name = "TxtNroDocIdent";
+            this.TxtNroDocIdent.Size = new System.Drawing.Size(211, 26);
+            this.TxtNroDocIdent.TabIndex = 3;
+            this.TxtNroDocIdent.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TxtNroDocIdent.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
+            // 
+            // CmbIdentificacionID
+            // 
+            this.CmbIdentificacionID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbIdentificacionID.FormattingEnabled = true;
+            this.CmbIdentificacionID.Location = new System.Drawing.Point(196, 26);
+            this.CmbIdentificacionID.Name = "CmbIdentificacionID";
+            this.CmbIdentificacionID.Size = new System.Drawing.Size(454, 28);
+            this.CmbIdentificacionID.TabIndex = 1;
+            this.CmbIdentificacionID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(7, 128);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(89, 20);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Dirección:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 97);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(85, 20);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Nombres:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 63);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(180, 20);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Nro de Identificación:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 30);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(186, 20);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Tipo de Identificación:";
+            // 
+            // GboxCaja
+            // 
+            this.GboxCaja.Controls.Add(this.NumCajaID);
+            this.GboxCaja.Controls.Add(this.TxtDescripcion);
+            this.GboxCaja.Controls.Add(this.label10);
+            this.GboxCaja.Controls.Add(this.label9);
+            this.GboxCaja.Location = new System.Drawing.Point(20, 490);
+            this.GboxCaja.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.GboxCaja.Name = "GboxCaja";
+            this.GboxCaja.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.GboxCaja.Size = new System.Drawing.Size(665, 99);
+            this.GboxCaja.TabIndex = 1;
+            this.GboxCaja.TabStop = false;
+            this.GboxCaja.Text = "Caja";
             // 
             // NumCajaID
             // 
@@ -305,6 +288,33 @@
             0,
             0,
             0});
+            this.NumCajaID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
+            // 
+            // TxtDescripcion
+            // 
+            this.TxtDescripcion.Location = new System.Drawing.Point(196, 59);
+            this.TxtDescripcion.MaxLength = 100;
+            this.TxtDescripcion.Name = "TxtDescripcion";
+            this.TxtDescripcion.Size = new System.Drawing.Size(454, 26);
+            this.TxtDescripcion.TabIndex = 3;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(7, 62);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(108, 20);
+            this.label10.TabIndex = 2;
+            this.label10.Text = "Descripción:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(7, 30);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(108, 20);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Nro de Caja:";
             // 
             // RibbonMenu
             // 
@@ -346,19 +356,21 @@
             // 
             // RibBtnGuardar
             // 
-            this.RibBtnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnGuardar.Image")));
-            this.RibBtnGuardar.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnGuardar.LargeImage")));
+            this.RibBtnGuardar.Image = global::EsconPOS.Properties.Resources.Guardar;
+            this.RibBtnGuardar.LargeImage = global::EsconPOS.Properties.Resources.Guardar;
             this.RibBtnGuardar.Name = "RibBtnGuardar";
             this.RibBtnGuardar.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnGuardar.SmallImage")));
             this.RibBtnGuardar.Text = "Guardar";
+            this.RibBtnGuardar.Click += new System.EventHandler(this.RibBtnGuardar_Click);
             // 
             // RibBtnSalir
             // 
-            this.RibBtnSalir.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnSalir.Image")));
-            this.RibBtnSalir.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnSalir.LargeImage")));
+            this.RibBtnSalir.Image = global::EsconPOS.Properties.Resources.Salir;
+            this.RibBtnSalir.LargeImage = global::EsconPOS.Properties.Resources.Salir;
             this.RibBtnSalir.Name = "RibBtnSalir";
             this.RibBtnSalir.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnSalir.SmallImage")));
             this.RibBtnSalir.Text = "Salir";
+            this.RibBtnSalir.Click += new System.EventHandler(this.RibBtnSalir_Click);
             // 
             // FrmConfiguracion
             // 
@@ -373,7 +385,9 @@
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FrmConfiguracion";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Configuración inicial";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmConfiguracion_FormClosed);
             this.Load += new System.EventHandler(this.FrmConfiguracion_Load);
             this.GboxAdministrador.ResumeLayout(false);
             this.GboxAdministrador.PerformLayout();
@@ -406,7 +420,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox GboxCaja;
         private System.Windows.Forms.NumericUpDown NumCajaID;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox TxtDescripcion;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Ribbon RibbonMenu;

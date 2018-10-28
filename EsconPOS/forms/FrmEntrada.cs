@@ -14,46 +14,65 @@ namespace EsconPOS.forms
     public partial class FrmEntrada : Form
     {
         private Datos Conx = Datos.Conx;
-        public bool LoggedIN = false;
+        private bool LoggedIN = false;
 
         public FrmEntrada()
         {
             InitializeComponent();
         }
+
         private void Entrada()
         {
+            SetStatus("Abriendo la base de datos...");
             try
             {
                 Conx.OpenDatabase();
-                Empleados Usuario = new Empleados(Conx);
-                if(Usuario.EmpleadoAdminDefinido())
-                {
-                    Usuario = Usuario.Entrada(txtUsuario.Text, txtContrasenia.Text);
-                }
-                else
-                {
-
-                }
             }
             catch (Exception ex)
             {
-                if(ex.Message == "Usuario no defnido en el sistema.")
-
-                MessageBox.Show(ex.Message, "Error en la entrada al sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(ex.Message, "Error abriendo la base de datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            SetStatus("Buscando el usuario...");
+            Empleados Usuario = new Empleados(Conx);
+            if (Usuario.EmpleadoAdminDefinido())
+            {
+                try
+                {
+                    Global.Empleado = Usuario.Entrada(txtUsuario.Text.ToUpper(), txtContrasenia.Text);
+                    if (Global.Empleado == null)
+                    { 
+                        MessageBox.Show("Empleado no está definido en el sistema.","Datos inválidos",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error buscando el usuario", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+            }
+            else
+            {
+                SetStatus("Configuración del sistema (1era vez)...");
+                FrmConfiguracion fconf = new FrmConfiguracion();
+                fconf.ShowDialog();
             }
             try
             {
+                SetStatus("Buscando datos de la caja...");
                 Cajas Caja = new Cajas(Conx);
-
+                Global.Caja = Caja.Buscar();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error en la entrada al sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             LoggedIN = true;
+            SetStatus();
             Close();
         }
-        private void SetStatus(string StrStatus, bool Error = false)
+
+        private void SetStatus(string StrStatus = "", bool Error = false)
         {
             if (Error)
                 lblStatus.ForeColor = Color.Red;
@@ -62,6 +81,7 @@ namespace EsconPOS.forms
             lblStatus.Text = StrStatus;
             lblStatus.Refresh();
         }
+
         private bool ValEntReq()
         {
             if (txtUsuario.Text.Trim().Length == 0)
@@ -78,6 +98,7 @@ namespace EsconPOS.forms
             }
             return true;
         }
+
         private void BtnEntrar_Click(object sender, EventArgs e)
         {
             if(ValEntReq()) Entrada();
@@ -85,8 +106,12 @@ namespace EsconPOS.forms
 
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
+            LoggedIN = false;
+            Global.Empleado = null;
+            Global.Caja = null;
             Close();
         }
+
         private void TxtUsuario_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Return))
@@ -95,6 +120,7 @@ namespace EsconPOS.forms
                 SelectNextControl((TextBox)sender, true, true, true, false);
             }
         }
+
         private void TxtContrasenia_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Return))
@@ -104,5 +130,9 @@ namespace EsconPOS.forms
             }
         }
 
+        private void FrmEntrada_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Global.LoggedIN = LoggedIN;
+        }
     }
 }

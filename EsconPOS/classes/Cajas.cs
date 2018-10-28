@@ -9,23 +9,35 @@ namespace EsconPOS.classes
     class Cajas
     {
         private Datos _Conx;
-        private List<object> recordset;
-        private readonly Dictionary<string, string> record;
+        List<object> recordset;
+        Dictionary<string, string> record;
 
         private const short TR_APERTURA_CAJA = 1;
         private const short TR_CIERRE_CAJA = 4;
 
         private readonly int _CajaID;
         private readonly string _Descripcion;
-        private DateTime _FechaHoraEstado;
+
         public int CajaID { get => _CajaID; }
         public string Descripcion { get => _Descripcion; }
         public bool Abierta { get; private set; }
-        public DateTime FechaHoraEstado { get => _FechaHoraEstado; }
+        public DateTime FechaHoraEstado { get; private set; }
 
         public Cajas(Datos Conx)
         {
             _Conx = Conx;
+        }
+
+        public Cajas(int CajaID, string Descripcion)
+        {
+            _CajaID = CajaID;
+            _Descripcion = Descripcion;
+            Abierta = true;
+            FechaHoraEstado = DateTime.Now;
+        }
+
+        public Cajas Buscar()
+        {
             string sql = "SELECT CajaID,Descripcion FROM Cajas;";
             try
             {
@@ -41,16 +53,9 @@ namespace EsconPOS.classes
             {
                 throw ex;
             }
-            _CajaID = int.Parse(record["CajaID"]);
-            _Descripcion = record["Descripcion"];
+            return new Cajas(int.Parse(record["CajaID"]), record["Descripcion"]);
         }
-        public Cajas(int CajaID, string Descripcion)
-        {
-            _CajaID = CajaID;
-            _Descripcion = Descripcion;
-            Abierta = true;
-            _FechaHoraEstado = DateTime.Now;
-        }
+
         public void AbrirCaja(int EmpleadoID)
         {
             // Ups!
@@ -71,7 +76,7 @@ namespace EsconPOS.classes
                 throw ex;
             }
             Abierta = true;
-            _FechaHoraEstado = DateTime.Now;
+            FechaHoraEstado = DateTime.Now;
         }
         public void CerrarCaja(int EmpleadoID)
         {
@@ -93,7 +98,22 @@ namespace EsconPOS.classes
                 throw ex;
             }
             Abierta = false;
-            _FechaHoraEstado = DateTime.Now;
+            FechaHoraEstado = DateTime.Now;
+        }
+        public bool Agregar(int CajaID, string Descripcion)
+        {
+            string sql = "INSERT INTO Cajas(CajaID,Descripcion) VALUES(";
+            sql += CajaID.ToString() + ",";
+            sql += "'" + Descripcion + "');";
+            try
+            {
+                int rec = _Conx.ExecNonActionQry(sql);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return true;
         }
         public override string ToString()
         {
