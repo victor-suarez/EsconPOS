@@ -22,15 +22,15 @@ namespace EsconPOS.classes
         private readonly bool _EsSupervisor;
         private readonly bool _EsAdministrador;
 
-        public int EmpleadoID { get => _EmpleadoID; }
-        public int IdentificacionID { get => _IdentificacionID; }
-        public string NroDocIdent { get => _NroDocIdent; }
-        public string Nombre { get => _Nombre; }
-        public string Direccion { get => _Direccion; }
-        public string Telefonos { get => _Telefonos; }
-        public string CorreoElectronico { get => _CorreoElectronico; }
-        public bool EsSupervisor { get => _EsSupervisor; }
-        public bool EsAdministrador { get => _EsAdministrador; }
+        public int EmpleadoID { get { return _EmpleadoID; } }
+        public int IdentificacionID { get { return _IdentificacionID; } }
+        public string NroDocIdent { get { return _NroDocIdent; } }
+        public string Nombre { get { return _Nombre; } }
+        public string Direccion { get { return _Direccion; } }
+        public string Telefonos { get { return _Telefonos; } }
+        public string CorreoElectronico { get { return _CorreoElectronico; } }
+        public bool EsSupervisor { get { return _EsSupervisor; } }
+        public bool EsAdministrador { get { return _EsAdministrador; } }
 
         public Empleados(Datos Conx)
         {
@@ -69,7 +69,7 @@ namespace EsconPOS.classes
 
         public Empleados Entrada(string Login, string Password)
         {
-            string sql = "SELECT * FROM Empleados WHERE Login='" + Login + "' AND PasswdHash='" + GetStringSha256Hash(Password) + "'";
+            string sql = "SELECT * FROM Empleados WHERE Login='" + Login + "' AND PasswdHash='" + GetStringSha256Hash(Password) + "';";
             try
             {
                 recordset = _Conx.ExecActionQry(sql);
@@ -95,25 +95,126 @@ namespace EsconPOS.classes
                                  int.Parse(record["EsAdministrador"]) == 1);
         }
 
-        public bool Agregar(int IdentificacionID,string NroDocIdent, string Nombre, string Direccion, string Telefonos, string CorreoE, string Login, string Password, bool EsSupervisor, bool EsAdministrador)
+        public bool Agregar(int IdentificacionID,string NroDocIdent, string Nombre, string Direccion,
+                            string Telefono, string CorreoE, string Login, string Password,
+                            bool EsSupervisor, bool EsAdministrador)
         {
             string sql = "INSERT INTO Empleados(IdentificacionID,NroDocIdent,Nombre,Direccion,Telefono,CorreoElectronico,Login,PasswdHash,EsSupervisor,EsAdministrador) VALUES(";
             sql += IdentificacionID.ToString() + ",";
             sql += StrParamFormatted(NroDocIdent) + ",";
             sql += StrParamFormatted(Nombre) + ",";
             sql += StrParamFormatted(Direccion) + ",";
-            sql += StrParamFormatted(Telefonos) + ",";
+            sql += StrParamFormatted(Telefono) + ",";
             sql += StrParamFormatted(CorreoE) + ",";
             sql += StrParamFormatted(Login) + ",";
             sql += StrParamFormatted(GetStringSha256Hash(Password)) + ",";
-            if (EsSupervisor) sql += "1,"; else sql += "0,";
-            if (EsAdministrador) sql += "1"; else sql += "0";
+            sql += (EsSupervisor ? "1," : "0,");
+            sql += (EsAdministrador ? "1," : "0");
             sql += ")";
+            string[] Parameters = { "@IdentificacionID",
+                                    "@NroDocIdent",
+                                    "@Nombre",
+                                    "@Direccion",
+                                    "@Telefono",
+                                    "@CorreoElectronico",
+                                    "@Login",
+                                    "@PasswdHash",
+                                    "@EsSupervisor",
+                                    "@EsAdministrador" };
+            string[] Values = { IdentificacionID.ToString(),
+                                NroDocIdent,
+                                Nombre,
+                                Direccion,
+                                Telefono,
+                                CorreoElectronico,
+                                Login,
+                                StrParamFormatted(GetStringSha256Hash(Password)),
+                                EsSupervisor.ToString(),
+                                EsAdministrador.ToString() };
             try
             {
-                int rec = _Conx.ExecNonActionQry(sql);
+                int rec = _Conx.ExecNonActionQry("INSERT", "Empleados", Parameters, Values);
             }
             catch(Exception ex)
+            {
+                throw ex.InnerException;
+            }
+            return true;
+        }
+
+        public bool Modificar(int EmpleadoID, int IdentificacionID, string NroDocIdent, string Nombre,
+                              string Direccion, string Telefonos, string CorreoE, bool EsSupervisor,
+                              bool EsAdministrador)
+        {
+            string sql = "UPDATE Empleados SET ";
+            sql += IdentificacionID.ToString() + ",";
+            sql += "'" + StrParamFormatted(NroDocIdent) + "',";
+            sql += "'" + StrParamFormatted(Nombre) + "',";
+            sql += "'" + StrParamFormatted(Direccion) + "',";
+            sql += "'" + StrParamFormatted(Telefonos) + "',";
+            sql += "'" + StrParamFormatted(CorreoE) + "',";
+            sql += (EsSupervisor ? "1," : "0,");
+            sql += (EsAdministrador ? "1," : "0");
+            sql += ")";
+            string[] Parameters =
+                                {
+                                    "EmpleadoID",
+                                    "IdentificacionID",
+                                    "NroDocIdent",
+                                    "Nombre",
+                                    "Direccion",
+                                    "Telefono",
+                                    "CorreoElectronico",
+                                    "EsSupervisor",
+                                    "EsAdministrador"
+                                };
+            string[] Values =
+                            {
+                                EmpleadoID.ToString(),
+                                IdentificacionID.ToString(),
+                                NroDocIdent,
+                                Nombre,
+                                Direccion,
+                                Telefonos,
+                                CorreoE,
+                                EsSupervisor.ToString(),
+                                EsAdministrador.ToString()
+                            };
+            try
+            {
+                int rec = _Conx.ExecNonActionQry("UPDATE", "Empleados", Parameters, Values);
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
+            return true;
+        }
+
+        public bool Eliminar(int EmpleadoID)
+        {
+            string[] Parameters = { "EmpleadoID" };
+            string[] Values = { EmpleadoID.ToString() };
+            try
+            {
+                int rec = _Conx.ExecNonActionQry("DELETE", "Empleados", Parameters, Values);
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
+            return true;
+        }
+
+        public bool CambiarPassword(int EmpleadoID, string Login, string Password)
+        {
+            string[] Parameters = { "EmpleadoID", "Login", "PasswdHash" };
+            string[] Values = { EmpleadoID.ToString(), Login, StrParamFormatted(GetStringSha256Hash(Password)) };
+            try
+            {
+                int rec = _Conx.ExecNonActionQry("UPDATE", "Empleados", Parameters, Values);
+            }
+            catch (Exception ex)
             {
                 throw ex.InnerException;
             }

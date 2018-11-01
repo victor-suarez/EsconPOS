@@ -32,11 +32,10 @@
             this.RibbonMenu = new System.Windows.Forms.Ribbon();
             this.RibTab = new System.Windows.Forms.RibbonTab();
             this.RibPanel = new System.Windows.Forms.RibbonPanel();
-            this.RibButAbrirCaja = new System.Windows.Forms.RibbonButton();
-            this.RibButAgregarCliente = new System.Windows.Forms.RibbonButton();
-            this.RibButAgregarEmpresa = new System.Windows.Forms.RibbonButton();
-            this.RibButCrearCaja = new System.Windows.Forms.RibbonButton();
-            this.RibButCrearUsuario = new System.Windows.Forms.RibbonButton();
+            this.RibButNuevo = new System.Windows.Forms.RibbonButton();
+            this.RibButGuardar = new System.Windows.Forms.RibbonButton();
+            this.RibButEliminar = new System.Windows.Forms.RibbonButton();
+            this.RibButSalir = new System.Windows.Forms.RibbonButton();
             this.SuspendLayout();
             // 
             // RibbonMenu
@@ -56,7 +55,7 @@
             this.RibbonMenu.OrbDropDown.TabIndex = 0;
             this.RibbonMenu.OrbStyle = System.Windows.Forms.RibbonOrbStyle.Office_2013;
             this.RibbonMenu.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
-            this.RibbonMenu.Size = new System.Drawing.Size(960, 110);
+            this.RibbonMenu.Size = new System.Drawing.Size(508, 110);
             this.RibbonMenu.TabIndex = 0;
             this.RibbonMenu.Tabs.Add(this.RibTab);
             this.RibbonMenu.TabsMargin = new System.Windows.Forms.Padding(5, 2, 20, 0);
@@ -67,59 +66,52 @@
             // 
             this.RibTab.Name = "RibTab";
             this.RibTab.Panels.Add(this.RibPanel);
-            this.RibTab.Text = "ribbonTab1";
+            this.RibTab.Text = "Administrar";
             // 
             // RibPanel
             // 
-            this.RibPanel.Items.Add(this.RibButCrearUsuario);
-            this.RibPanel.Items.Add(this.RibButCrearCaja);
-            this.RibPanel.Items.Add(this.RibButAbrirCaja);
-            this.RibPanel.Items.Add(this.RibButAgregarCliente);
-            this.RibPanel.Items.Add(this.RibButAgregarEmpresa);
+            this.RibPanel.ButtonMoreVisible = false;
+            this.RibPanel.Items.Add(this.RibButNuevo);
+            this.RibPanel.Items.Add(this.RibButGuardar);
+            this.RibPanel.Items.Add(this.RibButEliminar);
+            this.RibPanel.Items.Add(this.RibButSalir);
             this.RibPanel.Name = "RibPanel";
             this.RibPanel.Text = "Acciones";
             // 
-            // RibButAbrirCaja
+            // RibButNuevo
             // 
-            this.RibButAbrirCaja.CheckOnClick = true;
-            this.RibButAbrirCaja.Image = ((System.Drawing.Image)(resources.GetObject("RibButAbrirCaja.Image")));
-            this.RibButAbrirCaja.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibButAbrirCaja.LargeImage")));
-            this.RibButAbrirCaja.Name = "RibButAbrirCaja";
-            this.RibButAbrirCaja.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibButAbrirCaja.SmallImage")));
+            this.RibButNuevo.Image = ((System.Drawing.Image)(resources.GetObject("RibButNuevo.Image")));
+            this.RibButNuevo.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibButNuevo.LargeImage")));
+            this.RibButNuevo.Name = "RibButNuevo";
+            this.RibButNuevo.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibButNuevo.SmallImage")));
             // 
-            // RibButAgregarCliente
+            // RibButGuardar
             // 
-            this.RibButAgregarCliente.Image = ((System.Drawing.Image)(resources.GetObject("RibButAgregarCliente.Image")));
-            this.RibButAgregarCliente.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibButAgregarCliente.LargeImage")));
-            this.RibButAgregarCliente.Name = "RibButAgregarCliente";
-            this.RibButAgregarCliente.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibButAgregarCliente.SmallImage")));
+            this.RibButGuardar.Image = ((System.Drawing.Image)(resources.GetObject("RibButGuardar.Image")));
+            this.RibButGuardar.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibButGuardar.LargeImage")));
+            this.RibButGuardar.Name = "RibButGuardar";
+            this.RibButGuardar.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibButGuardar.SmallImage")));
             // 
-            // RibButAgregarEmpresa
+            // RibButEliminar
             // 
-            this.RibButAgregarEmpresa.Image = ((System.Drawing.Image)(resources.GetObject("RibButAgregarEmpresa.Image")));
-            this.RibButAgregarEmpresa.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibButAgregarEmpresa.LargeImage")));
-            this.RibButAgregarEmpresa.Name = "RibButAgregarEmpresa";
-            this.RibButAgregarEmpresa.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibButAgregarEmpresa.SmallImage")));
+            this.RibButEliminar.CheckOnClick = true;
+            this.RibButEliminar.Image = ((System.Drawing.Image)(resources.GetObject("RibButEliminar.Image")));
+            this.RibButEliminar.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibButEliminar.LargeImage")));
+            this.RibButEliminar.Name = "RibButEliminar";
+            this.RibButEliminar.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibButEliminar.SmallImage")));
             // 
-            // RibButCrearCaja
+            // RibButSalir
             // 
-            this.RibButCrearCaja.Image = ((System.Drawing.Image)(resources.GetObject("RibButCrearCaja.Image")));
-            this.RibButCrearCaja.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibButCrearCaja.LargeImage")));
-            this.RibButCrearCaja.Name = "RibButCrearCaja";
-            this.RibButCrearCaja.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibButCrearCaja.SmallImage")));
-            // 
-            // RibButCrearUsuario
-            // 
-            this.RibButCrearUsuario.Image = ((System.Drawing.Image)(resources.GetObject("RibButCrearUsuario.Image")));
-            this.RibButCrearUsuario.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibButCrearUsuario.LargeImage")));
-            this.RibButCrearUsuario.Name = "RibButCrearUsuario";
-            this.RibButCrearUsuario.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibButCrearUsuario.SmallImage")));
+            this.RibButSalir.Image = ((System.Drawing.Image)(resources.GetObject("RibButSalir.Image")));
+            this.RibButSalir.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibButSalir.LargeImage")));
+            this.RibButSalir.Name = "RibButSalir";
+            this.RibButSalir.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibButSalir.SmallImage")));
             // 
             // FrmEmpleado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(960, 523);
+            this.ClientSize = new System.Drawing.Size(508, 523);
             this.Controls.Add(this.RibbonMenu);
             this.KeyPreview = true;
             this.Name = "FrmEmpleado";
@@ -133,10 +125,9 @@
         private System.Windows.Forms.Ribbon RibbonMenu;
         private System.Windows.Forms.RibbonTab RibTab;
         private System.Windows.Forms.RibbonPanel RibPanel;
-        private System.Windows.Forms.RibbonButton RibButCrearUsuario;
-        private System.Windows.Forms.RibbonButton RibButCrearCaja;
-        private System.Windows.Forms.RibbonButton RibButAbrirCaja;
-        private System.Windows.Forms.RibbonButton RibButAgregarCliente;
-        private System.Windows.Forms.RibbonButton RibButAgregarEmpresa;
+        private System.Windows.Forms.RibbonButton RibButNuevo;
+        private System.Windows.Forms.RibbonButton RibButGuardar;
+        private System.Windows.Forms.RibbonButton RibButEliminar;
+        private System.Windows.Forms.RibbonButton RibButSalir;
     }
 }

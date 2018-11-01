@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" ZoomLevel="1" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="CajaLog" Category="Table" Bounds="348.352231638418,-195.452315177076,82.2966666666666,25" Group="Collapsed" Label="CajaLog" />
+    <Node Id="CajaLog_CajaID" Category="Field Foreign" Description="bigint" Label="CajaID" />
+    <Node Id="CajaLog_CajaLogID" Category="Field Primary" Description="bigint" Label="CajaLogID" />
+    <Node Id="CajaLog_EmpleadoID" Category="Field Foreign" Description="bigint" Label="EmpleadoID" />
+    <Node Id="CajaLog_Fecha" Category="Field" Description="text" Label="Fecha" />
+    <Node Id="CajaLog_Hora" Category="Field" Description="text" Label="Hora" />
+    <Node Id="CajaLog_Monto" Category="Field" Description="bigint" Label="Monto" />
+    <Node Id="CajaLog_TransaccionID" Category="Field Foreign" Description="bigint" Label="TransaccionID" />
+    <Node Id="Cajas" Category="Table" Bounds="559.678898305085,-140.452315177076,67.6433333333334,25" Group="Collapsed" Label="Cajas" />
+    <Node Id="Cajas_Abierta" Category="Field" Description="bigint" Label="Abierta" />
+    <Node Id="Cajas_CajaID" Category="Field Primary" Description="bigint" Label="CajaID" />
+    <Node Id="Cajas_Descripcion" Category="Field" Description="text" Label="Descripcion" />
+    <Node Id="Cajas_FechaHoraEstado" Category="Field" Description="text" Label="FechaHoraEstado" />
+    <Node Id="Clientes" Category="Table" Bounds="943.627231638418,-140.452315177076,81.7466666666669,25" Group="Collapsed" Label="Clientes" />
+    <Node Id="Clientes_ClienteID" Category="Field Primary" Description="bigint" Label="ClienteID" />
+    <Node Id="Clientes_CorreoElectronico" Category="Field Optional" Description="text" Label="CorreoElectronico" />
+    <Node Id="Clientes_Direccion" Category="Field Optional" Description="text" Label="Direccion" />
+    <Node Id="Clientes_DistritoID" Category="Field Foreign" Description="bigint" Label="DistritoID" />
+    <Node Id="Clientes_IdentificacionID" Category="Field Foreign" Description="bigint" Label="IdentificacionID" />
+    <Node Id="Clientes_Nombre" Category="Field" Description="text" Label="Nombre" />
+    <Node Id="Clientes_NroDocIdent" Category="Field" Description="text" Label="NroDocIdent" />
+    <Node Id="Clientes_NroTelefonico" Category="Field Optional" Description="text" Label="NroTelefonico" />
+    <Node Id="Clientes_PaisID" Category="Field Foreign" Description="bigint" Label="PaisID" />
+    <Node Id="Configuraciones" Category="Table" Bounds="-262.966101694915,134.547684822924,125.69,25" Group="Collapsed" Label="Configuraciones" />
+    <Node Id="Configuraciones_CajaID" Category="Field" Description="bigint" Label="CajaID" />
+    <Node Id="Configuraciones_Configuracion" Category="Field" Description="text" Label="Configuracion" />
+    <Node Id="Configuraciones_ConfiguracionID" Category="Field Primary" Description="bigint" Label="ConfiguracionID" />
+    <Node Id="Configuraciones_Valor" Category="Field" Description="text" Label="Valor" />
+    <Node Id="Database" Category="Database" Bounds="-282.966101694915,-290.452690177083,1473.03666666667,470" Group="Expanded" Label="EsconPOS" UseManualLocation="True" />
+    <Node Id="Departamentos" Category="Table" Bounds="831.605564971752,24.5476848229236,121.79,25" Group="Collapsed" Label="Departamentos" />
+    <Node Id="Departamentos_Departamento" Category="Field" Description="text" Label="Departamento" />
+    <Node Id="Departamentos_DepartamentoID" Category="Field Primary" Description="bigint" Label="DepartamentoID" />
+    <Node Id="Departamentos_PaisID" Category="Field Foreign" Description="bigint" Label="PaisID" />
+    <Node Id="Departamentos_UBIGEO" Category="Field" Description="text" Label="UBIGEO" />
+    <Node Id="Distritos" Category="Table" Bounds="869.625564971751,-85.4523151770764,83.7500000000002,25" Group="Collapsed" Label="Distritos" />
+    <Node Id="Distritos_Distrito" Category="Field" Description="text" Label="Distrito" />
+    <Node Id="Distritos_DistritoID" Category="Field Primary" Description="bigint" Label="DistritoID" />
+    <Node Id="Distritos_ProvinciaID" Category="Field Foreign" Description="bigint" Label="ProvinciaID" />
+    <Node Id="Distritos_UBIGEO" Category="Field" Description="text" Label="UBIGEO" />
+    <Node Id="Documentos" Category="Table" Bounds="639.815564971752,-195.452315177076,107.37,25" Group="Collapsed" Label="Documentos" />
+    <Node Id="Documentos_CajaID" Category="Field Foreign" Description="bigint" Label="CajaID" />
+    <Node Id="Documentos_ClienteID" Category="Field Foreign" Description="bigint" Label="ClienteID" />
+    <Node Id="Documentos_DocumentoID" Category="Field Primary" Description="bigint" Label="DocumentoID" />
+    <Node Id="Documentos_EmpleadoID" Category="Field Foreign" Description="bigint" Label="EmpleadoID" />
+    <Node Id="Documentos_EmpresaID" Category="Field Foreign" Description="bigint" Label="EmpresaID" />
+    <Node Id="Documentos_FechaDocumento" Category="Field" Description="text" Label="FechaDocumento" />
+    <Node Id="Documentos_HoraDocumento" Category="Field" Description="text" Label="HoraDocumento" />
+    <Node Id="Documentos_MontoBruto" Category="Field" Description="real" Label="MontoBruto" />
+    <Node Id="Documentos_MontoDescuentos" Category="Field" Description="real" Label="MontoDescuentos" />
+    <Node Id="Documentos_MontoExcento" Category="Field" Description="real" Label="MontoExcento" />
+    <Node Id="Documentos_MontoGravado" Category="Field" Description="real" Label="MontoGravado" />
+    <Node Id="Documentos_MontoImpuestos" Category="Field" Description="real" Label="MontoImpuestos" />
+    <Node Id="Documentos_MontoNeto" Category="Field" Description="real" Label="MontoNeto" />
+    <Node Id="Documentos_NroDocumento" Category="Field" Description="bigint" Label="NroDocumento" />
+    <Node Id="Documentos_SubTotal" Category="Field" Description="real" Label="SubTotal" />
+    <Node Id="Documentos_TipoDocumentoID" Category="Field Foreign" Description="bigint" Label="TipoDocumentoID" />
+    <Node Id="Documentos_TotalProductos" Category="Field" Description="bigint" Label="TotalProductos" />
+    <Node Id="Empleados" Category="Table" Bounds="431.530564971751,-140.452315177076,97.9400000000003,25" Group="Collapsed" Label="Empleados" />
+    <Node Id="Empleados_CorreoElectronico" Category="Field Optional" Description="text" Label="CorreoElectronico" />
+    <Node Id="Empleados_Direccion" Category="Field Optional" Description="text" Label="Direccion" />
+    <Node Id="Empleados_EmpleadoID" Category="Field Primary" Description="bigint" Label="EmpleadoID" />
+    <Node Id="Empleados_EsAdministrador" Category="Field" Description="bigint" Label="EsAdministrador" />
+    <Node Id="Empleados_EsSupervisor" Category="Field" Description="bigint" Label="EsSupervisor" />
+    <Node Id="Empleados_IdentificacionID" Category="Field" Description="bigint" Label="IdentificacionID" />
+    <Node Id="Empleados_Login" Category="Field" Description="text" Label="Login" />
+    <Node Id="Empleados_Nombre" Category="Field" Description="text" Label="Nombre" />
+    <Node Id="Empleados_NroDocIdent" Category="Field" Description="text" Label="NroDocIdent" />
+    <Node Id="Empleados_PasswdHash" Category="Field" Description="image" Label="PasswdHash" />
+    <Node Id="Empleados_Telefono" Category="Field Optional" Description="text" Label="Telefono" />
+    <Node Id="Empresas" Category="Table" Bounds="823.398898305085,-140.452315177076,90.2033333333334,25" Group="Collapsed" Label="Empresas" />
+    <Node Id="EmpresasClientes" Category="Table" Bounds="918.525564971752,-195.452315177076,131.95,25" Group="Collapsed" Label="EmpresasClientes" />
+    <Node Id="EmpresasClientes_ClienteID" Category="Field Primary" Description="bigint" Label="ClienteID" />
+    <Node Id="EmpresasClientes_EmpresaID" Category="Field Primary" Description="bigint" Label="EmpresaID" />
+    <Node Id="EmpresasEmpleados" Category="Table" Bounds="461.428898305085,-195.452315177076,148.143333333333,25" Group="Collapsed" Label="EmpresasEmpleados" />
+    <Node Id="EmpresasEmpleados_EmpleadoID" Category="Field Primary" Description="bigint" Label="EmpleadoID" />
+    <Node Id="EmpresasEmpleados_EmpresaID" Category="Field Primary" Description="bigint" Label="EmpresaID" />
+    <Node Id="Empresas_CorreoElectronico" Category="Field Optional" Description="text" Label="CorreoElectronico" />
+    <Node Id="Empresas_Direccion" Category="Field" Description="text" Label="Direccion" />
+    <Node Id="Empresas_DistritoID" Category="Field Foreign" Description="bigint" Label="DistritoID" />
+    <Node Id="Empresas_EmpresaID" Category="Field Primary" Description="bigint" Label="EmpresaID" />
+    <Node Id="Empresas_IdentificacionID" Category="Field Foreign" Description="bigint" Label="IdentificacionID" />
+    <Node Id="Empresas_NombreComercial" Category="Field Optional" Description="text" Label="NombreComercial" />
+    <Node Id="Empresas_NroDocIdent" Category="Field" Description="text" Label="NroDocIdent" />
+    <Node Id="Empresas_NroTelefonico" Category="Field Optional" Description="text" Label="NroTelefonico" />
+    <Node Id="Empresas_RazonSocial" Category="Field" Description="text" Label="RazonSocial" />
+    <Node Id="Empresas_Urbanizacion" Category="Field Optional" Description="text" Label="Urbanizacion" />
+    <Node Id="FormasPagos" Category="Table" Bounds="777.397231638418,-195.452315177076,110.206666666667,25" Group="Collapsed" Label="FormasPagos" />
+    <Node Id="FormasPagos_Codigo" Category="Field" Description="text" Label="Codigo" />
+    <Node Id="FormasPagos_FormaPago" Category="Field" Description="text" Label="FormaPago" />
+    <Node Id="FormasPagos_FormaPagoID" Category="Field Primary" Description="bigint" Label="FormaPagoID" />
+    <Node Id="FormasPagos_Orden" Category="Field" Description="bigint" Label="Orden" />
+    <Node Id="FormasPagos_RequiereAutorizacion" Category="Field" Description="bigint" Label="RequiereAutorizacion" />
+    <Node Id="Identificaciones" Category="Table" Bounds="716.373898305085,-85.4523151770764,122.253333333334,25" Group="Collapsed" Label="Identificaciones" />
+    <Node Id="Identificaciones_Codigo" Category="Field" Description="text" Label="Codigo" />
+    <Node Id="Identificaciones_Identificacion" Category="Field" Description="text" Label="Identificacion" />
+    <Node Id="Identificaciones_IdentificacionID" Category="Field Primary" Description="bigint" Label="IdentificacionID" />
+    <Node Id="Identificaciones_Iniciales" Category="Field" Description="text" Label="Iniciales" />
+    <Node Id="Impuestos" Category="Table" Bounds="-262.966101694915,-140.452315177076,94.9333333333333,25" Group="Collapsed" Label="Impuestos" />
+    <Node Id="Impuestos_Activo" Category="Field" Description="bigint" Label="Activo" />
+    <Node Id="Impuestos_Categoria" Category="Field" Description="text" Label="Categoria" />
+    <Node Id="Impuestos_Codigo" Category="Field" Description="text" Label="Codigo" />
+    <Node Id="Impuestos_Impuesto" Category="Field" Description="text" Label="Impuesto" />
+    <Node Id="Impuestos_ImpuestoID" Category="Field Primary" Description="bigint" Label="ImpuestoID" />
+    <Node Id="Impuestos_Tasa" Category="Field" Description="real" Label="Tasa" />
+    <Node Id="Impuestos_ValidoDesde" Category="Field" Description="text" Label="ValidoDesde" />
+    <Node Id="Impuestos_ValidoHasta" Category="Field Optional" Description="text" Label="ValidoHasta" />
+    <Node Id="ItemsDocumentos" Category="Table" Bounds="249.332231638418,-250.452315177076,136.336666666667,25" Group="Collapsed" Label="ItemsDocumentos" />
+    <Node Id="ItemsDocumentos_AutorizadoPor" Category="Field Foreign" Description="bigint" Label="AutorizadoPor" />
+    <Node Id="ItemsDocumentos_Cantidad" Category="Field" Description="bigint" Label="Cantidad" />
+    <Node Id="ItemsDocumentos_DocumentoID" Category="Field Primary" Description="bigint" Label="DocumentoID" />
+    <Node Id="ItemsDocumentos_EsDevolucion" Category="Field" Description="bigint" Label="EsDevolucion" />
+    <Node Id="ItemsDocumentos_FechaHoraAutorizado" Category="Field Optional" Description="text" Label="FechaHoraAutorizado" />
+    <Node Id="ItemsDocumentos_ImpuestoID" Category="Field Foreign" Description="bigint" Label="ImpuestoID" />
+    <Node Id="ItemsDocumentos_ItemID" Category="Field Primary" Description="bigint" Label="ItemID" />
+    <Node Id="ItemsDocumentos_MontoImpuesto" Category="Field" Description="real" Label="MontoImpuesto" />
+    <Node Id="ItemsDocumentos_MontoNeto" Category="Field" Description="real" Label="MontoNeto" />
+    <Node Id="ItemsDocumentos_MontoUnitario" Category="Field" Description="real" Label="MontoUnitario" />
+    <Node Id="ItemsDocumentos_ProductoID" Category="Field Foreign" Description="bigint" Label="ProductoID" />
+    <Node Id="ItemsDocumentos_TasaImpuesto" Category="Field" Description="real" Label="TasaImpuesto" />
+    <Node Id="Marcas" Category="Table" Bounds="179.600564971751,-140.452315177076,77.8,25" Group="Collapsed" Label="Marcas" />
+    <Node Id="Marcas_Marca" Category="Field" Description="text" Label="Marca" />
+    <Node Id="Marcas_MarcaID" Category="Field Primary" Description="bigint" Label="MarcaID" />
+    <Node Id="Monedas" Category="Table" Bounds="1080.93056497175,-195.452315177076,89.1400000000003,25" Group="Collapsed" Label="Monedas" />
+    <Node Id="Monedas_Base" Category="Field" Description="bigint" Label="Base" />
+    <Node Id="Monedas_Codigo" Category="Field" Description="text" Label="Codigo" />
+    <Node Id="Monedas_FactorCambiario" Category="Field" Description="real" Label="FactorCambiario" />
+    <Node Id="Monedas_Moneda" Category="Field" Description="text" Label="Moneda" />
+    <Node Id="Monedas_MonedaID" Category="Field Primary" Description="bigint" Label="MonedaID" />
+    <Node Id="Monedas_PorDefecto" Category="Field" Description="bigint" Label="PorDefecto" />
+    <Node Id="Pagos" Category="Table" Bounds="796.697231638418,-250.452315177076,71.6066666666666,25" Group="Collapsed" Label="Pagos" />
+    <Node Id="Pagos_Autorizacion" Category="Field Optional" Description="text" Label="Autorizacion" />
+    <Node Id="Pagos_BancoID" Category="Field Optional" Description="bigint" Label="BancoID" />
+    <Node Id="Pagos_DocumentoID" Category="Field Foreign" Description="bigint" Label="DocumentoID" />
+    <Node Id="Pagos_FormaPagoID" Category="Field Foreign" Description="bigint" Label="FormaPagoID" />
+    <Node Id="Pagos_MonedaID" Category="Field Foreign" Description="bigint" Label="MonedaID" />
+    <Node Id="Pagos_MontoPago" Category="Field" Description="real" Label="MontoPago" />
+    <Node Id="Pagos_NroDocPago" Category="Field Optional" Description="text" Label="NroDocPago" />
+    <Node Id="Pagos_PagoID" Category="Field Primary" Description="bigint" Label="PagoID" />
+    <Node Id="Paises" Category="Table" Bounds="948.607231638418,79.5476848229236,71.7866666666669,25" Group="Collapsed" Label="Paises" />
+    <Node Id="Paises_Codigo" Category="Field" Description="text" Label="Codigo" />
+    <Node Id="Paises_Pais" Category="Field" Description="text" Label="Pais" />
+    <Node Id="Paises_PaisID" Category="Field Primary" Description="bigint" Label="PaisID" />
+    <Node Id="Productos" Category="Table" Bounds="41.7438983050849,-195.452315177076,93.5133333333333,25" Group="Collapsed" Label="Productos" />
+    <Node Id="Productos_Codigo" Category="Field" Description="text" Label="Codigo" />
+    <Node Id="Productos_CodigoBarra" Category="Field Optional" Description="text" Label="CodigoBarra" />
+    <Node Id="Productos_ImpuestoID" Category="Field Foreign" Description="bigint" Label="ImpuestoID" />
+    <Node Id="Productos_MarcaID" Category="Field Foreign" Description="bigint" Label="MarcaID" />
+    <Node Id="Productos_Presentacion" Category="Field Optional" Description="text" Label="Presentacion" />
+    <Node Id="Productos_Producto" Category="Field" Description="text" Label="Producto" />
+    <Node Id="Productos_ProductoID" Category="Field Primary" Description="bigint" Label="ProductoID" />
+    <Node Id="Productos_TipoProductoID" Category="Field Foreign" Description="bigint" Label="TipoProductoID" />
+    <Node Id="Productos_UnidadMedidaID" Category="Field Foreign" Description="bigint" Label="UnidadMedidaID" />
+    <Node Id="Provincias" Category="Table" Bounds="859.992231638419,-30.4523151770764,93.0166666666667,25" Group="Collapsed" Label="Provincias" />
+    <Node Id="Provincias_DepartamentoID" Category="Field Foreign" Description="bigint" Label="DepartamentoID" />
+    <Node Id="Provincias_Provincia" Category="Field" Description="text" Label="Provincia" />
+    <Node Id="Provincias_ProvinciaID" Category="Field Primary" Description="bigint" Label="ProvinciaID" />
+    <Node Id="Provincias_UBIGEO" Category="Field" Description="text" Label="UBIGEO" />
+    <Node Id="TiposDocumentos" Category="Table" Bounds="657.630564971752,-140.452315177076,135.74,25" Group="Collapsed" Label="TiposDocumentos" />
+    <Node Id="TiposDocumentos_Codigo" Category="Field" Description="text" Label="Codigo" />
+    <Node Id="TiposDocumentos_Iniciales" Category="Field" Description="text" Label="Iniciales" />
+    <Node Id="TiposDocumentos_TipoDocumento" Category="Field" Description="text" Label="TipoDocumento" />
+    <Node Id="TiposDocumentos_TipoDocumentoID" Category="Field Primary" Description="bigint" Label="TipoDocumentoID" />
+    <Node Id="TiposProductos" Category="Table" Bounds="27.5588983050849,-140.452315177076,121.883333333333,25" Group="Collapsed" Label="TiposProductos" />
+    <Node Id="TiposProductos_TipoProducto" Category="Field" Description="text" Label="TipoProducto" />
+    <Node Id="TiposProductos_TipoProductoID" Category="Field Primary" Description="bigint" Label="TipoProductoID" />
+    <Node Id="Transacciones" Category="Table" Bounds="288.152231638418,-140.452315177076,112.696666666667,25" Group="Collapsed" Label="Transacciones" />
+    <Node Id="Transacciones_Codigo" Category="Field" Description="text" Label="Codigo" />
+    <Node Id="Transacciones_Transaccion" Category="Field" Description="text" Label="Transaccion" />
+    <Node Id="Transacciones_TransaccionID" Category="Field Primary" Description="bigint" Label="TransaccionID" />
+    <Node Id="UnidadesMedidas" Category="Table" Bounds="-137.921101694915,-140.452315177076,134.843333333333,25" Group="Collapsed" Label="UnidadesMedidas" />
+    <Node Id="UnidadesMedidas_Codigo" Category="Field" Description="text" Label="Codigo" />
+    <Node Id="UnidadesMedidas_PorDefecto" Category="Field" Description="bigint" Label="PorDefecto" />
+    <Node Id="UnidadesMedidas_UnidadMedida" Category="Field" Description="text" Label="UnidadMedida" />
+    <Node Id="UnidadesMedidas_UnidadMedidaID" Category="Field Primary" Description="bigint" Label="UnidadMedidaID" />
+  </Nodes>
+  <Links>
+    <Link Source="CajaLog" Target="CajaLog_CajaID" Category="Contains" />
+    <Link Source="CajaLog" Target="CajaLog_CajaLogID" Category="Contains" />
+    <Link Source="CajaLog" Target="CajaLog_EmpleadoID" Category="Contains" />
+    <Link Source="CajaLog" Target="CajaLog_Fecha" Category="Contains" />
+    <Link Source="CajaLog" Target="CajaLog_Hora" Category="Contains" />
+    <Link Source="CajaLog" Target="CajaLog_Monto" Category="Contains" />
+    <Link Source="CajaLog" Target="CajaLog_TransaccionID" Category="Contains" />
+    <Link Source="CajaLog_CajaID" Target="Cajas_CajaID" Category="Foreign Key" Label="FK_CajaLog_2_0" />
+    <Link Source="CajaLog_EmpleadoID" Target="Empleados_EmpleadoID" Category="Foreign Key" Label="FK_CajaLog_0_0" />
+    <Link Source="CajaLog_TransaccionID" Target="Transacciones_TransaccionID" Category="Foreign Key" Label="FK_CajaLog_1_0" />
+    <Link Source="Cajas" Target="Cajas_Abierta" Category="Contains" />
+    <Link Source="Cajas" Target="Cajas_CajaID" Category="Contains" />
+    <Link Source="Cajas" Target="Cajas_Descripcion" Category="Contains" />
+    <Link Source="Cajas" Target="Cajas_FechaHoraEstado" Category="Contains" />
+    <Link Source="Clientes" Target="Clientes_ClienteID" Category="Contains" />
+    <Link Source="Clientes" Target="Clientes_CorreoElectronico" Category="Contains" />
+    <Link Source="Clientes" Target="Clientes_Direccion" Category="Contains" />
+    <Link Source="Clientes" Target="Clientes_DistritoID" Category="Contains" />
+    <Link Source="Clientes" Target="Clientes_IdentificacionID" Category="Contains" />
+    <Link Source="Clientes" Target="Clientes_Nombre" Category="Contains" />
+    <Link Source="Clientes" Target="Clientes_NroDocIdent" Category="Contains" />
+    <Link Source="Clientes" Target="Clientes_NroTelefonico" Category="Contains" />
+    <Link Source="Clientes" Target="Clientes_PaisID" Category="Contains" />
+    <Link Source="Clientes_DistritoID" Target="Distritos_DistritoID" Category="Foreign Key" Label="FK_Clientes_0_0" />
+    <Link Source="Clientes_IdentificacionID" Target="Identificaciones_IdentificacionID" Category="Foreign Key" Label="FK_Clientes_2_0" />
+    <Link Source="Clientes_PaisID" Target="Paises_PaisID" Category="Foreign Key" Label="FK_Clientes_1_0" />
+    <Link Source="Configuraciones" Target="Configuraciones_CajaID" Category="Contains" />
+    <Link Source="Configuraciones" Target="Configuraciones_Configuracion" Category="Contains" />
+    <Link Source="Configuraciones" Target="Configuraciones_ConfiguracionID" Category="Contains" />
+    <Link Source="Configuraciones" Target="Configuraciones_Valor" Category="Contains" />
+    <Link Source="Database" Target="CajaLog" Category="Contains" />
+    <Link Source="Database" Target="Cajas" Category="Contains" />
+    <Link Source="Database" Target="Clientes" Category="Contains" />
+    <Link Source="Database" Target="Configuraciones" Category="Contains" />
+    <Link Source="Database" Target="Departamentos" Category="Contains" />
+    <Link Source="Database" Target="Distritos" Category="Contains" />
+    <Link Source="Database" Target="Documentos" Category="Contains" />
+    <Link Source="Database" Target="Empleados" Category="Contains" />
+    <Link Source="Database" Target="Empresas" Category="Contains" />
+    <Link Source="Database" Target="EmpresasClientes" Category="Contains" />
+    <Link Source="Database" Target="EmpresasEmpleados" Category="Contains" />
+    <Link Source="Database" Target="FormasPagos" Category="Contains" />
+    <Link Source="Database" Target="Identificaciones" Category="Contains" />
+    <Link Source="Database" Target="Impuestos" Category="Contains" />
+    <Link Source="Database" Target="ItemsDocumentos" Category="Contains" />
+    <Link Source="Database" Target="Marcas" Category="Contains" />
+    <Link Source="Database" Target="Monedas" Category="Contains" />
+    <Link Source="Database" Target="Pagos" Category="Contains" />
+    <Link Source="Database" Target="Paises" Category="Contains" />
+    <Link Source="Database" Target="Productos" Category="Contains" />
+    <Link Source="Database" Target="Provincias" Category="Contains" />
+    <Link Source="Database" Target="TiposDocumentos" Category="Contains" />
+    <Link Source="Database" Target="TiposProductos" Category="Contains" />
+    <Link Source="Database" Target="Transacciones" Category="Contains" />
+    <Link Source="Database" Target="UnidadesMedidas" Category="Contains" />
+    <Link Source="Departamentos" Target="Departamentos_Departamento" Category="Contains" />
+    <Link Source="Departamentos" Target="Departamentos_DepartamentoID" Category="Contains" />
+    <Link Source="Departamentos" Target="Departamentos_PaisID" Category="Contains" />
+    <Link Source="Departamentos" Target="Departamentos_UBIGEO" Category="Contains" />
+    <Link Source="Departamentos_PaisID" Target="Paises_PaisID" Category="Foreign Key" Label="FK_Departamentos_0_0" />
+    <Link Source="Distritos" Target="Distritos_Distrito" Category="Contains" />
+    <Link Source="Distritos" Target="Distritos_DistritoID" Category="Contains" />
+    <Link Source="Distritos" Target="Distritos_ProvinciaID" Category="Contains" />
+    <Link Source="Distritos" Target="Distritos_UBIGEO" Category="Contains" />
+    <Link Source="Distritos_ProvinciaID" Target="Provincias_ProvinciaID" Category="Foreign Key" Label="FK_Distritos_0_0" />
+    <Link Source="Documentos" Target="Documentos_CajaID" Category="Contains" />
+    <Link Source="Documentos" Target="Documentos_ClienteID" Category="Contains" />
+    <Link Source="Documentos" Target="Documentos_DocumentoID" Category="Contains" />
+    <Link Source="Documentos" Target="Documentos_EmpleadoID" Category="Contains" />
+    <Link Source="Documentos" Target="Documentos_EmpresaID" Category="Contains" />
+    <Link Source="Documentos" Target="Documentos_FechaDocumento" Category="Contains" />
+    <Link Source="Documentos" Target="Documentos_HoraDocumento" Category="Contains" />
+    <Link Source="Documentos" Target="Documentos_MontoBruto" Category="Contains" />
+    <Link Source="Documentos" Target="Documentos_MontoDescuentos" Category="Contains" />
+    <Link Source="Documentos" Target="Documentos_MontoExcento" Category="Contains" />
+    <Link Source="Documentos" Target="Documentos_MontoGravado" Category="Contains" />
+    <Link Source="Documentos" Target="Documentos_MontoImpuestos" Category="Contains" />
+    <Link Source="Documentos" Target="Documentos_MontoNeto" Category="Contains" />
+    <Link Source="Documentos" Target="Documentos_NroDocumento" Category="Contains" />
+    <Link Source="Documentos" Target="Documentos_SubTotal" Category="Contains" />
+    <Link Source="Documentos" Target="Documentos_TipoDocumentoID" Category="Contains" />
+    <Link Source="Documentos" Target="Documentos_TotalProductos" Category="Contains" />
+    <Link Source="Documentos_CajaID" Target="Cajas_CajaID" Category="Foreign Key" Label="FK_Documentos_0_0" />
+    <Link Source="Documentos_ClienteID" Target="Clientes_ClienteID" Category="Foreign Key" Label="FK_Documentos_2_0" />
+    <Link Source="Documentos_EmpleadoID" Target="Empleados_EmpleadoID" Category="Foreign Key" Label="FK_Documentos_1_0" />
+    <Link Source="Documentos_EmpresaID" Target="Empresas_EmpresaID" Category="Foreign Key" Label="FK_Documentos_3_0" />
+    <Link Source="Documentos_TipoDocumentoID" Target="TiposDocumentos_TipoDocumentoID" Category="Foreign Key" Label="FK_Documentos_4_0" />
+    <Link Source="Empleados" Target="Empleados_CorreoElectronico" Category="Contains" />
+    <Link Source="Empleados" Target="Empleados_Direccion" Category="Contains" />
+    <Link Source="Empleados" Target="Empleados_EmpleadoID" Category="Contains" />
+    <Link Source="Empleados" Target="Empleados_EsAdministrador" Category="Contains" />
+    <Link Source="Empleados" Target="Empleados_EsSupervisor" Category="Contains" />
+    <Link Source="Empleados" Target="Empleados_IdentificacionID" Category="Contains" />
+    <Link Source="Empleados" Target="Empleados_Login" Category="Contains" />
+    <Link Source="Empleados" Target="Empleados_Nombre" Category="Contains" />
+    <Link Source="Empleados" Target="Empleados_NroDocIdent" Category="Contains" />
+    <Link Source="Empleados" Target="Empleados_PasswdHash" Category="Contains" />
+    <Link Source="Empleados" Target="Empleados_Telefono" Category="Contains" />
+    <Link Source="Empresas" Target="Empresas_CorreoElectronico" Category="Contains" />
+    <Link Source="Empresas" Target="Empresas_Direccion" Category="Contains" />
+    <Link Source="Empresas" Target="Empresas_DistritoID" Category="Contains" />
+    <Link Source="Empresas" Target="Empresas_EmpresaID" Category="Contains" />
+    <Link Source="Empresas" Target="Empresas_IdentificacionID" Category="Contains" />
+    <Link Source="Empresas" Target="Empresas_NombreComercial" Category="Contains" />
+    <Link Source="Empresas" Target="Empresas_NroDocIdent" Category="Contains" />
+    <Link Source="Empresas" Target="Empresas_NroTelefonico" Category="Contains" />
+    <Link Source="Empresas" Target="Empresas_RazonSocial" Category="Contains" />
+    <Link Source="Empresas" Target="Empresas_Urbanizacion" Category="Contains" />
+    <Link Source="EmpresasClientes" Target="EmpresasClientes_ClienteID" Category="Contains" />
+    <Link Source="EmpresasClientes" Target="EmpresasClientes_EmpresaID" Category="Contains" />
+    <Link Source="EmpresasClientes_ClienteID" Target="Clientes_ClienteID" Category="Foreign Key" Label="FK_EmpresasClientes_0_0" />
+    <Link Source="EmpresasClientes_EmpresaID" Target="Empresas_EmpresaID" Category="Foreign Key" Label="FK_EmpresasClientes_1_0" />
+    <Link Source="EmpresasEmpleados" Target="EmpresasEmpleados_EmpleadoID" Category="Contains" />
+    <Link Source="EmpresasEmpleados" Target="EmpresasEmpleados_EmpresaID" Category="Contains" />
+    <Link Source="EmpresasEmpleados_EmpleadoID" Target="Empleados_EmpleadoID" Category="Foreign Key" Label="FK_EmpresasEmpleados_0_0" />
+    <Link Source="EmpresasEmpleados_EmpresaID" Target="Empresas_EmpresaID" Category="Foreign Key" Label="FK_EmpresasEmpleados_1_0" />
+    <Link Source="Empresas_DistritoID" Target="Distritos_DistritoID" Category="Foreign Key" Label="FK_Empresas_0_0" />
+    <Link Source="Empresas_IdentificacionID" Target="Identificaciones_IdentificacionID" Category="Foreign Key" Label="FK_Empresas_1_0" />
+    <Link Source="FormasPagos" Target="FormasPagos_Codigo" Category="Contains" />
+    <Link Source="FormasPagos" Target="FormasPagos_FormaPago" Category="Contains" />
+    <Link Source="FormasPagos" Target="FormasPagos_FormaPagoID" Category="Contains" />
+    <Link Source="FormasPagos" Target="FormasPagos_Orden" Category="Contains" />
+    <Link Source="FormasPagos" Target="FormasPagos_RequiereAutorizacion" Category="Contains" />
+    <Link Source="Identificaciones" Target="Identificaciones_Codigo" Category="Contains" />
+    <Link Source="Identificaciones" Target="Identificaciones_Identificacion" Category="Contains" />
+    <Link Source="Identificaciones" Target="Identificaciones_IdentificacionID" Category="Contains" />
+    <Link Source="Identificaciones" Target="Identificaciones_Iniciales" Category="Contains" />
+    <Link Source="Impuestos" Target="Impuestos_Activo" Category="Contains" />
+    <Link Source="Impuestos" Target="Impuestos_Categoria" Category="Contains" />
+    <Link Source="Impuestos" Target="Impuestos_Codigo" Category="Contains" />
+    <Link Source="Impuestos" Target="Impuestos_Impuesto" Category="Contains" />
+    <Link Source="Impuestos" Target="Impuestos_ImpuestoID" Category="Contains" />
+    <Link Source="Impuestos" Target="Impuestos_Tasa" Category="Contains" />
+    <Link Source="Impuestos" Target="Impuestos_ValidoDesde" Category="Contains" />
+    <Link Source="Impuestos" Target="Impuestos_ValidoHasta" Category="Contains" />
+    <Link Source="ItemsDocumentos" Target="ItemsDocumentos_AutorizadoPor" Category="Contains" />
+    <Link Source="ItemsDocumentos" Target="ItemsDocumentos_Cantidad" Category="Contains" />
+    <Link Source="ItemsDocumentos" Target="ItemsDocumentos_DocumentoID" Category="Contains" />
+    <Link Source="ItemsDocumentos" Target="ItemsDocumentos_EsDevolucion" Category="Contains" />
+    <Link Source="ItemsDocumentos" Target="ItemsDocumentos_FechaHoraAutorizado" Category="Contains" />
+    <Link Source="ItemsDocumentos" Target="ItemsDocumentos_ImpuestoID" Category="Contains" />
+    <Link Source="ItemsDocumentos" Target="ItemsDocumentos_ItemID" Category="Contains" />
+    <Link Source="ItemsDocumentos" Target="ItemsDocumentos_MontoImpuesto" Category="Contains" />
+    <Link Source="ItemsDocumentos" Target="ItemsDocumentos_MontoNeto" Category="Contains" />
+    <Link Source="ItemsDocumentos" Target="ItemsDocumentos_MontoUnitario" Category="Contains" />
+    <Link Source="ItemsDocumentos" Target="ItemsDocumentos_ProductoID" Category="Contains" />
+    <Link Source="ItemsDocumentos" Target="ItemsDocumentos_TasaImpuesto" Category="Contains" />
+    <Link Source="ItemsDocumentos_AutorizadoPor" Target="Empleados_EmpleadoID" Category="Foreign Key" Label="FK_ItemsDocumentos_0_0" />
+    <Link Source="ItemsDocumentos_DocumentoID" Target="Documentos_DocumentoID" Category="Foreign Key" Label="FK_ItemsDocumentos_3_0" />
+    <Link Source="ItemsDocumentos_ImpuestoID" Target="Impuestos_ImpuestoID" Category="Foreign Key" Label="FK_ItemsDocumentos_1_0" />
+    <Link Source="ItemsDocumentos_ProductoID" Target="Productos_ProductoID" Category="Foreign Key" Label="FK_ItemsDocumentos_2_0" />
+    <Link Source="Marcas" Target="Marcas_Marca" Category="Contains" />
+    <Link Source="Marcas" Target="Marcas_MarcaID" Category="Contains" />
+    <Link Source="Monedas" Target="Monedas_Base" Category="Contains" />
+    <Link Source="Monedas" Target="Monedas_Codigo" Category="Contains" />
+    <Link Source="Monedas" Target="Monedas_FactorCambiario" Category="Contains" />
+    <Link Source="Monedas" Target="Monedas_Moneda" Category="Contains" />
+    <Link Source="Monedas" Target="Monedas_MonedaID" Category="Contains" />
+    <Link Source="Monedas" Target="Monedas_PorDefecto" Category="Contains" />
+    <Link Source="Pagos" Target="Pagos_Autorizacion" Category="Contains" />
+    <Link Source="Pagos" Target="Pagos_BancoID" Category="Contains" />
+    <Link Source="Pagos" Target="Pagos_DocumentoID" Category="Contains" />
+    <Link Source="Pagos" Target="Pagos_FormaPagoID" Category="Contains" />
+    <Link Source="Pagos" Target="Pagos_MonedaID" Category="Contains" />
+    <Link Source="Pagos" Target="Pagos_MontoPago" Category="Contains" />
+    <Link Source="Pagos" Target="Pagos_NroDocPago" Category="Contains" />
+    <Link Source="Pagos" Target="Pagos_PagoID" Category="Contains" />
+    <Link Source="Pagos_DocumentoID" Target="Documentos_DocumentoID" Category="Foreign Key" Label="FK_Pagos_2_0" />
+    <Link Source="Pagos_FormaPagoID" Target="FormasPagos_FormaPagoID" Category="Foreign Key" Label="FK_Pagos_1_0" />
+    <Link Source="Pagos_MonedaID" Target="Monedas_MonedaID" Category="Foreign Key" Label="FK_Pagos_0_0" />
+    <Link Source="Paises" Target="Paises_Codigo" Category="Contains" />
+    <Link Source="Paises" Target="Paises_Pais" Category="Contains" />
+    <Link Source="Paises" Target="Paises_PaisID" Category="Contains" />
+    <Link Source="Productos" Target="Productos_Codigo" Category="Contains" />
+    <Link Source="Productos" Target="Productos_CodigoBarra" Category="Contains" />
+    <Link Source="Productos" Target="Productos_ImpuestoID" Category="Contains" />
+    <Link Source="Productos" Target="Productos_MarcaID" Category="Contains" />
+    <Link Source="Productos" Target="Productos_Presentacion" Category="Contains" />
+    <Link Source="Productos" Target="Productos_Producto" Category="Contains" />
+    <Link Source="Productos" Target="Productos_ProductoID" Category="Contains" />
+    <Link Source="Productos" Target="Productos_TipoProductoID" Category="Contains" />
+    <Link Source="Productos" Target="Productos_UnidadMedidaID" Category="Contains" />
+    <Link Source="Productos_ImpuestoID" Target="Impuestos_ImpuestoID" Category="Foreign Key" Label="FK_Productos_3_0" />
+    <Link Source="Productos_MarcaID" Target="Marcas_MarcaID" Category="Foreign Key" Label="FK_Productos_2_0" />
+    <Link Source="Productos_TipoProductoID" Target="TiposProductos_TipoProductoID" Category="Foreign Key" Label="FK_Productos_1_0" />
+    <Link Source="Productos_UnidadMedidaID" Target="UnidadesMedidas_UnidadMedidaID" Category="Foreign Key" Label="FK_Productos_0_0" />
+    <Link Source="Provincias" Target="Provincias_DepartamentoID" Category="Contains" />
+    <Link Source="Provincias" Target="Provincias_Provincia" Category="Contains" />
+    <Link Source="Provincias" Target="Provincias_ProvinciaID" Category="Contains" />
+    <Link Source="Provincias" Target="Provincias_UBIGEO" Category="Contains" />
+    <Link Source="Provincias_DepartamentoID" Target="Departamentos_DepartamentoID" Category="Foreign Key" Label="FK_Provincias_0_0" />
+    <Link Source="TiposDocumentos" Target="TiposDocumentos_Codigo" Category="Contains" />
+    <Link Source="TiposDocumentos" Target="TiposDocumentos_Iniciales" Category="Contains" />
+    <Link Source="TiposDocumentos" Target="TiposDocumentos_TipoDocumento" Category="Contains" />
+    <Link Source="TiposDocumentos" Target="TiposDocumentos_TipoDocumentoID" Category="Contains" />
+    <Link Source="TiposProductos" Target="TiposProductos_TipoProducto" Category="Contains" />
+    <Link Source="TiposProductos" Target="TiposProductos_TipoProductoID" Category="Contains" />
+    <Link Source="Transacciones" Target="Transacciones_Codigo" Category="Contains" />
+    <Link Source="Transacciones" Target="Transacciones_Transaccion" Category="Contains" />
+    <Link Source="Transacciones" Target="Transacciones_TransaccionID" Category="Contains" />
+    <Link Source="UnidadesMedidas" Target="UnidadesMedidas_Codigo" Category="Contains" />
+    <Link Source="UnidadesMedidas" Target="UnidadesMedidas_PorDefecto" Category="Contains" />
+    <Link Source="UnidadesMedidas" Target="UnidadesMedidas_UnidadMedida" Category="Contains" />
+    <Link Source="UnidadesMedidas" Target="UnidadesMedidas_UnidadMedidaID" Category="Contains" />
+  </Links>
+  <Categories>
+    <Category Id="Contains" Label="Contains" Description="Whether the source of the link contains the target object" CanBeDataDriven="False" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Contained By" IsContainment="True" OutgoingActionLabel="Contains" />
+    <Category Id="Database" />
+    <Category Id="Field" />
+    <Category Id="Field Foreign" />
+    <Category Id="Field Optional" />
+    <Category Id="Field Primary" />
+    <Category Id="Foreign Key" />
+    <Category Id="Table" />
+  </Categories>
+  <Properties>
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
+    <Property Id="Description" Label="Description" Description="Description" DataType="System.String" />
+    <Property Id="Expression" DataType="System.String" />
+    <Property Id="GraphDirection" DataType="Microsoft.VisualStudio.Diagrams.Layout.LayoutOrientation" />
+    <Property Id="Group" Label="Group" Description="Display the node as a group" DataType="Microsoft.VisualStudio.GraphModel.GraphGroupStyle" />
+    <Property Id="GroupLabel" DataType="System.String" />
+    <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
+    <Property Id="IsContainment" DataType="System.Boolean" />
+    <Property Id="IsEnabled" DataType="System.Boolean" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
+    <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+    <Property Id="Value" DataType="System.String" />
+    <Property Id="ValueLabel" DataType="System.String" />
+    <Property Id="ZoomLevel" DataType="System.String" />
+  </Properties>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Table" ValueLabel="True">
+      <Condition Expression="HasCategory('Table')" />
+      <Setter Property="Background" Value="#FFC0C0C0" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Schema" ValueLabel="True">
+      <Condition Expression="HasCategory('Schema')" />
+      <Setter Property="Background" Value="#FF7F9169" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Primary" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Primary')" />
+      <Setter Property="Background" Value="#FF008000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Optional" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Optional')" />
+      <Setter Property="Background" Value="#FF808040" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Foreign" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Foreign')" />
+      <Setter Property="Background" Value="#FF8080FF" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field" ValueLabel="True">
+      <Condition Expression="HasCategory('Field')" />
+      <Setter Property="Background" Value="#FFC0A000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Database" ValueLabel="True">
+      <Condition Expression="HasCategory('Database')" />
+      <Setter Property="Background" Value="#FFFFFFFF" />
+    </Style>
+  </Styles>
+</DirectedGraph>

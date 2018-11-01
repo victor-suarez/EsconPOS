@@ -16,10 +16,10 @@ namespace EsconPOS.classes
         private readonly string _Codigo;
         private readonly string _Identificacion;
         private readonly string _Iniciales;
-        public int IdentificacionID { get => _IdentificacionID; }
-        public string Codigo { get => _Codigo; }
-        public string Identificacion { get => _Identificacion; }
-        public string Iniciales { get => _Iniciales; }
+        public int IdentificacionID { get { return _IdentificacionID; } }
+        public string Codigo { get { return _Codigo; } }
+        public string Identificacion { get { return _Identificacion; } }
+        public string Iniciales { get { return _Iniciales; } }
         public Identificaciones() { }
         public Identificaciones(Datos Conx)
         {
@@ -46,7 +46,9 @@ namespace EsconPOS.classes
             sql += "'" + Iniciales + "');";
             try
             {
-                int rec = _Conx.ExecNonActionQry(sql);
+                string[] Parameters = { "@Codigo", "@Identificacion", "@Iniciales" };
+                string[] Values = { Codigo, Identificacion, Iniciales };
+                int rec = _Conx.ExecNonActionQry("INSERT", "Identificaciones", Parameters, Values);
             }
             catch (Exception ex)
             {
@@ -56,14 +58,16 @@ namespace EsconPOS.classes
         }
         public bool Modificar(int IdentificacionID, string Codigo, string Identificacion, string Iniciales)
         {
-            string sql = "UPDATE Identificaciones SET";
-            sql += " Codigo='" + Codigo + "'";
-            sql += ",Identificacion='" + Identificacion + "'";
-            sql += ",Iniciales='" + Iniciales + "'";
-            sql += " WHERE IdentificacionID=" + IdentificacionID.ToString() + ";";
+            //string sql = "UPDATE Identificaciones SET";
+            //sql += " Codigo='" + Codigo + "'";
+            //sql += ",Identificacion='" + Identificacion + "'";
+            //sql += ",Iniciales='" + Iniciales + "'";
+            //sql += " WHERE IdentificacionID=" + IdentificacionID.ToString() + ";";
             try
             {
-                int rec = _Conx.ExecNonActionQry(sql);
+                string[] Parameters = { "@Codigo", "@Identificacion", "@Iniciales", "@IdentificacionID" };
+                string[] Values = { Codigo, Identificacion, Iniciales, IdentificacionID.ToString() };
+                int rec = _Conx.ExecNonActionQry("UPDATE", "Identificaciones", Parameters, Values);
             }
             catch (Exception ex)
             {
@@ -76,7 +80,9 @@ namespace EsconPOS.classes
             string sql = "DELETE FROM Identificaciones WHERE IdentificacionID=" + IdentificacionID.ToString() + ";";
             try
             {
-                int rec = _Conx.ExecNonActionQry(sql);
+                string[] Parameters = { "@IdentificacionID" };
+                string[] Values = { IdentificacionID.ToString() };
+                int rec = _Conx.ExecNonActionQry("DELETE", "Identificaciones", Parameters, Values);
             }
             catch (Exception ex)
             {

@@ -1,0 +1,643 @@
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS `UnidadesMedidas` (
+	`UnidadMedidaID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`Codigo`	TEXT NOT NULL,
+	`UnidadMedida`	TEXT NOT NULL,
+	`PorDefecto`	INTEGER NOT NULL DEFAULT 0
+);
+CREATE TABLE IF NOT EXISTS `Transacciones` (
+	`TransaccionID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`Transaccion`	TEXT NOT NULL,
+	`Codigo`	TEXT NOT NULL
+);
+INSERT INTO `Transacciones` (TransaccionID,Transaccion,Codigo) VALUES (1,'Apertura','AP'),
+ (2,'Venta','VT'),
+ (3,'Devolucion','DV'),
+ (4,'Cierre','CI');
+CREATE TABLE IF NOT EXISTS `TiposProductos` (
+	`TipoProductoID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`TipoProducto`	TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS `TiposDocumentos` (
+	`TipoDocumentoID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`Codigo`	TEXT NOT NULL,
+	`TipoDocumento`	TEXT NOT NULL,
+	`Iniciales`	TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS `Provincias` (
+	`ProvinciaID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`DepartamentoID`	INTEGER NOT NULL,
+	`Provincia`	TEXT NOT NULL,
+	`UBIGEO`	TEXT NOT NULL,
+	FOREIGN KEY(`DepartamentoID`) REFERENCES `Departamentos`(`DepartamentoID`)
+);
+CREATE TABLE IF NOT EXISTS `Productos` (
+	`ProductoID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`Codigo`	TEXT NOT NULL,
+	`CodigoBarra`	TEXT,
+	`Producto`	TEXT NOT NULL,
+	`TipoProductoID`	INTEGER,
+	`MarcaID`	INTEGER,
+	`ImpuestoID`	INTEGER NOT NULL,
+	`UnidadMedidaID`	INTEGER NOT NULL,
+	`Presentacion`	TEXT,
+	FOREIGN KEY(`UnidadMedidaID`) REFERENCES `UnidadesMedidas`(`UnidadMedidaID`),
+	FOREIGN KEY(`ImpuestoID`) REFERENCES `Impuestos`(`ImpuestoID`),
+	FOREIGN KEY(`TipoProductoID`) REFERENCES `TiposProductos`(`TipoProductoID`),
+	FOREIGN KEY(`MarcaID`) REFERENCES `Marcas`(`MarcaID`)
+);
+CREATE TABLE IF NOT EXISTS `Paises` (
+	`PaisID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`Codigo`	TEXT NOT NULL,
+	`Pais`	TEXT NOT NULL
+);
+INSERT INTO `Paises` (PaisID,Codigo,Pais) VALUES (1,'AF','AFGHANISTAN'),
+ (2,'AL','ALBANIA'),
+ (3,'DZ','ALGERIA'),
+ (4,'AS','AMERICAN SAMOA'),
+ (5,'AD','ANDORRA'),
+ (6,'AO','ANGOLA'),
+ (7,'AI','ANGUILLA'),
+ (8,'AQ','ANTARCTICA'),
+ (9,'AG','ANTIGUA AND BARBUDA'),
+ (10,'AR','ARGENTINA'),
+ (11,'AM','ARMENIA'),
+ (12,'AW','ARUBA'),
+ (13,'AU','AUSTRALIA'),
+ (14,'AT','AUSTRIA'),
+ (15,'AZ','AZERBAIJAN'),
+ (16,'BS','BAHAMAS'),
+ (17,'BH','BAHRAIN'),
+ (18,'BD','BANGLADESH'),
+ (19,'BB','BARBADOS'),
+ (20,'BY','BELARUS'),
+ (21,'BE','BELGIUM'),
+ (22,'BZ','BELIZE'),
+ (23,'BJ','BENIN'),
+ (24,'BM','BERMUDA'),
+ (25,'BT','BHUTAN'),
+ (26,'BO','BOLIVIA'),
+ (27,'BA','BOSNIA AND HERZEGOVINA'),
+ (28,'BW','BOTSWANA'),
+ (29,'BV','BOUVET ISLAND'),
+ (30,'BR','BRAZIL'),
+ (31,'IO','BRITISH INDIAN OCEAN TERRITORY'),
+ (32,'BN','BRUNEI DARUSSALAM'),
+ (33,'BG','BULGARIA'),
+ (34,'BF','BURKINA FASO'),
+ (35,'BI','BURUNDI'),
+ (36,'KH','CAMBODIA'),
+ (37,'CM','CAMEROON'),
+ (38,'CA','CANADA'),
+ (39,'CV','CAPE VERDE'),
+ (40,'KY','CAYMAN ISLANDS'),
+ (41,'CF','CENTRAL AFRICAN REPUBLIC'),
+ (42,'TD','CHAD'),
+ (43,'CL','CHILE'),
+ (44,'CN','CHINA'),
+ (45,'CX','CHRISTMAS ISLAND'),
+ (46,'CC','COCOS (KEELING) ISLANDS'),
+ (47,'CO','COLOMBIA'),
+ (48,'KM','COMOROS'),
+ (49,'CG','CONGO'),
+ (50,'CK','COOK ISLANDS'),
+ (51,'CR','COSTA RICA'),
+ (52,'CI','COTE D’IVOIRE'),
+ (53,'HR','CROATIA'),
+ (54,'CU','CUBA'),
+ (55,'CY','CYPRUS'),
+ (56,'CZ','CZECH REPUBLIC'),
+ (57,'DK','DENMARK'),
+ (58,'DJ','DJIBOUTI'),
+ (59,'DM','DOMINICA'),
+ (60,'DO','DOMINICAN REPUBLIC'),
+ (61,'TP','EAST TIMOR'),
+ (62,'EC','ECUADOR'),
+ (63,'EG','EGYPT'),
+ (64,'SV','EL SALVADOR'),
+ (65,'GQ','EQUATORIAL GUINEA'),
+ (66,'ER','ERITREA'),
+ (67,'EE','ESTONIA'),
+ (68,'ET','ETHIOPIA'),
+ (69,'FK','FALKLAND ISLANDS (MALVINAS)'),
+ (70,'FO','FAROE ISLANDS'),
+ (71,'FJ','FIJI'),
+ (72,'FI','FINLAND'),
+ (73,'FR','FRANCE'),
+ (74,'FX','FRANCE, METROPOLITAN'),
+ (75,'GF','FRENCH GUIANA'),
+ (76,'PF','FRENCH POLYNESIA'),
+ (77,'TF','FRENCH SOUTHERN TERRITORIES'),
+ (78,'GA','GABON'),
+ (79,'GM','GAMBIA'),
+ (80,'GE','GEORGIA'),
+ (81,'DE','GERMANY'),
+ (82,'GH','GHANA'),
+ (83,'GI','GIBRALTAR'),
+ (84,'GR','GREECE'),
+ (85,'GL','GREENLAND'),
+ (86,'GD','GRENADA'),
+ (87,'GP','GUADELOUPE'),
+ (88,'GU','GUAM'),
+ (89,'GT','GUATEMALA'),
+ (90,'GN','GUINEA'),
+ (91,'GW','GUINEA-BISSAU'),
+ (92,'GY','GUYANA'),
+ (93,'HT','HAITI'),
+ (94,'HM','HEARD ISLAND AND MC DONALD ISLANDS'),
+ (95,'HN','HONDURAS'),
+ (96,'HK','HONG KONG'),
+ (97,'HU','HUNGARY'),
+ (98,'IS','ICELAND'),
+ (99,'IN','INDIA'),
+ (100,'ID','INDONESIA'),
+ (101,'IR','IRAN (ISLAMIC REPUBLIC OF)'),
+ (102,'IQ','IRAQ'),
+ (103,'IE','IRELAND'),
+ (104,'IL','ISRAEL'),
+ (105,'IT','ITALY'),
+ (106,'JM','JAMAICA'),
+ (107,'JP','JAPAN'),
+ (108,'JO','JORDAN'),
+ (109,'KZ','KAZAKHSTAN'),
+ (110,'KE','KENYA'),
+ (111,'KI','KIRIBATI'),
+ (112,'KP','KOREA, DEMOCRATIC PEOPLE’S REPUBLIC'),
+ (113,'OF','KR KOREA, REPUBLIC OF'),
+ (114,'KW','KUWAIT'),
+ (115,'KG','KYRGYZSTAN'),
+ (116,'LA','LAO PEOPLE’S DEMOCRATIC REPUBLIC'),
+ (117,'LV','LATVIA'),
+ (118,'LB','LEBANON'),
+ (119,'LS','LESOTHO'),
+ (120,'LR','LIBERIA'),
+ (121,'LY','LIBYAN ARAB JAMAHIRIYA'),
+ (122,'LI','LIECHTENSTEIN'),
+ (123,'LT','LITHUANIA'),
+ (124,'LU','LUXEMBOURG'),
+ (125,'MO','MACAU'),
+ (126,'MG','MADAGASCAR'),
+ (127,'MW','MALAWI'),
+ (128,'MY','MALAYSIA'),
+ (129,'MV','MALDIVES'),
+ (130,'ML','MALI'),
+ (131,'MT','MALTA'),
+ (132,'MH','MARSHALL ISLANDS'),
+ (133,'MQ','MARTINIQUE'),
+ (134,'MR','MAURITANIA'),
+ (135,'MU','MAURITIUS'),
+ (136,'YT','MAYOTTE'),
+ (137,'MX','MEXICO'),
+ (138,'FM','MICRONESIA, FEDERATED STATES OF'),
+ (139,'MD','MOLDOVA, REPUBLIC OF'),
+ (140,'MC','MONACO'),
+ (141,'MN','MONGOLIA'),
+ (142,'MS','MONTSERRAT'),
+ (143,'MA','MOROCCO'),
+ (144,'MZ','MOZAMBIQUE'),
+ (145,'MM','MYANMAR'),
+ (146,'NA','NAMIBIA'),
+ (147,'NR','NAURU'),
+ (148,'NP','NEPAL'),
+ (149,'AN','NETHERLANDS ANTILLES'),
+ (150,'NL','NETHERLANDS'),
+ (151,'NC','NEW CALEDONIA'),
+ (152,'NZ','NEW ZEALAND'),
+ (153,'NI','NICARAGUA'),
+ (154,'NE','NIGER'),
+ (155,'NG','NIGERIA'),
+ (156,'NU','NIUE'),
+ (157,'NF','NORFOLK ISLAND'),
+ (158,'MP','NORTHERN MARIANA ISLANDS'),
+ (159,'NO','NORWAY'),
+ (160,'OM','OMAN'),
+ (161,'PK','PAKISTAN'),
+ (162,'PW','PALAU'),
+ (163,'PA','PANAMA'),
+ (164,'PG','PAPUA NEW GUINEA'),
+ (165,'PY','PARAGUAY'),
+ (166,'PE','PERU'),
+ (167,'PH','PHILIPPINES'),
+ (168,'PN','PITCAIRN'),
+ (169,'PL','POLAND'),
+ (170,'PT','PORTUGAL'),
+ (171,'PR','PUERTO RICO'),
+ (172,'QA','QATAR'),
+ (173,'RE','REUNION'),
+ (174,'RO','ROMANIA'),
+ (175,'RU','RUSSIAN FEDERATION'),
+ (176,'RW','RWANDA'),
+ (177,'SH','SAINT HELENA'),
+ (178,'KN','SAINT KITTS AND NEVIS'),
+ (179,'LC','SAINT LUCIA'),
+ (180,'PM','SAINT PIERRE AND MIQUELON'),
+ (181,'VC','SAINT VINCENT AND THE GRENADINES'),
+ (182,'WS','SAMOA'),
+ (183,'SM','SAN MARINO'),
+ (184,'SA','SAUDI ARABIA'),
+ (185,'SN','SENEGAL'),
+ (186,'SC','SEYCHELLES'),
+ (187,'SL','SIERRA LEONE'),
+ (188,'SG','SINGAPORE'),
+ (189,'SK','SLOVAKIA'),
+ (190,'SI','SLOVENIA'),
+ (191,'SB','SOLOMON ISLANDS'),
+ (192,'SO','SOMALIA'),
+ (193,'ZA','SOUTH AFRICA'),
+ (194,'GS','SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS'),
+ (195,'ES','SPAIN'),
+ (196,'LK','SRI LANKA'),
+ (197,'SD','SUDAN'),
+ (198,'SR','SURINAME'),
+ (199,'SJ','SVALBARD AND JAN MAYEN ISLANDS'),
+ (200,'SZ','SWAZILAND'),
+ (201,'SE','SWEDEN'),
+ (202,'CH','SWITZERLAND'),
+ (203,'SY','SYRIAN ARAB REPUBLIC'),
+ (204,'ST','SÃO TOME AND PRINCIPE'),
+ (205,'TW','TAIWAN, PROVINCE OF CHINA'),
+ (206,'TJ','TAJIKISTAN'),
+ (207,'TZ','TANZANIA, UNITED REPUBLIC OF'),
+ (208,'TH','THAILAND'),
+ (209,'MK','THE FORMER YUGOSLAV REPUBLIC OF MACEDONIA'),
+ (210,'TG','TOGO'),
+ (211,'TK','TOKELAU'),
+ (212,'TO','TONGA'),
+ (213,'TT','TRINIDAD AND TOBAGO'),
+ (214,'TN','TUNISIA'),
+ (215,'TR','TURKEY'),
+ (216,'TM','TURKMENISTAN'),
+ (217,'TC','TURKS AND CAICOS ISLANDS'),
+ (218,'TV','TUVALU'),
+ (219,'UG','UGANDA'),
+ (220,'UA','UKRAINE'),
+ (221,'AE','UNITED ARAB EMIRATES'),
+ (222,'GB','UNITED KINGDOM'),
+ (223,'UM','UNITED STATES MINOR OUTLYING ISLANDS'),
+ (224,'US','UNITED STATES'),
+ (225,'UY','URUGUAY'),
+ (226,'UZ','UZBEKISTAN'),
+ (227,'VU','VANUATU'),
+ (228,'VA','VATICAN CITY STATE (HOLY SEE)'),
+ (229,'VE','VENEZUELA'),
+ (230,'VN','VIET NAM'),
+ (231,'VG','VIRGIN ISLANDS (BRITISH)'),
+ (232,'VI','VIRGIN ISLANDS (U.S.)'),
+ (233,'WF','WALLIS AND FUTUNA ISLANDS'),
+ (234,'EH','WESTERN SAHARA'),
+ (235,'YE','YEMEN'),
+ (236,'YU','YUGOSLAVIA'),
+ (237,'ZR','ZAIRE'),
+ (238,'ZM','ZAMBIA'),
+ (239,'ZW','ZIMBABWE');
+CREATE TABLE IF NOT EXISTS `Pagos` (
+	`PagoID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`DocumentoID`	INTEGER NOT NULL,
+	`FormaPagoID`	INTEGER NOT NULL,
+	`MonedaID`	INTEGER NOT NULL,
+	`MontoPago`	REAL NOT NULL DEFAULT 0,
+	`BancoID`	INTEGER,
+	`NroDocPago`	TEXT,
+	`Autorizacion`	TEXT,
+	FOREIGN KEY(`DocumentoID`) REFERENCES `Documentos`(`DocumentoID`),
+	FOREIGN KEY(`FormaPagoID`) REFERENCES `FormasPagos`(`FormaPagoID`),
+	FOREIGN KEY(`MonedaID`) REFERENCES `Monedas`(`MonedaID`)
+);
+CREATE TABLE IF NOT EXISTS `Monedas` (
+	`MonedaID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`Codigo`	TEXT NOT NULL,
+	`Moneda`	TEXT NOT NULL,
+	`PorDefecto`	INTEGER NOT NULL DEFAULT 0,
+	`Base`	INTEGER NOT NULL DEFAULT 0,
+	`FactorCambiario`	REAL NOT NULL DEFAULT 1
+);
+CREATE TABLE IF NOT EXISTS `Marcas` (
+	`MarcaID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`Marca`	TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS `ItemsDocumentos` (
+	`DocumentoID`	INTEGER NOT NULL,
+	`ItemID`	INTEGER NOT NULL,
+	`ProductoID`	INTEGER NOT NULL,
+	`MontoUnitario`	REAL NOT NULL DEFAULT 0,
+	`Cantidad`	INTEGER NOT NULL DEFAULT 1,
+	`ImpuestoID`	INTEGER NOT NULL,
+	`TasaImpuesto`	REAL NOT NULL DEFAULT 0,
+	`MontoImpuesto`	REAL NOT NULL DEFAULT 0,
+	`MontoNeto`	REAL NOT NULL DEFAULT 0,
+	`EsDevolucion`	INTEGER NOT NULL DEFAULT 0 CHECK(EsDevolucion = 0 OR EsDevolucion = 1),
+	`AutorizadoPor`	INTEGER,
+	`FechaHoraAutorizado`	TEXT,
+	FOREIGN KEY(`ProductoID`) REFERENCES `Productos`(`ProductoID`),
+	PRIMARY KEY(`DocumentoID`,`ItemID`),
+	FOREIGN KEY(`DocumentoID`) REFERENCES `Documentos`(`DocumentoID`),
+	FOREIGN KEY(`AutorizadoPor`) REFERENCES `Empleados`(`EmpleadoID`),
+	FOREIGN KEY(`ImpuestoID`) REFERENCES `Impuestos`(`ImpuestoID`)
+);
+CREATE TABLE IF NOT EXISTS `Impuestos` (
+	`ImpuestoID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`Impuesto`	TEXT NOT NULL,
+	`Codigo`	TEXT NOT NULL,
+	`Categoria`	TEXT NOT NULL,
+	`Tasa`	REAL NOT NULL DEFAULT 0,
+	`ValidoDesde`	TEXT NOT NULL,
+	`ValidoHasta`	TEXT,
+	`Activo`	INTEGER NOT NULL DEFAULT 1
+);
+CREATE TABLE IF NOT EXISTS `Identificaciones` (
+	`IdentificacionID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`Codigo`	TEXT NOT NULL,
+	`Identificacion`	TEXT NOT NULL,
+	`Iniciales`	TEXT NOT NULL
+);
+INSERT INTO `Identificaciones` (IdentificacionID,Codigo,Identificacion,Iniciales) VALUES (1,'0','DOC.TRIB.NO.DOM.SIN.RUC','S/R'),
+ (2,'1','DOC. NACIONAL DE IDENTIDAD','DNI'),
+ (3,'4','CARNET DE EXTRANJERIA','CDE'),
+ (4,'6','REG. UNICO DE CONTRIBUYENTES','RUC'),
+ (5,'7','PASAPORTE','PAS'),
+ (6,'A','CED. DIPLOMATICA DE IDENTIDAD','CDI'),
+ (7,'B','DOC.IDENT.PAIS.RESIDENCIA-NO.D','NOD'),
+ (8,'C','TAX IDENTIFICATION NUMBER','TIN'),
+ (9,'D','IDENTIFICATION NUMBER','INU');
+CREATE TABLE IF NOT EXISTS `FormasPagos` (
+	`FormaPagoID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`FormaPago`	TEXT NOT NULL,
+	`Codigo`	TEXT NOT NULL,
+	`Orden`	INTEGER NOT NULL DEFAULT 0,
+	`RequiereAutorizacion`	INTEGER NOT NULL DEFAULT 0 CHECK(RequiereAutorizacion = 0 OR RequiereAutorizacion = 1)
+);
+CREATE TABLE IF NOT EXISTS `EmpresasEmpleados` (
+	`EmpresaID`	INTEGER NOT NULL,
+	`EmpleadoID`	INTEGER NOT NULL,
+	PRIMARY KEY(`EmpresaID`,`EmpleadoID`),
+	FOREIGN KEY(`EmpleadoID`) REFERENCES `Empleados`(`EmpleadoID`),
+	FOREIGN KEY(`EmpresaID`) REFERENCES `Empresas`(`EmpresaID`)
+);
+CREATE TABLE IF NOT EXISTS `EmpresasClientes` (
+	`EmpresaID`	INTEGER NOT NULL,
+	`ClienteID`	INTEGER NOT NULL,
+	FOREIGN KEY(`ClienteID`) REFERENCES `Clientes`(`ClienteID`),
+	PRIMARY KEY(`EmpresaID`,`ClienteID`),
+	FOREIGN KEY(`EmpresaID`) REFERENCES `Empresas`(`EmpresaID`)
+);
+CREATE TABLE IF NOT EXISTS `Empresas` (
+	`EmpresaID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`IdentificacionID`	INTEGER NOT NULL,
+	`NroDocIdent`	TEXT NOT NULL,
+	`NombreComercial`	TEXT,
+	`RazonSocial`	TEXT NOT NULL,
+	`Direccion`	TEXT NOT NULL,
+	`DistritoID`	INTEGER,
+	`Urbanizacion`	TEXT,
+	`NroTelefonico`	TEXT,
+	`CorreoElectronico`	TEXT,
+	FOREIGN KEY(`IdentificacionID`) REFERENCES `Identificaciones`(`IdentificacionID`),
+	FOREIGN KEY(`DistritoID`) REFERENCES `Distritos`(`DistritoID`)
+);
+CREATE TABLE IF NOT EXISTS `Empleados` (
+	`EmpleadoID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`IdentificacionID`	INTEGER NOT NULL,
+	`NroDocIdent`	TEXT NOT NULL,
+	`Nombre`	TEXT NOT NULL,
+	`Direccion`	TEXT,
+	`Telefono`	TEXT,
+	`CorreoElectronico`	TEXT,
+	`Login`	TEXT NOT NULL,
+	`PasswdHash`	BLOB NOT NULL,
+	`EsSupervisor`	INTEGER NOT NULL DEFAULT 0 CHECK(EsSupervisor = 0 OR EsSupervisor = 1),
+	`EsAdministrador`	INTEGER NOT NULL DEFAULT 0 CHECK(EsAdministrador = 0 OR EsAdministrador = 1)
+);
+INSERT INTO `Empleados` (EmpleadoID,IdentificacionID,NroDocIdent,Nombre,Direccion,Telefono,CorreoElectronico,Login,PasswdHash,EsSupervisor,EsAdministrador) VALUES (2,7,'V-5591873','Víctor Ernesto Suárez Cortés',NULL,NULL,NULL,'VSUAREZ','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92',0,1);
+CREATE TABLE IF NOT EXISTS `Documentos` (
+	`DocumentoID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`NroDocumento`	INTEGER NOT NULL,
+	`TipoDocumentoID`	INTEGER NOT NULL,
+	`FechaDocumento`	TEXT NOT NULL DEFAULT CURRENT_DATE,
+	`HoraDocumento`	TEXT NOT NULL DEFAULT CURRENT_TIME,
+	`EmpresaID`	INTEGER NOT NULL,
+	`ClienteID`	INTEGER NOT NULL,
+	`EmpleadoID`	INTEGER NOT NULL,
+	`CajaID`	INTEGER NOT NULL,
+	`TotalProductos`	INTEGER NOT NULL DEFAULT 0,
+	`MontoBruto`	REAL NOT NULL DEFAULT 0,
+	`MontoGravado`	REAL NOT NULL DEFAULT 0,
+	`MontoImpuestos`	REAL NOT NULL DEFAULT 0,
+	`MontoExcento`	REAL NOT NULL DEFAULT 0,
+	`SubTotal`	REAL NOT NULL DEFAULT 0,
+	`MontoDescuentos`	REAL NOT NULL DEFAULT 0,
+	`MontoNeto`	REAL NOT NULL DEFAULT 0,
+	FOREIGN KEY(`EmpresaID`) REFERENCES `Empresas`(`EmpresaID`),
+	FOREIGN KEY(`ClienteID`) REFERENCES `Clientes`(`ClienteID`),
+	FOREIGN KEY(`EmpleadoID`) REFERENCES `Empleados`(`EmpleadoID`),
+	FOREIGN KEY(`CajaID`) REFERENCES `Cajas`(`CajaID`),
+	FOREIGN KEY(`TipoDocumentoID`) REFERENCES `TiposDocumentos`(`TipoDocumentoID`)
+);
+CREATE TABLE IF NOT EXISTS `Distritos` (
+	`DistritoID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`ProvinciaID`	INTEGER NOT NULL,
+	`Distrito`	TEXT NOT NULL,
+	`UBIGEO`	TEXT NOT NULL,
+	FOREIGN KEY(`ProvinciaID`) REFERENCES `Provincias`(`ProvinciaID`)
+);
+CREATE TABLE IF NOT EXISTS `Departamentos` (
+	`DepartamentoID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`PaisID`	INTEGER NOT NULL,
+	`Departamento`	TEXT NOT NULL,
+	`UBIGEO`	TEXT NOT NULL,
+	FOREIGN KEY(`PaisID`) REFERENCES `Paises`(`PaisID`)
+);
+INSERT INTO `Departamentos` (DepartamentoID,PaisID,Departamento,UBIGEO) VALUES (50,166,'DEPARTAMENTO AMAZONAS','01'),
+ (51,166,'DEPARTAMENTO ANCASH','02'),
+ (52,166,'DEPARTAMENTO APURIMAC','03'),
+ (53,166,'DEPARTAMENTO AREQUIPA','04'),
+ (54,166,'DEPARTAMENTO AYACUCHO','05'),
+ (55,166,'DEPARTAMENTO CAJAMARCA','06'),
+ (56,166,'PROV. CONST. DEL CALLAO','07'),
+ (57,166,'DEPARTAMENTO CUSCO','08'),
+ (58,166,'DEPARTAMENTO HUANCAVELICA','09'),
+ (59,166,'DEPARTAMENTO HUANUCO','10'),
+ (60,166,'DEPARTAMENTO ICA','11'),
+ (61,166,'DEPARTAMENTO JUNIN','12'),
+ (62,166,'DEPARTAMENTO LA LIBERTAD','13'),
+ (63,166,'DEPARTAMENTO LAMBAYEQUE','14'),
+ (64,166,'DEPARTAMENTO LIMA','15'),
+ (65,166,'DEPARTAMENTO LORETO','16'),
+ (66,166,'DEPARTAMENTO MADRE DE DIOS','17'),
+ (67,166,'DEPARTAMENTO MOQUEGUA','18'),
+ (68,166,'DEPARTAMENTO PASCO','19'),
+ (69,166,'DEPARTAMENTO PIURA','20'),
+ (70,166,'DEPARTAMENTO PUNO','21'),
+ (71,166,'DEPARTAMENTO SAN MARTIN','22'),
+ (72,166,'DEPARTAMENTO TACNA','23'),
+ (73,166,'DEPARTAMENTO TUMBES','24'),
+ (74,166,'DEPARTAMENTO UCAYALI','25');
+CREATE TABLE IF NOT EXISTS `Configuraciones` (
+	`ConfiguracionID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`CajaID`	INTEGER NOT NULL,
+	`Configuracion`	TEXT NOT NULL,
+	`Valor`	TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS `Clientes` (
+	`ClienteID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`IdentificacionID`	INTEGER NOT NULL,
+	`NroDocIdent`	TEXT NOT NULL,
+	`Nombre`	TEXT NOT NULL,
+	`Direccion`	TEXT,
+	`PaisID`	INTEGER,
+	`DistritoID`	INTEGER,
+	`NroTelefonico`	TEXT,
+	`CorreoElectronico`	TEXT,
+	FOREIGN KEY(`IdentificacionID`) REFERENCES `Identificaciones`(`IdentificacionID`),
+	FOREIGN KEY(`DistritoID`) REFERENCES `Distritos`(`DistritoID`),
+	FOREIGN KEY(`PaisID`) REFERENCES `Paises`(`PaisID`)
+);
+CREATE TABLE IF NOT EXISTS `Cajas` (
+	`CajaID`	INTEGER NOT NULL,
+	`Descripcion`	TEXT NOT NULL,
+	`Abierta`	INTEGER NOT NULL DEFAULT 0 CHECK(Abierta = 0 OR Abierta = 1),
+	`FechaHoraEstado`	TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(`CajaID`)
+);
+INSERT INTO `Cajas` (CajaID,Descripcion,Abierta,FechaHoraEstado) VALUES (1,'CAJA #1',0,'2018-10-27 21:24:19');
+CREATE TABLE IF NOT EXISTS `CajaLog` (
+	`CajaLogID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`CajaID`	INTEGER NOT NULL,
+	`TransaccionID`	INTEGER NOT NULL,
+	`EmpleadoID`	INTEGER NOT NULL,
+	`Monto`	INTEGER NOT NULL DEFAULT 0,
+	`Fecha`	TEXT NOT NULL DEFAULT CURRENT_DATE,
+	`Hora`	TEXT NOT NULL DEFAULT CURRENT_TIME,
+	FOREIGN KEY(`TransaccionID`) REFERENCES `Transacciones`(`TransaccionID`),
+	FOREIGN KEY(`CajaID`) REFERENCES `Cajas`(`CajaID`),
+	FOREIGN KEY(`EmpleadoID`) REFERENCES `Empleados`(`EmpleadoID`)
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Productos_Producto` ON `Productos` (
+	`Producto`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Productos_Codigo` ON `Productos` (
+	`Codigo`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Monedas_Moneda` ON `Monedas` (
+	`Moneda`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Monedas_Codigo` ON `Monedas` (
+	`Codigo`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Marcas_Marca` ON `Marcas` (
+	`Marca`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Impuestos_Impuesto` ON `Impuestos` (
+	`Impuesto`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Impuestos_Codigo` ON `Impuestos` (
+	`Codigo`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Identificaciones_Identificacion` ON `Identificaciones` (
+	`Identificacion`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Identificaciones_Codigo` ON `Identificaciones` (
+	`Codigo`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_FormasPagos_Orden` ON `FormasPagos` (
+	`Orden`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_FormasPagos_FormaPago` ON `FormasPagos` (
+	`FormaPago`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_FormasPagos_Codigo` ON `FormasPagos` (
+	`Codigo`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Empresas_ID` ON `Empresas` (
+	`IdentificacionID`	ASC,
+	`NroDocIdent`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Empleados_Login` ON `Empleados` (
+	`Login`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Empleados_ID` ON `Empleados` (
+	`IdentificacionID`	ASC,
+	`NroDocIdent`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Documentos_NroDocumento_EmpresaID` ON `Documentos` (
+	`NroDocumento`	ASC,
+	`EmpresaID`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Distritos_UBIGEO` ON `Distritos` (
+	`UBIGEO`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Distritos_Distrito` ON `Distritos` (
+	`Distrito`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Departamentos_UBIGEO` ON `Departamentos` (
+	`UBIGEO`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Departamentos_Departamento` ON `Departamentos` (
+	`Departamento`	ASC
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `AUK_Clientes_ID` ON `Clientes` (
+	`IdentificacionID`	ASC,
+	`NroDocIdent`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_Productos_TipoProductoID` ON `Productos` (
+	`TipoProductoID`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_Productos_MarcaID` ON `Productos` (
+	`MarcaID`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_Productos_ImpuestoID` ON `Productos` (
+	`ImpuestoID`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_Pagos_MonedaID` ON `Pagos` (
+	`MonedaID`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_Pagos_FormaPagoID` ON `Pagos` (
+	`FormaPagoID`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_Pagos_DocumentoID` ON `Pagos` (
+	`DocumentoID`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_Pagos_BancoID` ON `Pagos` (
+	`BancoID`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_ItemsDocumentos_ProductoID` ON `ItemsDocumentos` (
+	`ProductoID`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_ItemsDocumentos_ImpuestoID` ON `ItemsDocumentos` (
+	`ImpuestoID`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_Documentos_FechaHora` ON `Documentos` (
+	`FechaDocumento`	ASC,
+	`HoraDocumento`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_Documentos_Empresas_FH` ON `Documentos` (
+	`EmpresaID`	ASC,
+	`FechaDocumento`	ASC,
+	`HoraDocumento`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_Documentos_Empleados_FH` ON `Documentos` (
+	`EmpleadoID`	ASC,
+	`FechaDocumento`	ASC,
+	`HoraDocumento`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_Documentos_Clientes_FH` ON `Documentos` (
+	`ClienteID`	ASC,
+	`FechaDocumento`	ASC,
+	`HoraDocumento`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_Clientes_Nombre` ON `Clientes` (
+	`Nombre`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_CajasLog_TransaccionID` ON `CajaLog` (
+	`TransaccionID`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_CajasLog_FH` ON `CajaLog` (
+	`Fecha`	ASC,
+	`Hora`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_CajasLog_EmpleadoID` ON `CajaLog` (
+	`EmpleadoID`	ASC
+);
+CREATE INDEX IF NOT EXISTS `AK_CajasLog_CajaID` ON `CajaLog` (
+	`CajaID`	ASC
+);
+COMMIT;

@@ -54,11 +54,38 @@ namespace EsconPOS.classes
         }
         
         // Si el query no devuelve datos (INSERT / UPDATE / DELETE)
-        public int ExecNonActionQry(string Query)
+        public int ExecNonActionQry(string Query, string Table, string[] Parameters, string[] Values)
         {
+            string FullQuery = "";
+            if (Query.StartsWith("INSERT"))
+            {
+                FullQuery = "INSERT INTO " + Table + "(";
+                FullQuery += AddParameters(Parameters, "INSERT");
+                FullQuery += ") VALUES(";
+                FullQuery += AddParameters(Parameters, "@");
+                FullQuery += ")";
+            }
+            else if (Query.StartsWith("UPDATE"))
+            {
+                FullQuery = "UPDATE " + Table + " SET ";
+                FullQuery += AddParameters(Parameters, "UPDATE");
+                FullQuery += " WHERE " + Parameters[0] + "=@" + Values[0];
+            }
+            else if (Query.StartsWith("DELETE"))
+            {
+                FullQuery = "DELETE " + Table + " WHERE ";
+                FullQuery += AddParameters(Parameters, "DELETE");
+            }
+
             try
             {
-                SQLiteCommand command = new SQLiteCommand(Query, _Conx);
+                SQLiteCommand command = _Conx.CreateCommand();
+                command.CommandText = Query;
+                command.Prepare();
+                for (int i = 0; i <= Values.GetUpperBound(0); i++)
+                    command.Parameters.AddWithValue("@" + Parameters[i], Values[i]);
+
+                //SQLiteCommand command = new SQLiteCommand(Query, _Conx);
                 return command.ExecuteNonQuery();
             }
             catch (SQLiteException ex)
@@ -94,5 +121,20 @@ namespace EsconPOS.classes
             return recset;
         }
 
+        string AddParameters(string[] Parameters, string For, string AddPrefix = "")
+        {
+            string ExtendedQuery = "";
+            for (int i = 0; i <= Parameters.GetUpperBound(0); i++)
+            {
+                if (For == "INSERT")
+                    ExtendedQuery += AddPrefix + Parameters[i] + ((i == Parameters.GetUpperBound(0)) ? "" : ",");
+                else if (For == "UPDATE")
+                    if(i > 0)
+                        ExtendedQuery += Parameters[i] + "=" + AddPrefix + Parameters[i] + ((i == Parameters.GetUpperBound(0)) ? "" : ",");
+                else if (For == "DELETE")
+                    ExtendedQuery += Parameters[i] + "=" + AddPrefix + Parameters[i] + ((i == Parameters.GetUpperBound(0)) ? "" : " AND ");
+            }
+            return ExtendedQuery;
+        }
     }
 }

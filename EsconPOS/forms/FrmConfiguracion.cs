@@ -14,16 +14,16 @@ namespace EsconPOS.forms
     public partial class FrmConfiguracion : Form
     {
         public bool Resultado = false;
-        private Datos Conx = Datos.Conx;
+        //private Datos Conx = Datos.Conx;
 
         public void CargarIdentificaciones()
         {
-            CmbIdentificacionID.Items.Clear();
-            Identificaciones TiposIDs = new Identificaciones(Conx);
-            foreach (Identificaciones ListTiposIDs in TiposIDs.Listar())
-            {
-                CmbIdentificacionID.Items.Add(ListTiposIDs);
-            }
+            //CmbIdentificacionID.Items.Clear();
+            //Identificaciones TiposIDs = new Identificaciones(Conx);
+            //foreach (Identificaciones ListTiposIDs in TiposIDs.Listar())
+            //{
+            //    CmbIdentificacionID.Items.Add(ListTiposIDs);
+            //}
         }
 
         public FrmConfiguracion()
@@ -34,37 +34,37 @@ namespace EsconPOS.forms
         private void Guardar()
         {
             if (!ValEntReq()) return;
-            Empleados Emp = new Empleados(Conx);
-            Identificaciones ItemID = (Identificaciones)CmbIdentificacionID.SelectedItem;
-            int ID = ItemID.IdentificacionID;
-            try
-            {
-                Emp.Agregar(ID,
-                            TxtNroDocIdent.Text,
-                            TxtNombre.Text,
-                            TxtDireccion.Text,
-                            TxtTelefonos.Text,
-                            TxtCorreoElectronico.Text,
-                            TxtLogin.Text,
-                            TxtPassword.Text,
-                            ChkEsSupervisor.Checked,
-                            true);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error guardando el administrador", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            Cajas Caja = new Cajas(Conx);
-            try
-            {
-                Caja.Agregar((int)NumCajaID.Value, TxtDescripcion.Text);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error guardando la caja", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //Empleados Emp = new Empleados(Conx);
+            //Identificaciones ItemID = (Identificaciones)CmbIdentificacionID.SelectedItem;
+            //int ID = ItemID.IdentificacionID;
+            //try
+            //{
+            //    Emp.Agregar(ID,
+            //                TxtNroDocIdent.Text,
+            //                TxtNombre.Text,
+            //                TxtDireccion.Text,
+            //                TxtTelefonos.Text,
+            //                TxtCorreoElectronico.Text,
+            //                TxtLogin.Text,
+            //                TxtPassword.Text,
+            //                ChkEsSupervisor.Checked,
+            //                true);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Error guardando el administrador", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+            //Cajas Caja = new Cajas(Conx);
+            //try
+            //{
+            //    Caja.Agregar((int)NumCajaID.Value, TxtDescripcion.Text);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Error guardando la caja", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
             Resultado = true;
             Close();
         }

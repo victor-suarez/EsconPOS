@@ -18,8 +18,8 @@ namespace EsconPOS.classes
         private readonly int _CajaID;
         private readonly string _Descripcion;
 
-        public int CajaID { get => _CajaID; }
-        public string Descripcion { get => _Descripcion; }
+        public int CajaID { get { return _CajaID; } }
+        public string Descripcion { get { return _Descripcion; } }
         public bool Abierta { get; private set; }
         public DateTime FechaHoraEstado { get; private set; }
 
@@ -63,13 +63,15 @@ namespace EsconPOS.classes
                 throw new Exception("La caja ya está abierta.");
 
             // Loggeo la transacción de apertura de caja.
-            string sql = "INSERT INTO CajaLog(CajaID,TransaccionID,EmpleadoID) VALUES(";
-            sql += CajaID.ToString() + ",";
-            sql += TR_APERTURA_CAJA.ToString() + ",";
-            sql += EmpleadoID.ToString() + ");";
+            //string sql = "INSERT INTO CajaLog(CajaID,TransaccionID,EmpleadoID) VALUES(";
+            //sql += CajaID.ToString() + ",";
+            //sql += TR_APERTURA_CAJA.ToString() + ",";
+            //sql += EmpleadoID.ToString() + ");";
             try
             {
-                int rec = _Conx.ExecNonActionQry(sql);
+                string[] Parameters = { "@CajaID", "@TransaccionID", "@EmpleadoID" };
+                string[] Values = { CajaID.ToString(), TR_APERTURA_CAJA.ToString(), EmpleadoID.ToString() };
+                int rec = _Conx.ExecNonActionQry("INSERT","CajaLog", Parameters, Values);
             }
             catch(Exception ex)
             {
@@ -85,13 +87,15 @@ namespace EsconPOS.classes
                 throw new Exception("La caja ya está cerrada.");
 
             // Loggeo la transacción de cierre de caja.
-            string sql = "INSERT INTO CajaLog(CajaID,TransaccionID,EmpleadoID) VALUES(";
-            sql += CajaID.ToString() + ",";
-            sql += TR_CIERRE_CAJA.ToString() + ",";
-            sql += EmpleadoID.ToString() + ");";
+            //string sql = "INSERT INTO CajaLog(CajaID,TransaccionID,EmpleadoID) VALUES(";
+            //sql += CajaID.ToString() + ",";
+            //sql += TR_CIERRE_CAJA.ToString() + ",";
+            //sql += EmpleadoID.ToString() + ");";
             try
             {
-                int rec = _Conx.ExecNonActionQry(sql);
+                string[] Parameters = { "@CajaID", "@TransaccionID", "@EmpleadoID" };
+                string[] Values = { CajaID.ToString(), TR_CIERRE_CAJA.ToString(), EmpleadoID.ToString() };
+                int rec = _Conx.ExecNonActionQry("INSERT", "CajaLog", Parameters, Values);
             }
             catch (Exception ex)
             {
@@ -102,12 +106,14 @@ namespace EsconPOS.classes
         }
         public bool Agregar(int CajaID, string Descripcion)
         {
-            string sql = "INSERT INTO Cajas(CajaID,Descripcion) VALUES(";
-            sql += CajaID.ToString() + ",";
-            sql += "'" + Descripcion + "');";
+            //string sql = "INSERT INTO Cajas(CajaID,Descripcion) VALUES(";
+            //sql += CajaID.ToString() + ",";
+            //sql += "'" + Descripcion + "');";
             try
             {
-                int rec = _Conx.ExecNonActionQry(sql);
+                string[] Parameters = { "@CajaID", "@Descripcion" };
+                string[] Values = { CajaID.ToString(), Descripcion };
+                int rec = _Conx.ExecNonActionQry("INSERT", "Cajas", Parameters, Values);
             }
             catch (Exception ex)
             {

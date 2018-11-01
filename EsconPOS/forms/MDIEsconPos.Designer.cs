@@ -32,8 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MDIEsconPos));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.TsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.TsslCaja = new System.Windows.Forms.ToolStripStatusLabel();
             this.TsslEmpleado = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TsslCaja = new System.Windows.Forms.ToolStripStatusLabel();
             this.TsslFecha = new System.Windows.Forms.ToolStripStatusLabel();
             this.TsslHora = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -46,6 +46,22 @@
             this.RibBtnEmpresas = new System.Windows.Forms.RibbonButton();
             this.RibBtnEmpleados = new System.Windows.Forms.RibbonButton();
             this.RibBtnClientes = new System.Windows.Forms.RibbonButton();
+            this.RibBtnDocsPago = new System.Windows.Forms.RibbonButton();
+            this.RibTabDatosGenerales = new System.Windows.Forms.RibbonTab();
+            this.RibPnlUBIGEO = new System.Windows.Forms.RibbonPanel();
+            this.RibBtnPaises = new System.Windows.Forms.RibbonButton();
+            this.RibBtnDepartamentos = new System.Windows.Forms.RibbonButton();
+            this.RibBtnProvincias = new System.Windows.Forms.RibbonButton();
+            this.RibBtnDistritos = new System.Windows.Forms.RibbonButton();
+            this.RibPnlSUNAT = new System.Windows.Forms.RibbonPanel();
+            this.RibBtnImpuestos = new System.Windows.Forms.RibbonButton();
+            this.RibBtnMonedas = new System.Windows.Forms.RibbonButton();
+            this.RibBtnTipoDoc = new System.Windows.Forms.RibbonButton();
+            this.RibBtnUnidMedidas = new System.Windows.Forms.RibbonButton();
+            this.RibPnlProductos = new System.Windows.Forms.RibbonPanel();
+            this.RibBtnMarcas = new System.Windows.Forms.RibbonButton();
+            this.RibBtnClases = new System.Windows.Forms.RibbonButton();
+            this.RibBtnProductos = new System.Windows.Forms.RibbonButton();
             this.TmrHora = new System.Windows.Forms.Timer(this.components);
             this.ribbonOrbMenuItem1 = new System.Windows.Forms.RibbonOrbMenuItem();
             this.ribbonOrbMenuItem2 = new System.Windows.Forms.RibbonOrbMenuItem();
@@ -61,8 +77,8 @@
             this.statusStrip.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TsslStatus,
-            this.TsslCaja,
             this.TsslEmpleado,
+            this.TsslCaja,
             this.TsslFecha,
             this.TsslHora});
             this.statusStrip.Location = new System.Drawing.Point(0, 386);
@@ -75,19 +91,19 @@
             // TsslStatus
             // 
             this.TsslStatus.Name = "TsslStatus";
-            this.TsslStatus.Size = new System.Drawing.Size(894, 17);
+            this.TsslStatus.Size = new System.Drawing.Size(925, 17);
             this.TsslStatus.Spring = true;
             this.TsslStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // TsslCaja
-            // 
-            this.TsslCaja.Name = "TsslCaja";
-            this.TsslCaja.Size = new System.Drawing.Size(0, 17);
             // 
             // TsslEmpleado
             // 
             this.TsslEmpleado.Name = "TsslEmpleado";
             this.TsslEmpleado.Size = new System.Drawing.Size(0, 17);
+            // 
+            // TsslCaja
+            // 
+            this.TsslCaja.Name = "TsslCaja";
+            this.TsslCaja.Size = new System.Drawing.Size(0, 17);
             // 
             // TsslFecha
             // 
@@ -112,10 +128,10 @@
             this.Ribbon.OrbDropDown.BorderRoundness = 8;
             this.Ribbon.OrbDropDown.Location = new System.Drawing.Point(0, 0);
             this.Ribbon.OrbDropDown.Name = "";
-            this.Ribbon.OrbDropDown.Size = new System.Drawing.Size(527, 447);
+            this.Ribbon.OrbDropDown.Size = new System.Drawing.Size(527, 72);
             this.Ribbon.OrbDropDown.TabIndex = 0;
-            this.Ribbon.OrbDropDown.Visible = false;
             this.Ribbon.OrbStyle = System.Windows.Forms.RibbonOrbStyle.Office_2013;
+            this.Ribbon.OrbVisible = false;
             // 
             // 
             // 
@@ -125,6 +141,7 @@
             this.Ribbon.Size = new System.Drawing.Size(948, 120);
             this.Ribbon.TabIndex = 4;
             this.Ribbon.Tabs.Add(this.RibTabInicio);
+            this.Ribbon.Tabs.Add(this.RibTabDatosGenerales);
             this.Ribbon.TabsMargin = new System.Windows.Forms.Padding(5, 2, 20, 0);
             this.Ribbon.TabSpacing = 4;
             this.Ribbon.Text = "Herramientas";
@@ -155,11 +172,12 @@
             // 
             // RibPnlAcciones
             // 
-            this.RibPnlAcciones.ButtonMoreEnabled = false;
+            this.RibPnlAcciones.ButtonMoreVisible = false;
             this.RibPnlAcciones.Items.Add(this.RibBtnAbrirCaja);
             this.RibPnlAcciones.Items.Add(this.RibBtnEmpresas);
             this.RibPnlAcciones.Items.Add(this.RibBtnEmpleados);
             this.RibPnlAcciones.Items.Add(this.RibBtnClientes);
+            this.RibPnlAcciones.Items.Add(this.RibBtnDocsPago);
             this.RibPnlAcciones.Name = "RibPnlAcciones";
             this.RibPnlAcciones.Text = "Acciones";
             // 
@@ -171,6 +189,7 @@
             this.RibBtnAbrirCaja.Name = "RibBtnAbrirCaja";
             this.RibBtnAbrirCaja.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnAbrirCaja.SmallImage")));
             this.RibBtnAbrirCaja.Text = "Abrir Caja";
+            this.RibBtnAbrirCaja.Click += new System.EventHandler(this.RibBtnAbrirCaja_Click);
             // 
             // RibBtnEmpresas
             // 
@@ -195,6 +214,138 @@
             this.RibBtnClientes.Name = "RibBtnClientes";
             this.RibBtnClientes.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnClientes.SmallImage")));
             this.RibBtnClientes.Text = "Clientes";
+            // 
+            // RibBtnDocsPago
+            // 
+            this.RibBtnDocsPago.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnDocsPago.Image")));
+            this.RibBtnDocsPago.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnDocsPago.LargeImage")));
+            this.RibBtnDocsPago.Name = "RibBtnDocsPago";
+            this.RibBtnDocsPago.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnDocsPago.SmallImage")));
+            this.RibBtnDocsPago.Text = "Documentos de Pago";
+            // 
+            // RibTabDatosGenerales
+            // 
+            this.RibTabDatosGenerales.Name = "RibTabDatosGenerales";
+            this.RibTabDatosGenerales.Panels.Add(this.RibPnlUBIGEO);
+            this.RibTabDatosGenerales.Panels.Add(this.RibPnlSUNAT);
+            this.RibTabDatosGenerales.Panels.Add(this.RibPnlProductos);
+            this.RibTabDatosGenerales.Text = "Datos Generales";
+            // 
+            // RibPnlUBIGEO
+            // 
+            this.RibPnlUBIGEO.ButtonMoreVisible = false;
+            this.RibPnlUBIGEO.Items.Add(this.RibBtnPaises);
+            this.RibPnlUBIGEO.Items.Add(this.RibBtnDepartamentos);
+            this.RibPnlUBIGEO.Items.Add(this.RibBtnProvincias);
+            this.RibPnlUBIGEO.Items.Add(this.RibBtnDistritos);
+            this.RibPnlUBIGEO.Name = "RibPnlUBIGEO";
+            this.RibPnlUBIGEO.Text = "UBIGEO";
+            // 
+            // RibBtnPaises
+            // 
+            this.RibBtnPaises.Image = global::EsconPOS.Properties.Resources.Paises;
+            this.RibBtnPaises.LargeImage = global::EsconPOS.Properties.Resources.Paises;
+            this.RibBtnPaises.Name = "RibBtnPaises";
+            this.RibBtnPaises.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnPaises.SmallImage")));
+            this.RibBtnPaises.Text = "Paises";
+            // 
+            // RibBtnDepartamentos
+            // 
+            this.RibBtnDepartamentos.Image = global::EsconPOS.Properties.Resources.Departamentos;
+            this.RibBtnDepartamentos.LargeImage = global::EsconPOS.Properties.Resources.Departamentos;
+            this.RibBtnDepartamentos.Name = "RibBtnDepartamentos";
+            this.RibBtnDepartamentos.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnDepartamentos.SmallImage")));
+            this.RibBtnDepartamentos.Text = "Departamentos";
+            // 
+            // RibBtnProvincias
+            // 
+            this.RibBtnProvincias.Image = global::EsconPOS.Properties.Resources.Provincias;
+            this.RibBtnProvincias.LargeImage = global::EsconPOS.Properties.Resources.Provincias;
+            this.RibBtnProvincias.Name = "RibBtnProvincias";
+            this.RibBtnProvincias.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnProvincias.SmallImage")));
+            this.RibBtnProvincias.Text = "Provincias";
+            // 
+            // RibBtnDistritos
+            // 
+            this.RibBtnDistritos.Image = global::EsconPOS.Properties.Resources.Ubicacion1;
+            this.RibBtnDistritos.LargeImage = global::EsconPOS.Properties.Resources.Ubicacion1;
+            this.RibBtnDistritos.Name = "RibBtnDistritos";
+            this.RibBtnDistritos.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnDistritos.SmallImage")));
+            this.RibBtnDistritos.Text = "Distritos";
+            // 
+            // RibPnlSUNAT
+            // 
+            this.RibPnlSUNAT.ButtonMoreVisible = false;
+            this.RibPnlSUNAT.Items.Add(this.RibBtnImpuestos);
+            this.RibPnlSUNAT.Items.Add(this.RibBtnMonedas);
+            this.RibPnlSUNAT.Items.Add(this.RibBtnTipoDoc);
+            this.RibPnlSUNAT.Items.Add(this.RibBtnUnidMedidas);
+            this.RibPnlSUNAT.Name = "RibPnlSUNAT";
+            this.RibPnlSUNAT.Text = "SUNAT";
+            // 
+            // RibBtnImpuestos
+            // 
+            this.RibBtnImpuestos.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnImpuestos.Image")));
+            this.RibBtnImpuestos.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnImpuestos.LargeImage")));
+            this.RibBtnImpuestos.Name = "RibBtnImpuestos";
+            this.RibBtnImpuestos.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnImpuestos.SmallImage")));
+            this.RibBtnImpuestos.Text = "Impuestos";
+            // 
+            // RibBtnMonedas
+            // 
+            this.RibBtnMonedas.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnMonedas.Image")));
+            this.RibBtnMonedas.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnMonedas.LargeImage")));
+            this.RibBtnMonedas.Name = "RibBtnMonedas";
+            this.RibBtnMonedas.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnMonedas.SmallImage")));
+            this.RibBtnMonedas.Text = "Monedas";
+            // 
+            // RibBtnTipoDoc
+            // 
+            this.RibBtnTipoDoc.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnTipoDoc.Image")));
+            this.RibBtnTipoDoc.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnTipoDoc.LargeImage")));
+            this.RibBtnTipoDoc.Name = "RibBtnTipoDoc";
+            this.RibBtnTipoDoc.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnTipoDoc.SmallImage")));
+            this.RibBtnTipoDoc.Text = "Tipos de Documentos";
+            // 
+            // RibBtnUnidMedidas
+            // 
+            this.RibBtnUnidMedidas.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnUnidMedidas.Image")));
+            this.RibBtnUnidMedidas.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnUnidMedidas.LargeImage")));
+            this.RibBtnUnidMedidas.Name = "RibBtnUnidMedidas";
+            this.RibBtnUnidMedidas.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnUnidMedidas.SmallImage")));
+            this.RibBtnUnidMedidas.Text = "Unidades de Medida";
+            // 
+            // RibPnlProductos
+            // 
+            this.RibPnlProductos.Items.Add(this.RibBtnMarcas);
+            this.RibPnlProductos.Items.Add(this.RibBtnClases);
+            this.RibPnlProductos.Items.Add(this.RibBtnProductos);
+            this.RibPnlProductos.Name = "RibPnlProductos";
+            this.RibPnlProductos.Text = "Productos";
+            // 
+            // RibBtnMarcas
+            // 
+            this.RibBtnMarcas.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnMarcas.Image")));
+            this.RibBtnMarcas.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnMarcas.LargeImage")));
+            this.RibBtnMarcas.Name = "RibBtnMarcas";
+            this.RibBtnMarcas.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnMarcas.SmallImage")));
+            this.RibBtnMarcas.Text = "Marcas";
+            // 
+            // RibBtnClases
+            // 
+            this.RibBtnClases.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnClases.Image")));
+            this.RibBtnClases.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnClases.LargeImage")));
+            this.RibBtnClases.Name = "RibBtnClases";
+            this.RibBtnClases.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnClases.SmallImage")));
+            this.RibBtnClases.Text = "Clases";
+            // 
+            // RibBtnProductos
+            // 
+            this.RibBtnProductos.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnProductos.Image")));
+            this.RibBtnProductos.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnProductos.LargeImage")));
+            this.RibBtnProductos.Name = "RibBtnProductos";
+            this.RibBtnProductos.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnProductos.SmallImage")));
+            this.RibBtnProductos.Text = "Productos/ Servicios";
             // 
             // TmrHora
             // 
@@ -297,6 +448,22 @@
         private System.Windows.Forms.RibbonOrbRecentItem ribbonOrbRecentItem2;
         private System.Windows.Forms.RibbonOrbOptionButton ribbonOrbOptionButton1;
         private System.Windows.Forms.RibbonOrbOptionButton ribbonOrbOptionButton2;
+        private System.Windows.Forms.RibbonButton RibBtnDocsPago;
+        private System.Windows.Forms.RibbonTab RibTabDatosGenerales;
+        private System.Windows.Forms.RibbonPanel RibPnlUBIGEO;
+        private System.Windows.Forms.RibbonButton RibBtnPaises;
+        private System.Windows.Forms.RibbonButton RibBtnDepartamentos;
+        private System.Windows.Forms.RibbonButton RibBtnProvincias;
+        private System.Windows.Forms.RibbonButton RibBtnDistritos;
+        private System.Windows.Forms.RibbonPanel RibPnlSUNAT;
+        private System.Windows.Forms.RibbonButton RibBtnImpuestos;
+        private System.Windows.Forms.RibbonButton RibBtnMonedas;
+        private System.Windows.Forms.RibbonButton RibBtnTipoDoc;
+        private System.Windows.Forms.RibbonButton RibBtnUnidMedidas;
+        private System.Windows.Forms.RibbonPanel RibPnlProductos;
+        private System.Windows.Forms.RibbonButton RibBtnMarcas;
+        private System.Windows.Forms.RibbonButton RibBtnClases;
+        private System.Windows.Forms.RibbonButton RibBtnProductos;
     }
 }
 

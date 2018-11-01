@@ -13,7 +13,7 @@ namespace EsconPOS.forms
 {
     public partial class FrmEntrada : Form
     {
-        private Datos Conx = Datos.Conx;
+        //private Datos Conx = Datos.Conx;
         private bool LoggedIN = false;
 
         public FrmEntrada()
@@ -24,49 +24,49 @@ namespace EsconPOS.forms
         private void Entrada()
         {
             SetStatus("Abriendo la base de datos...");
-            try
-            {
-                Conx.OpenDatabase();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error abriendo la base de datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
+            //try
+            //{
+            //    Conx.OpenDatabase();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Error abriendo la base de datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //}
             SetStatus("Buscando el usuario...");
-            Empleados Usuario = new Empleados(Conx);
-            if (Usuario.EmpleadoAdminDefinido())
-            {
-                try
-                {
-                    Global.Empleado = Usuario.Entrada(txtUsuario.Text.ToUpper(), txtContrasenia.Text);
-                    if (Global.Empleado == null)
-                    { 
-                        MessageBox.Show("Empleado no está definido en el sistema.","Datos inválidos",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
-                        return;
-                    }
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error buscando el usuario", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return;
-                }
-            }
-            else
-            {
-                SetStatus("Configuración del sistema (1era vez)...");
-                FrmConfiguracion fconf = new FrmConfiguracion();
-                fconf.ShowDialog();
-            }
-            try
-            {
-                SetStatus("Buscando datos de la caja...");
-                Cajas Caja = new Cajas(Conx);
-                Global.Caja = Caja.Buscar();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error en la entrada al sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
+            //Empleados Usuario = new Empleados(Conx);
+            //if (Usuario.EmpleadoAdminDefinido())
+            //{
+            //    try
+            //    {
+            //        Global.Empleado = Usuario.Entrada(txtUsuario.Text.ToUpper(), txtContrasenia.Text);
+            //        if (Global.Empleado == null)
+            //        { 
+            //            MessageBox.Show("Empleado no está definido en el sistema.","Datos inválidos",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+            //            return;
+            //        }
+            //    }
+            //    catch(Exception ex)
+            //    {
+            //        MessageBox.Show(ex.Message, "Error buscando el usuario", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //        return;
+            //    }
+            //}
+            //else
+            //{
+            //    SetStatus("Configuración del sistema (1era vez)...");
+            //    FrmConfiguracion fconf = new FrmConfiguracion();
+            //    fconf.ShowDialog();
+            //}
+            //try
+            //{
+            //    SetStatus("Buscando datos de la caja...");
+            //    Cajas Caja = new Cajas(Conx);
+            //    Global.Caja = Caja.Buscar();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Error en la entrada al sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //}
             LoggedIN = true;
             SetStatus();
             Close();
