@@ -25,6 +25,7 @@ namespace EsconPOS
         public string Codigo { get; set; }
         public long Orden { get; set; }
         public long RequiereAutorizacion { get; set; }
+        public long Activo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pagos> Pagos { get; set; }

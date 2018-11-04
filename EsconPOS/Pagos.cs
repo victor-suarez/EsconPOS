@@ -22,6 +22,8 @@ namespace EsconPOS
         public Nullable<long> BancoID { get; set; }
         public string NroDocPago { get; set; }
         public string Autorizacion { get; set; }
+        public string AgregadoEl { get; set; }
+        public long AgregadoPor { get; set; }
     
         public virtual Documentos Documentos { get; set; }
         public virtual FormasPagos FormasPagos { get; set; }

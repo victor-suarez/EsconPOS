@@ -85,11 +85,7 @@
     <Compile Include="Cajas.cs">
       <DependentUpon>EsconPOS.tt</DependentUpon>
     </Compile>
-    <Compile Include="classes\Cajas.cs" />
-    <Compile Include="classes\Datos.cs" />
     <Compile Include="classes\Global.cs" />
-    <Compile Include="classes\Empleados.cs" />
-    <Compile Include="classes\Identificaciones.cs" />
     <Compile Include="Clientes.cs">
       <DependentUpon>EsconPOS.tt</DependentUpon>
     </Compile>
@@ -225,6 +221,9 @@
     <Compile Include="UnidadesMedidas.cs">
       <DependentUpon>EsconPOS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Usuarios.cs">
+      <DependentUpon>EsconPOS.tt</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="forms\FrmConfiguracion.resx">
       <DependentUpon>FrmConfiguracion.cs</DependentUpon>
     </EmbeddedResource>
@@ -259,6 +258,7 @@
       <DependentUpon>EsconPOS.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Usuarios.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -271,18 +271,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CajaCerrada.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Empresas.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Empleados.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Clientes.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Guardar.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Salir.png" />
@@ -299,6 +287,10 @@
       <LastGenOutput>EsconPOS.cs</LastGenOutput>
     </Content>
     <Content Include="Resources\CajaAbierta.png" />
+    <None Include="Resources\Guardar.png" />
+    <None Include="Resources\Empleados.png" />
+    <None Include="Resources\Empresas.png" />
+    <None Include="Resources\Clientes.png" />
     <None Include="Resources\Unidades.png" />
     <None Include="Resources\Monedas.png" />
     <None Include="Resources\Impuestos.png" />

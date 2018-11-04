@@ -48,5 +48,6 @@ namespace EsconPOS
         public virtual DbSet<TiposProductos> TiposProductos { get; set; }
         public virtual DbSet<Transacciones> Transacciones { get; set; }
         public virtual DbSet<UnidadesMedidas> UnidadesMedidas { get; set; }
+        public virtual DbSet<Usuarios> Usuarios { get; set; }
     }
 }

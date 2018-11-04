@@ -32,6 +32,8 @@ namespace EsconPOS
         public string Urbanizacion { get; set; }
         public string NroTelefonico { get; set; }
         public string CorreoElectronico { get; set; }
+        public string AgregadoEl { get; set; }
+        public long AgregadoPor { get; set; }
     
         public virtual Distritos Distritos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

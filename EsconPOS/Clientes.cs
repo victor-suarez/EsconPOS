@@ -30,6 +30,9 @@ namespace EsconPOS
         public Nullable<long> DistritoID { get; set; }
         public string NroTelefonico { get; set; }
         public string CorreoElectronico { get; set; }
+        public long Activo { get; set; }
+        public string AgregadoEl { get; set; }
+        public long AgregadoPor { get; set; }
     
         public virtual Distritos Distritos { get; set; }
         public virtual Paises Paises { get; set; }

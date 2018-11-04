@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="mainModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Users\vsuarez\VisualStudio\EsconPOS\EsconPOS\bin\Debug\database\EsconPOS.db;Foreign Keys=True" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="mainModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Users\vsuarez\VisualStudio\EsconPOS\EsconPOS\bin\Debug\database\EsconPOS.db;Foreign Keys=True" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CajaLog">
           <Key>
             <PropertyRef Name="CajaLogID" />
@@ -13,7 +13,7 @@
           <Property Name="CajaID" Type="integer" Nullable="false" />
           <Property Name="TransaccionID" Type="integer" Nullable="false" />
           <Property Name="EmpleadoID" Type="integer" Nullable="false" />
-          <Property Name="Monto" Type="integer" Nullable="false" />
+          <Property Name="Monto" Type="real" Nullable="false" />
           <Property Name="Fecha" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Hora" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
@@ -39,6 +39,9 @@
           <Property Name="DistritoID" Type="integer" />
           <Property Name="NroTelefonico" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="CorreoElectronico" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Activo" Type="integer" Nullable="false" />
+          <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="AgregadoPor" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Configuraciones">
           <Key>
@@ -48,6 +51,8 @@
           <Property Name="CajaID" Type="integer" Nullable="false" />
           <Property Name="Configuracion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Valor" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="AgregadoPor" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Departamentos">
           <Key>
@@ -88,6 +93,8 @@
           <Property Name="SubTotal" Type="real" Nullable="false" />
           <Property Name="MontoDescuentos" Type="real" Nullable="false" />
           <Property Name="MontoNeto" Type="real" Nullable="false" />
+          <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="AgregadoPor" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Empleados">
           <Key>
@@ -101,9 +108,12 @@
           <Property Name="Telefono" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="CorreoElectronico" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Login" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
-          <Property Name="PasswdHash" Type="blob" Nullable="false" />
+          <Property Name="PasswdHash" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="EsSupervisor" Type="integer" Nullable="false" />
           <Property Name="EsAdministrador" Type="integer" Nullable="false" />
+          <Property Name="Activo" Type="integer" />
+          <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="AgregadoPor" Type="integer" />
         </EntityType>
         <EntityType Name="Empresas">
           <Key>
@@ -119,6 +129,8 @@
           <Property Name="Urbanizacion" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="NroTelefonico" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="CorreoElectronico" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="AgregadoPor" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="EmpresasClientes">
           <Key>
@@ -145,6 +157,7 @@
           <Property Name="Codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Orden" Type="integer" Nullable="false" />
           <Property Name="RequiereAutorizacion" Type="integer" Nullable="false" />
+          <Property Name="Activo" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Identificaciones">
           <Key>
@@ -192,6 +205,9 @@
           </Key>
           <Property Name="MarcaID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Marca" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Activo" Type="integer" Nullable="false" />
+          <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="AgregadoPor" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Monedas">
           <Key>
@@ -203,6 +219,9 @@
           <Property Name="PorDefecto" Type="integer" Nullable="false" />
           <Property Name="Base" Type="integer" Nullable="false" />
           <Property Name="FactorCambiario" Type="real" Nullable="false" />
+          <Property Name="Activo" Type="integer" Nullable="false" />
+          <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="AgregadoPor" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Pagos">
           <Key>
@@ -216,6 +235,8 @@
           <Property Name="BancoID" Type="integer" />
           <Property Name="NroDocPago" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Autorizacion" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="AgregadoPor" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Paises">
           <Key>
@@ -238,6 +259,9 @@
           <Property Name="ImpuestoID" Type="integer" Nullable="false" />
           <Property Name="UnidadMedidaID" Type="integer" Nullable="false" />
           <Property Name="Presentacion" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Activo" Type="integer" Nullable="false" />
+          <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="AgregadoPor" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Provincias">
           <Key>
@@ -263,6 +287,9 @@
           </Key>
           <Property Name="TipoProductoID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TipoProducto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Activo" Type="integer" Nullable="false" />
+          <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="AgregadoPor" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Transacciones">
           <Key>
@@ -280,6 +307,20 @@
           <Property Name="Codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="UnidadMedida" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="PorDefecto" Type="integer" Nullable="false" />
+          <Property Name="Activo" Type="integer" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'main.Usuarios' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="PasswdHash" />
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="UsuarioID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usuario" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="PasswdHash" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="EsAdministrador" Type="integer" Nullable="false" />
         </EntityType>
         <Association Name="FK_CajaLog_0_0">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
@@ -378,42 +419,6 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Documentos_0_0">
-          <End Role="Cajas" Type="Self.Cajas" Multiplicity="1" />
-          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cajas">
-              <PropertyRef Name="CajaID" />
-            </Principal>
-            <Dependent Role="Documentos">
-              <PropertyRef Name="CajaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Documentos_1_0">
-          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
-          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleados">
-              <PropertyRef Name="EmpleadoID" />
-            </Principal>
-            <Dependent Role="Documentos">
-              <PropertyRef Name="EmpleadoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Documentos_2_0">
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
-          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clientes">
-              <PropertyRef Name="ClienteID" />
-            </Principal>
-            <Dependent Role="Documentos">
-              <PropertyRef Name="ClienteID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Documentos_3_0">
           <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
           <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -425,7 +430,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Documentos_4_0">
+        <Association Name="FK_Documentos_1_0">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="ClienteID" />
+            </Principal>
+            <Dependent Role="Documentos">
+              <PropertyRef Name="ClienteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documentos_2_0">
+          <End Role="Cajas" Type="Self.Cajas" Multiplicity="1" />
+          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cajas">
+              <PropertyRef Name="CajaID" />
+            </Principal>
+            <Dependent Role="Documentos">
+              <PropertyRef Name="CajaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documentos_3_0">
           <End Role="TiposDocumentos" Type="Self.TiposDocumentos" Multiplicity="1" />
           <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -434,6 +463,18 @@
             </Principal>
             <Dependent Role="Documentos">
               <PropertyRef Name="TipoDocumentoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documentos_4_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Documentos">
+              <PropertyRef Name="EmpleadoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -606,6 +647,18 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Productos_1_0">
+          <End Role="Impuestos" Type="Self.Impuestos" Multiplicity="1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Impuestos">
+              <PropertyRef Name="ImpuestoID" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="ImpuestoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Productos_2_0">
           <End Role="TiposProductos" Type="Self.TiposProductos" Multiplicity="0..1" />
           <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -617,7 +670,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Productos_2_0">
+        <Association Name="FK_Productos_3_0">
           <End Role="Marcas" Type="Self.Marcas" Multiplicity="0..1" />
           <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -626,18 +679,6 @@
             </Principal>
             <Dependent Role="Productos">
               <PropertyRef Name="MarcaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Productos_3_0">
-          <End Role="Impuestos" Type="Self.Impuestos" Multiplicity="1" />
-          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Impuestos">
-              <PropertyRef Name="ImpuestoID" />
-            </Principal>
-            <Dependent Role="Productos">
-              <PropertyRef Name="ImpuestoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -679,6 +720,15 @@
           <EntitySet Name="TiposProductos" EntityType="Self.TiposProductos" store:Type="Tables" />
           <EntitySet Name="Transacciones" EntityType="Self.Transacciones" store:Type="Tables" />
           <EntitySet Name="UnidadesMedidas" EntityType="Self.UnidadesMedidas" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" store:Type="Views">
+            <DefiningQuery>SELECT 
+[Usuarios].[UsuarioID] AS [UsuarioID], 
+[Usuarios].[Usuario] AS [Usuario], 
+[Usuarios].[Login] AS [Login], 
+[Usuarios].[PasswdHash] AS [PasswdHash], 
+[Usuarios].[EsAdministrador] AS [EsAdministrador]
+FROM [Usuarios] AS [Usuarios]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_CajaLog_0_0" Association="Self.FK_CajaLog_0_0">
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="CajaLog" EntitySet="CajaLog" />
@@ -712,23 +762,23 @@
             <End Role="Distritos" EntitySet="Distritos" />
           </AssociationSet>
           <AssociationSet Name="FK_Documentos_0_0" Association="Self.FK_Documentos_0_0">
-            <End Role="Cajas" EntitySet="Cajas" />
-            <End Role="Documentos" EntitySet="Documentos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Documentos_1_0" Association="Self.FK_Documentos_1_0">
-            <End Role="Empleados" EntitySet="Empleados" />
-            <End Role="Documentos" EntitySet="Documentos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Documentos_2_0" Association="Self.FK_Documentos_2_0">
-            <End Role="Clientes" EntitySet="Clientes" />
-            <End Role="Documentos" EntitySet="Documentos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Documentos_3_0" Association="Self.FK_Documentos_3_0">
             <End Role="Empresas" EntitySet="Empresas" />
             <End Role="Documentos" EntitySet="Documentos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Documentos_4_0" Association="Self.FK_Documentos_4_0">
+          <AssociationSet Name="FK_Documentos_1_0" Association="Self.FK_Documentos_1_0">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Documentos" EntitySet="Documentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documentos_2_0" Association="Self.FK_Documentos_2_0">
+            <End Role="Cajas" EntitySet="Cajas" />
+            <End Role="Documentos" EntitySet="Documentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documentos_3_0" Association="Self.FK_Documentos_3_0">
             <End Role="TiposDocumentos" EntitySet="TiposDocumentos" />
+            <End Role="Documentos" EntitySet="Documentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documentos_4_0" Association="Self.FK_Documentos_4_0">
+            <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Documentos" EntitySet="Documentos" />
           </AssociationSet>
           <AssociationSet Name="FK_Empresas_0_0" Association="Self.FK_Empresas_0_0">
@@ -788,15 +838,15 @@
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_Productos_1_0" Association="Self.FK_Productos_1_0">
-            <End Role="TiposProductos" EntitySet="TiposProductos" />
+            <End Role="Impuestos" EntitySet="Impuestos" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_Productos_2_0" Association="Self.FK_Productos_2_0">
-            <End Role="Marcas" EntitySet="Marcas" />
+            <End Role="TiposProductos" EntitySet="TiposProductos" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_Productos_3_0" Association="Self.FK_Productos_3_0">
-            <End Role="Impuestos" EntitySet="Impuestos" />
+            <End Role="Marcas" EntitySet="Marcas" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_Provincias_0_0" Association="Self.FK_Provincias_0_0">
@@ -804,8 +854,7 @@
             <End Role="Provincias" EntitySet="Provincias" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="mainModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -817,7 +866,7 @@
           <Property Name="CajaID" Type="Int64" Nullable="false" />
           <Property Name="TransaccionID" Type="Int64" Nullable="false" />
           <Property Name="EmpleadoID" Type="Int64" Nullable="false" />
-          <Property Name="Monto" Type="Int64" Nullable="false" />
+          <Property Name="Monto" Type="Double" Nullable="false" />
           <Property Name="Fecha" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Hora" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Empleados" Relationship="Self.FK_CajaLog_0_0" FromRole="CajaLog" ToRole="Empleados" />
@@ -833,7 +882,7 @@
           <Property Name="Abierta" Type="Int64" Nullable="false" />
           <Property Name="FechaHoraEstado" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="CajaLog" Relationship="Self.FK_CajaLog_2_0" FromRole="Cajas" ToRole="CajaLog" />
-          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_0_0" FromRole="Cajas" ToRole="Documentos" />
+          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_2_0" FromRole="Cajas" ToRole="Documentos" />
         </EntityType>
         <EntityType Name="Clientes">
           <Key>
@@ -848,10 +897,13 @@
           <Property Name="DistritoID" Type="Int64" />
           <Property Name="NroTelefonico" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="CorreoElectronico" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Activo" Type="Int64" Nullable="false" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgregadoPor" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Distritos" Relationship="Self.FK_Clientes_0_0" FromRole="Clientes" ToRole="Distritos" />
           <NavigationProperty Name="Paises" Relationship="Self.FK_Clientes_1_0" FromRole="Clientes" ToRole="Paises" />
           <NavigationProperty Name="Identificaciones" Relationship="Self.FK_Clientes_2_0" FromRole="Clientes" ToRole="Identificaciones" />
-          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_2_0" FromRole="Clientes" ToRole="Documentos" />
+          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_1_0" FromRole="Clientes" ToRole="Documentos" />
           <NavigationProperty Name="Empresas" Relationship="Self.EmpresasClientes" FromRole="Clientes" ToRole="Empresas" />
         </EntityType>
         <EntityType Name="Configuraciones">
@@ -862,6 +914,8 @@
           <Property Name="CajaID" Type="Int64" Nullable="false" />
           <Property Name="Configuracion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Valor" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgregadoPor" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="Departamentos">
           <Key>
@@ -907,11 +961,13 @@
           <Property Name="SubTotal" Type="Double" Nullable="false" />
           <Property Name="MontoDescuentos" Type="Double" Nullable="false" />
           <Property Name="MontoNeto" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Cajas" Relationship="Self.FK_Documentos_0_0" FromRole="Documentos" ToRole="Cajas" />
-          <NavigationProperty Name="Clientes" Relationship="Self.FK_Documentos_2_0" FromRole="Documentos" ToRole="Clientes" />
-          <NavigationProperty Name="Empleados" Relationship="Self.FK_Documentos_1_0" FromRole="Documentos" ToRole="Empleados" />
-          <NavigationProperty Name="Empresas" Relationship="Self.FK_Documentos_3_0" FromRole="Documentos" ToRole="Empresas" />
-          <NavigationProperty Name="TiposDocumentos" Relationship="Self.FK_Documentos_4_0" FromRole="Documentos" ToRole="TiposDocumentos" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgregadoPor" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Cajas" Relationship="Self.FK_Documentos_2_0" FromRole="Documentos" ToRole="Cajas" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Documentos_1_0" FromRole="Documentos" ToRole="Clientes" />
+          <NavigationProperty Name="Empresas" Relationship="Self.FK_Documentos_0_0" FromRole="Documentos" ToRole="Empresas" />
+          <NavigationProperty Name="TiposDocumentos" Relationship="Self.FK_Documentos_3_0" FromRole="Documentos" ToRole="TiposDocumentos" />
+          <NavigationProperty Name="Empleados" Relationship="Self.FK_Documentos_4_0" FromRole="Documentos" ToRole="Empleados" />
           <NavigationProperty Name="ItemsDocumentos" Relationship="Self.FK_ItemsDocumentos_3_0" FromRole="Documentos" ToRole="ItemsDocumentos" />
           <NavigationProperty Name="Pagos" Relationship="Self.FK_Pagos_2_0" FromRole="Documentos" ToRole="Pagos" />
         </EntityType>
@@ -921,17 +977,20 @@
           </Key>
           <Property Name="EmpleadoID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdentificacionID" Type="Int64" Nullable="false" />
-          <Property Name="NroDocIdent" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Direccion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="Telefono" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="CorreoElectronico" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="Login" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PasswdHash" Type="Binary" MaxLength="2147483647" FixedLength="false" Nullable="false" />
+          <Property Name="NroDocIdent" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Telefono" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CorreoElectronico" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswdHash" Type="String" Nullable="false" MaxLength="20" />
           <Property Name="EsSupervisor" Type="Int64" Nullable="false" />
           <Property Name="EsAdministrador" Type="Int64" Nullable="false" />
+          <Property Name="Activo" Type="Int64" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="AgregadoPor" Type="Int64" />
           <NavigationProperty Name="CajaLog" Relationship="Self.FK_CajaLog_0_0" FromRole="Empleados" ToRole="CajaLog" />
-          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_1_0" FromRole="Empleados" ToRole="Documentos" />
+          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_4_0" FromRole="Empleados" ToRole="Documentos" />
           <NavigationProperty Name="ItemsDocumentos" Relationship="Self.FK_ItemsDocumentos_0_0" FromRole="Empleados" ToRole="ItemsDocumentos" />
           <NavigationProperty Name="Empresas" Relationship="Self.EmpresasEmpleados" FromRole="Empleados" ToRole="Empresas" />
         </EntityType>
@@ -949,8 +1008,10 @@
           <Property Name="Urbanizacion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="NroTelefonico" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="CorreoElectronico" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgregadoPor" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Distritos" Relationship="Self.FK_Empresas_0_0" FromRole="Empresas" ToRole="Distritos" />
-          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_3_0" FromRole="Empresas" ToRole="Documentos" />
+          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_0_0" FromRole="Empresas" ToRole="Documentos" />
           <NavigationProperty Name="Identificaciones" Relationship="Self.FK_Empresas_1_0" FromRole="Empresas" ToRole="Identificaciones" />
           <NavigationProperty Name="Clientes" Relationship="Self.EmpresasClientes" FromRole="Empresas" ToRole="Clientes" />
           <NavigationProperty Name="Empleados" Relationship="Self.EmpresasEmpleados" FromRole="Empresas" ToRole="Empleados" />
@@ -964,6 +1025,7 @@
           <Property Name="Codigo" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Orden" Type="Int64" Nullable="false" />
           <Property Name="RequiereAutorizacion" Type="Int64" Nullable="false" />
+          <Property Name="Activo" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Pagos" Relationship="Self.FK_Pagos_1_0" FromRole="FormasPagos" ToRole="Pagos" />
         </EntityType>
         <EntityType Name="Identificaciones">
@@ -990,7 +1052,7 @@
           <Property Name="ValidoHasta" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Activo" Type="Int64" Nullable="false" />
           <NavigationProperty Name="ItemsDocumentos" Relationship="Self.FK_ItemsDocumentos_1_0" FromRole="Impuestos" ToRole="ItemsDocumentos" />
-          <NavigationProperty Name="Productos" Relationship="Self.FK_Productos_3_0" FromRole="Impuestos" ToRole="Productos" />
+          <NavigationProperty Name="Productos" Relationship="Self.FK_Productos_1_0" FromRole="Impuestos" ToRole="Productos" />
         </EntityType>
         <EntityType Name="ItemsDocumentos">
           <Key>
@@ -1020,7 +1082,10 @@
           </Key>
           <Property Name="MarcaID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Marca" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Productos" Relationship="Self.FK_Productos_2_0" FromRole="Marcas" ToRole="Productos" />
+          <Property Name="Activo" Type="Int64" Nullable="false" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgregadoPor" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Productos" Relationship="Self.FK_Productos_3_0" FromRole="Marcas" ToRole="Productos" />
         </EntityType>
         <EntityType Name="Monedas">
           <Key>
@@ -1032,6 +1097,9 @@
           <Property Name="PorDefecto" Type="Int64" Nullable="false" />
           <Property Name="Base" Type="Int64" Nullable="false" />
           <Property Name="FactorCambiario" Type="Double" Nullable="false" />
+          <Property Name="Activo" Type="Int64" Nullable="false" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgregadoPor" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Pagos" Relationship="Self.FK_Pagos_0_0" FromRole="Monedas" ToRole="Pagos" />
         </EntityType>
         <EntityType Name="Pagos">
@@ -1046,6 +1114,8 @@
           <Property Name="BancoID" Type="Int64" />
           <Property Name="NroDocPago" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Autorizacion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgregadoPor" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Documentos" Relationship="Self.FK_Pagos_2_0" FromRole="Pagos" ToRole="Documentos" />
           <NavigationProperty Name="FormasPagos" Relationship="Self.FK_Pagos_1_0" FromRole="Pagos" ToRole="FormasPagos" />
           <NavigationProperty Name="Monedas" Relationship="Self.FK_Pagos_0_0" FromRole="Pagos" ToRole="Monedas" />
@@ -1073,11 +1143,14 @@
           <Property Name="ImpuestoID" Type="Int64" Nullable="false" />
           <Property Name="UnidadMedidaID" Type="Int64" Nullable="false" />
           <Property Name="Presentacion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Impuestos" Relationship="Self.FK_Productos_3_0" FromRole="Productos" ToRole="Impuestos" />
+          <Property Name="Activo" Type="Int64" Nullable="false" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgregadoPor" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Impuestos" Relationship="Self.FK_Productos_1_0" FromRole="Productos" ToRole="Impuestos" />
           <NavigationProperty Name="ItemsDocumentos" Relationship="Self.FK_ItemsDocumentos_2_0" FromRole="Productos" ToRole="ItemsDocumentos" />
-          <NavigationProperty Name="Marcas" Relationship="Self.FK_Productos_2_0" FromRole="Productos" ToRole="Marcas" />
+          <NavigationProperty Name="Marcas" Relationship="Self.FK_Productos_3_0" FromRole="Productos" ToRole="Marcas" />
           <NavigationProperty Name="UnidadesMedidas" Relationship="Self.FK_Productos_0_0" FromRole="Productos" ToRole="UnidadesMedidas" />
-          <NavigationProperty Name="TiposProductos" Relationship="Self.FK_Productos_1_0" FromRole="Productos" ToRole="TiposProductos" />
+          <NavigationProperty Name="TiposProductos" Relationship="Self.FK_Productos_2_0" FromRole="Productos" ToRole="TiposProductos" />
         </EntityType>
         <EntityType Name="Provincias">
           <Key>
@@ -1098,7 +1171,7 @@
           <Property Name="Codigo" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TipoDocumento" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Iniciales" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_4_0" FromRole="TiposDocumentos" ToRole="Documentos" />
+          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_3_0" FromRole="TiposDocumentos" ToRole="Documentos" />
         </EntityType>
         <EntityType Name="TiposProductos">
           <Key>
@@ -1106,7 +1179,10 @@
           </Key>
           <Property Name="TipoProductoID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TipoProducto" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Productos" Relationship="Self.FK_Productos_1_0" FromRole="TiposProductos" ToRole="Productos" />
+          <Property Name="Activo" Type="Int64" Nullable="false" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgregadoPor" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Productos" Relationship="Self.FK_Productos_2_0" FromRole="TiposProductos" ToRole="Productos" />
         </EntityType>
         <EntityType Name="Transacciones">
           <Key>
@@ -1125,7 +1201,19 @@
           <Property Name="Codigo" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UnidadMedida" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PorDefecto" Type="Int64" Nullable="false" />
+          <Property Name="Activo" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Productos" Relationship="Self.FK_Productos_0_0" FromRole="UnidadesMedidas" ToRole="Productos" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="PasswdHash" />
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="UsuarioID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswdHash" Type="String" Nullable="false" />
+          <Property Name="EsAdministrador" Type="Int64" Nullable="false" />
         </EntityType>
         <Association Name="FK_CajaLog_0_0">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
@@ -1163,7 +1251,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Documentos_0_0">
+        <Association Name="FK_Documentos_2_0">
           <End Role="Cajas" Type="Self.Cajas" Multiplicity="1" />
           <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1211,7 +1299,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Documentos_2_0">
+        <Association Name="FK_Documentos_1_0">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
           <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1271,19 +1359,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Documentos_1_0">
-          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
-          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleados">
-              <PropertyRef Name="EmpleadoID" />
-            </Principal>
-            <Dependent Role="Documentos">
-              <PropertyRef Name="EmpleadoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Documentos_3_0">
+        <Association Name="FK_Documentos_0_0">
           <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
           <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1295,7 +1371,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Documentos_4_0">
+        <Association Name="FK_Documentos_3_0">
           <End Role="TiposDocumentos" Type="Self.TiposDocumentos" Multiplicity="1" />
           <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1304,6 +1380,18 @@
             </Principal>
             <Dependent Role="Documentos">
               <PropertyRef Name="TipoDocumentoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documentos_4_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Documentos">
+              <PropertyRef Name="EmpleadoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1379,7 +1467,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Productos_3_0">
+        <Association Name="FK_Productos_1_0">
           <End Role="Impuestos" Type="Self.Impuestos" Multiplicity="1" />
           <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1403,7 +1491,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Productos_2_0">
+        <Association Name="FK_Productos_3_0">
           <End Role="Marcas" Type="Self.Marcas" Multiplicity="0..1" />
           <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1439,7 +1527,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Productos_1_0">
+        <Association Name="FK_Productos_2_0">
           <End Role="TiposProductos" Type="Self.TiposProductos" Multiplicity="0..1" />
           <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1483,6 +1571,7 @@
           <EntitySet Name="TiposProductos" EntityType="Self.TiposProductos" />
           <EntitySet Name="Transacciones" EntityType="Self.Transacciones" />
           <EntitySet Name="UnidadesMedidas" EntityType="Self.UnidadesMedidas" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
           <AssociationSet Name="FK_CajaLog_0_0" Association="Self.FK_CajaLog_0_0">
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="CajaLog" EntitySet="CajaLog" />
@@ -1495,7 +1584,7 @@
             <End Role="Cajas" EntitySet="Cajas" />
             <End Role="CajaLog" EntitySet="CajaLog" />
           </AssociationSet>
-          <AssociationSet Name="FK_Documentos_0_0" Association="Self.FK_Documentos_0_0">
+          <AssociationSet Name="FK_Documentos_2_0" Association="Self.FK_Documentos_2_0">
             <End Role="Cajas" EntitySet="Cajas" />
             <End Role="Documentos" EntitySet="Documentos" />
           </AssociationSet>
@@ -1511,7 +1600,7 @@
             <End Role="Identificaciones" EntitySet="Identificaciones" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
-          <AssociationSet Name="FK_Documentos_2_0" Association="Self.FK_Documentos_2_0">
+          <AssociationSet Name="FK_Documentos_1_0" Association="Self.FK_Documentos_1_0">
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="Documentos" EntitySet="Documentos" />
           </AssociationSet>
@@ -1531,16 +1620,16 @@
             <End Role="Distritos" EntitySet="Distritos" />
             <End Role="Empresas" EntitySet="Empresas" />
           </AssociationSet>
-          <AssociationSet Name="FK_Documentos_1_0" Association="Self.FK_Documentos_1_0">
-            <End Role="Empleados" EntitySet="Empleados" />
-            <End Role="Documentos" EntitySet="Documentos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Documentos_3_0" Association="Self.FK_Documentos_3_0">
+          <AssociationSet Name="FK_Documentos_0_0" Association="Self.FK_Documentos_0_0">
             <End Role="Empresas" EntitySet="Empresas" />
             <End Role="Documentos" EntitySet="Documentos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Documentos_4_0" Association="Self.FK_Documentos_4_0">
+          <AssociationSet Name="FK_Documentos_3_0" Association="Self.FK_Documentos_3_0">
             <End Role="TiposDocumentos" EntitySet="TiposDocumentos" />
+            <End Role="Documentos" EntitySet="Documentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documentos_4_0" Association="Self.FK_Documentos_4_0">
+            <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Documentos" EntitySet="Documentos" />
           </AssociationSet>
           <AssociationSet Name="FK_ItemsDocumentos_3_0" Association="Self.FK_ItemsDocumentos_3_0">
@@ -1567,7 +1656,7 @@
             <End Role="Impuestos" EntitySet="Impuestos" />
             <End Role="ItemsDocumentos" EntitySet="ItemsDocumentos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Productos_3_0" Association="Self.FK_Productos_3_0">
+          <AssociationSet Name="FK_Productos_1_0" Association="Self.FK_Productos_1_0">
             <End Role="Impuestos" EntitySet="Impuestos" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
@@ -1575,7 +1664,7 @@
             <End Role="Productos" EntitySet="Productos" />
             <End Role="ItemsDocumentos" EntitySet="ItemsDocumentos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Productos_2_0" Association="Self.FK_Productos_2_0">
+          <AssociationSet Name="FK_Productos_3_0" Association="Self.FK_Productos_3_0">
             <End Role="Marcas" EntitySet="Marcas" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
@@ -1587,7 +1676,7 @@
             <End Role="UnidadesMedidas" EntitySet="UnidadesMedidas" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Productos_1_0" Association="Self.FK_Productos_1_0">
+          <AssociationSet Name="FK_Productos_2_0" Association="Self.FK_Productos_2_0">
             <End Role="TiposProductos" EntitySet="TiposProductos" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
@@ -1641,6 +1730,9 @@
                 <ScalarProperty Name="DistritoID" ColumnName="DistritoID" />
                 <ScalarProperty Name="NroTelefonico" ColumnName="NroTelefonico" />
                 <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
+                <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1651,6 +1743,8 @@
                 <ScalarProperty Name="CajaID" ColumnName="CajaID" />
                 <ScalarProperty Name="Configuracion" ColumnName="Configuracion" />
                 <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
+                <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1694,6 +1788,8 @@
                 <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
                 <ScalarProperty Name="MontoDescuentos" ColumnName="MontoDescuentos" />
                 <ScalarProperty Name="MontoNeto" ColumnName="MontoNeto" />
+                <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
+                <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1711,6 +1807,9 @@
                 <ScalarProperty Name="PasswdHash" ColumnName="PasswdHash" />
                 <ScalarProperty Name="EsSupervisor" ColumnName="EsSupervisor" />
                 <ScalarProperty Name="EsAdministrador" ColumnName="EsAdministrador" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
+                <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1727,6 +1826,8 @@
                 <ScalarProperty Name="Urbanizacion" ColumnName="Urbanizacion" />
                 <ScalarProperty Name="NroTelefonico" ColumnName="NroTelefonico" />
                 <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+                <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
+                <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1738,6 +1839,7 @@
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="Orden" ColumnName="Orden" />
                 <ScalarProperty Name="RequiereAutorizacion" ColumnName="RequiereAutorizacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1788,6 +1890,9 @@
               <MappingFragment StoreEntitySet="Marcas">
                 <ScalarProperty Name="MarcaID" ColumnName="MarcaID" />
                 <ScalarProperty Name="Marca" ColumnName="Marca" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
+                <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1800,6 +1905,9 @@
                 <ScalarProperty Name="PorDefecto" ColumnName="PorDefecto" />
                 <ScalarProperty Name="Base" ColumnName="Base" />
                 <ScalarProperty Name="FactorCambiario" ColumnName="FactorCambiario" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
+                <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1814,6 +1922,8 @@
                 <ScalarProperty Name="BancoID" ColumnName="BancoID" />
                 <ScalarProperty Name="NroDocPago" ColumnName="NroDocPago" />
                 <ScalarProperty Name="Autorizacion" ColumnName="Autorizacion" />
+                <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
+                <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1838,6 +1948,9 @@
                 <ScalarProperty Name="ImpuestoID" ColumnName="ImpuestoID" />
                 <ScalarProperty Name="UnidadMedidaID" ColumnName="UnidadMedidaID" />
                 <ScalarProperty Name="Presentacion" ColumnName="Presentacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
+                <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1866,6 +1979,9 @@
               <MappingFragment StoreEntitySet="TiposProductos">
                 <ScalarProperty Name="TipoProductoID" ColumnName="TipoProductoID" />
                 <ScalarProperty Name="TipoProducto" ColumnName="TipoProducto" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
+                <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1885,6 +2001,18 @@
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="UnidadMedida" ColumnName="UnidadMedida" />
                 <ScalarProperty Name="PorDefecto" ColumnName="PorDefecto" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="mainModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="PasswdHash" ColumnName="PasswdHash" />
+                <ScalarProperty Name="EsAdministrador" ColumnName="EsAdministrador" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

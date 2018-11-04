@@ -9,19 +9,18 @@
 
 namespace EsconPOS
 {
-    using forms;
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Empleados
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Empleados()
         {
-            this.CajaLog = new ObservableListSource<CajaLog>();
-            this.Documentos = new ObservableListSource<Documentos>();
-            this.ItemsDocumentos = new ObservableListSource<ItemsDocumentos>();
-            this.Empresas = new ObservableListSource<Empresas>();
+            this.CajaLog = new HashSet<CajaLog>();
+            this.Documentos = new HashSet<Documentos>();
+            this.ItemsDocumentos = new HashSet<ItemsDocumentos>();
+            this.Empresas = new HashSet<Empresas>();
         }
     
         public long EmpleadoID { get; set; }
@@ -32,17 +31,20 @@ namespace EsconPOS
         public string Telefono { get; set; }
         public string CorreoElectronico { get; set; }
         public string Login { get; set; }
-        public byte[] PasswdHash { get; set; }
+        public string PasswdHash { get; set; }
         public long EsSupervisor { get; set; }
         public long EsAdministrador { get; set; }
+        public Nullable<long> Activo { get; set; }
+        public string AgregadoEl { get; set; }
+        public Nullable<long> AgregadoPor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ObservableListSource<CajaLog> CajaLog { get; set; }
+        public virtual ICollection<CajaLog> CajaLog { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ObservableListSource<Documentos> Documentos { get; set; }
+        public virtual ICollection<Documentos> Documentos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ObservableListSource<ItemsDocumentos> ItemsDocumentos { get; set; }
+        public virtual ICollection<ItemsDocumentos> ItemsDocumentos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ObservableListSource<Empresas> Empresas { get; set; }
+        public virtual ICollection<Empresas> Empresas { get; set; }
     }
 }

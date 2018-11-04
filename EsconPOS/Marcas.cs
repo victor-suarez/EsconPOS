@@ -22,6 +22,9 @@ namespace EsconPOS
     
         public long MarcaID { get; set; }
         public string Marca { get; set; }
+        public long Activo { get; set; }
+        public string AgregadoEl { get; set; }
+        public long AgregadoPor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Productos> Productos { get; set; }

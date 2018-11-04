@@ -18,6 +18,12 @@ namespace EsconPOS.forms
 
         public void CargarIdentificaciones()
         {
+            using (var context = new mainEntities())
+            {
+                CmbIdentificacionID.DataSource = context.Identificaciones.ToList();
+                CmbIdentificacionID.DisplayMember = "Identificacion";
+                CmbIdentificacionID.ValueMember = "IdentificacionID";
+            };
             //CmbIdentificacionID.Items.Clear();
             //Identificaciones TiposIDs = new Identificaciones(Conx);
             //foreach (Identificaciones ListTiposIDs in TiposIDs.Listar())
@@ -34,6 +40,7 @@ namespace EsconPOS.forms
         private void Guardar()
         {
             if (!ValEntReq()) return;
+
             //Empleados Emp = new Empleados(Conx);
             //Identificaciones ItemID = (Identificaciones)CmbIdentificacionID.SelectedItem;
             //int ID = ItemID.IdentificacionID;

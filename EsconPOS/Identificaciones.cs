@@ -9,17 +9,16 @@
 
 namespace EsconPOS
 {
-    using forms;
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Identificaciones
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Identificaciones()
         {
-            this.Clientes = new ObservableListSource<Clientes>();
-            this.Empresas = new ObservableListSource<Empresas>();
+            this.Clientes = new HashSet<Clientes>();
+            this.Empresas = new HashSet<Empresas>();
         }
     
         public long IdentificacionID { get; set; }
@@ -28,8 +27,8 @@ namespace EsconPOS
         public string Iniciales { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ObservableListSource<Clientes> Clientes { get; set; }
+        public virtual ICollection<Clientes> Clientes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ObservableListSource<Empresas> Empresas { get; set; }
+        public virtual ICollection<Empresas> Empresas { get; set; }
     }
 }

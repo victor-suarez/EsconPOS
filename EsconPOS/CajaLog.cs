@@ -18,7 +18,7 @@ namespace EsconPOS
         public long CajaID { get; set; }
         public long TransaccionID { get; set; }
         public long EmpleadoID { get; set; }
-        public long Monto { get; set; }
+        public double Monto { get; set; }
         public string Fecha { get; set; }
         public string Hora { get; set; }
     

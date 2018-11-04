@@ -9,12 +9,18 @@ namespace EsconPOS.classes
     class Global
     {
         private static bool _LoggedIN;
+        private static Usuarios _Usuario;
         private static Empleados _Empleado;
         private static Cajas _Caja;
         public static bool LoggedIN
         {
             get { return _LoggedIN; }
             set { _LoggedIN = value; }
+        }
+        public static Usuarios Usuario
+        {
+            get { return _Usuario; }
+            set { _Usuario = value; }
         }
         public static Empleados Empleado
         {

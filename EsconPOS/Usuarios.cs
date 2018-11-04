@@ -12,13 +12,12 @@ namespace EsconPOS
     using System;
     using System.Collections.Generic;
     
-    public partial class Configuraciones
+    public partial class Usuarios
     {
-        public long ConfiguracionID { get; set; }
-        public long CajaID { get; set; }
-        public string Configuracion { get; set; }
-        public string Valor { get; set; }
-        public string AgregadoEl { get; set; }
-        public long AgregadoPor { get; set; }
+        public long UsuarioID { get; set; }
+        public string Usuario { get; set; }
+        public string Login { get; set; }
+        public string PasswdHash { get; set; }
+        public long EsAdministrador { get; set; }
     }
 }

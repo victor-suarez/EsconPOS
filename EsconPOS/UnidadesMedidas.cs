@@ -24,6 +24,7 @@ namespace EsconPOS
         public string Codigo { get; set; }
         public string UnidadMedida { get; set; }
         public long PorDefecto { get; set; }
+        public long Activo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Productos> Productos { get; set; }

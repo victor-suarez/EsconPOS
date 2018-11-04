@@ -29,6 +29,9 @@ namespace EsconPOS
         public long ImpuestoID { get; set; }
         public long UnidadMedidaID { get; set; }
         public string Presentacion { get; set; }
+        public long Activo { get; set; }
+        public string AgregadoEl { get; set; }
+        public long AgregadoPor { get; set; }
     
         public virtual Impuestos Impuestos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
