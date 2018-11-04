@@ -24,7 +24,7 @@ namespace EsconPOS.forms
         private void Entrada()
         {
             // Lo necesito en una variable porque no puedo pasarle la función a LINQ.
-            string passwd = GetStringSha256Hash(txtContrasenia.Text.Trim());
+            string passwd = Global.GetStringSha256Hash(txtContrasenia.Text.Trim());
             //try
             //{
             //    Conx.OpenDatabase();
@@ -44,7 +44,7 @@ namespace EsconPOS.forms
                        // Verificar la existencia de un usuario administrador
                         var adm = (from a in context.Empleados
                                    where a.EsAdministrador == 1
-                                   select a).First();
+                                   select a).FirstOrDefault();
                         if(adm == null)
                         {
                             SetStatus("Configuración del sistema (1era vez)...");
@@ -106,59 +106,12 @@ namespace EsconPOS.forms
                 MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error buscando el usuario", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-                //Empleados Usuario = new Empleados(Conx);
-                //if (Usuario.EmpleadoAdminDefinido())
-                //{
-                //    try
-                //    {
-                //        Global.Empleado = Usuario.Entrada(txtUsuario.Text.ToUpper(), txtContrasenia.Text);
-                //        if (Global.Empleado == null)
-                //        { 
-                //            MessageBox.Show("Empleado no está definido en el sistema.","Datos inválidos",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
-                //            return;
-                //        }
-                //    }
-                //    catch(Exception ex)
-                //    {
-                //        MessageBox.Show(ex.Message, "Error buscando el usuario", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                //        return;
-                //    }
-                //}
-                //else
-                //{
-                //    SetStatus("Configuración del sistema (1era vez)...");
-                //    FrmConfiguracion fconf = new FrmConfiguracion();
-                //    fconf.ShowDialog();
-                //}
-                //try
-                //{
-                //    SetStatus("Buscando datos de la caja...");
-                //    Cajas Caja = new Cajas(Conx);
-                //    Global.Caja = Caja.Buscar();
-                //}
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show(ex.Message, "Error en la entrada al sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                //}
                 LoggedIN = true;
             SetStatus();
             Close();
         }
 
-        internal static string GetStringSha256Hash(string text)
-        {
-            if (String.IsNullOrEmpty(text))
-                return String.Empty;
-
-            using (var sha = new System.Security.Cryptography.SHA256Managed())
-            {
-                byte[] textData = System.Text.Encoding.UTF8.GetBytes(text);
-                byte[] hash = sha.ComputeHash(textData);
-                return BitConverter.ToString(hash).Replace("-", String.Empty);
-            }
-        }
-
-        private void SetStatus(string StrStatus = "", bool Error = false)
+         private void SetStatus(string StrStatus = "", bool Error = false)
         {
             if (Error)
                 lblStatus.ForeColor = Color.Red;

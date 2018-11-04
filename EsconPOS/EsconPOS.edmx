@@ -983,7 +983,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           <Property Name="Telefono" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CorreoElectronico" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Login" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PasswdHash" Type="String" Nullable="false" MaxLength="20" />
+          <Property Name="PasswdHash" Type="String" Nullable="false" />
           <Property Name="EsSupervisor" Type="Int64" Nullable="false" />
           <Property Name="EsAdministrador" Type="Int64" Nullable="false" />
           <Property Name="Activo" Type="Int64" />

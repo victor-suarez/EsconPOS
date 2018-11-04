@@ -387,6 +387,7 @@
             this.Name = "FrmConfiguracion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Configuración inicial";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmConfiguracion_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmConfiguracion_FormClosed);
             this.Load += new System.EventHandler(this.FrmConfiguracion_Load);
             this.GboxAdministrador.ResumeLayout(false);

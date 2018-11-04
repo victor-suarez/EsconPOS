@@ -14,16 +14,14 @@ namespace EsconPOS.forms
     public partial class FrmConfiguracion : Form
     {
         public bool Resultado = false;
+        private mainEntities context = new mainEntities();
         //private Datos Conx = Datos.Conx;
 
         public void CargarIdentificaciones()
         {
-            using (var context = new mainEntities())
-            {
-                CmbIdentificacionID.DataSource = context.Identificaciones.ToList();
-                CmbIdentificacionID.DisplayMember = "Identificacion";
-                CmbIdentificacionID.ValueMember = "IdentificacionID";
-            };
+            CmbIdentificacionID.DataSource = context.Identificaciones.ToList();
+            CmbIdentificacionID.DisplayMember = "Identificacion";
+            CmbIdentificacionID.ValueMember = "IdentificacionID";
             //CmbIdentificacionID.Items.Clear();
             //Identificaciones TiposIDs = new Identificaciones(Conx);
             //foreach (Identificaciones ListTiposIDs in TiposIDs.Listar())
@@ -40,38 +38,76 @@ namespace EsconPOS.forms
         private void Guardar()
         {
             if (!ValEntReq()) return;
+            try
+            {
+                Identificaciones ItemID = (Identificaciones)CmbIdentificacionID.SelectedItem;
+                context.Empleados.Add(
+                    new Empleados
+                    {
+                        IdentificacionID = ItemID.IdentificacionID,
+                        NroDocIdent = TxtNroDocIdent.Text,
+                        Nombre = TxtNombre.Text,
+                        Direccion = TxtDireccion.Text,
+                        Telefono = TxtTelefonos.Text,
+                        CorreoElectronico = TxtCorreoElectronico.Text,
+                        Login = TxtLogin.Text,
+                        PasswdHash = Global.GetStringSha256Hash(TxtPassword.Text),
+                        EsSupervisor = ChkEsSupervisor.Checked ? 1 : 0,
+                        EsAdministrador = 1,
+                        Activo = 1,
+                        AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                        AgregadoPor = -1
+                    }
+                );
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                if(((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
+                {
+                    MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error guardando el administrador", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
+                                                                                                  .SelectMany(x => x.ValidationErrors)
+                                                                                                  .Select(x => x.ErrorMessage);
+                    var fullErrorMessage = string.Join("; ", DbErrors);
+                    var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
+                    MessageBox.Show(exceptionMessage, "Error guardando el administrador", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                };
+                return;
+            }
 
-            //Empleados Emp = new Empleados(Conx);
-            //Identificaciones ItemID = (Identificaciones)CmbIdentificacionID.SelectedItem;
-            //int ID = ItemID.IdentificacionID;
-            //try
-            //{
-            //    Emp.Agregar(ID,
-            //                TxtNroDocIdent.Text,
-            //                TxtNombre.Text,
-            //                TxtDireccion.Text,
-            //                TxtTelefonos.Text,
-            //                TxtCorreoElectronico.Text,
-            //                TxtLogin.Text,
-            //                TxtPassword.Text,
-            //                ChkEsSupervisor.Checked,
-            //                true);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error guardando el administrador", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
-            //Cajas Caja = new Cajas(Conx);
-            //try
-            //{
-            //    Caja.Agregar((int)NumCajaID.Value, TxtDescripcion.Text);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error guardando la caja", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
+            try
+            {
+                context.Cajas.Add(
+                    new Cajas
+                    {
+                        CajaID = (int)NumCajaID.Value,
+                        Descripcion = TxtDescripcion.Text,
+                        FechaHoraEstado = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                    }
+                );
+               context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
+                {
+                    MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error guardando la caja", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
+                                                                                                  .SelectMany(x => x.ValidationErrors)
+                                                                                                  .Select(x => x.ErrorMessage);
+                    var fullErrorMessage = string.Join("; ", DbErrors);
+                    var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
+                    MessageBox.Show(exceptionMessage, "Error guardando la caja", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                };
+                return;
+            }
             Resultado = true;
             Close();
         }
@@ -117,6 +153,17 @@ namespace EsconPOS.forms
             return true;
         }
 
+        private void FrmConfiguracion_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            base.OnClosing(e);
+            context.Dispose();
+        }
+
+        private void FrmConfiguracion_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Global.LoggedIN = Resultado;
+        }
+
         private void FrmConfiguracion_Load(object sender, EventArgs e)
         {
             CargarIdentificaciones();
@@ -130,11 +177,6 @@ namespace EsconPOS.forms
         private void RibBtnSalir_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void FrmConfiguracion_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Global.LoggedIN = Resultado;
         }
 
         //Siguiente campo cuando presiona [ENTER]
