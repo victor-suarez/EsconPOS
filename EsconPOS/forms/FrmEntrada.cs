@@ -45,7 +45,7 @@ namespace EsconPOS.forms
                         var adm = (from a in context.Empleados
                                    where a.EsAdministrador == 1
                                    select a).FirstOrDefault();
-                        if(adm == null)
+                        if (adm == null)
                         {
                             SetStatus("Configuración del sistema (1era vez)...");
                             FrmConfiguracion fconf = new FrmConfiguracion();
@@ -85,13 +85,18 @@ namespace EsconPOS.forms
                         var emp = (from e in context.Empleados
                                     where e.EmpleadoID == Global.Usuario.UsuarioID
                                    select e).First();
-                        if(emp != null)
+                        if (emp != null)
+                        {
                             Global.Empleado = emp;
+                            SetStatus("Buscando datos de la empresa...");
+                            var empr = emp.Empresas.First();
+                            if (empr != null) Global.Empresa = empr;
+                        }
 
                         SetStatus("Buscando datos de la caja...");
                         var pos = (from p in context.Cajas
                                    select p).First();
-                        if(pos != null)
+                        if (pos != null)
                             Global.Caja = pos;
                     }
                     catch(Exception ex)

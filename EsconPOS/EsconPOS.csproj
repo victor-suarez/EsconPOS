@@ -161,12 +161,6 @@
     <Compile Include="forms\FrmEntrada.Designer.cs">
       <DependentUpon>FrmEntrada.cs</DependentUpon>
     </Compile>
-    <Compile Include="forms\FrmEsconPOS.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="forms\FrmEsconPOS.Designer.cs">
-      <DependentUpon>FrmEsconPOS.cs</DependentUpon>
-    </Compile>
     <Compile Include="forms\FrmProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -224,17 +218,20 @@
     <Compile Include="Usuarios.cs">
       <DependentUpon>EsconPOS.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="forms\FrmCliente.resx">
+      <DependentUpon>FrmCliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\FrmConfiguracion.resx">
       <DependentUpon>FrmConfiguracion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\FrmEmpleado.resx">
       <DependentUpon>FrmEmpleado.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmEmpresa.resx">
+      <DependentUpon>FrmEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\FrmEntrada.resx">
       <DependentUpon>FrmEntrada.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="forms\FrmEsconPOS.resx">
-      <DependentUpon>FrmEsconPOS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\MDIEsconPos.resx">
       <DependentUpon>MDIEsconPos.cs</DependentUpon>
@@ -258,6 +255,7 @@
       <DependentUpon>EsconPOS.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Clientes.datasource" />
     <None Include="Properties\DataSources\Usuarios.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -287,6 +285,7 @@
       <LastGenOutput>EsconPOS.cs</LastGenOutput>
     </Content>
     <Content Include="Resources\CajaAbierta.png" />
+    <None Include="Resources\Eliminar1.png" />
     <None Include="Resources\Guardar.png" />
     <None Include="Resources\Empleados.png" />
     <None Include="Resources\Empresas.png" />

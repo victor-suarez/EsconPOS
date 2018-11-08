@@ -15,9 +15,27 @@ namespace EsconPOS.forms
     public partial class MDIEsconPos : Form
     {
         private bool CajaAbierta = false;
+        private FrmCliente FrmCli = null;
+
         public MDIEsconPos()
         {
             InitializeComponent();
+        }
+
+        private void AbrirCerrarCaja()
+        {
+            if (CajaAbierta)
+            {
+                CajaAbierta = false;
+                RibBtnAbrirCaja.LargeImage = Properties.Resources.CajaCerrada;
+                RibBtnAbrirCaja.Text = "Abrir Caja";
+            }
+            else
+            {
+                CajaAbierta = true;
+                RibBtnAbrirCaja.LargeImage = Properties.Resources.CajaAbierta;
+                RibBtnAbrirCaja.Text = "Cerrar Caja";
+            }
         }
 
         private void IniciarInfo()
@@ -45,8 +63,8 @@ namespace EsconPOS.forms
 
         private void TmrHora_Tick(object sender, EventArgs e)
         {
-            TsslFecha.Text = DateTime.Now.ToString("dddd, dd de MMMM de yyyy");
-            TsslHora.Text = DateTime.Now.ToString("hh:mm tt");
+            TsslFecha.Text = DateTime.Now.ToString("dddd, d de MMMM de yyyy");
+            TsslHora.Text = DateTime.Now.ToString("h:mm tt");
         }
 
         private void ribbonOrbMenuItem1_Click(object sender, EventArgs e)
@@ -54,20 +72,19 @@ namespace EsconPOS.forms
             Dispose();
         }
 
-        private void RibBtnAbrirCaja_Click(object sender, EventArgs e)
+        private void RibBtnAbrir_Click(object sender, EventArgs e)
         {
-            if (CajaAbierta)
-            {
-                CajaAbierta = false;
-                RibBtnAbrirCaja.LargeImage = Properties.Resources.CajaCerrada;
-                RibBtnAbrirCaja.Text = "Abrir Caja";
-            }
-            else
-            {
-                CajaAbierta = true;
-                RibBtnAbrirCaja.LargeImage = Properties.Resources.CajaAbierta;
-                RibBtnAbrirCaja.Text = "Cerrar Caja";
-            }
+            AbrirCerrarCaja();
+        }
+
+        private void RibBtnEmpleados_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void RibBtnClientes_Click(object sender, EventArgs e)
+        {
+            FrmCli = new forms.FrmCliente( );
+            FrmCli.Show(this);
         }
     }
 }

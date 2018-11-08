@@ -12,6 +12,7 @@ namespace EsconPOS.classes
         private static Usuarios _Usuario;
         private static Empleados _Empleado;
         private static Cajas _Caja;
+        private static Empresas _Empresa;
         public static bool LoggedIN
         {
             get { return _LoggedIN; }
@@ -31,6 +32,11 @@ namespace EsconPOS.classes
         {
             get { return _Caja; }
             set { _Caja = value; }
+        }
+        public static Empresas Empresa
+        {
+            get { return _Empresa; }
+            set { _Empresa = value; }
         }
 
         internal static string GetStringSha256Hash(string text)

@@ -40,9 +40,11 @@
             this.Ribbon = new System.Windows.Forms.Ribbon();
             this.ribbonButton1 = new System.Windows.Forms.RibbonButton();
             this.ribbonButton2 = new System.Windows.Forms.RibbonButton();
+            this.RibTabVenta = new System.Windows.Forms.RibbonTab();
+            this.RibPnlVentas = new System.Windows.Forms.RibbonPanel();
+            this.RibBtnCaja = new System.Windows.Forms.RibbonButton();
             this.RibTabInicio = new System.Windows.Forms.RibbonTab();
             this.RibPnlAcciones = new System.Windows.Forms.RibbonPanel();
-            this.RibBtnAbrirCaja = new System.Windows.Forms.RibbonButton();
             this.RibBtnEmpresas = new System.Windows.Forms.RibbonButton();
             this.RibBtnEmpleados = new System.Windows.Forms.RibbonButton();
             this.RibBtnClientes = new System.Windows.Forms.RibbonButton();
@@ -69,6 +71,7 @@
             this.ribbonOrbRecentItem2 = new System.Windows.Forms.RibbonOrbRecentItem();
             this.ribbonOrbOptionButton1 = new System.Windows.Forms.RibbonOrbOptionButton();
             this.ribbonOrbOptionButton2 = new System.Windows.Forms.RibbonOrbOptionButton();
+            this.RibBtnAbrirCaja = new System.Windows.Forms.RibbonButton();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -140,6 +143,7 @@
             this.Ribbon.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
             this.Ribbon.Size = new System.Drawing.Size(948, 120);
             this.Ribbon.TabIndex = 4;
+            this.Ribbon.Tabs.Add(this.RibTabVenta);
             this.Ribbon.Tabs.Add(this.RibTabInicio);
             this.Ribbon.Tabs.Add(this.RibTabDatosGenerales);
             this.Ribbon.TabsMargin = new System.Windows.Forms.Padding(5, 2, 20, 0);
@@ -164,6 +168,29 @@
             this.ribbonButton2.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton2.SmallImage")));
             this.ribbonButton2.Text = "ribbonButton2";
             // 
+            // RibTabVenta
+            // 
+            this.RibTabVenta.Name = "RibTabVenta";
+            this.RibTabVenta.Panels.Add(this.RibPnlVentas);
+            this.RibTabVenta.Text = "Ventas";
+            // 
+            // RibPnlVentas
+            // 
+            this.RibPnlVentas.ButtonMoreVisible = false;
+            this.RibPnlVentas.Items.Add(this.RibBtnCaja);
+            this.RibPnlVentas.Name = "RibPnlVentas";
+            this.RibPnlVentas.Text = "Caja";
+            // 
+            // RibBtnCaja
+            // 
+            this.RibBtnCaja.CheckOnClick = true;
+            this.RibBtnCaja.Image = global::EsconPOS.Properties.Resources.CajaCerrada;
+            this.RibBtnCaja.LargeImage = global::EsconPOS.Properties.Resources.CajaCerrada;
+            this.RibBtnCaja.Name = "RibBtnCaja";
+            this.RibBtnCaja.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnCaja.SmallImage")));
+            this.RibBtnCaja.Text = "Abrir";
+            this.RibBtnCaja.Click += new System.EventHandler(this.RibBtnAbrir_Click);
+            // 
             // RibTabInicio
             // 
             this.RibTabInicio.Name = "RibTabInicio";
@@ -173,23 +200,12 @@
             // RibPnlAcciones
             // 
             this.RibPnlAcciones.ButtonMoreVisible = false;
-            this.RibPnlAcciones.Items.Add(this.RibBtnAbrirCaja);
             this.RibPnlAcciones.Items.Add(this.RibBtnEmpresas);
             this.RibPnlAcciones.Items.Add(this.RibBtnEmpleados);
             this.RibPnlAcciones.Items.Add(this.RibBtnClientes);
             this.RibPnlAcciones.Items.Add(this.RibBtnDocsPago);
             this.RibPnlAcciones.Name = "RibPnlAcciones";
             this.RibPnlAcciones.Text = "Acciones";
-            // 
-            // RibBtnAbrirCaja
-            // 
-            this.RibBtnAbrirCaja.CheckOnClick = true;
-            this.RibBtnAbrirCaja.Image = global::EsconPOS.Properties.Resources.CajaCerrada;
-            this.RibBtnAbrirCaja.LargeImage = global::EsconPOS.Properties.Resources.CajaCerrada;
-            this.RibBtnAbrirCaja.Name = "RibBtnAbrirCaja";
-            this.RibBtnAbrirCaja.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnAbrirCaja.SmallImage")));
-            this.RibBtnAbrirCaja.Text = "Abrir Caja";
-            this.RibBtnAbrirCaja.Click += new System.EventHandler(this.RibBtnAbrirCaja_Click);
             // 
             // RibBtnEmpresas
             // 
@@ -206,6 +222,7 @@
             this.RibBtnEmpleados.Name = "RibBtnEmpleados";
             this.RibBtnEmpleados.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnEmpleados.SmallImage")));
             this.RibBtnEmpleados.Text = "Empleados";
+            this.RibBtnEmpleados.Click += new System.EventHandler(this.RibBtnEmpleados_Click);
             // 
             // RibBtnClientes
             // 
@@ -214,6 +231,7 @@
             this.RibBtnClientes.Name = "RibBtnClientes";
             this.RibBtnClientes.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnClientes.SmallImage")));
             this.RibBtnClientes.Text = "Clientes";
+            this.RibBtnClientes.Click += new System.EventHandler(this.RibBtnClientes_Click);
             // 
             // RibBtnDocsPago
             // 
@@ -403,6 +421,13 @@
             this.ribbonOrbOptionButton2.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton2.SmallImage")));
             this.ribbonOrbOptionButton2.Text = "ribbonOrbOptionButton2";
             // 
+            // RibBtnAbrirCaja
+            // 
+            this.RibBtnAbrirCaja.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnAbrirCaja.Image")));
+            this.RibBtnAbrirCaja.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnAbrirCaja.LargeImage")));
+            this.RibBtnAbrirCaja.Name = "RibBtnAbrirCaja";
+            this.RibBtnAbrirCaja.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnAbrirCaja.SmallImage")));
+            // 
             // MDIEsconPos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -437,7 +462,6 @@
         private System.Windows.Forms.RibbonButton ribbonButton2;
         private System.Windows.Forms.RibbonTab RibTabInicio;
         private System.Windows.Forms.RibbonPanel RibPnlAcciones;
-        private System.Windows.Forms.RibbonButton RibBtnAbrirCaja;
         private System.Windows.Forms.RibbonButton RibBtnEmpresas;
         private System.Windows.Forms.RibbonButton RibBtnEmpleados;
         private System.Windows.Forms.RibbonButton RibBtnClientes;
@@ -464,6 +488,10 @@
         private System.Windows.Forms.RibbonButton RibBtnMarcas;
         private System.Windows.Forms.RibbonButton RibBtnClases;
         private System.Windows.Forms.RibbonButton RibBtnProductos;
+        private System.Windows.Forms.RibbonTab RibTabVenta;
+        private System.Windows.Forms.RibbonPanel RibPnlVentas;
+        private System.Windows.Forms.RibbonButton RibBtnCaja;
+        private System.Windows.Forms.RibbonButton RibBtnAbrirCaja;
     }
 }
 
