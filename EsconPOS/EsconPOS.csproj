@@ -285,6 +285,8 @@
       <LastGenOutput>EsconPOS.cs</LastGenOutput>
     </Content>
     <Content Include="Resources\CajaAbierta.png" />
+    <None Include="Resources\Limpiar.png" />
+    <None Include="Resources\Close.png" />
     <None Include="Resources\Eliminar1.png" />
     <None Include="Resources\Guardar.png" />
     <None Include="Resources\Empleados.png" />

@@ -24,22 +24,26 @@ namespace EsconPOS.forms
 
         private void AbrirCerrarCaja()
         {
+            CajaAbierta = !CajaAbierta;
             if (CajaAbierta)
             {
-                CajaAbierta = false;
-                RibBtnAbrirCaja.LargeImage = Properties.Resources.CajaCerrada;
-                RibBtnAbrirCaja.Text = "Abrir Caja";
+                RibBtnCaja.LargeImage = Properties.Resources.CajaCerrada;
+                RibBtnCaja.Text = "Abrir Caja";
             }
             else
             {
-                CajaAbierta = true;
-                RibBtnAbrirCaja.LargeImage = Properties.Resources.CajaAbierta;
-                RibBtnAbrirCaja.Text = "Cerrar Caja";
+                RibBtnCaja.LargeImage = Properties.Resources.CajaAbierta;
+                RibBtnCaja.Text = "Cerrar Caja";
             }
         }
 
         private void IniciarInfo()
         {
+            this.Text = "EsconPOS V:" +
+                        System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Major.ToString() + "." +
+                        System.Reflection.Assembly.GetEntryAssembly().GetName().Version.MajorRevision.ToString() + "." +
+                        System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Minor.ToString() +
+                       " - " + Global.Empresa.NombreComercial;
             TsslCaja.Text = Global.Caja.Descripcion;
             TsslEmpleado.Text = Global.Empleado.Nombre;
             TsslFecha.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy");
@@ -83,8 +87,9 @@ namespace EsconPOS.forms
 
         private void RibBtnClientes_Click(object sender, EventArgs e)
         {
-            FrmCli = new forms.FrmCliente( );
-            FrmCli.Show(this);
+            FrmCli = new forms.FrmCliente();
+            FrmCli.MdiParent = this;
+            FrmCli.Show();
         }
     }
 }

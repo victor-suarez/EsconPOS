@@ -90,7 +90,8 @@ namespace EsconPOS.forms
                             Global.Empleado = emp;
                             SetStatus("Buscando datos de la empresa...");
                             var empr = emp.Empresas.First();
-                            if (empr != null) Global.Empresa = empr;
+                            if (empr != null)
+                                Global.Empresa = empr;
                         }
 
                         SetStatus("Buscando datos de la caja...");
