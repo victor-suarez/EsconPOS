@@ -18,7 +18,6 @@ namespace EsconPOS
         public Clientes()
         {
             this.Documentos = new HashSet<Documentos>();
-            this.Empresas = new HashSet<Empresas>();
         }
     
         public long ClienteID { get; set; }
@@ -27,19 +26,21 @@ namespace EsconPOS
         public string Nombre { get; set; }
         public string Direccion { get; set; }
         public Nullable<long> PaisID { get; set; }
-        public Nullable<long> DistritoID { get; set; }
+        public long DistritoID { get; set; }
         public string NroTelefonico { get; set; }
         public string CorreoElectronico { get; set; }
         public long Activo { get; set; }
         public string AgregadoEl { get; set; }
         public long AgregadoPor { get; set; }
+        public string ModificadoEl { get; set; }
+        public Nullable<long> ModificadoPor { get; set; }
     
-        public virtual Distritos Distritos { get; set; }
+        public virtual Empleados EmpleadoUpd { get; set; }
         public virtual Paises Paises { get; set; }
+        public virtual Distritos Distritos { get; set; }
         public virtual Identificaciones Identificaciones { get; set; }
+        public virtual Empleados EmpleadoAdd { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Documentos> Documentos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Empresas> Empresas { get; set; }
     }
 }

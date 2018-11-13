@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="mainModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Users\vsuarez\VisualStudio\EsconPOS\EsconPOS\bin\Debug\database\EsconPOS.db;Foreign Keys=True" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="EsconPOS.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Users\vsuarez\VisualStudio\EsconPOS\EsconPOS\bin\Debug\database\EsconPOS.db;Foreign Keys=True" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CajaLog">
           <Key>
             <PropertyRef Name="CajaLogID" />
@@ -36,12 +36,14 @@
           <Property Name="Nombre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Direccion" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="PaisID" Type="integer" />
-          <Property Name="DistritoID" Type="integer" />
+          <Property Name="DistritoID" Type="integer" Nullable="false" />
           <Property Name="NroTelefonico" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="CorreoElectronico" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Activo" Type="integer" Nullable="false" />
           <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="AgregadoPor" Type="integer" Nullable="false" />
+          <Property Name="ModificadoEl" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ModificadoPor" Type="integer" />
         </EntityType>
         <EntityType Name="Configuraciones">
           <Key>
@@ -93,8 +95,11 @@
           <Property Name="SubTotal" Type="real" Nullable="false" />
           <Property Name="MontoDescuentos" Type="real" Nullable="false" />
           <Property Name="MontoNeto" Type="real" Nullable="false" />
+          <Property Name="RefDocumentoID" Type="integer" />
           <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="AgregadoPor" Type="integer" Nullable="false" />
+          <Property Name="ModificadoEl" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ModificadoPor" Type="integer" />
         </EntityType>
         <EntityType Name="Empleados">
           <Key>
@@ -114,6 +119,8 @@
           <Property Name="Activo" Type="integer" />
           <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="AgregadoPor" Type="integer" />
+          <Property Name="ModificadoEl" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ModificadoPor" Type="integer" />
         </EntityType>
         <EntityType Name="Empresas">
           <Key>
@@ -125,20 +132,14 @@
           <Property Name="NombreComercial" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="RazonSocial" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Direccion" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
-          <Property Name="DistritoID" Type="integer" />
+          <Property Name="DistritoID" Type="integer" Nullable="false" />
           <Property Name="Urbanizacion" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="NroTelefonico" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="CorreoElectronico" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="AgregadoPor" Type="integer" Nullable="false" />
-        </EntityType>
-        <EntityType Name="EmpresasClientes">
-          <Key>
-            <PropertyRef Name="EmpresaID" />
-            <PropertyRef Name="ClienteID" />
-          </Key>
-          <Property Name="EmpresaID" Type="integer" Nullable="false" />
-          <Property Name="ClienteID" Type="integer" Nullable="false" />
+          <Property Name="ModificadoEl" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ModificadoPor" Type="integer" />
         </EntityType>
         <EntityType Name="EmpresasEmpleados">
           <Key>
@@ -173,9 +174,11 @@
             <PropertyRef Name="ImpuestoID" />
           </Key>
           <Property Name="ImpuestoID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Impuesto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
-          <Property Name="Categoria" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Impuesto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Tipo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Categoria" Type="blob" Nullable="false" />
+          <Property Name="Iniciales" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Tasa" Type="real" Nullable="false" />
           <Property Name="ValidoDesde" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="ValidoHasta" Type="nvarchar" MaxLength="2147483647" />
@@ -208,6 +211,8 @@
           <Property Name="Activo" Type="integer" Nullable="false" />
           <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="AgregadoPor" Type="integer" Nullable="false" />
+          <Property Name="ModificadoEl" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ModificadoPor" Type="integer" />
         </EntityType>
         <EntityType Name="Monedas">
           <Key>
@@ -217,7 +222,6 @@
           <Property Name="Codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Moneda" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="PorDefecto" Type="integer" Nullable="false" />
-          <Property Name="Base" Type="integer" Nullable="false" />
           <Property Name="FactorCambiario" Type="real" Nullable="false" />
           <Property Name="Activo" Type="integer" Nullable="false" />
           <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
@@ -237,6 +241,8 @@
           <Property Name="Autorizacion" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="AgregadoPor" Type="integer" Nullable="false" />
+          <Property Name="ModificadoEl" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ModificadoPor" Type="integer" />
         </EntityType>
         <EntityType Name="Paises">
           <Key>
@@ -262,6 +268,8 @@
           <Property Name="Activo" Type="integer" Nullable="false" />
           <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="AgregadoPor" Type="integer" Nullable="false" />
+          <Property Name="ModificadoEl" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ModificadoPor" Type="integer" />
         </EntityType>
         <EntityType Name="Provincias">
           <Key>
@@ -290,6 +298,8 @@
           <Property Name="Activo" Type="integer" Nullable="false" />
           <Property Name="AgregadoEl" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="AgregadoPor" Type="integer" Nullable="false" />
+          <Property Name="ModificadoEl" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ModificadoPor" Type="integer" />
         </EntityType>
         <EntityType Name="Transacciones">
           <Key>
@@ -313,8 +323,11 @@
 warning 6002: The table/view 'main.Usuarios' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Usuarios">
           <Key>
-            <PropertyRef Name="PasswdHash" />
+            <PropertyRef Name="UsuarioID" />
+            <PropertyRef Name="Usuario" />
             <PropertyRef Name="Login" />
+            <PropertyRef Name="PasswdHash" />
+            <PropertyRef Name="EsAdministrador" />
           </Key>
           <Property Name="UsuarioID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Usuario" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
@@ -359,14 +372,14 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Clientes_0_0">
-          <End Role="Distritos" Type="Self.Distritos" Multiplicity="0..1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Distritos">
-              <PropertyRef Name="DistritoID" />
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
             </Principal>
             <Dependent Role="Clientes">
-              <PropertyRef Name="DistritoID" />
+              <PropertyRef Name="ModificadoPor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -383,6 +396,18 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Clientes_2_0">
+          <End Role="Distritos" Type="Self.Distritos" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distritos">
+              <PropertyRef Name="DistritoID" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="DistritoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clientes_3_0">
           <End Role="Identificaciones" Type="Self.Identificaciones" Multiplicity="1" />
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -391,6 +416,18 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Principal>
             <Dependent Role="Clientes">
               <PropertyRef Name="IdentificacionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clientes_4_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="AgregadoPor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -419,42 +456,6 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Documentos_0_0">
-          <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
-          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empresas">
-              <PropertyRef Name="EmpresaID" />
-            </Principal>
-            <Dependent Role="Documentos">
-              <PropertyRef Name="EmpresaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Documentos_1_0">
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
-          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clientes">
-              <PropertyRef Name="ClienteID" />
-            </Principal>
-            <Dependent Role="Documentos">
-              <PropertyRef Name="ClienteID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Documentos_2_0">
-          <End Role="Cajas" Type="Self.Cajas" Multiplicity="1" />
-          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cajas">
-              <PropertyRef Name="CajaID" />
-            </Principal>
-            <Dependent Role="Documentos">
-              <PropertyRef Name="CajaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Documentos_3_0">
           <End Role="TiposDocumentos" Type="Self.TiposDocumentos" Multiplicity="1" />
           <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -466,7 +467,7 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Documentos_4_0">
+        <Association Name="FK_Documentos_1_0">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
           <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -478,15 +479,63 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Documentos_2_0">
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
+          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresas">
+              <PropertyRef Name="EmpresaID" />
+            </Principal>
+            <Dependent Role="Documentos">
+              <PropertyRef Name="EmpresaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documentos_3_0">
+          <End Role="Cajas" Type="Self.Cajas" Multiplicity="1" />
+          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cajas">
+              <PropertyRef Name="CajaID" />
+            </Principal>
+            <Dependent Role="Documentos">
+              <PropertyRef Name="CajaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documentos_4_0">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="ClienteID" />
+            </Principal>
+            <Dependent Role="Documentos">
+              <PropertyRef Name="ClienteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empleados_0_0">
+          <End Role="Identificaciones" Type="Self.Identificaciones" Multiplicity="1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Identificaciones">
+              <PropertyRef Name="IdentificacionID" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="IdentificacionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Empresas_0_0">
-          <End Role="Distritos" Type="Self.Distritos" Multiplicity="0..1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
           <End Role="Empresas" Type="Self.Empresas" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Distritos">
-              <PropertyRef Name="DistritoID" />
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
             </Principal>
             <Dependent Role="Empresas">
-              <PropertyRef Name="DistritoID" />
+              <PropertyRef Name="ModificadoPor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -502,27 +551,27 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EmpresasClientes_0_0">
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
-          <End Role="EmpresasClientes" Type="Self.EmpresasClientes" Multiplicity="*" />
+        <Association Name="FK_Empresas_2_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Clientes">
-              <PropertyRef Name="ClienteID" />
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
             </Principal>
-            <Dependent Role="EmpresasClientes">
-              <PropertyRef Name="ClienteID" />
+            <Dependent Role="Empresas">
+              <PropertyRef Name="AgregadoPor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EmpresasClientes_1_0">
-          <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
-          <End Role="EmpresasClientes" Type="Self.EmpresasClientes" Multiplicity="*" />
+        <Association Name="FK_Empresas_3_0">
+          <End Role="Distritos" Type="Self.Distritos" Multiplicity="1" />
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Empresas">
-              <PropertyRef Name="EmpresaID" />
+            <Principal Role="Distritos">
+              <PropertyRef Name="DistritoID" />
             </Principal>
-            <Dependent Role="EmpresasClientes">
-              <PropertyRef Name="EmpresaID" />
+            <Dependent Role="Empresas">
+              <PropertyRef Name="DistritoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -598,15 +647,51 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Marcas_0_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Marcas" Type="Self.Marcas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Marcas">
+              <PropertyRef Name="AgregadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Marcas_1_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="Marcas" Type="Self.Marcas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Marcas">
+              <PropertyRef Name="ModificadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Monedas_0_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Monedas" Type="Self.Monedas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Monedas">
+              <PropertyRef Name="AgregadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Pagos_0_0">
-          <End Role="Monedas" Type="Self.Monedas" Multiplicity="1" />
+          <End Role="Documentos" Type="Self.Documentos" Multiplicity="1" />
           <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Monedas">
-              <PropertyRef Name="MonedaID" />
+            <Principal Role="Documentos">
+              <PropertyRef Name="DocumentoID" />
             </Principal>
             <Dependent Role="Pagos">
-              <PropertyRef Name="MonedaID" />
+              <PropertyRef Name="DocumentoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -623,26 +708,50 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Pagos_2_0">
-          <End Role="Documentos" Type="Self.Documentos" Multiplicity="1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
           <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Documentos">
-              <PropertyRef Name="DocumentoID" />
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
             </Principal>
             <Dependent Role="Pagos">
-              <PropertyRef Name="DocumentoID" />
+              <PropertyRef Name="AgregadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagos_3_0">
+          <End Role="Monedas" Type="Self.Monedas" Multiplicity="1" />
+          <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Monedas">
+              <PropertyRef Name="MonedaID" />
+            </Principal>
+            <Dependent Role="Pagos">
+              <PropertyRef Name="MonedaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagos_4_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Pagos">
+              <PropertyRef Name="ModificadoPor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Productos_0_0">
-          <End Role="UnidadesMedidas" Type="Self.UnidadesMedidas" Multiplicity="1" />
+          <End Role="Marcas" Type="Self.Marcas" Multiplicity="0..1" />
           <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UnidadesMedidas">
-              <PropertyRef Name="UnidadMedidaID" />
+            <Principal Role="Marcas">
+              <PropertyRef Name="MarcaID" />
             </Principal>
             <Dependent Role="Productos">
-              <PropertyRef Name="UnidadMedidaID" />
+              <PropertyRef Name="MarcaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -671,14 +780,38 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Productos_3_0">
-          <End Role="Marcas" Type="Self.Marcas" Multiplicity="0..1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
           <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Marcas">
-              <PropertyRef Name="MarcaID" />
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
             </Principal>
             <Dependent Role="Productos">
-              <PropertyRef Name="MarcaID" />
+              <PropertyRef Name="ModificadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Productos_4_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="AgregadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Productos_5_0">
+          <End Role="UnidadesMedidas" Type="Self.UnidadesMedidas" Multiplicity="1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnidadesMedidas">
+              <PropertyRef Name="UnidadMedidaID" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="UnidadMedidaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -694,7 +827,31 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="mainModelStoreContainer">
+        <Association Name="FK_TiposProductos_0_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="TiposProductos" Type="Self.TiposProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="TiposProductos">
+              <PropertyRef Name="ModificadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TiposProductos_1_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="TiposProductos" Type="Self.TiposProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="TiposProductos">
+              <PropertyRef Name="AgregadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EsconPOSStoreContainer">
           <EntitySet Name="CajaLog" EntityType="Self.CajaLog" store:Type="Tables" />
           <EntitySet Name="Cajas" EntityType="Self.Cajas" store:Type="Tables" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" store:Type="Tables" />
@@ -704,7 +861,6 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
           <EntitySet Name="Documentos" EntityType="Self.Documentos" store:Type="Tables" />
           <EntitySet Name="Empleados" EntityType="Self.Empleados" store:Type="Tables" />
           <EntitySet Name="Empresas" EntityType="Self.Empresas" store:Type="Tables" />
-          <EntitySet Name="EmpresasClientes" EntityType="Self.EmpresasClientes" store:Type="Tables" />
           <EntitySet Name="EmpresasEmpleados" EntityType="Self.EmpresasEmpleados" store:Type="Tables" />
           <EntitySet Name="FormasPagos" EntityType="Self.FormasPagos" store:Type="Tables" />
           <EntitySet Name="Identificaciones" EntityType="Self.Identificaciones" store:Type="Tables" />
@@ -742,7 +898,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="CajaLog" EntitySet="CajaLog" />
           </AssociationSet>
           <AssociationSet Name="FK_Clientes_0_0" Association="Self.FK_Clientes_0_0">
-            <End Role="Distritos" EntitySet="Distritos" />
+            <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
           <AssociationSet Name="FK_Clientes_1_0" Association="Self.FK_Clientes_1_0">
@@ -750,7 +906,15 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
           <AssociationSet Name="FK_Clientes_2_0" Association="Self.FK_Clientes_2_0">
+            <End Role="Distritos" EntitySet="Distritos" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clientes_3_0" Association="Self.FK_Clientes_3_0">
             <End Role="Identificaciones" EntitySet="Identificaciones" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clientes_4_0" Association="Self.FK_Clientes_4_0">
+            <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
           <AssociationSet Name="FK_Departamentos_0_0" Association="Self.FK_Departamentos_0_0">
@@ -762,40 +926,44 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="Distritos" EntitySet="Distritos" />
           </AssociationSet>
           <AssociationSet Name="FK_Documentos_0_0" Association="Self.FK_Documentos_0_0">
-            <End Role="Empresas" EntitySet="Empresas" />
-            <End Role="Documentos" EntitySet="Documentos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Documentos_1_0" Association="Self.FK_Documentos_1_0">
-            <End Role="Clientes" EntitySet="Clientes" />
-            <End Role="Documentos" EntitySet="Documentos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Documentos_2_0" Association="Self.FK_Documentos_2_0">
-            <End Role="Cajas" EntitySet="Cajas" />
-            <End Role="Documentos" EntitySet="Documentos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Documentos_3_0" Association="Self.FK_Documentos_3_0">
             <End Role="TiposDocumentos" EntitySet="TiposDocumentos" />
             <End Role="Documentos" EntitySet="Documentos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Documentos_4_0" Association="Self.FK_Documentos_4_0">
+          <AssociationSet Name="FK_Documentos_1_0" Association="Self.FK_Documentos_1_0">
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Documentos" EntitySet="Documentos" />
           </AssociationSet>
+          <AssociationSet Name="FK_Documentos_2_0" Association="Self.FK_Documentos_2_0">
+            <End Role="Empresas" EntitySet="Empresas" />
+            <End Role="Documentos" EntitySet="Documentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documentos_3_0" Association="Self.FK_Documentos_3_0">
+            <End Role="Cajas" EntitySet="Cajas" />
+            <End Role="Documentos" EntitySet="Documentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documentos_4_0" Association="Self.FK_Documentos_4_0">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Documentos" EntitySet="Documentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empleados_0_0" Association="Self.FK_Empleados_0_0">
+            <End Role="Identificaciones" EntitySet="Identificaciones" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
           <AssociationSet Name="FK_Empresas_0_0" Association="Self.FK_Empresas_0_0">
-            <End Role="Distritos" EntitySet="Distritos" />
+            <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Empresas" EntitySet="Empresas" />
           </AssociationSet>
           <AssociationSet Name="FK_Empresas_1_0" Association="Self.FK_Empresas_1_0">
             <End Role="Identificaciones" EntitySet="Identificaciones" />
             <End Role="Empresas" EntitySet="Empresas" />
           </AssociationSet>
-          <AssociationSet Name="FK_EmpresasClientes_0_0" Association="Self.FK_EmpresasClientes_0_0">
-            <End Role="Clientes" EntitySet="Clientes" />
-            <End Role="EmpresasClientes" EntitySet="EmpresasClientes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EmpresasClientes_1_0" Association="Self.FK_EmpresasClientes_1_0">
+          <AssociationSet Name="FK_Empresas_2_0" Association="Self.FK_Empresas_2_0">
+            <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Empresas" EntitySet="Empresas" />
-            <End Role="EmpresasClientes" EntitySet="EmpresasClientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empresas_3_0" Association="Self.FK_Empresas_3_0">
+            <End Role="Distritos" EntitySet="Distritos" />
+            <End Role="Empresas" EntitySet="Empresas" />
           </AssociationSet>
           <AssociationSet Name="FK_EmpresasEmpleados_0_0" Association="Self.FK_EmpresasEmpleados_0_0">
             <End Role="Empleados" EntitySet="Empleados" />
@@ -821,8 +989,20 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="Documentos" EntitySet="Documentos" />
             <End Role="ItemsDocumentos" EntitySet="ItemsDocumentos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Pagos_0_0" Association="Self.FK_Pagos_0_0">
+          <AssociationSet Name="FK_Marcas_0_0" Association="Self.FK_Marcas_0_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Marcas" EntitySet="Marcas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Marcas_1_0" Association="Self.FK_Marcas_1_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Marcas" EntitySet="Marcas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Monedas_0_0" Association="Self.FK_Monedas_0_0">
+            <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Monedas" EntitySet="Monedas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagos_0_0" Association="Self.FK_Pagos_0_0">
+            <End Role="Documentos" EntitySet="Documentos" />
             <End Role="Pagos" EntitySet="Pagos" />
           </AssociationSet>
           <AssociationSet Name="FK_Pagos_1_0" Association="Self.FK_Pagos_1_0">
@@ -830,11 +1010,19 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="Pagos" EntitySet="Pagos" />
           </AssociationSet>
           <AssociationSet Name="FK_Pagos_2_0" Association="Self.FK_Pagos_2_0">
-            <End Role="Documentos" EntitySet="Documentos" />
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Pagos" EntitySet="Pagos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagos_3_0" Association="Self.FK_Pagos_3_0">
+            <End Role="Monedas" EntitySet="Monedas" />
+            <End Role="Pagos" EntitySet="Pagos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagos_4_0" Association="Self.FK_Pagos_4_0">
+            <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Pagos" EntitySet="Pagos" />
           </AssociationSet>
           <AssociationSet Name="FK_Productos_0_0" Association="Self.FK_Productos_0_0">
-            <End Role="UnidadesMedidas" EntitySet="UnidadesMedidas" />
+            <End Role="Marcas" EntitySet="Marcas" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_Productos_1_0" Association="Self.FK_Productos_1_0">
@@ -846,18 +1034,34 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_Productos_3_0" Association="Self.FK_Productos_3_0">
-            <End Role="Marcas" EntitySet="Marcas" />
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Productos" EntitySet="Productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Productos_4_0" Association="Self.FK_Productos_4_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Productos" EntitySet="Productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Productos_5_0" Association="Self.FK_Productos_5_0">
+            <End Role="UnidadesMedidas" EntitySet="UnidadesMedidas" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_Provincias_0_0" Association="Self.FK_Provincias_0_0">
             <End Role="Departamentos" EntitySet="Departamentos" />
             <End Role="Provincias" EntitySet="Provincias" />
           </AssociationSet>
+          <AssociationSet Name="FK_TiposProductos_0_0" Association="Self.FK_TiposProductos_0_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="TiposProductos" EntitySet="TiposProductos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TiposProductos_1_0" Association="Self.FK_TiposProductos_1_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="TiposProductos" EntitySet="TiposProductos" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="mainModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="EsconPOS" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="CajaLog">
           <Key>
             <PropertyRef Name="CajaLogID" />
@@ -867,8 +1071,8 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           <Property Name="TransaccionID" Type="Int64" Nullable="false" />
           <Property Name="EmpleadoID" Type="Int64" Nullable="false" />
           <Property Name="Monto" Type="Double" Nullable="false" />
-          <Property Name="Fecha" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Hora" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Fecha" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Hora" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Empleados" Relationship="Self.FK_CajaLog_0_0" FromRole="CajaLog" ToRole="Empleados" />
           <NavigationProperty Name="Transacciones" Relationship="Self.FK_CajaLog_1_0" FromRole="CajaLog" ToRole="Transacciones" />
           <NavigationProperty Name="Cajas" Relationship="Self.FK_CajaLog_2_0" FromRole="CajaLog" ToRole="Cajas" />
@@ -878,11 +1082,11 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <PropertyRef Name="CajaID" />
           </Key>
           <Property Name="CajaID" Type="Int64" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Abierta" Type="Int64" Nullable="false" />
-          <Property Name="FechaHoraEstado" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaHoraEstado" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="CajaLog" Relationship="Self.FK_CajaLog_2_0" FromRole="Cajas" ToRole="CajaLog" />
-          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_2_0" FromRole="Cajas" ToRole="Documentos" />
+          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_3_0" FromRole="Cajas" ToRole="Documentos" />
         </EntityType>
         <EntityType Name="Clientes">
           <Key>
@@ -890,21 +1094,24 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           </Key>
           <Property Name="ClienteID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdentificacionID" Type="Int64" Nullable="false" />
-          <Property Name="NroDocIdent" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Direccion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="NroDocIdent" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="PaisID" Type="Int64" />
-          <Property Name="DistritoID" Type="Int64" />
-          <Property Name="NroTelefonico" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="CorreoElectronico" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="DistritoID" Type="Int64" Nullable="false" />
+          <Property Name="NroTelefonico" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CorreoElectronico" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Activo" Type="Int64" Nullable="false" />
-          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AgregadoPor" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Distritos" Relationship="Self.FK_Clientes_0_0" FromRole="Clientes" ToRole="Distritos" />
+          <Property Name="ModificadoEl" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModificadoPor" Type="Int64" />
+          <NavigationProperty Name="EmpleadoUpd" Relationship="Self.FK_Clientes_0_0" FromRole="Clientes" ToRole="Empleados" />
           <NavigationProperty Name="Paises" Relationship="Self.FK_Clientes_1_0" FromRole="Clientes" ToRole="Paises" />
-          <NavigationProperty Name="Identificaciones" Relationship="Self.FK_Clientes_2_0" FromRole="Clientes" ToRole="Identificaciones" />
-          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_1_0" FromRole="Clientes" ToRole="Documentos" />
-          <NavigationProperty Name="Empresas" Relationship="Self.EmpresasClientes" FromRole="Clientes" ToRole="Empresas" />
+          <NavigationProperty Name="Distritos" Relationship="Self.FK_Clientes_2_0" FromRole="Clientes" ToRole="Distritos" />
+          <NavigationProperty Name="Identificaciones" Relationship="Self.FK_Clientes_3_0" FromRole="Clientes" ToRole="Identificaciones" />
+          <NavigationProperty Name="EmpleadoAdd" Relationship="Self.FK_Clientes_4_0" FromRole="Clientes" ToRole="Empleados" />
+          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_4_0" FromRole="Clientes" ToRole="Documentos" />
         </EntityType>
         <EntityType Name="Configuraciones">
           <Key>
@@ -923,8 +1130,8 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           </Key>
           <Property Name="DepartamentoID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PaisID" Type="Int64" Nullable="false" />
-          <Property Name="Departamento" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UBIGEO" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Departamento" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UBIGEO" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Paises" Relationship="Self.FK_Departamentos_0_0" FromRole="Departamentos" ToRole="Paises" />
           <NavigationProperty Name="Provincias" Relationship="Self.FK_Provincias_0_0" FromRole="Departamentos" ToRole="Provincias" />
         </EntityType>
@@ -934,11 +1141,11 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           </Key>
           <Property Name="DistritoID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProvinciaID" Type="Int64" Nullable="false" />
-          <Property Name="Distrito" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UBIGEO" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_0_0" FromRole="Distritos" ToRole="Clientes" />
+          <Property Name="Distrito" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UBIGEO" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_2_0" FromRole="Distritos" ToRole="Clientes" />
           <NavigationProperty Name="Provincias" Relationship="Self.FK_Distritos_0_0" FromRole="Distritos" ToRole="Provincias" />
-          <NavigationProperty Name="Empresas" Relationship="Self.FK_Empresas_0_0" FromRole="Distritos" ToRole="Empresas" />
+          <NavigationProperty Name="Empresas" Relationship="Self.FK_Empresas_3_0" FromRole="Distritos" ToRole="Empresas" />
         </EntityType>
         <EntityType Name="Documentos">
           <Key>
@@ -947,8 +1154,8 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           <Property Name="DocumentoID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NroDocumento" Type="Int64" Nullable="false" />
           <Property Name="TipoDocumentoID" Type="Int64" Nullable="false" />
-          <Property Name="FechaDocumento" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="HoraDocumento" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaDocumento" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HoraDocumento" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EmpresaID" Type="Int64" Nullable="false" />
           <Property Name="ClienteID" Type="Int64" Nullable="false" />
           <Property Name="EmpleadoID" Type="Int64" Nullable="false" />
@@ -961,15 +1168,18 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           <Property Name="SubTotal" Type="Double" Nullable="false" />
           <Property Name="MontoDescuentos" Type="Double" Nullable="false" />
           <Property Name="MontoNeto" Type="Double" Nullable="false" />
-          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RefDocumentoID" Type="Int64" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AgregadoPor" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Cajas" Relationship="Self.FK_Documentos_2_0" FromRole="Documentos" ToRole="Cajas" />
-          <NavigationProperty Name="Clientes" Relationship="Self.FK_Documentos_1_0" FromRole="Documentos" ToRole="Clientes" />
-          <NavigationProperty Name="Empresas" Relationship="Self.FK_Documentos_0_0" FromRole="Documentos" ToRole="Empresas" />
-          <NavigationProperty Name="TiposDocumentos" Relationship="Self.FK_Documentos_3_0" FromRole="Documentos" ToRole="TiposDocumentos" />
-          <NavigationProperty Name="Empleados" Relationship="Self.FK_Documentos_4_0" FromRole="Documentos" ToRole="Empleados" />
+          <Property Name="ModificadoEl" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModificadoPor" Type="Int64" />
+          <NavigationProperty Name="Cajas" Relationship="Self.FK_Documentos_3_0" FromRole="Documentos" ToRole="Cajas" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Documentos_4_0" FromRole="Documentos" ToRole="Clientes" />
+          <NavigationProperty Name="TiposDocumentos" Relationship="Self.FK_Documentos_0_0" FromRole="Documentos" ToRole="TiposDocumentos" />
+          <NavigationProperty Name="Empleados" Relationship="Self.FK_Documentos_1_0" FromRole="Documentos" ToRole="Empleados" />
+          <NavigationProperty Name="Empresas" Relationship="Self.FK_Documentos_2_0" FromRole="Documentos" ToRole="Empresas" />
           <NavigationProperty Name="ItemsDocumentos" Relationship="Self.FK_ItemsDocumentos_3_0" FromRole="Documentos" ToRole="ItemsDocumentos" />
-          <NavigationProperty Name="Pagos" Relationship="Self.FK_Pagos_2_0" FromRole="Documentos" ToRole="Pagos" />
+          <NavigationProperty Name="Pagos" Relationship="Self.FK_Pagos_0_0" FromRole="Documentos" ToRole="Pagos" />
         </EntityType>
         <EntityType Name="Empleados">
           <Key>
@@ -983,16 +1193,32 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           <Property Name="Telefono" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CorreoElectronico" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Login" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PasswdHash" Type="String" Nullable="false" />
+          <Property Name="PasswdHash" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EsSupervisor" Type="Int64" Nullable="false" />
           <Property Name="EsAdministrador" Type="Int64" Nullable="false" />
           <Property Name="Activo" Type="Int64" />
-          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="AgregadoPor" Type="Int64" />
+          <Property Name="ModificadoEl" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModificadoPor" Type="Int64" />
           <NavigationProperty Name="CajaLog" Relationship="Self.FK_CajaLog_0_0" FromRole="Empleados" ToRole="CajaLog" />
-          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_4_0" FromRole="Empleados" ToRole="Documentos" />
+          <NavigationProperty Name="ClienteUpd" Relationship="EsconPOS.FK_Clientes_0_0" FromRole="Empleados" ToRole="Clientes" />
+          <NavigationProperty Name="ClienteAdd" Relationship="EsconPOS.FK_Clientes_4_0" FromRole="Empleados" ToRole="Clientes" />
+          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_1_0" FromRole="Empleados" ToRole="Documentos" />
+          <NavigationProperty Name="EmpresasUpdated" Relationship="Self.FK_Empresas_0_0" FromRole="Empleados" ToRole="Empresas" />
+          <NavigationProperty Name="EmpresasAdded" Relationship="Self.FK_Empresas_2_0" FromRole="Empleados" ToRole="Empresas" />
           <NavigationProperty Name="ItemsDocumentos" Relationship="Self.FK_ItemsDocumentos_0_0" FromRole="Empleados" ToRole="ItemsDocumentos" />
+          <NavigationProperty Name="MarcasAdded" Relationship="Self.FK_Marcas_0_0" FromRole="Empleados" ToRole="Marcas" />
+          <NavigationProperty Name="MarcasUpdated" Relationship="Self.FK_Marcas_1_0" FromRole="Empleados" ToRole="Marcas" />
+          <NavigationProperty Name="Monedas" Relationship="Self.FK_Monedas_0_0" FromRole="Empleados" ToRole="Monedas" />
+          <NavigationProperty Name="PagosAdded" Relationship="Self.FK_Pagos_2_0" FromRole="Empleados" ToRole="Pagos" />
+          <NavigationProperty Name="PagosUpdated" Relationship="Self.FK_Pagos_4_0" FromRole="Empleados" ToRole="Pagos" />
+          <NavigationProperty Name="ProductosUpdated" Relationship="Self.FK_Productos_3_0" FromRole="Empleados" ToRole="Productos" />
+          <NavigationProperty Name="ProductosAdded" Relationship="Self.FK_Productos_4_0" FromRole="Empleados" ToRole="Productos" />
+          <NavigationProperty Name="TiposProductosUpdated" Relationship="Self.FK_TiposProductos_0_0" FromRole="Empleados" ToRole="TiposProductos" />
+          <NavigationProperty Name="TiposProductosAdded" Relationship="Self.FK_TiposProductos_1_0" FromRole="Empleados" ToRole="TiposProductos" />
           <NavigationProperty Name="Empresas" Relationship="Self.EmpresasEmpleados" FromRole="Empleados" ToRole="Empresas" />
+          <NavigationProperty Name="Identificaciones" Relationship="EsconPOS.FK_Empleados_0_0" FromRole="Empleados" ToRole="Identificaciones" />
         </EntityType>
         <EntityType Name="Empresas">
           <Key>
@@ -1000,20 +1226,23 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           </Key>
           <Property Name="EmpresaID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdentificacionID" Type="Int64" Nullable="false" />
-          <Property Name="NroDocIdent" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NombreComercial" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="RazonSocial" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Direccion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DistritoID" Type="Int64" />
-          <Property Name="Urbanizacion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="NroTelefonico" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="CorreoElectronico" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NroDocIdent" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NombreComercial" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RazonSocial" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DistritoID" Type="Int64" Nullable="false" />
+          <Property Name="Urbanizacion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NroTelefonico" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CorreoElectronico" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AgregadoPor" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Distritos" Relationship="Self.FK_Empresas_0_0" FromRole="Empresas" ToRole="Distritos" />
-          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_0_0" FromRole="Empresas" ToRole="Documentos" />
+          <Property Name="ModificadoEl" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModificadoPor" Type="Int64" />
+          <NavigationProperty Name="Distritos" Relationship="Self.FK_Empresas_3_0" FromRole="Empresas" ToRole="Distritos" />
+          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_2_0" FromRole="Empresas" ToRole="Documentos" />
+          <NavigationProperty Name="EmpleadoUpd" Relationship="Self.FK_Empresas_0_0" FromRole="Empresas" ToRole="Empleados" />
+          <NavigationProperty Name="EmpleadoAdd" Relationship="Self.FK_Empresas_2_0" FromRole="Empresas" ToRole="Empleados" />
           <NavigationProperty Name="Identificaciones" Relationship="Self.FK_Empresas_1_0" FromRole="Empresas" ToRole="Identificaciones" />
-          <NavigationProperty Name="Clientes" Relationship="Self.EmpresasClientes" FromRole="Empresas" ToRole="Clientes" />
           <NavigationProperty Name="Empleados" Relationship="Self.EmpresasEmpleados" FromRole="Empresas" ToRole="Empleados" />
         </EntityType>
         <EntityType Name="FormasPagos">
@@ -1033,23 +1262,26 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <PropertyRef Name="IdentificacionID" />
           </Key>
           <Property Name="IdentificacionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Identificacion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Iniciales" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_2_0" FromRole="Identificaciones" ToRole="Clientes" />
+          <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Identificacion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Iniciales" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_3_0" FromRole="Identificaciones" ToRole="Clientes" />
           <NavigationProperty Name="Empresas" Relationship="Self.FK_Empresas_1_0" FromRole="Identificaciones" ToRole="Empresas" />
+          <NavigationProperty Name="Empleados" Relationship="EsconPOS.FK_Empleados_0_0" FromRole="Identificaciones" ToRole="Empleados" />
         </EntityType>
         <EntityType Name="Impuestos">
           <Key>
             <PropertyRef Name="ImpuestoID" />
           </Key>
           <Property Name="ImpuestoID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Impuesto" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Codigo" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Categoria" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Impuesto" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Tipo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Categoria" Type="Binary" MaxLength="10" FixedLength="false" Nullable="false" />
+          <Property Name="Iniciales" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Tasa" Type="Double" Nullable="false" />
-          <Property Name="ValidoDesde" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ValidoHasta" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ValidoDesde" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ValidoHasta" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Activo" Type="Int64" Nullable="false" />
           <NavigationProperty Name="ItemsDocumentos" Relationship="Self.FK_ItemsDocumentos_1_0" FromRole="Impuestos" ToRole="ItemsDocumentos" />
           <NavigationProperty Name="Productos" Relationship="Self.FK_Productos_1_0" FromRole="Impuestos" ToRole="Productos" />
@@ -1081,26 +1313,30 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <PropertyRef Name="MarcaID" />
           </Key>
           <Property Name="MarcaID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Marca" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Marca" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Activo" Type="Int64" Nullable="false" />
-          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AgregadoPor" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Productos" Relationship="Self.FK_Productos_3_0" FromRole="Marcas" ToRole="Productos" />
+          <Property Name="ModificadoEl" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModificadoPor" Type="Int64" />
+          <NavigationProperty Name="EmpleadoAdd" Relationship="Self.FK_Marcas_0_0" FromRole="Marcas" ToRole="Empleados" />
+          <NavigationProperty Name="EmpleadoUpd" Relationship="Self.FK_Marcas_1_0" FromRole="Marcas" ToRole="Empleados" />
+          <NavigationProperty Name="Productos" Relationship="Self.FK_Productos_0_0" FromRole="Marcas" ToRole="Productos" />
         </EntityType>
         <EntityType Name="Monedas">
           <Key>
             <PropertyRef Name="MonedaID" />
           </Key>
           <Property Name="MonedaID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Moneda" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Moneda" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PorDefecto" Type="Int64" Nullable="false" />
-          <Property Name="Base" Type="Int64" Nullable="false" />
           <Property Name="FactorCambiario" Type="Double" Nullable="false" />
           <Property Name="Activo" Type="Int64" Nullable="false" />
-          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AgregadoPor" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Pagos" Relationship="Self.FK_Pagos_0_0" FromRole="Monedas" ToRole="Pagos" />
+          <NavigationProperty Name="EmpleadoAdd" Relationship="Self.FK_Monedas_0_0" FromRole="Monedas" ToRole="Empleados" />
+          <NavigationProperty Name="Pagos" Relationship="Self.FK_Pagos_3_0" FromRole="Monedas" ToRole="Pagos" />
         </EntityType>
         <EntityType Name="Pagos">
           <Key>
@@ -1116,17 +1352,21 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           <Property Name="Autorizacion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AgregadoPor" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Documentos" Relationship="Self.FK_Pagos_2_0" FromRole="Pagos" ToRole="Documentos" />
+          <Property Name="ModificadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ModificadoPor" Type="Int64" />
+          <NavigationProperty Name="Documentos" Relationship="Self.FK_Pagos_0_0" FromRole="Pagos" ToRole="Documentos" />
+          <NavigationProperty Name="EmpleadoAdd" Relationship="Self.FK_Pagos_2_0" FromRole="Pagos" ToRole="Empleados" />
+          <NavigationProperty Name="EmpleadoUpd" Relationship="Self.FK_Pagos_4_0" FromRole="Pagos" ToRole="Empleados" />
           <NavigationProperty Name="FormasPagos" Relationship="Self.FK_Pagos_1_0" FromRole="Pagos" ToRole="FormasPagos" />
-          <NavigationProperty Name="Monedas" Relationship="Self.FK_Pagos_0_0" FromRole="Pagos" ToRole="Monedas" />
+          <NavigationProperty Name="Monedas" Relationship="Self.FK_Pagos_3_0" FromRole="Pagos" ToRole="Monedas" />
         </EntityType>
         <EntityType Name="Paises">
           <Key>
             <PropertyRef Name="PaisID" />
           </Key>
           <Property Name="PaisID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Pais" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Codigo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pais" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_1_0" FromRole="Paises" ToRole="Clientes" />
           <NavigationProperty Name="Departamentos" Relationship="Self.FK_Departamentos_0_0" FromRole="Paises" ToRole="Departamentos" />
         </EntityType>
@@ -1135,22 +1375,26 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <PropertyRef Name="ProductoID" />
           </Key>
           <Property Name="ProductoID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CodigoBarra" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="Producto" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CodigoBarra" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Producto" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TipoProductoID" Type="Int64" />
           <Property Name="MarcaID" Type="Int64" />
           <Property Name="ImpuestoID" Type="Int64" Nullable="false" />
           <Property Name="UnidadMedidaID" Type="Int64" Nullable="false" />
-          <Property Name="Presentacion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Presentacion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Activo" Type="Int64" Nullable="false" />
-          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AgregadoPor" Type="Int64" Nullable="false" />
+          <Property Name="ModificadoEl" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModificadoPor" Type="Int64" />
+          <NavigationProperty Name="EmpleadoUpd" Relationship="Self.FK_Productos_3_0" FromRole="Productos" ToRole="Empleados" />
+          <NavigationProperty Name="EmpleadosAdd" Relationship="Self.FK_Productos_4_0" FromRole="Productos" ToRole="Empleados" />
           <NavigationProperty Name="Impuestos" Relationship="Self.FK_Productos_1_0" FromRole="Productos" ToRole="Impuestos" />
           <NavigationProperty Name="ItemsDocumentos" Relationship="Self.FK_ItemsDocumentos_2_0" FromRole="Productos" ToRole="ItemsDocumentos" />
-          <NavigationProperty Name="Marcas" Relationship="Self.FK_Productos_3_0" FromRole="Productos" ToRole="Marcas" />
-          <NavigationProperty Name="UnidadesMedidas" Relationship="Self.FK_Productos_0_0" FromRole="Productos" ToRole="UnidadesMedidas" />
+          <NavigationProperty Name="Marcas" Relationship="Self.FK_Productos_0_0" FromRole="Productos" ToRole="Marcas" />
           <NavigationProperty Name="TiposProductos" Relationship="Self.FK_Productos_2_0" FromRole="Productos" ToRole="TiposProductos" />
+          <NavigationProperty Name="UnidadesMedidas" Relationship="Self.FK_Productos_5_0" FromRole="Productos" ToRole="UnidadesMedidas" />
         </EntityType>
         <EntityType Name="Provincias">
           <Key>
@@ -1158,8 +1402,8 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           </Key>
           <Property Name="ProvinciaID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DepartamentoID" Type="Int64" Nullable="false" />
-          <Property Name="Provincia" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UBIGEO" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Provincia" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UBIGEO" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Departamentos" Relationship="Self.FK_Provincias_0_0" FromRole="Provincias" ToRole="Departamentos" />
           <NavigationProperty Name="Distritos" Relationship="Self.FK_Distritos_0_0" FromRole="Provincias" ToRole="Distritos" />
         </EntityType>
@@ -1168,20 +1412,24 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <PropertyRef Name="TipoDocumentoID" />
           </Key>
           <Property Name="TipoDocumentoID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TipoDocumento" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Iniciales" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_3_0" FromRole="TiposDocumentos" ToRole="Documentos" />
+          <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TipoDocumento" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Iniciales" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Documentos" Relationship="Self.FK_Documentos_0_0" FromRole="TiposDocumentos" ToRole="Documentos" />
         </EntityType>
         <EntityType Name="TiposProductos">
           <Key>
             <PropertyRef Name="TipoProductoID" />
           </Key>
           <Property Name="TipoProductoID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TipoProducto" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TipoProducto" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Activo" Type="Int64" Nullable="false" />
-          <Property Name="AgregadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgregadoEl" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AgregadoPor" Type="Int64" Nullable="false" />
+          <Property Name="ModificadoEl" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModificadoPor" Type="Int64" />
+          <NavigationProperty Name="EmpleadoUpd" Relationship="Self.FK_TiposProductos_0_0" FromRole="TiposProductos" ToRole="Empleados" />
+          <NavigationProperty Name="EmpleadoAdd" Relationship="Self.FK_TiposProductos_1_0" FromRole="TiposProductos" ToRole="Empleados" />
           <NavigationProperty Name="Productos" Relationship="Self.FK_Productos_2_0" FromRole="TiposProductos" ToRole="Productos" />
         </EntityType>
         <EntityType Name="Transacciones">
@@ -1189,8 +1437,8 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <PropertyRef Name="TransaccionID" />
           </Key>
           <Property Name="TransaccionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Transaccion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Codigo" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Transaccion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="CajaLog" Relationship="Self.FK_CajaLog_1_0" FromRole="Transacciones" ToRole="CajaLog" />
         </EntityType>
         <EntityType Name="UnidadesMedidas">
@@ -1198,21 +1446,24 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <PropertyRef Name="UnidadMedidaID" />
           </Key>
           <Property Name="UnidadMedidaID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UnidadMedida" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UnidadMedida" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PorDefecto" Type="Int64" Nullable="false" />
           <Property Name="Activo" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Productos" Relationship="Self.FK_Productos_0_0" FromRole="UnidadesMedidas" ToRole="Productos" />
+          <NavigationProperty Name="Productos" Relationship="Self.FK_Productos_5_0" FromRole="UnidadesMedidas" ToRole="Productos" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
-            <PropertyRef Name="PasswdHash" />
+            <PropertyRef Name="UsuarioID" />
+            <PropertyRef Name="Usuario" />
             <PropertyRef Name="Login" />
+            <PropertyRef Name="PasswdHash" />
+            <PropertyRef Name="EsAdministrador" />
           </Key>
           <Property Name="UsuarioID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Login" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PasswdHash" Type="String" Nullable="false" />
+          <Property Name="PasswdHash" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EsAdministrador" Type="Int64" Nullable="false" />
         </EntityType>
         <Association Name="FK_CajaLog_0_0">
@@ -1251,7 +1502,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Documentos_2_0">
+        <Association Name="FK_Documentos_3_0">
           <End Role="Cajas" Type="Self.Cajas" Multiplicity="1" />
           <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1264,14 +1515,14 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Clientes_0_0">
-          <End Role="Distritos" Type="Self.Distritos" Multiplicity="0..1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Distritos">
-              <PropertyRef Name="DistritoID" />
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
             </Principal>
             <Dependent Role="Clientes">
-              <PropertyRef Name="DistritoID" />
+              <PropertyRef Name="ModificadoPor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1288,6 +1539,18 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Clientes_2_0">
+          <End Role="Distritos" Type="Self.Distritos" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distritos">
+              <PropertyRef Name="DistritoID" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="DistritoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clientes_3_0">
           <End Role="Identificaciones" Type="Self.Identificaciones" Multiplicity="1" />
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1299,7 +1562,19 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Documentos_1_0">
+        <Association Name="FK_Clientes_4_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="AgregadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documentos_4_0">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
           <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1347,8 +1622,8 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Empresas_0_0">
-          <End Role="Distritos" Type="Self.Distritos" Multiplicity="0..1" />
+        <Association Name="FK_Empresas_3_0">
+          <End Role="Distritos" Type="Self.Distritos" Multiplicity="1" />
           <End Role="Empresas" Type="Self.Empresas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Distritos">
@@ -1360,18 +1635,6 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Documentos_0_0">
-          <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
-          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empresas">
-              <PropertyRef Name="EmpresaID" />
-            </Principal>
-            <Dependent Role="Documentos">
-              <PropertyRef Name="EmpresaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Documentos_3_0">
           <End Role="TiposDocumentos" Type="Self.TiposDocumentos" Multiplicity="1" />
           <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1383,7 +1646,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Documentos_4_0">
+        <Association Name="FK_Documentos_1_0">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
           <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1392,6 +1655,18 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </Principal>
             <Dependent Role="Documentos">
               <PropertyRef Name="EmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documentos_2_0">
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
+          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresas">
+              <PropertyRef Name="EmpresaID" />
+            </Principal>
+            <Dependent Role="Documentos">
+              <PropertyRef Name="EmpresaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1407,7 +1682,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Pagos_2_0">
+        <Association Name="FK_Pagos_0_0">
           <End Role="Documentos" Type="Self.Documentos" Multiplicity="1" />
           <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1416,6 +1691,30 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </Principal>
             <Dependent Role="Pagos">
               <PropertyRef Name="DocumentoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empresas_0_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Empresas">
+              <PropertyRef Name="ModificadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empresas_2_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Empresas">
+              <PropertyRef Name="AgregadoPor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1428,6 +1727,114 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </Principal>
             <Dependent Role="ItemsDocumentos">
               <PropertyRef Name="AutorizadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Marcas_0_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Marcas" Type="Self.Marcas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Marcas">
+              <PropertyRef Name="AgregadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Marcas_1_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="Marcas" Type="Self.Marcas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Marcas">
+              <PropertyRef Name="ModificadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Monedas_0_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Monedas" Type="Self.Monedas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Monedas">
+              <PropertyRef Name="AgregadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagos_2_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Pagos">
+              <PropertyRef Name="AgregadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagos_4_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Pagos">
+              <PropertyRef Name="ModificadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Productos_3_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="ModificadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Productos_4_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="AgregadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TiposProductos_0_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="TiposProductos" Type="Self.TiposProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="TiposProductos">
+              <PropertyRef Name="ModificadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TiposProductos_1_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="TiposProductos" Type="Self.TiposProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="TiposProductos">
+              <PropertyRef Name="AgregadoPor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1491,7 +1898,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Productos_3_0">
+        <Association Name="FK_Productos_0_0">
           <End Role="Marcas" Type="Self.Marcas" Multiplicity="0..1" />
           <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1503,7 +1910,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Pagos_0_0">
+        <Association Name="FK_Pagos_3_0">
           <End Role="Monedas" Type="Self.Monedas" Multiplicity="1" />
           <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1512,18 +1919,6 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </Principal>
             <Dependent Role="Pagos">
               <PropertyRef Name="MonedaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Productos_0_0">
-          <End Role="UnidadesMedidas" Type="Self.UnidadesMedidas" Multiplicity="1" />
-          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UnidadesMedidas">
-              <PropertyRef Name="UnidadMedidaID" />
-            </Principal>
-            <Dependent Role="Productos">
-              <PropertyRef Name="UnidadMedidaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1539,9 +1934,17 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="EmpresasClientes">
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
-          <End Role="Empresas" Type="Self.Empresas" Multiplicity="*" />
+        <Association Name="FK_Productos_5_0">
+          <End Role="UnidadesMedidas" Type="Self.UnidadesMedidas" Multiplicity="1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnidadesMedidas">
+              <PropertyRef Name="UnidadMedidaID" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="UnidadMedidaID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="EmpresasEmpleados">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
@@ -1584,12 +1987,12 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="Cajas" EntitySet="Cajas" />
             <End Role="CajaLog" EntitySet="CajaLog" />
           </AssociationSet>
-          <AssociationSet Name="FK_Documentos_2_0" Association="Self.FK_Documentos_2_0">
+          <AssociationSet Name="FK_Documentos_3_0" Association="Self.FK_Documentos_3_0">
             <End Role="Cajas" EntitySet="Cajas" />
             <End Role="Documentos" EntitySet="Documentos" />
           </AssociationSet>
           <AssociationSet Name="FK_Clientes_0_0" Association="Self.FK_Clientes_0_0">
-            <End Role="Distritos" EntitySet="Distritos" />
+            <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
           <AssociationSet Name="FK_Clientes_1_0" Association="Self.FK_Clientes_1_0">
@@ -1597,10 +2000,18 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
           <AssociationSet Name="FK_Clientes_2_0" Association="Self.FK_Clientes_2_0">
+            <End Role="Distritos" EntitySet="Distritos" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clientes_3_0" Association="Self.FK_Clientes_3_0">
             <End Role="Identificaciones" EntitySet="Identificaciones" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
-          <AssociationSet Name="FK_Documentos_1_0" Association="Self.FK_Documentos_1_0">
+          <AssociationSet Name="FK_Clientes_4_0" Association="Self.FK_Clientes_4_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documentos_4_0" Association="Self.FK_Documentos_4_0">
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="Documentos" EntitySet="Documentos" />
           </AssociationSet>
@@ -1616,33 +2027,77 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="Provincias" EntitySet="Provincias" />
             <End Role="Distritos" EntitySet="Distritos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Empresas_0_0" Association="Self.FK_Empresas_0_0">
+          <AssociationSet Name="FK_Empresas_3_0" Association="Self.FK_Empresas_3_0">
             <End Role="Distritos" EntitySet="Distritos" />
             <End Role="Empresas" EntitySet="Empresas" />
           </AssociationSet>
           <AssociationSet Name="FK_Documentos_0_0" Association="Self.FK_Documentos_0_0">
-            <End Role="Empresas" EntitySet="Empresas" />
-            <End Role="Documentos" EntitySet="Documentos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Documentos_3_0" Association="Self.FK_Documentos_3_0">
             <End Role="TiposDocumentos" EntitySet="TiposDocumentos" />
             <End Role="Documentos" EntitySet="Documentos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Documentos_4_0" Association="Self.FK_Documentos_4_0">
+          <AssociationSet Name="FK_Documentos_1_0" Association="Self.FK_Documentos_1_0">
             <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Documentos" EntitySet="Documentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documentos_2_0" Association="Self.FK_Documentos_2_0">
+            <End Role="Empresas" EntitySet="Empresas" />
             <End Role="Documentos" EntitySet="Documentos" />
           </AssociationSet>
           <AssociationSet Name="FK_ItemsDocumentos_3_0" Association="Self.FK_ItemsDocumentos_3_0">
             <End Role="Documentos" EntitySet="Documentos" />
             <End Role="ItemsDocumentos" EntitySet="ItemsDocumentos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Pagos_2_0" Association="Self.FK_Pagos_2_0">
+          <AssociationSet Name="FK_Pagos_0_0" Association="Self.FK_Pagos_0_0">
             <End Role="Documentos" EntitySet="Documentos" />
             <End Role="Pagos" EntitySet="Pagos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empresas_0_0" Association="Self.FK_Empresas_0_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Empresas" EntitySet="Empresas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empresas_2_0" Association="Self.FK_Empresas_2_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Empresas" EntitySet="Empresas" />
           </AssociationSet>
           <AssociationSet Name="FK_ItemsDocumentos_0_0" Association="Self.FK_ItemsDocumentos_0_0">
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="ItemsDocumentos" EntitySet="ItemsDocumentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Marcas_0_0" Association="Self.FK_Marcas_0_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Marcas" EntitySet="Marcas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Marcas_1_0" Association="Self.FK_Marcas_1_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Marcas" EntitySet="Marcas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Monedas_0_0" Association="Self.FK_Monedas_0_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Monedas" EntitySet="Monedas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagos_2_0" Association="Self.FK_Pagos_2_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Pagos" EntitySet="Pagos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagos_4_0" Association="Self.FK_Pagos_4_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Pagos" EntitySet="Pagos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Productos_3_0" Association="Self.FK_Productos_3_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Productos" EntitySet="Productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Productos_4_0" Association="Self.FK_Productos_4_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Productos" EntitySet="Productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TiposProductos_0_0" Association="Self.FK_TiposProductos_0_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="TiposProductos" EntitySet="TiposProductos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TiposProductos_1_0" Association="Self.FK_TiposProductos_1_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="TiposProductos" EntitySet="TiposProductos" />
           </AssociationSet>
           <AssociationSet Name="FK_Empresas_1_0" Association="Self.FK_Empresas_1_0">
             <End Role="Identificaciones" EntitySet="Identificaciones" />
@@ -1664,39 +2119,51 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="Productos" EntitySet="Productos" />
             <End Role="ItemsDocumentos" EntitySet="ItemsDocumentos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Productos_3_0" Association="Self.FK_Productos_3_0">
+          <AssociationSet Name="FK_Productos_0_0" Association="Self.FK_Productos_0_0">
             <End Role="Marcas" EntitySet="Marcas" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Pagos_0_0" Association="Self.FK_Pagos_0_0">
+          <AssociationSet Name="FK_Pagos_3_0" Association="Self.FK_Pagos_3_0">
             <End Role="Monedas" EntitySet="Monedas" />
             <End Role="Pagos" EntitySet="Pagos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Productos_0_0" Association="Self.FK_Productos_0_0">
-            <End Role="UnidadesMedidas" EntitySet="UnidadesMedidas" />
-            <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_Productos_2_0" Association="Self.FK_Productos_2_0">
             <End Role="TiposProductos" EntitySet="TiposProductos" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
-          <AssociationSet Name="EmpresasClientes" Association="Self.EmpresasClientes">
-            <End Role="Clientes" EntitySet="Clientes" />
-            <End Role="Empresas" EntitySet="Empresas" />
+          <AssociationSet Name="FK_Productos_5_0" Association="Self.FK_Productos_5_0">
+            <End Role="UnidadesMedidas" EntitySet="UnidadesMedidas" />
+            <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="EmpresasEmpleados" Association="Self.EmpresasEmpleados">
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Empresas" EntitySet="Empresas" />
           </AssociationSet>
+          <AssociationSet Name="FK_Empleados_0_0" Association="EsconPOS.FK_Empleados_0_0">
+            <End Role="Identificaciones" EntitySet="Identificaciones" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Empleados_0_0">
+          <End Type="EsconPOS.Identificaciones" Role="Identificaciones" Multiplicity="1" />
+          <End Type="EsconPOS.Empleados" Role="Empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Identificaciones">
+              <PropertyRef Name="IdentificacionID" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="IdentificacionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="mainModelStoreContainer" CdmEntityContainer="mainEntities">
+        <EntityContainerMapping StorageEntityContainer="EsconPOSStoreContainer" CdmEntityContainer="mainEntities">
           <EntitySetMapping Name="CajaLog">
-            <EntityTypeMapping TypeName="mainModel.CajaLog">
+            <EntityTypeMapping TypeName="EsconPOS.CajaLog">
               <MappingFragment StoreEntitySet="CajaLog">
                 <ScalarProperty Name="CajaLogID" ColumnName="CajaLogID" />
                 <ScalarProperty Name="CajaID" ColumnName="CajaID" />
@@ -1709,7 +2176,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cajas">
-            <EntityTypeMapping TypeName="mainModel.Cajas">
+            <EntityTypeMapping TypeName="EsconPOS.Cajas">
               <MappingFragment StoreEntitySet="Cajas">
                 <ScalarProperty Name="CajaID" ColumnName="CajaID" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
@@ -1719,7 +2186,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Clientes">
-            <EntityTypeMapping TypeName="mainModel.Clientes">
+            <EntityTypeMapping TypeName="EsconPOS.Clientes">
               <MappingFragment StoreEntitySet="Clientes">
                 <ScalarProperty Name="ClienteID" ColumnName="ClienteID" />
                 <ScalarProperty Name="IdentificacionID" ColumnName="IdentificacionID" />
@@ -1733,11 +2200,13 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
                 <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
+                <ScalarProperty Name="ModificadoEl" ColumnName="ModificadoEl" />
+                <ScalarProperty Name="ModificadoPor" ColumnName="ModificadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Configuraciones">
-            <EntityTypeMapping TypeName="mainModel.Configuraciones">
+            <EntityTypeMapping TypeName="EsconPOS.Configuraciones">
               <MappingFragment StoreEntitySet="Configuraciones">
                 <ScalarProperty Name="ConfiguracionID" ColumnName="ConfiguracionID" />
                 <ScalarProperty Name="CajaID" ColumnName="CajaID" />
@@ -1749,7 +2218,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Departamentos">
-            <EntityTypeMapping TypeName="mainModel.Departamentos">
+            <EntityTypeMapping TypeName="EsconPOS.Departamentos">
               <MappingFragment StoreEntitySet="Departamentos">
                 <ScalarProperty Name="DepartamentoID" ColumnName="DepartamentoID" />
                 <ScalarProperty Name="PaisID" ColumnName="PaisID" />
@@ -1759,7 +2228,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Distritos">
-            <EntityTypeMapping TypeName="mainModel.Distritos">
+            <EntityTypeMapping TypeName="EsconPOS.Distritos">
               <MappingFragment StoreEntitySet="Distritos">
                 <ScalarProperty Name="DistritoID" ColumnName="DistritoID" />
                 <ScalarProperty Name="ProvinciaID" ColumnName="ProvinciaID" />
@@ -1769,7 +2238,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Documentos">
-            <EntityTypeMapping TypeName="mainModel.Documentos">
+            <EntityTypeMapping TypeName="EsconPOS.Documentos">
               <MappingFragment StoreEntitySet="Documentos">
                 <ScalarProperty Name="DocumentoID" ColumnName="DocumentoID" />
                 <ScalarProperty Name="NroDocumento" ColumnName="NroDocumento" />
@@ -1788,13 +2257,16 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
                 <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
                 <ScalarProperty Name="MontoDescuentos" ColumnName="MontoDescuentos" />
                 <ScalarProperty Name="MontoNeto" ColumnName="MontoNeto" />
+                <ScalarProperty Name="RefDocumentoID" ColumnName="RefDocumentoID" />
                 <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
                 <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
+                <ScalarProperty Name="ModificadoEl" ColumnName="ModificadoEl" />
+                <ScalarProperty Name="ModificadoPor" ColumnName="ModificadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Empleados">
-            <EntityTypeMapping TypeName="mainModel.Empleados">
+            <EntityTypeMapping TypeName="EsconPOS.Empleados">
               <MappingFragment StoreEntitySet="Empleados">
                 <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
                 <ScalarProperty Name="IdentificacionID" ColumnName="IdentificacionID" />
@@ -1810,11 +2282,13 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
                 <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
+                <ScalarProperty Name="ModificadoEl" ColumnName="ModificadoEl" />
+                <ScalarProperty Name="ModificadoPor" ColumnName="ModificadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Empresas">
-            <EntityTypeMapping TypeName="mainModel.Empresas">
+            <EntityTypeMapping TypeName="EsconPOS.Empresas">
               <MappingFragment StoreEntitySet="Empresas">
                 <ScalarProperty Name="EmpresaID" ColumnName="EmpresaID" />
                 <ScalarProperty Name="IdentificacionID" ColumnName="IdentificacionID" />
@@ -1828,11 +2302,13 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
                 <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
                 <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
                 <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
+                <ScalarProperty Name="ModificadoEl" ColumnName="ModificadoEl" />
+                <ScalarProperty Name="ModificadoPor" ColumnName="ModificadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FormasPagos">
-            <EntityTypeMapping TypeName="mainModel.FormasPagos">
+            <EntityTypeMapping TypeName="EsconPOS.FormasPagos">
               <MappingFragment StoreEntitySet="FormasPagos">
                 <ScalarProperty Name="FormaPagoID" ColumnName="FormaPagoID" />
                 <ScalarProperty Name="FormaPago" ColumnName="FormaPago" />
@@ -1844,7 +2320,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Identificaciones">
-            <EntityTypeMapping TypeName="mainModel.Identificaciones">
+            <EntityTypeMapping TypeName="EsconPOS.Identificaciones">
               <MappingFragment StoreEntitySet="Identificaciones">
                 <ScalarProperty Name="IdentificacionID" ColumnName="IdentificacionID" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
@@ -1854,12 +2330,14 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Impuestos">
-            <EntityTypeMapping TypeName="mainModel.Impuestos">
+            <EntityTypeMapping TypeName="EsconPOS.Impuestos">
               <MappingFragment StoreEntitySet="Impuestos">
                 <ScalarProperty Name="ImpuestoID" ColumnName="ImpuestoID" />
-                <ScalarProperty Name="Impuesto" ColumnName="Impuesto" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Impuesto" ColumnName="Impuesto" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
                 <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Iniciales" ColumnName="Iniciales" />
                 <ScalarProperty Name="Tasa" ColumnName="Tasa" />
                 <ScalarProperty Name="ValidoDesde" ColumnName="ValidoDesde" />
                 <ScalarProperty Name="ValidoHasta" ColumnName="ValidoHasta" />
@@ -1868,7 +2346,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ItemsDocumentos">
-            <EntityTypeMapping TypeName="mainModel.ItemsDocumentos">
+            <EntityTypeMapping TypeName="EsconPOS.ItemsDocumentos">
               <MappingFragment StoreEntitySet="ItemsDocumentos">
                 <ScalarProperty Name="DocumentoID" ColumnName="DocumentoID" />
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
@@ -1886,24 +2364,25 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Marcas">
-            <EntityTypeMapping TypeName="mainModel.Marcas">
+            <EntityTypeMapping TypeName="EsconPOS.Marcas">
               <MappingFragment StoreEntitySet="Marcas">
                 <ScalarProperty Name="MarcaID" ColumnName="MarcaID" />
                 <ScalarProperty Name="Marca" ColumnName="Marca" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
                 <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
+                <ScalarProperty Name="ModificadoEl" ColumnName="ModificadoEl" />
+                <ScalarProperty Name="ModificadoPor" ColumnName="ModificadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Monedas">
-            <EntityTypeMapping TypeName="mainModel.Monedas">
+            <EntityTypeMapping TypeName="EsconPOS.Monedas">
               <MappingFragment StoreEntitySet="Monedas">
                 <ScalarProperty Name="MonedaID" ColumnName="MonedaID" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="Moneda" ColumnName="Moneda" />
                 <ScalarProperty Name="PorDefecto" ColumnName="PorDefecto" />
-                <ScalarProperty Name="Base" ColumnName="Base" />
                 <ScalarProperty Name="FactorCambiario" ColumnName="FactorCambiario" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
@@ -1912,7 +2391,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Pagos">
-            <EntityTypeMapping TypeName="mainModel.Pagos">
+            <EntityTypeMapping TypeName="EsconPOS.Pagos">
               <MappingFragment StoreEntitySet="Pagos">
                 <ScalarProperty Name="PagoID" ColumnName="PagoID" />
                 <ScalarProperty Name="DocumentoID" ColumnName="DocumentoID" />
@@ -1924,11 +2403,13 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
                 <ScalarProperty Name="Autorizacion" ColumnName="Autorizacion" />
                 <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
                 <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
+                <ScalarProperty Name="ModificadoEl" ColumnName="ModificadoEl" />
+                <ScalarProperty Name="ModificadoPor" ColumnName="ModificadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Paises">
-            <EntityTypeMapping TypeName="mainModel.Paises">
+            <EntityTypeMapping TypeName="EsconPOS.Paises">
               <MappingFragment StoreEntitySet="Paises">
                 <ScalarProperty Name="PaisID" ColumnName="PaisID" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
@@ -1937,7 +2418,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Productos">
-            <EntityTypeMapping TypeName="mainModel.Productos">
+            <EntityTypeMapping TypeName="EsconPOS.Productos">
               <MappingFragment StoreEntitySet="Productos">
                 <ScalarProperty Name="ProductoID" ColumnName="ProductoID" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
@@ -1951,11 +2432,13 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
                 <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
+                <ScalarProperty Name="ModificadoEl" ColumnName="ModificadoEl" />
+                <ScalarProperty Name="ModificadoPor" ColumnName="ModificadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Provincias">
-            <EntityTypeMapping TypeName="mainModel.Provincias">
+            <EntityTypeMapping TypeName="EsconPOS.Provincias">
               <MappingFragment StoreEntitySet="Provincias">
                 <ScalarProperty Name="ProvinciaID" ColumnName="ProvinciaID" />
                 <ScalarProperty Name="DepartamentoID" ColumnName="DepartamentoID" />
@@ -1965,7 +2448,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TiposDocumentos">
-            <EntityTypeMapping TypeName="mainModel.TiposDocumentos">
+            <EntityTypeMapping TypeName="EsconPOS.TiposDocumentos">
               <MappingFragment StoreEntitySet="TiposDocumentos">
                 <ScalarProperty Name="TipoDocumentoID" ColumnName="TipoDocumentoID" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
@@ -1975,18 +2458,20 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TiposProductos">
-            <EntityTypeMapping TypeName="mainModel.TiposProductos">
+            <EntityTypeMapping TypeName="EsconPOS.TiposProductos">
               <MappingFragment StoreEntitySet="TiposProductos">
                 <ScalarProperty Name="TipoProductoID" ColumnName="TipoProductoID" />
                 <ScalarProperty Name="TipoProducto" ColumnName="TipoProducto" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="AgregadoEl" ColumnName="AgregadoEl" />
                 <ScalarProperty Name="AgregadoPor" ColumnName="AgregadoPor" />
+                <ScalarProperty Name="ModificadoEl" ColumnName="ModificadoEl" />
+                <ScalarProperty Name="ModificadoPor" ColumnName="ModificadoPor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Transacciones">
-            <EntityTypeMapping TypeName="mainModel.Transacciones">
+            <EntityTypeMapping TypeName="EsconPOS.Transacciones">
               <MappingFragment StoreEntitySet="Transacciones">
                 <ScalarProperty Name="TransaccionID" ColumnName="TransaccionID" />
                 <ScalarProperty Name="Transaccion" ColumnName="Transaccion" />
@@ -1995,7 +2480,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UnidadesMedidas">
-            <EntityTypeMapping TypeName="mainModel.UnidadesMedidas">
+            <EntityTypeMapping TypeName="EsconPOS.UnidadesMedidas">
               <MappingFragment StoreEntitySet="UnidadesMedidas">
                 <ScalarProperty Name="UnidadMedidaID" ColumnName="UnidadMedidaID" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
@@ -2006,7 +2491,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Usuarios">
-            <EntityTypeMapping TypeName="mainModel.Usuarios">
+            <EntityTypeMapping TypeName="EsconPOS.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
                 <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
                 <ScalarProperty Name="Usuario" ColumnName="Usuario" />
@@ -2016,15 +2501,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="EmpresasClientes" TypeName="mainModel.EmpresasClientes" StoreEntitySet="EmpresasClientes">
-            <EndProperty Name="Clientes">
-              <ScalarProperty Name="ClienteID" ColumnName="ClienteID" />
-            </EndProperty>
-            <EndProperty Name="Empresas">
-              <ScalarProperty Name="EmpresaID" ColumnName="EmpresaID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="EmpresasEmpleados" TypeName="mainModel.EmpresasEmpleados" StoreEntitySet="EmpresasEmpleados">
+          <AssociationSetMapping Name="EmpresasEmpleados" TypeName="EsconPOS.EmpresasEmpleados" StoreEntitySet="EmpresasEmpleados">
             <EndProperty Name="Empleados">
               <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
             </EndProperty>

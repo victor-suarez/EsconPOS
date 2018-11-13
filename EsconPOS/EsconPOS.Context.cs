@@ -12,19 +12,19 @@ namespace EsconPOS
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-
+    
     public partial class mainEntities : DbContext
     {
         public mainEntities()
             : base("name=mainEntities")
         {
         }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-
+    
         public virtual DbSet<CajaLog> CajaLog { get; set; }
         public virtual DbSet<Cajas> Cajas { get; set; }
         public virtual DbSet<Clientes> Clientes { get; set; }

@@ -25,7 +25,11 @@ namespace EsconPOS
         public long Activo { get; set; }
         public string AgregadoEl { get; set; }
         public long AgregadoPor { get; set; }
+        public string ModificadoEl { get; set; }
+        public Nullable<long> ModificadoPor { get; set; }
     
+        public virtual Empleados EmpleadoAdd { get; set; }
+        public virtual Empleados EmpleadoUpd { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Productos> Productos { get; set; }
     }

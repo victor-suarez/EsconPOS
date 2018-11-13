@@ -38,14 +38,17 @@ namespace EsconPOS
         public double SubTotal { get; set; }
         public double MontoDescuentos { get; set; }
         public double MontoNeto { get; set; }
+        public Nullable<long> RefDocumentoID { get; set; }
         public string AgregadoEl { get; set; }
         public long AgregadoPor { get; set; }
+        public string ModificadoEl { get; set; }
+        public Nullable<long> ModificadoPor { get; set; }
     
         public virtual Cajas Cajas { get; set; }
         public virtual Clientes Clientes { get; set; }
-        public virtual Empresas Empresas { get; set; }
         public virtual TiposDocumentos TiposDocumentos { get; set; }
         public virtual Empleados Empleados { get; set; }
+        public virtual Empresas Empresas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ItemsDocumentos> ItemsDocumentos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

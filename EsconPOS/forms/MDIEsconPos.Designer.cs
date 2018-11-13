@@ -285,8 +285,8 @@
             // 
             // RibBtnDistritos
             // 
-            this.RibBtnDistritos.Image = global::EsconPOS.Properties.Resources.Ubicacion1;
-            this.RibBtnDistritos.LargeImage = global::EsconPOS.Properties.Resources.Ubicacion1;
+            this.RibBtnDistritos.Image = global::EsconPOS.Properties.Resources.Ubicacion;
+            this.RibBtnDistritos.LargeImage = global::EsconPOS.Properties.Resources.Ubicacion;
             this.RibBtnDistritos.Name = "RibBtnDistritos";
             this.RibBtnDistritos.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnDistritos.SmallImage")));
             this.RibBtnDistritos.Text = "Distritos";

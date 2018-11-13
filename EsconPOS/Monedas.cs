@@ -24,12 +24,12 @@ namespace EsconPOS
         public string Codigo { get; set; }
         public string Moneda { get; set; }
         public long PorDefecto { get; set; }
-        public long Base { get; set; }
         public double FactorCambiario { get; set; }
         public long Activo { get; set; }
         public string AgregadoEl { get; set; }
         public long AgregadoPor { get; set; }
     
+        public virtual Empleados EmpleadoAdd { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pagos> Pagos { get; set; }
     }

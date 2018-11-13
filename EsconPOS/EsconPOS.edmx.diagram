@@ -4,60 +4,73 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7479c6e056a84ecf8faf5bddc1bbe83d" Name="Diagram1">
-        <EntityTypeShape EntityType="mainModel.CajaLog" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Cajas" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Clientes" Width="1.5" PointX="0.75" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Configuraciones" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Departamentos" Width="1.5" PointX="1.5" PointY="25.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Distritos" Width="1.5" PointX="0.75" PointY="18.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Documentos" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Empleados" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Empresas" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.FormasPagos" Width="1.5" PointX="9" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Identificaciones" Width="1.5" PointX="0.75" PointY="31.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Impuestos" Width="1.5" PointX="6" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.ItemsDocumentos" Width="1.5" PointX="8.25" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Marcas" Width="1.5" PointX="3.75" PointY="16.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Monedas" Width="1.5" PointX="9" PointY="13.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Pagos" Width="1.5" PointX="11.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Paises" Width="1.5" PointX="1.5" PointY="28.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Productos" Width="1.5" PointX="6" PointY="17.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Provincias" Width="1.5" PointX="1.5" PointY="22.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.TiposDocumentos" Width="1.5" PointX="3.75" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.TiposProductos" Width="1.5" PointX="3.75" PointY="19" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Transacciones" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.UnidadesMedidas" Width="1.5" PointX="3.75" PointY="21.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="mainModel.Usuarios" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="mainModel.FK_CajaLog_0_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_CajaLog_1_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_CajaLog_2_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Documentos_2_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Clientes_0_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Clientes_1_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Clientes_2_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Documentos_1_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Departamentos_0_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Provincias_0_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Distritos_0_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Empresas_0_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Documentos_0_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Documentos_3_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Documentos_4_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_ItemsDocumentos_3_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Pagos_2_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_ItemsDocumentos_0_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Empresas_1_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Pagos_1_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_ItemsDocumentos_1_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Productos_1_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_ItemsDocumentos_2_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Productos_3_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Pagos_0_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Productos_0_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.FK_Productos_2_0" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.EmpresasClientes" ManuallyRouted="false" />
-        <AssociationConnector Association="mainModel.EmpresasEmpleados" ManuallyRouted="false" />
+      <Diagram DiagramId="8274411edf6748ddb0ab0324aa091af1" Name="Diagram1">
+        <EntityTypeShape EntityType="EsconPOS.CajaLog" Width="1.5" PointX="3" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Cajas" Width="1.5" PointX="0.75" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Clientes" Width="1.5" PointX="6" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Configuraciones" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Departamentos" Width="1.5" PointX="1.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Distritos" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Documentos" Width="1.5" PointX="8.25" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Empleados" Width="1.5" PointX="0.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Empresas" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.FormasPagos" Width="1.5" PointX="8.25" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Identificaciones" Width="1.5" PointX="0.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Impuestos" Width="1.5" PointX="8.25" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.ItemsDocumentos" Width="1.5" PointX="10.5" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Marcas" Width="1.5" PointX="3" PointY="28" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Monedas" Width="1.5" PointX="3" PointY="31.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Pagos" Width="1.5" PointX="10.5" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Paises" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Productos" Width="1.5" PointX="5.25" PointY="23.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Provincias" Width="1.5" PointX="1.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.TiposDocumentos" Width="1.5" PointX="6" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.TiposProductos" Width="1.5" PointX="3" PointY="35.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Transacciones" Width="1.5" PointX="0.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.UnidadesMedidas" Width="1.5" PointX="3" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Usuarios" Width="1.5" PointX="3.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="EsconPOS.FK_CajaLog_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_CajaLog_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_CajaLog_2_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Documentos_3_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Clientes_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Clientes_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Clientes_2_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Clientes_3_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Clientes_4_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Documentos_4_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Departamentos_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Provincias_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Distritos_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Empresas_3_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Documentos_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Documentos_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Documentos_2_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_ItemsDocumentos_3_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Pagos_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Empresas_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Empresas_2_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_ItemsDocumentos_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Marcas_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Marcas_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Monedas_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Pagos_2_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Pagos_4_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Productos_3_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Productos_4_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_TiposProductos_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_TiposProductos_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Empresas_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Pagos_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_ItemsDocumentos_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Productos_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_ItemsDocumentos_2_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Productos_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Pagos_3_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Productos_2_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Productos_5_0" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.EmpresasEmpleados" ManuallyRouted="false" />
+        <AssociationConnector Association="EsconPOS.FK_Empleados_0_0" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

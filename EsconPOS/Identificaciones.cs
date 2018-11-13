@@ -19,6 +19,7 @@ namespace EsconPOS
         {
             this.Clientes = new HashSet<Clientes>();
             this.Empresas = new HashSet<Empresas>();
+            this.Empleados = new HashSet<Empleados>();
         }
     
         public long IdentificacionID { get; set; }
@@ -30,5 +31,7 @@ namespace EsconPOS
         public virtual ICollection<Clientes> Clientes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Empresas> Empresas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Empleados> Empleados { get; set; }
     }
 }

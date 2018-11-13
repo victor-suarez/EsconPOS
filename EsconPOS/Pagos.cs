@@ -24,8 +24,12 @@ namespace EsconPOS
         public string Autorizacion { get; set; }
         public string AgregadoEl { get; set; }
         public long AgregadoPor { get; set; }
+        public string ModificadoEl { get; set; }
+        public Nullable<long> ModificadoPor { get; set; }
     
         public virtual Documentos Documentos { get; set; }
+        public virtual Empleados EmpleadoAdd { get; set; }
+        public virtual Empleados EmpleadoUpd { get; set; }
         public virtual FormasPagos FormasPagos { get; set; }
         public virtual Monedas Monedas { get; set; }
     }

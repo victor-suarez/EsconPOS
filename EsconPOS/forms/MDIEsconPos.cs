@@ -16,6 +16,7 @@ namespace EsconPOS.forms
     {
         private bool CajaAbierta = false;
         private FrmCliente FrmCli = null;
+        private FrmEmpleado FrmEmp = null;
 
         public MDIEsconPos()
         {
@@ -83,6 +84,9 @@ namespace EsconPOS.forms
 
         private void RibBtnEmpleados_Click(object sender, EventArgs e)
         {
+            FrmEmp = new forms.FrmEmpleado();
+            FrmEmp.MdiParent = this;
+            FrmEmp.Show();
         }
 
         private void RibBtnClientes_Click(object sender, EventArgs e)

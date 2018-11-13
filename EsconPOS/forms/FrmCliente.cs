@@ -15,7 +15,21 @@ namespace EsconPOS.forms
     {
         private mainEntities context = new mainEntities();
 
-        public void CargarCombos()
+         private void CargaClientes()
+        {
+            var dataset = context.Clientes
+                .Select(c => new { ID = c.ClienteID,
+                                   Nombres = c.Nombre,
+                                   Identificación = c.Identificaciones.Iniciales + "-" + c.NroDocIdent,
+                                   Teléfonos = c.NroTelefonico,
+                                   País = c.Paises.Pais,
+                                   Distrito = c.Distritos.UBIGEO + "-" + c.Distritos.Distrito
+                                 }).ToList();
+            DgvClientes.DataSource = dataset;
+            DgvClientes.Columns["ID"].Visible = false;
+        }
+
+        private void CargarCombos()
         {
             CmbTipoIDCliente.DataSource = context.Identificaciones.ToList();
             CmbTipoIDCliente.DisplayMember = "Identificacion";
@@ -23,7 +37,7 @@ namespace EsconPOS.forms
 
             CmbDepartamento.DataSource = context.Departamentos.ToList();
             CmbDepartamento.DisplayMember = "Departamento";
-            CmbDepartamento.ValueMember = "Departamento";
+            CmbDepartamento.ValueMember = "DepartamentoID";
         }
 
         private void ClearCrt()
@@ -34,13 +48,64 @@ namespace EsconPOS.forms
             TxtNombreCliente.Text = "";
             TxtDireccionCliente.Text = "";
             CmbDistrito.SelectedIndex = -1;
+            CmbProvincia.SelectedIndex = -1;
+            CmbDepartamento.SelectedIndex = -1;
             TxtNroTelefonicoCliente.Text = "";
             TxtCorreoElectronicoCliente.Text = "";
+            TssLblAgregado.Text = "";
+            TssLblModificado.Text = "";
+        }
+
+        private void MoverRegistroToCrt(long ID)
+        {
+            var cli = (from c in context.Clientes
+                       where c.ClienteID == ID
+                       select c).First();
+            CmbTipoIDCliente.SelectedValue = cli.IdentificacionID;
+            CmbTipoIDCliente.Tag = ID;
+            TxtNroIDCliente.Text = cli.NroDocIdent;
+            TxtNombreCliente.Text = cli.Nombre;
+            TxtDireccionCliente.Text = cli.Direccion ?? "";
+            TxtNroTelefonicoCliente.Text = cli.NroTelefonico ?? "";
+            TxtCorreoElectronicoCliente.Text = cli.CorreoElectronico ?? "";
+            CmbDepartamento.SelectedValue = cli.Distritos.Provincias.DepartamentoID;
+            CmbProvincia.SelectedValue = cli.Distritos.Provincias.ProvinciaID;
+            CmbDistrito.SelectedValue = cli.DistritoID;
+            TssLblAgregado.Text = cli.EmpleadoAdd.Login.ToLower() + " " + cli.AgregadoEl;
+            TssLblModificado.Text = (cli.EmpleadoUpd.Login.ToLower() + " " + cli.ModificadoEl) ?? "";
         }
 
         private void Eliminar()
         {
-
+            if (CmbTipoIDCliente.Tag == null) return;
+            try
+            {
+                long ID = long.Parse(CmbTipoIDCliente.Tag.ToString());
+                var cli = context.Clientes.Single(c => c.ClienteID == ID);
+                context.Clientes.Attach(cli);
+                context.Clientes.Remove(cli);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
+                {
+                    MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error eliminando cliente.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
+                                                                                                  .SelectMany(x => x.ValidationErrors)
+                                                                                                  .Select(x => x.ErrorMessage);
+                    var fullErrorMessage = string.Join("; ", DbErrors);
+                    var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
+                    MessageBox.Show(exceptionMessage, "Error eliminando cliente.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                };
+                return;
+            }
+            SetStatus("Cliente eliminado.");
+            ClearCrt();
+            CargaClientes();
         }
 
         private void Guardar()
@@ -85,47 +150,58 @@ namespace EsconPOS.forms
                     };
                     return;
                 }
+                SetStatus("Cliente agregado.");
             } //(CmbTipoIDCliente.Tag == null)
             else //(CmbTipoIDCliente.Tag != null)
             {
-
-            }; //(CmbTipoIDCliente.Tag != null)
-
-            //Buscar el cliente que acaba de agregar
-            var cli = (from c in context.Clientes
-                       where c.IdentificacionID == ((Identificaciones)CmbTipoIDCliente.SelectedItem).IdentificacionID
-                       && c.NroDocIdent == TxtNroIDCliente.Text
-                       select c).First();
-            try
-            {
-                //Buscar la empresa en Global y agregarle el cliente
-                var empr = (from e in context.Empresas
-                            where e.EmpresaID == Global.Empresa.EmpresaID
-                            select e).First();
-                if (empr != null)
-                    empr.Clientes.Add(cli);
-                context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
+                try
                 {
-                    MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error guardando la relación cliente - empresa.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    long ID = long.Parse(CmbTipoIDCliente.Tag.ToString());
+                    var cli = context.Clientes.Single(c => c.ClienteID == ID);
+                    context.Clientes.Attach(cli);
+                    cli.IdentificacionID = ((Identificaciones)CmbTipoIDCliente.SelectedItem).IdentificacionID;
+                    cli.NroDocIdent = TxtNroIDCliente.Text;
+                    cli.Nombre = TxtNombreCliente.Text;
+                    cli.Direccion = TxtDireccionCliente.Text.Trim() == "" ? null : TxtDireccionCliente.Text.Trim();
+                    cli.PaisID = ((Departamentos)CmbDepartamento.SelectedItem).PaisID;
+                    cli.DistritoID = ((Distritos)CmbDistrito.SelectedItem).DistritoID;
+                    cli.NroTelefonico = TxtNroTelefonicoCliente.Text.Trim() == "" ? null : TxtNroTelefonicoCliente.Text.Trim();
+                    cli.CorreoElectronico = TxtCorreoElectronicoCliente.Text.Trim() == "" ? null : TxtCorreoElectronicoCliente.Text.Trim();
+                    cli.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    cli.ModificadoPor = Global.Usuario.UsuarioID;
+                    context.SaveChanges();
                 }
-                else
+                catch (Exception ex)
                 {
-                    var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                  .SelectMany(x => x.ValidationErrors)
-                                                                                                  .Select(x => x.ErrorMessage);
-                    var fullErrorMessage = string.Join("; ", DbErrors);
-                    var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                    MessageBox.Show(exceptionMessage, "Error guardando la relación cliente - empresa.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                };
-                return;
-            }
-
+                    if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
+                    {
+                        MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error modificando datos del cliente.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
+                                                                                                      .SelectMany(x => x.ValidationErrors)
+                                                                                                      .Select(x => x.ErrorMessage);
+                        var fullErrorMessage = string.Join("; ", DbErrors);
+                        var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
+                        MessageBox.Show(exceptionMessage, "Error modificando datos del cliente.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    };
+                    return;
+                }
+                SetStatus("Cliente modificado.");
+            }; //(CmbTipoIDCliente.Tag != null)
             ClearCrt();
+            CargaClientes();
             Cursor.Current = Cursors.Default;
+        }
+
+        private void SetStatus(string Status = "", bool Error = false)
+        {
+            if (Error)
+                TssLblStatus.ForeColor = Color.Red;
+            else
+                TssLblStatus.ForeColor = SystemColors.ControlText;
+            TssLblStatus.Text = Status;
         }
 
         private bool ValEntReq()
@@ -174,9 +250,10 @@ namespace EsconPOS.forms
 
         private void CmbDepartamento_SelectedValueChanged(object sender, EventArgs e)
         {
+            if (CmbDepartamento.SelectedIndex == -1) return;
             CmbProvincia.DataSource = (from p in context.Provincias where p.DepartamentoID == ((Departamentos)(CmbDepartamento.SelectedItem)).DepartamentoID select p).ToList();
             CmbProvincia.DisplayMember = "Provincia";
-            CmbProvincia.ValueMember = "Provincia";
+            CmbProvincia.ValueMember = "ProvinciaID";
         }
 
         private void CmbProvincia_Format(object sender, ListControlConvertEventArgs e)
@@ -186,9 +263,10 @@ namespace EsconPOS.forms
 
         private void CmbProvincia_SelectedValueChanged(object sender, EventArgs e)
         {
+            if (CmbProvincia.SelectedIndex == -1) return;
             CmbDistrito.DataSource = (from d in context.Distritos where d.ProvinciaID == ((Provincias)(CmbProvincia.SelectedItem)).ProvinciaID select d).ToList();
             CmbDistrito.DisplayMember = "Distrito";
-            CmbDistrito.ValueMember = "Distrito";
+            CmbDistrito.ValueMember = "DistritoID";
         }
 
         private void CmbDistrito_Format(object sender, ListControlConvertEventArgs e)
@@ -214,6 +292,11 @@ namespace EsconPOS.forms
         private void FrmCliente_Load(object sender, EventArgs e)
         {
             CargarCombos();
+            CargaClientes();
+            TssLblAgregado.Text = "";
+            TssLblModificado.Text = "";
+            Left = 10;
+            Top = 10;
         }
 
         //Siguiente campo cuando presiona [ENTER]
@@ -227,6 +310,16 @@ namespace EsconPOS.forms
             }
         }
 
+        private void TsBtnDeshacer_Click(object sender, EventArgs e)
+        {
+            ClearCrt();
+        }
+
+        private void TsBtnEliminar_Click(object sender, EventArgs e)
+        {
+            Eliminar();
+        }
+
         private void TsBtnGuardar_Click(object sender, EventArgs e)
         {
             Guardar();
@@ -235,6 +328,32 @@ namespace EsconPOS.forms
         private void TsBtnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void DgvClientes_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            MoverRegistroToCrt(long.Parse(DgvClientes["ID", e.RowIndex].Value.ToString()));
+            TabClientes.SelectTab("TabEditar");
+        }
+
+        private void CmbDepartamento_Enter(object sender, EventArgs e)
+        {
+            CmbDepartamento.Width = 340;
+        }
+
+        private void CmbDepartamento_Leave(object sender, EventArgs e)
+        {
+            CmbDepartamento.Width = 50;
+        }
+
+        private void CmbProvincia_Enter(object sender, EventArgs e)
+        {
+            CmbProvincia.Width = 340;
+        }
+
+        private void CmbProvincia_Leave(object sender, EventArgs e)
+        {
+            CmbProvincia.Width = 50;
         }
     }
 }
