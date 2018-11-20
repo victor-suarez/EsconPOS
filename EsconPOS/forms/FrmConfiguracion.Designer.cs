@@ -313,8 +313,8 @@
             // 
             // RibBtnSalir
             // 
-            this.RibBtnSalir.Image = global::EsconPOS.Properties.Resources.Salir;
-            this.RibBtnSalir.LargeImage = global::EsconPOS.Properties.Resources.Salir;
+            this.RibBtnSalir.Image = global::EsconPOS.Properties.Resources.Close;
+            this.RibBtnSalir.LargeImage = global::EsconPOS.Properties.Resources.Close;
             this.RibBtnSalir.Name = "RibBtnSalir";
             this.RibBtnSalir.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnSalir.SmallImage")));
             this.RibBtnSalir.Text = "Salir";
@@ -348,9 +348,9 @@
             this.CmbDistrito.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbDistrito.DropDownWidth = 326;
             this.CmbDistrito.FormattingEnabled = true;
-            this.CmbDistrito.Location = new System.Drawing.Point(277, 156);
+            this.CmbDistrito.Location = new System.Drawing.Point(268, 156);
             this.CmbDistrito.Name = "CmbDistrito";
-            this.CmbDistrito.Size = new System.Drawing.Size(308, 28);
+            this.CmbDistrito.Size = new System.Drawing.Size(317, 28);
             this.CmbDistrito.TabIndex = 11;
             this.CmbDistrito.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.CmbDistrito_Format);
             this.CmbDistrito.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
@@ -361,13 +361,15 @@
             this.CmbProvincia.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbProvincia.DropDownWidth = 300;
             this.CmbProvincia.FormattingEnabled = true;
-            this.CmbProvincia.Location = new System.Drawing.Point(227, 156);
+            this.CmbProvincia.Location = new System.Drawing.Point(222, 156);
             this.CmbProvincia.Name = "CmbProvincia";
-            this.CmbProvincia.Size = new System.Drawing.Size(45, 28);
+            this.CmbProvincia.Size = new System.Drawing.Size(40, 28);
             this.CmbProvincia.TabIndex = 10;
             this.CmbProvincia.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.CmbProvincia_Format);
             this.CmbProvincia.SelectedValueChanged += new System.EventHandler(this.CmbProvincia_SelectedValueChanged);
+            this.CmbProvincia.Enter += new System.EventHandler(this.CmbProvincia_Enter);
             this.CmbProvincia.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
+            this.CmbProvincia.Leave += new System.EventHandler(this.CmbDepartamento_Leave);
             // 
             // CmbDepartamento
             // 
@@ -377,11 +379,13 @@
             this.CmbDepartamento.FormattingEnabled = true;
             this.CmbDepartamento.Location = new System.Drawing.Point(176, 156);
             this.CmbDepartamento.Name = "CmbDepartamento";
-            this.CmbDepartamento.Size = new System.Drawing.Size(45, 28);
+            this.CmbDepartamento.Size = new System.Drawing.Size(40, 28);
             this.CmbDepartamento.TabIndex = 9;
             this.CmbDepartamento.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.ComboDepartamento_Format);
             this.CmbDepartamento.SelectedValueChanged += new System.EventHandler(this.CmbDepartamento_SelectedValueChanged);
+            this.CmbDepartamento.Enter += new System.EventHandler(this.CmbDepartamento_Enter);
             this.CmbDepartamento.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
+            this.CmbDepartamento.Leave += new System.EventHandler(this.CmbDepartamento_Leave);
             // 
             // label12
             // 

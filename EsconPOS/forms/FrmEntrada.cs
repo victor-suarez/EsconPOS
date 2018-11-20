@@ -55,7 +55,20 @@ namespace EsconPOS.forms
                     }
                     catch(Exception ex)
                     {
-                        MessageBox.Show(ex.Source + "\n\r" + ex.Message, "Error buscando el administrador", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
+                        {
+                            MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error buscando el administrador", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
+                                                                                                          .SelectMany(x => x.ValidationErrors)
+                                                                                                          .Select(x => x.ErrorMessage);
+                            var fullErrorMessage = string.Join("; ", DbErrors);
+                            var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
+                            MessageBox.Show(exceptionMessage, "Error buscando el administrador.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        };
+                        //MessageBox.Show(ex.Source + "\n\r" + ex.Message, "Error buscando el administrador", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
 

@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8274411edf6748ddb0ab0324aa091af1" Name="Diagram1">
+      <Diagram DiagramId="8274411edf6748ddb0ab0324aa091af1" Name="Diagram1" ZoomLevel="89">
         <EntityTypeShape EntityType="EsconPOS.CajaLog" Width="1.5" PointX="3" PointY="16.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EsconPOS.Cajas" Width="1.5" PointX="0.75" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Cajas" Width="1.5" PointX="0.75" PointY="26.375" IsExpanded="true" />
         <EntityTypeShape EntityType="EsconPOS.Clientes" Width="1.5" PointX="6" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EsconPOS.Configuraciones" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EsconPOS.Departamentos" Width="1.5" PointX="1.5" PointY="3.625" IsExpanded="true" />
@@ -15,7 +15,7 @@
         <EntityTypeShape EntityType="EsconPOS.Empleados" Width="1.5" PointX="0.75" PointY="14.5" IsExpanded="true" />
         <EntityTypeShape EntityType="EsconPOS.Empresas" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EsconPOS.FormasPagos" Width="1.5" PointX="8.25" PointY="25.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="EsconPOS.Identificaciones" Width="1.5" PointX="0.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Identificaciones" Width="1.5" PointX="0.75" PointY="23.625" IsExpanded="true" />
         <EntityTypeShape EntityType="EsconPOS.Impuestos" Width="1.5" PointX="8.25" PointY="20.875" IsExpanded="true" />
         <EntityTypeShape EntityType="EsconPOS.ItemsDocumentos" Width="1.5" PointX="10.5" PointY="19" IsExpanded="true" />
         <EntityTypeShape EntityType="EsconPOS.Marcas" Width="1.5" PointX="3" PointY="28" IsExpanded="true" />
@@ -71,6 +71,8 @@
         <AssociationConnector Association="EsconPOS.FK_Productos_5_0" ManuallyRouted="false" />
         <AssociationConnector Association="EsconPOS.EmpresasEmpleados" ManuallyRouted="false" />
         <AssociationConnector Association="EsconPOS.FK_Empleados_0_0" />
+        <AssociationConnector Association="EsconPOS.FK_Empleados_1_0" />
+        <AssociationConnector Association="EsconPOS.FK_Empleados_0_01" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

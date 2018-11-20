@@ -161,6 +161,12 @@
     <Compile Include="forms\FrmCaja.Designer.cs">
       <DependentUpon>FrmCaja.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\FrmClase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FrmClase.Designer.cs">
+      <DependentUpon>FrmClase.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\FrmCliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,6 +178,24 @@
     </Compile>
     <Compile Include="forms\FrmConfiguracion.Designer.cs">
       <DependentUpon>FrmConfiguracion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\FrmDepartamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FrmDepartamento.Designer.cs">
+      <DependentUpon>FrmDepartamento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\FrmDistrito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FrmDistrito.Designer.cs">
+      <DependentUpon>FrmDistrito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\FrmDocumento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FrmDocumento.Designer.cs">
+      <DependentUpon>FrmDocumento.cs</DependentUpon>
     </Compile>
     <Compile Include="forms\FrmEmpleado.cs">
       <SubType>Form</SubType>
@@ -191,11 +215,59 @@
     <Compile Include="forms\FrmEntrada.Designer.cs">
       <DependentUpon>FrmEntrada.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\FrmFormasPago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FrmFormasPago.Designer.cs">
+      <DependentUpon>FrmFormasPago.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\FrmImpuesto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FrmImpuesto.Designer.cs">
+      <DependentUpon>FrmImpuesto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\FrmMarca.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FrmMarca.Designer.cs">
+      <DependentUpon>FrmMarca.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\FrmMoneda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FrmMoneda.Designer.cs">
+      <DependentUpon>FrmMoneda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\FrmPais.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FrmPais.Designer.cs">
+      <DependentUpon>FrmPais.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\FrmProducto.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="forms\FrmProducto.Designer.cs">
       <DependentUpon>FrmProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\FrmProvincia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FrmProvincia.Designer.cs">
+      <DependentUpon>FrmProvincia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\FrmPuntoDeVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FrmPuntoDeVenta.Designer.cs">
+      <DependentUpon>FrmPuntoDeVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\FrmUnidadMedida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FrmUnidadMedida.Designer.cs">
+      <DependentUpon>FrmUnidadMedida.cs</DependentUpon>
     </Compile>
     <Compile Include="forms\MDIEsconPos.cs">
       <SubType>Form</SubType>
@@ -248,12 +320,27 @@
     <Compile Include="Usuarios.cs">
       <DependentUpon>EsconPOS.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="forms\FrmCaja.resx">
+      <DependentUpon>FrmCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmClase.resx">
+      <DependentUpon>FrmClase.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\FrmCliente.resx">
       <DependentUpon>FrmCliente.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\FrmConfiguracion.resx">
       <DependentUpon>FrmConfiguracion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmDepartamento.resx">
+      <DependentUpon>FrmDepartamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmDistrito.resx">
+      <DependentUpon>FrmDistrito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmDocumento.resx">
+      <DependentUpon>FrmDocumento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\FrmEmpleado.resx">
       <DependentUpon>FrmEmpleado.cs</DependentUpon>
@@ -263,6 +350,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="forms\FrmEntrada.resx">
       <DependentUpon>FrmEntrada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmFormasPago.resx">
+      <DependentUpon>FrmFormasPago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmImpuesto.resx">
+      <DependentUpon>FrmImpuesto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmMarca.resx">
+      <DependentUpon>FrmMarca.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmMoneda.resx">
+      <DependentUpon>FrmMoneda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmPais.resx">
+      <DependentUpon>FrmPais.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmProducto.resx">
+      <DependentUpon>FrmProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmProvincia.resx">
+      <DependentUpon>FrmProvincia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmPuntoDeVenta.resx">
+      <DependentUpon>FrmPuntoDeVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmUnidadMedida.resx">
+      <DependentUpon>FrmUnidadMedida.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\MDIEsconPos.resx">
       <DependentUpon>MDIEsconPos.cs</DependentUpon>
@@ -300,9 +414,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CajaCerrada.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Salir.png" />
   </ItemGroup>
   <ItemGroup>
@@ -316,7 +427,13 @@
       <DependentUpon>EsconPOS.edmx</DependentUpon>
       <LastGenOutput>EsconPOS.cs</LastGenOutput>
     </Content>
-    <Content Include="Resources\CajaAbierta.png" />
+    <None Include="Resources\Agregar.png" />
+    <None Include="Resources\Administrar.png" />
+    <None Include="Resources\Productos.png" />
+    <None Include="Resources\CajaCerrada.png" />
+    <None Include="Resources\CajaAbierta.png" />
+    <None Include="Resources\SUNAT.png" />
+    <None Include="Resources\Ubigeo.png" />
     <None Include="Resources\Close.png" />
     <None Include="Resources\Limpiar.png" />
     <None Include="Resources\Eliminar1.png" />

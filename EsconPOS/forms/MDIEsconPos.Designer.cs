@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MDIEsconPos));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.TsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.TsslEmpleado = new System.Windows.Forms.ToolStripStatusLabel();
@@ -37,42 +36,34 @@
             this.TsslFecha = new System.Windows.Forms.ToolStripStatusLabel();
             this.TsslHora = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.Ribbon = new System.Windows.Forms.Ribbon();
-            this.ribbonButton1 = new System.Windows.Forms.RibbonButton();
-            this.ribbonButton2 = new System.Windows.Forms.RibbonButton();
-            this.RibTabVenta = new System.Windows.Forms.RibbonTab();
-            this.RibPnlVentas = new System.Windows.Forms.RibbonPanel();
-            this.RibBtnCaja = new System.Windows.Forms.RibbonButton();
-            this.RibTabInicio = new System.Windows.Forms.RibbonTab();
-            this.RibPnlAcciones = new System.Windows.Forms.RibbonPanel();
-            this.RibBtnEmpresas = new System.Windows.Forms.RibbonButton();
-            this.RibBtnEmpleados = new System.Windows.Forms.RibbonButton();
-            this.RibBtnClientes = new System.Windows.Forms.RibbonButton();
-            this.RibBtnDocsPago = new System.Windows.Forms.RibbonButton();
-            this.RibTabDatosGenerales = new System.Windows.Forms.RibbonTab();
-            this.RibPnlUBIGEO = new System.Windows.Forms.RibbonPanel();
-            this.RibBtnPaises = new System.Windows.Forms.RibbonButton();
-            this.RibBtnDepartamentos = new System.Windows.Forms.RibbonButton();
-            this.RibBtnProvincias = new System.Windows.Forms.RibbonButton();
-            this.RibBtnDistritos = new System.Windows.Forms.RibbonButton();
-            this.RibPnlSUNAT = new System.Windows.Forms.RibbonPanel();
-            this.RibBtnImpuestos = new System.Windows.Forms.RibbonButton();
-            this.RibBtnMonedas = new System.Windows.Forms.RibbonButton();
-            this.RibBtnTipoDoc = new System.Windows.Forms.RibbonButton();
-            this.RibBtnUnidMedidas = new System.Windows.Forms.RibbonButton();
-            this.RibPnlProductos = new System.Windows.Forms.RibbonPanel();
-            this.RibBtnMarcas = new System.Windows.Forms.RibbonButton();
-            this.RibBtnClases = new System.Windows.Forms.RibbonButton();
-            this.RibBtnProductos = new System.Windows.Forms.RibbonButton();
             this.TmrHora = new System.Windows.Forms.Timer(this.components);
-            this.ribbonOrbMenuItem1 = new System.Windows.Forms.RibbonOrbMenuItem();
-            this.ribbonOrbMenuItem2 = new System.Windows.Forms.RibbonOrbMenuItem();
-            this.ribbonOrbRecentItem1 = new System.Windows.Forms.RibbonOrbRecentItem();
-            this.ribbonOrbRecentItem2 = new System.Windows.Forms.RibbonOrbRecentItem();
-            this.ribbonOrbOptionButton1 = new System.Windows.Forms.RibbonOrbOptionButton();
-            this.ribbonOrbOptionButton2 = new System.Windows.Forms.RibbonOrbOptionButton();
-            this.RibBtnAbrirCaja = new System.Windows.Forms.RibbonButton();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.TssbCaja = new System.Windows.Forms.ToolStripButton();
+            this.TssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.TssbAdministrar = new System.Windows.Forms.ToolStripSplitButton();
+            this.TsmiEmpresas = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiEmpleados = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiClientes = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiFormasPago = new System.Windows.Forms.ToolStripMenuItem();
+            this.TssbUbicacion = new System.Windows.Forms.ToolStripSplitButton();
+            this.TsmiPaises = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiDepartamentos = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiProvincias = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiDistritos = new System.Windows.Forms.ToolStripMenuItem();
+            this.TssbSunat = new System.Windows.Forms.ToolStripSplitButton();
+            this.TsmiImpuestos = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiMonedas = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiTiposDocumentos = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiUnidadesMedida = new System.Windows.Forms.ToolStripMenuItem();
+            this.TssbProductos = new System.Windows.Forms.ToolStripSplitButton();
+            this.TsmiMarcas = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiClases = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiProductosServicios = new System.Windows.Forms.ToolStripMenuItem();
+            this.TssSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.TssbSalir = new System.Windows.Forms.ToolStripButton();
+            this.TssSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.statusStrip.SuspendLayout();
+            this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -118,322 +109,238 @@
             this.TsslHora.Name = "TsslHora";
             this.TsslHora.Size = new System.Drawing.Size(0, 17);
             // 
-            // Ribbon
-            // 
-            this.Ribbon.CaptionBarVisible = false;
-            this.Ribbon.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.Ribbon.Location = new System.Drawing.Point(0, 0);
-            this.Ribbon.Minimized = false;
-            this.Ribbon.Name = "Ribbon";
-            // 
-            // 
-            // 
-            this.Ribbon.OrbDropDown.BorderRoundness = 8;
-            this.Ribbon.OrbDropDown.Location = new System.Drawing.Point(0, 0);
-            this.Ribbon.OrbDropDown.Name = "";
-            this.Ribbon.OrbDropDown.Size = new System.Drawing.Size(527, 72);
-            this.Ribbon.OrbDropDown.TabIndex = 0;
-            this.Ribbon.OrbStyle = System.Windows.Forms.RibbonOrbStyle.Office_2013;
-            this.Ribbon.OrbVisible = false;
-            // 
-            // 
-            // 
-            this.Ribbon.QuickAccessToolbar.Items.Add(this.ribbonButton1);
-            this.Ribbon.QuickAccessToolbar.Items.Add(this.ribbonButton2);
-            this.Ribbon.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
-            this.Ribbon.Size = new System.Drawing.Size(948, 120);
-            this.Ribbon.TabIndex = 4;
-            this.Ribbon.Tabs.Add(this.RibTabVenta);
-            this.Ribbon.Tabs.Add(this.RibTabInicio);
-            this.Ribbon.Tabs.Add(this.RibTabDatosGenerales);
-            this.Ribbon.TabsMargin = new System.Windows.Forms.Padding(5, 2, 20, 0);
-            this.Ribbon.TabSpacing = 4;
-            this.Ribbon.Text = "Herramientas";
-            // 
-            // ribbonButton1
-            // 
-            this.ribbonButton1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.Image")));
-            this.ribbonButton1.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.LargeImage")));
-            this.ribbonButton1.MaxSizeMode = System.Windows.Forms.RibbonElementSizeMode.Compact;
-            this.ribbonButton1.Name = "ribbonButton1";
-            this.ribbonButton1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.SmallImage")));
-            this.ribbonButton1.Text = "ribbonButton1";
-            // 
-            // ribbonButton2
-            // 
-            this.ribbonButton2.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton2.Image")));
-            this.ribbonButton2.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton2.LargeImage")));
-            this.ribbonButton2.MaxSizeMode = System.Windows.Forms.RibbonElementSizeMode.Compact;
-            this.ribbonButton2.Name = "ribbonButton2";
-            this.ribbonButton2.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton2.SmallImage")));
-            this.ribbonButton2.Text = "ribbonButton2";
-            // 
-            // RibTabVenta
-            // 
-            this.RibTabVenta.Name = "RibTabVenta";
-            this.RibTabVenta.Panels.Add(this.RibPnlVentas);
-            this.RibTabVenta.Text = "Ventas";
-            // 
-            // RibPnlVentas
-            // 
-            this.RibPnlVentas.ButtonMoreVisible = false;
-            this.RibPnlVentas.Items.Add(this.RibBtnCaja);
-            this.RibPnlVentas.Name = "RibPnlVentas";
-            this.RibPnlVentas.Text = "Caja";
-            // 
-            // RibBtnCaja
-            // 
-            this.RibBtnCaja.CheckOnClick = true;
-            this.RibBtnCaja.Image = global::EsconPOS.Properties.Resources.CajaCerrada;
-            this.RibBtnCaja.LargeImage = global::EsconPOS.Properties.Resources.CajaCerrada;
-            this.RibBtnCaja.Name = "RibBtnCaja";
-            this.RibBtnCaja.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnCaja.SmallImage")));
-            this.RibBtnCaja.Text = "Abrir";
-            this.RibBtnCaja.Click += new System.EventHandler(this.RibBtnAbrir_Click);
-            // 
-            // RibTabInicio
-            // 
-            this.RibTabInicio.Name = "RibTabInicio";
-            this.RibTabInicio.Panels.Add(this.RibPnlAcciones);
-            this.RibTabInicio.Text = "Inicio";
-            // 
-            // RibPnlAcciones
-            // 
-            this.RibPnlAcciones.ButtonMoreVisible = false;
-            this.RibPnlAcciones.Items.Add(this.RibBtnEmpresas);
-            this.RibPnlAcciones.Items.Add(this.RibBtnEmpleados);
-            this.RibPnlAcciones.Items.Add(this.RibBtnClientes);
-            this.RibPnlAcciones.Items.Add(this.RibBtnDocsPago);
-            this.RibPnlAcciones.Name = "RibPnlAcciones";
-            this.RibPnlAcciones.Text = "Acciones";
-            // 
-            // RibBtnEmpresas
-            // 
-            this.RibBtnEmpresas.Image = global::EsconPOS.Properties.Resources.Empresas;
-            this.RibBtnEmpresas.LargeImage = global::EsconPOS.Properties.Resources.Empresas;
-            this.RibBtnEmpresas.Name = "RibBtnEmpresas";
-            this.RibBtnEmpresas.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnEmpresas.SmallImage")));
-            this.RibBtnEmpresas.Text = "Empresas";
-            // 
-            // RibBtnEmpleados
-            // 
-            this.RibBtnEmpleados.Image = global::EsconPOS.Properties.Resources.Empleados;
-            this.RibBtnEmpleados.LargeImage = global::EsconPOS.Properties.Resources.Empleados;
-            this.RibBtnEmpleados.Name = "RibBtnEmpleados";
-            this.RibBtnEmpleados.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnEmpleados.SmallImage")));
-            this.RibBtnEmpleados.Text = "Empleados";
-            this.RibBtnEmpleados.Click += new System.EventHandler(this.RibBtnEmpleados_Click);
-            // 
-            // RibBtnClientes
-            // 
-            this.RibBtnClientes.Image = global::EsconPOS.Properties.Resources.Clientes;
-            this.RibBtnClientes.LargeImage = global::EsconPOS.Properties.Resources.Clientes;
-            this.RibBtnClientes.Name = "RibBtnClientes";
-            this.RibBtnClientes.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnClientes.SmallImage")));
-            this.RibBtnClientes.Text = "Clientes";
-            this.RibBtnClientes.Click += new System.EventHandler(this.RibBtnClientes_Click);
-            // 
-            // RibBtnDocsPago
-            // 
-            this.RibBtnDocsPago.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnDocsPago.Image")));
-            this.RibBtnDocsPago.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnDocsPago.LargeImage")));
-            this.RibBtnDocsPago.Name = "RibBtnDocsPago";
-            this.RibBtnDocsPago.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnDocsPago.SmallImage")));
-            this.RibBtnDocsPago.Text = "Documentos de Pago";
-            // 
-            // RibTabDatosGenerales
-            // 
-            this.RibTabDatosGenerales.Name = "RibTabDatosGenerales";
-            this.RibTabDatosGenerales.Panels.Add(this.RibPnlUBIGEO);
-            this.RibTabDatosGenerales.Panels.Add(this.RibPnlSUNAT);
-            this.RibTabDatosGenerales.Panels.Add(this.RibPnlProductos);
-            this.RibTabDatosGenerales.Text = "Datos Generales";
-            // 
-            // RibPnlUBIGEO
-            // 
-            this.RibPnlUBIGEO.ButtonMoreVisible = false;
-            this.RibPnlUBIGEO.Items.Add(this.RibBtnPaises);
-            this.RibPnlUBIGEO.Items.Add(this.RibBtnDepartamentos);
-            this.RibPnlUBIGEO.Items.Add(this.RibBtnProvincias);
-            this.RibPnlUBIGEO.Items.Add(this.RibBtnDistritos);
-            this.RibPnlUBIGEO.Name = "RibPnlUBIGEO";
-            this.RibPnlUBIGEO.Text = "UBIGEO";
-            // 
-            // RibBtnPaises
-            // 
-            this.RibBtnPaises.Image = global::EsconPOS.Properties.Resources.Paises;
-            this.RibBtnPaises.LargeImage = global::EsconPOS.Properties.Resources.Paises;
-            this.RibBtnPaises.Name = "RibBtnPaises";
-            this.RibBtnPaises.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnPaises.SmallImage")));
-            this.RibBtnPaises.Text = "Paises";
-            // 
-            // RibBtnDepartamentos
-            // 
-            this.RibBtnDepartamentos.Image = global::EsconPOS.Properties.Resources.Departamentos;
-            this.RibBtnDepartamentos.LargeImage = global::EsconPOS.Properties.Resources.Departamentos;
-            this.RibBtnDepartamentos.Name = "RibBtnDepartamentos";
-            this.RibBtnDepartamentos.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnDepartamentos.SmallImage")));
-            this.RibBtnDepartamentos.Text = "Departamentos";
-            // 
-            // RibBtnProvincias
-            // 
-            this.RibBtnProvincias.Image = global::EsconPOS.Properties.Resources.Provincias;
-            this.RibBtnProvincias.LargeImage = global::EsconPOS.Properties.Resources.Provincias;
-            this.RibBtnProvincias.Name = "RibBtnProvincias";
-            this.RibBtnProvincias.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnProvincias.SmallImage")));
-            this.RibBtnProvincias.Text = "Provincias";
-            // 
-            // RibBtnDistritos
-            // 
-            this.RibBtnDistritos.Image = global::EsconPOS.Properties.Resources.Ubicacion;
-            this.RibBtnDistritos.LargeImage = global::EsconPOS.Properties.Resources.Ubicacion;
-            this.RibBtnDistritos.Name = "RibBtnDistritos";
-            this.RibBtnDistritos.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnDistritos.SmallImage")));
-            this.RibBtnDistritos.Text = "Distritos";
-            // 
-            // RibPnlSUNAT
-            // 
-            this.RibPnlSUNAT.ButtonMoreVisible = false;
-            this.RibPnlSUNAT.Items.Add(this.RibBtnImpuestos);
-            this.RibPnlSUNAT.Items.Add(this.RibBtnMonedas);
-            this.RibPnlSUNAT.Items.Add(this.RibBtnTipoDoc);
-            this.RibPnlSUNAT.Items.Add(this.RibBtnUnidMedidas);
-            this.RibPnlSUNAT.Name = "RibPnlSUNAT";
-            this.RibPnlSUNAT.Text = "SUNAT";
-            // 
-            // RibBtnImpuestos
-            // 
-            this.RibBtnImpuestos.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnImpuestos.Image")));
-            this.RibBtnImpuestos.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnImpuestos.LargeImage")));
-            this.RibBtnImpuestos.Name = "RibBtnImpuestos";
-            this.RibBtnImpuestos.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnImpuestos.SmallImage")));
-            this.RibBtnImpuestos.Text = "Impuestos";
-            // 
-            // RibBtnMonedas
-            // 
-            this.RibBtnMonedas.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnMonedas.Image")));
-            this.RibBtnMonedas.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnMonedas.LargeImage")));
-            this.RibBtnMonedas.Name = "RibBtnMonedas";
-            this.RibBtnMonedas.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnMonedas.SmallImage")));
-            this.RibBtnMonedas.Text = "Monedas";
-            // 
-            // RibBtnTipoDoc
-            // 
-            this.RibBtnTipoDoc.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnTipoDoc.Image")));
-            this.RibBtnTipoDoc.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnTipoDoc.LargeImage")));
-            this.RibBtnTipoDoc.Name = "RibBtnTipoDoc";
-            this.RibBtnTipoDoc.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnTipoDoc.SmallImage")));
-            this.RibBtnTipoDoc.Text = "Tipos de Documentos";
-            // 
-            // RibBtnUnidMedidas
-            // 
-            this.RibBtnUnidMedidas.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnUnidMedidas.Image")));
-            this.RibBtnUnidMedidas.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnUnidMedidas.LargeImage")));
-            this.RibBtnUnidMedidas.Name = "RibBtnUnidMedidas";
-            this.RibBtnUnidMedidas.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnUnidMedidas.SmallImage")));
-            this.RibBtnUnidMedidas.Text = "Unidades de Medida";
-            // 
-            // RibPnlProductos
-            // 
-            this.RibPnlProductos.Items.Add(this.RibBtnMarcas);
-            this.RibPnlProductos.Items.Add(this.RibBtnClases);
-            this.RibPnlProductos.Items.Add(this.RibBtnProductos);
-            this.RibPnlProductos.Name = "RibPnlProductos";
-            this.RibPnlProductos.Text = "Productos";
-            // 
-            // RibBtnMarcas
-            // 
-            this.RibBtnMarcas.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnMarcas.Image")));
-            this.RibBtnMarcas.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnMarcas.LargeImage")));
-            this.RibBtnMarcas.Name = "RibBtnMarcas";
-            this.RibBtnMarcas.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnMarcas.SmallImage")));
-            this.RibBtnMarcas.Text = "Marcas";
-            // 
-            // RibBtnClases
-            // 
-            this.RibBtnClases.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnClases.Image")));
-            this.RibBtnClases.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnClases.LargeImage")));
-            this.RibBtnClases.Name = "RibBtnClases";
-            this.RibBtnClases.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnClases.SmallImage")));
-            this.RibBtnClases.Text = "Clases";
-            // 
-            // RibBtnProductos
-            // 
-            this.RibBtnProductos.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnProductos.Image")));
-            this.RibBtnProductos.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnProductos.LargeImage")));
-            this.RibBtnProductos.Name = "RibBtnProductos";
-            this.RibBtnProductos.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnProductos.SmallImage")));
-            this.RibBtnProductos.Text = "Productos/ Servicios";
-            // 
             // TmrHora
             // 
             this.TmrHora.Interval = 60000;
             this.TmrHora.Tick += new System.EventHandler(this.TmrHora_Tick);
             // 
-            // ribbonOrbMenuItem1
+            // toolStrip
             // 
-            this.ribbonOrbMenuItem1.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
-            this.ribbonOrbMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem1.Image")));
-            this.ribbonOrbMenuItem1.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem1.LargeImage")));
-            this.ribbonOrbMenuItem1.Name = "ribbonOrbMenuItem1";
-            this.ribbonOrbMenuItem1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem1.SmallImage")));
-            this.ribbonOrbMenuItem1.Text = "Salir";
-            this.ribbonOrbMenuItem1.Click += new System.EventHandler(this.ribbonOrbMenuItem1_Click);
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TssbCaja,
+            this.TssSeparator1,
+            this.TssbAdministrar,
+            this.TssbUbicacion,
+            this.TssbSunat,
+            this.TssbProductos,
+            this.TssSeparator2,
+            this.TssbSalir,
+            this.TssSeparator3});
+            this.toolStrip.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Size = new System.Drawing.Size(948, 54);
+            this.toolStrip.TabIndex = 4;
+            this.toolStrip.Text = "toolStrip1";
             // 
-            // ribbonOrbMenuItem2
+            // TssbCaja
             // 
-            this.ribbonOrbMenuItem2.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
-            this.ribbonOrbMenuItem2.Image = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem2.Image")));
-            this.ribbonOrbMenuItem2.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem2.LargeImage")));
-            this.ribbonOrbMenuItem2.Name = "ribbonOrbMenuItem2";
-            this.ribbonOrbMenuItem2.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem2.SmallImage")));
-            this.ribbonOrbMenuItem2.Text = "Nose que";
+            this.TssbCaja.Image = global::EsconPOS.Properties.Resources.CajaCerrada;
+            this.TssbCaja.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TssbCaja.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TssbCaja.Name = "TssbCaja";
+            this.TssbCaja.Size = new System.Drawing.Size(63, 51);
+            this.TssbCaja.Text = "Abrir Caja";
+            this.TssbCaja.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TssbCaja.Click += new System.EventHandler(this.TssbCaja_Click);
             // 
-            // ribbonOrbRecentItem1
+            // TssSeparator1
             // 
-            this.ribbonOrbRecentItem1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonOrbRecentItem1.Image")));
-            this.ribbonOrbRecentItem1.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbRecentItem1.LargeImage")));
-            this.ribbonOrbRecentItem1.Name = "ribbonOrbRecentItem1";
-            this.ribbonOrbRecentItem1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbRecentItem1.SmallImage")));
-            this.ribbonOrbRecentItem1.Text = "ribbonOrbRecentItem1";
+            this.TssSeparator1.Name = "TssSeparator1";
+            this.TssSeparator1.Size = new System.Drawing.Size(6, 54);
             // 
-            // ribbonOrbRecentItem2
+            // TssbAdministrar
             // 
-            this.ribbonOrbRecentItem2.Image = ((System.Drawing.Image)(resources.GetObject("ribbonOrbRecentItem2.Image")));
-            this.ribbonOrbRecentItem2.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbRecentItem2.LargeImage")));
-            this.ribbonOrbRecentItem2.Name = "ribbonOrbRecentItem2";
-            this.ribbonOrbRecentItem2.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbRecentItem2.SmallImage")));
-            this.ribbonOrbRecentItem2.Text = "ribbonOrbRecentItem2";
+            this.TssbAdministrar.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TsmiEmpresas,
+            this.TsmiEmpleados,
+            this.TsmiClientes,
+            this.TsmiFormasPago});
+            this.TssbAdministrar.Image = global::EsconPOS.Properties.Resources.Administrar;
+            this.TssbAdministrar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TssbAdministrar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TssbAdministrar.Name = "TssbAdministrar";
+            this.TssbAdministrar.Size = new System.Drawing.Size(85, 51);
+            this.TssbAdministrar.Text = "Administrar";
+            this.TssbAdministrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
-            // ribbonOrbOptionButton1
+            // TsmiEmpresas
             // 
-            this.ribbonOrbOptionButton1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton1.Image")));
-            this.ribbonOrbOptionButton1.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton1.LargeImage")));
-            this.ribbonOrbOptionButton1.Name = "ribbonOrbOptionButton1";
-            this.ribbonOrbOptionButton1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton1.SmallImage")));
-            this.ribbonOrbOptionButton1.Text = "ribbonOrbOptionButton1";
+            this.TsmiEmpresas.Image = global::EsconPOS.Properties.Resources.Empresas;
+            this.TsmiEmpresas.Name = "TsmiEmpresas";
+            this.TsmiEmpresas.Size = new System.Drawing.Size(159, 22);
+            this.TsmiEmpresas.Text = "&Empresas";
+            this.TsmiEmpresas.Click += new System.EventHandler(this.TsmiEmpresas_Click);
             // 
-            // ribbonOrbOptionButton2
+            // TsmiEmpleados
             // 
-            this.ribbonOrbOptionButton2.Image = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton2.Image")));
-            this.ribbonOrbOptionButton2.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton2.LargeImage")));
-            this.ribbonOrbOptionButton2.Name = "ribbonOrbOptionButton2";
-            this.ribbonOrbOptionButton2.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton2.SmallImage")));
-            this.ribbonOrbOptionButton2.Text = "ribbonOrbOptionButton2";
+            this.TsmiEmpleados.Image = global::EsconPOS.Properties.Resources.Empleados;
+            this.TsmiEmpleados.Name = "TsmiEmpleados";
+            this.TsmiEmpleados.Size = new System.Drawing.Size(159, 22);
+            this.TsmiEmpleados.Text = "E&mpleados";
+            this.TsmiEmpleados.Click += new System.EventHandler(this.TsmiEmpleados_Click);
             // 
-            // RibBtnAbrirCaja
+            // TsmiClientes
             // 
-            this.RibBtnAbrirCaja.Image = ((System.Drawing.Image)(resources.GetObject("RibBtnAbrirCaja.Image")));
-            this.RibBtnAbrirCaja.LargeImage = ((System.Drawing.Image)(resources.GetObject("RibBtnAbrirCaja.LargeImage")));
-            this.RibBtnAbrirCaja.Name = "RibBtnAbrirCaja";
-            this.RibBtnAbrirCaja.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnAbrirCaja.SmallImage")));
+            this.TsmiClientes.Image = global::EsconPOS.Properties.Resources.Clientes;
+            this.TsmiClientes.Name = "TsmiClientes";
+            this.TsmiClientes.Size = new System.Drawing.Size(159, 22);
+            this.TsmiClientes.Text = "&Clientes";
+            this.TsmiClientes.Click += new System.EventHandler(this.TsmiClientes_Click);
+            // 
+            // TsmiFormasPago
+            // 
+            this.TsmiFormasPago.Name = "TsmiFormasPago";
+            this.TsmiFormasPago.Size = new System.Drawing.Size(159, 22);
+            this.TsmiFormasPago.Text = "&Formas de pago";
+            // 
+            // TssbUbicacion
+            // 
+            this.TssbUbicacion.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TsmiPaises,
+            this.TsmiDepartamentos,
+            this.TsmiProvincias,
+            this.TsmiDistritos});
+            this.TssbUbicacion.Image = global::EsconPOS.Properties.Resources.Ubigeo;
+            this.TssbUbicacion.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TssbUbicacion.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TssbUbicacion.Name = "TssbUbicacion";
+            this.TssbUbicacion.Size = new System.Drawing.Size(76, 51);
+            this.TssbUbicacion.Text = "Ubicación";
+            this.TssbUbicacion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // TsmiPaises
+            // 
+            this.TsmiPaises.Image = global::EsconPOS.Properties.Resources.Paises;
+            this.TsmiPaises.Name = "TsmiPaises";
+            this.TsmiPaises.Size = new System.Drawing.Size(155, 22);
+            this.TsmiPaises.Text = "&Paises";
+            // 
+            // TsmiDepartamentos
+            // 
+            this.TsmiDepartamentos.Image = global::EsconPOS.Properties.Resources.Departamentos;
+            this.TsmiDepartamentos.Name = "TsmiDepartamentos";
+            this.TsmiDepartamentos.Size = new System.Drawing.Size(155, 22);
+            this.TsmiDepartamentos.Text = "&Departamentos";
+            // 
+            // TsmiProvincias
+            // 
+            this.TsmiProvincias.Image = global::EsconPOS.Properties.Resources.Provincias;
+            this.TsmiProvincias.Name = "TsmiProvincias";
+            this.TsmiProvincias.Size = new System.Drawing.Size(155, 22);
+            this.TsmiProvincias.Text = "P&rovincias";
+            // 
+            // TsmiDistritos
+            // 
+            this.TsmiDistritos.Image = global::EsconPOS.Properties.Resources.Ubicacion;
+            this.TsmiDistritos.Name = "TsmiDistritos";
+            this.TsmiDistritos.Size = new System.Drawing.Size(155, 22);
+            this.TsmiDistritos.Text = "D&istritos";
+            // 
+            // TssbSunat
+            // 
+            this.TssbSunat.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TsmiImpuestos,
+            this.TsmiMonedas,
+            this.TsmiTiposDocumentos,
+            this.TsmiUnidadesMedida});
+            this.TssbSunat.Image = global::EsconPOS.Properties.Resources.SUNAT;
+            this.TssbSunat.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TssbSunat.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TssbSunat.Name = "TssbSunat";
+            this.TssbSunat.Size = new System.Drawing.Size(60, 51);
+            this.TssbSunat.Text = "SUNAT";
+            this.TssbSunat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // TsmiImpuestos
+            // 
+            this.TsmiImpuestos.Image = global::EsconPOS.Properties.Resources.Impuestos;
+            this.TsmiImpuestos.Name = "TsmiImpuestos";
+            this.TsmiImpuestos.Size = new System.Drawing.Size(189, 22);
+            this.TsmiImpuestos.Text = "&Impuestos";
+            // 
+            // TsmiMonedas
+            // 
+            this.TsmiMonedas.Image = global::EsconPOS.Properties.Resources.Monedas;
+            this.TsmiMonedas.Name = "TsmiMonedas";
+            this.TsmiMonedas.Size = new System.Drawing.Size(189, 22);
+            this.TsmiMonedas.Text = "&Monedas";
+            this.TsmiMonedas.Click += new System.EventHandler(this.TsmiMonedas_Click);
+            // 
+            // TsmiTiposDocumentos
+            // 
+            this.TsmiTiposDocumentos.Name = "TsmiTiposDocumentos";
+            this.TsmiTiposDocumentos.Size = new System.Drawing.Size(189, 22);
+            this.TsmiTiposDocumentos.Text = "&Tipos de documentos";
+            // 
+            // TsmiUnidadesMedida
+            // 
+            this.TsmiUnidadesMedida.Image = global::EsconPOS.Properties.Resources.Unidades;
+            this.TsmiUnidadesMedida.Name = "TsmiUnidadesMedida";
+            this.TsmiUnidadesMedida.Size = new System.Drawing.Size(189, 22);
+            this.TsmiUnidadesMedida.Text = "&Unidades de medida";
+            // 
+            // TssbProductos
+            // 
+            this.TssbProductos.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TsmiMarcas,
+            this.TsmiClases,
+            this.TsmiProductosServicios});
+            this.TssbProductos.Image = global::EsconPOS.Properties.Resources.Productos;
+            this.TssbProductos.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TssbProductos.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TssbProductos.Name = "TssbProductos";
+            this.TssbProductos.Size = new System.Drawing.Size(85, 51);
+            this.TssbProductos.Text = "Prods/Servs";
+            this.TssbProductos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // TsmiMarcas
+            // 
+            this.TsmiMarcas.Name = "TsmiMarcas";
+            this.TsmiMarcas.Size = new System.Drawing.Size(179, 22);
+            this.TsmiMarcas.Text = "&Marcas";
+            this.TsmiMarcas.Click += new System.EventHandler(this.TsmiMarcas_Click);
+            // 
+            // TsmiClases
+            // 
+            this.TsmiClases.Name = "TsmiClases";
+            this.TsmiClases.Size = new System.Drawing.Size(179, 22);
+            this.TsmiClases.Text = "&Clases";
+            this.TsmiClases.Click += new System.EventHandler(this.TsmiClases_Click);
+            // 
+            // TsmiProductosServicios
+            // 
+            this.TsmiProductosServicios.Name = "TsmiProductosServicios";
+            this.TsmiProductosServicios.Size = new System.Drawing.Size(179, 22);
+            this.TsmiProductosServicios.Text = "&Productos/Servicios";
+            this.TsmiProductosServicios.Click += new System.EventHandler(this.TsmiProductosServicios_Click);
+            // 
+            // TssSeparator2
+            // 
+            this.TssSeparator2.Name = "TssSeparator2";
+            this.TssSeparator2.Size = new System.Drawing.Size(6, 54);
+            // 
+            // TssbSalir
+            // 
+            this.TssbSalir.Image = global::EsconPOS.Properties.Resources.Close;
+            this.TssbSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TssbSalir.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TssbSalir.Name = "TssbSalir";
+            this.TssbSalir.Size = new System.Drawing.Size(36, 51);
+            this.TssbSalir.Text = "Salir";
+            this.TssbSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TssbSalir.Click += new System.EventHandler(this.TssbSalir_Click);
+            // 
+            // TssSeparator3
+            // 
+            this.TssSeparator3.Name = "TssSeparator3";
+            this.TssSeparator3.Size = new System.Drawing.Size(6, 54);
             // 
             // MDIEsconPos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(948, 408);
-            this.Controls.Add(this.Ribbon);
+            this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.statusStrip);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IsMdiContainer = true;
@@ -445,6 +352,8 @@
             this.Load += new System.EventHandler(this.MDIEsconPos_Load);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -457,41 +366,32 @@
         private System.Windows.Forms.ToolStripStatusLabel TsslEmpleado;
         private System.Windows.Forms.ToolStripStatusLabel TsslFecha;
         private System.Windows.Forms.ToolStripStatusLabel TsslHora;
-        private System.Windows.Forms.Ribbon Ribbon;
-        private System.Windows.Forms.RibbonButton ribbonButton1;
-        private System.Windows.Forms.RibbonButton ribbonButton2;
-        private System.Windows.Forms.RibbonTab RibTabInicio;
-        private System.Windows.Forms.RibbonPanel RibPnlAcciones;
-        private System.Windows.Forms.RibbonButton RibBtnEmpresas;
-        private System.Windows.Forms.RibbonButton RibBtnEmpleados;
-        private System.Windows.Forms.RibbonButton RibBtnClientes;
         private System.Windows.Forms.Timer TmrHora;
-        private System.Windows.Forms.RibbonOrbMenuItem ribbonOrbMenuItem1;
-        private System.Windows.Forms.RibbonOrbMenuItem ribbonOrbMenuItem2;
-        private System.Windows.Forms.RibbonOrbRecentItem ribbonOrbRecentItem1;
-        private System.Windows.Forms.RibbonOrbRecentItem ribbonOrbRecentItem2;
-        private System.Windows.Forms.RibbonOrbOptionButton ribbonOrbOptionButton1;
-        private System.Windows.Forms.RibbonOrbOptionButton ribbonOrbOptionButton2;
-        private System.Windows.Forms.RibbonButton RibBtnDocsPago;
-        private System.Windows.Forms.RibbonTab RibTabDatosGenerales;
-        private System.Windows.Forms.RibbonPanel RibPnlUBIGEO;
-        private System.Windows.Forms.RibbonButton RibBtnPaises;
-        private System.Windows.Forms.RibbonButton RibBtnDepartamentos;
-        private System.Windows.Forms.RibbonButton RibBtnProvincias;
-        private System.Windows.Forms.RibbonButton RibBtnDistritos;
-        private System.Windows.Forms.RibbonPanel RibPnlSUNAT;
-        private System.Windows.Forms.RibbonButton RibBtnImpuestos;
-        private System.Windows.Forms.RibbonButton RibBtnMonedas;
-        private System.Windows.Forms.RibbonButton RibBtnTipoDoc;
-        private System.Windows.Forms.RibbonButton RibBtnUnidMedidas;
-        private System.Windows.Forms.RibbonPanel RibPnlProductos;
-        private System.Windows.Forms.RibbonButton RibBtnMarcas;
-        private System.Windows.Forms.RibbonButton RibBtnClases;
-        private System.Windows.Forms.RibbonButton RibBtnProductos;
-        private System.Windows.Forms.RibbonTab RibTabVenta;
-        private System.Windows.Forms.RibbonPanel RibPnlVentas;
-        private System.Windows.Forms.RibbonButton RibBtnCaja;
-        private System.Windows.Forms.RibbonButton RibBtnAbrirCaja;
+        private System.Windows.Forms.ToolStrip toolStrip;
+        private System.Windows.Forms.ToolStripSplitButton TssbUbicacion;
+        private System.Windows.Forms.ToolStripMenuItem TsmiPaises;
+        private System.Windows.Forms.ToolStripMenuItem TsmiDepartamentos;
+        private System.Windows.Forms.ToolStripMenuItem TsmiProvincias;
+        private System.Windows.Forms.ToolStripMenuItem TsmiDistritos;
+        private System.Windows.Forms.ToolStripSplitButton TssbSunat;
+        private System.Windows.Forms.ToolStripMenuItem TsmiImpuestos;
+        private System.Windows.Forms.ToolStripMenuItem TsmiMonedas;
+        private System.Windows.Forms.ToolStripMenuItem TsmiTiposDocumentos;
+        private System.Windows.Forms.ToolStripMenuItem TsmiUnidadesMedida;
+        private System.Windows.Forms.ToolStripButton TssbCaja;
+        private System.Windows.Forms.ToolStripSplitButton TssbProductos;
+        private System.Windows.Forms.ToolStripMenuItem TsmiMarcas;
+        private System.Windows.Forms.ToolStripMenuItem TsmiClases;
+        private System.Windows.Forms.ToolStripMenuItem TsmiProductosServicios;
+        private System.Windows.Forms.ToolStripSeparator TssSeparator1;
+        private System.Windows.Forms.ToolStripSeparator TssSeparator2;
+        private System.Windows.Forms.ToolStripButton TssbSalir;
+        private System.Windows.Forms.ToolStripSeparator TssSeparator3;
+        private System.Windows.Forms.ToolStripSplitButton TssbAdministrar;
+        private System.Windows.Forms.ToolStripMenuItem TsmiEmpresas;
+        private System.Windows.Forms.ToolStripMenuItem TsmiEmpleados;
+        private System.Windows.Forms.ToolStripMenuItem TsmiClientes;
+        private System.Windows.Forms.ToolStripMenuItem TsmiFormasPago;
     }
 }
 

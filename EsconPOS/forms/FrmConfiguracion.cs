@@ -15,7 +15,8 @@ namespace EsconPOS.forms
     {
         public bool Resultado = false;
         private mainEntities context = new mainEntities();
-        //private Datos Conx = Datos.Conx;
+        private const int CMB_ANCHO_MINIMO = 40;
+        private const int CMB_ANCHO_MAXIMO = 340;
 
         public void CargarCombos()
         {
@@ -284,9 +285,20 @@ namespace EsconPOS.forms
             e.Value = ((Identificaciones)e.ListItem).Codigo + "-" + ((Identificaciones)e.ListItem).Identificacion;
         }
 
+        private void CmbDepartamento_Enter(object sender, EventArgs e)
+        {
+            CmbDepartamento.BringToFront();
+            CmbDepartamento.Width = CMB_ANCHO_MAXIMO;
+        }
+
         private void ComboDepartamento_Format(object sender, ListControlConvertEventArgs e)
         {
             e.Value = ((Departamentos)e.ListItem).UBIGEO + "-" + ((Departamentos)e.ListItem).Departamento;
+        }
+
+        private void CmbDepartamento_Leave(object sender, EventArgs e)
+        {
+            CmbDepartamento.Width = CMB_ANCHO_MINIMO;
         }
 
         private void CmbDepartamento_SelectedValueChanged(object sender, EventArgs e)
@@ -296,9 +308,20 @@ namespace EsconPOS.forms
             CmbProvincia.ValueMember = "Provincia";
         }
 
+        private void CmbProvincia_Enter(object sender, EventArgs e)
+        {
+            CmbProvincia.BringToFront();
+            CmbProvincia.Width = CMB_ANCHO_MAXIMO;
+        }
+
         private void CmbProvincia_Format(object sender, ListControlConvertEventArgs e)
         {
             e.Value = ((Provincias)e.ListItem).UBIGEO.Substring(2,2) + "-" + ((Provincias)e.ListItem).Provincia;
+        }
+
+        private void CmbProvincia_Leave(object sender, EventArgs e)
+        {
+            CmbProvincia.Width = CMB_ANCHO_MINIMO;
         }
 
         private void CmbProvincia_SelectedValueChanged(object sender, EventArgs e)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EsconPOS.classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,6 +18,7 @@ namespace EsconPOS.forms
         private void CargaEmpleados()
         {
             var dataset = context.Empleados
+                .Where(e => e.EmpleadoID > 0)
                 .Select(e => new {
                     ID = e.EmpleadoID,
                     Nombres = e.Nombre,
@@ -32,30 +34,169 @@ namespace EsconPOS.forms
             CmbTipoIDEmpleado.DataSource = context.Identificaciones.ToList();
             CmbTipoIDEmpleado.DisplayMember = "Identificacion";
             CmbTipoIDEmpleado.ValueMember = "IdentificacionID";
-
-            CmbDepartamento.DataSource = context.Departamentos.ToList();
-            CmbDepartamento.DisplayMember = "Departamento";
-            CmbDepartamento.ValueMember = "DepartamentoID";
         }
 
         private void ClearCrt()
         {
-
+            CmbTipoIDEmpleado.SelectedIndex = -1;
+            TxtNroIDEmpleado.Text = "";
+            TxtNombreEmpleado.Text = "";
+            TxtDireccionEmpleado.Text = "";
+            TxtTelefonoEmpleado.Text = "";
+            TxtCorreoElectronicoEmpleado.Text = "";
+            ChkEsSupervisor.Checked = false;
+            TxtUsuario.Text = "";
+            TssLblAgregado.Text = "";
+            TssLblModificado.Text = "";
         }
 
         private void MoverRegistroToCrt(long ID)
         {
+            var emp = (from e in context.Empleados
+                       where e.EmpleadoID == ID
+                       select e).First();
 
+            CmbTipoIDEmpleado.SelectedValue = emp.IdentificacionID;
+            CmbTipoIDEmpleado.Tag = ID;
+            TxtNroIDEmpleado.Text = emp.NroDocIdent;
+            TxtNombreEmpleado.Text = emp.Nombre;
+            TxtDireccionEmpleado.Text = emp.Direccion ?? "";
+            TxtTelefonoEmpleado.Text = emp.Telefono ?? "";
+            TxtCorreoElectronicoEmpleado.Text = emp.CorreoElectronico ?? "";
+            ChkEsSupervisor.Checked = (emp.EsSupervisor == 1);
+            TxtUsuario.Text = emp.Login;
+            TssLblAgregado.Text = emp.EmpleadoAdd.Login.ToLower() + " " + emp.AgregadoEl;
+            if (emp.EmpleadoUpd != null)
+                TssLblModificado.Text = (emp.EmpleadoUpd.Login.ToLower() + " " + emp.ModificadoEl) ?? "";
+            else
+                TssLblModificado.Text = "";
         }
 
         private void Eliminar()
         {
-
+            if (CmbTipoIDEmpleado.Tag == null) return;
+            Cursor.Current = Cursors.WaitCursor;
+            try
+            {
+                long ID = long.Parse(CmbTipoIDEmpleado.Tag.ToString());
+                var emp = context.Empleados.Single(e => e.EmpleadoID == ID);
+                context.Empleados.Attach(emp);
+                context.Empleados.Remove(emp);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
+                {
+                    MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error eliminando empleado.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
+                                                                                                  .SelectMany(x => x.ValidationErrors)
+                                                                                                  .Select(x => x.ErrorMessage);
+                    var fullErrorMessage = string.Join("; ", DbErrors);
+                    var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
+                    MessageBox.Show(exceptionMessage, "Error eliminando empleado.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                };
+                return;
+            }
+            SetStatus("Empleado eliminado.");
+            ClearCrt();
+            CargaEmpleados();
+            Cursor.Current = Cursors.Default;
         }
 
         private void Guardar()
         {
+            if (!ValEntReq()) return;
+            Cursor.Current = Cursors.WaitCursor;
+            if (CmbTipoIDEmpleado.Tag == null)
+            {
+                try
+                {
+                    context.Empleados.Add
+                    (
+                        new Empleados
+                        {
+                            IdentificacionID = ((Identificaciones)CmbTipoIDEmpleado.SelectedItem).IdentificacionID,
+                            NroDocIdent = TxtNroIDEmpleado.Text,
+                            Nombre = TxtNombreEmpleado.Text,
+                            Direccion = TxtDireccionEmpleado.Text.Trim() == "" ? null : TxtDireccionEmpleado.Text.Trim(),
+                            Telefono = TxtTelefonoEmpleado.Text.Trim() == "" ? null : TxtTelefonoEmpleado.Text.Trim(),
+                            CorreoElectronico = TxtCorreoElectronicoEmpleado.Text.Trim() == "" ? null : TxtCorreoElectronicoEmpleado.Text.Trim(),
+                            Login = TxtUsuario.Text.Trim(),
+                            PasswdHash = "",
+                            EsSupervisor = ChkEsSupervisor.Checked ? 1 : 0,
+                            EsAdministrador = 0,
+                            Activo = 1,
+                            AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                            AgregadoPor = Global.Usuario.UsuarioID
+                        }
+                    );
+                    context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
+                    {
+                        MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error guardando datos del empleado.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
+                                                                                                      .SelectMany(x => x.ValidationErrors)
+                                                                                                      .Select(x => x.ErrorMessage);
+                        var fullErrorMessage = string.Join("; ", DbErrors);
+                        var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
+                        MessageBox.Show(exceptionMessage, "Error guardando datos del empleado.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    };
+                    return;
+                }
+                SetStatus("Empleado agregado.");
+            } //(CmbTipoIDEmpleado.Tag == null)
+            else //(CmbTipoIDEmpleado.Tag != null)
+            {
+                try
+                {
+                    long ID = long.Parse(CmbTipoIDEmpleado.Tag.ToString());
+                    var emp = context.Empleados.Single(e => e.EmpleadoID == ID);
+                    context.Empleados.Attach(emp);
 
+                    emp.IdentificacionID = ((Identificaciones)CmbTipoIDEmpleado.SelectedItem).IdentificacionID;
+                    emp.NroDocIdent = TxtNroIDEmpleado.Text;
+                    emp.Nombre = TxtNombreEmpleado.Text;
+                    emp.Direccion = TxtDireccionEmpleado.Text.Trim() == "" ? null : TxtDireccionEmpleado.Text.Trim();
+                    emp.Telefono = TxtTelefonoEmpleado.Text.Trim() == "" ? null : TxtTelefonoEmpleado.Text.Trim();
+                    emp.CorreoElectronico = TxtCorreoElectronicoEmpleado.Text.Trim() == "" ? null : TxtCorreoElectronicoEmpleado.Text.Trim();
+                    emp.EsSupervisor = ChkEsSupervisor.Checked ? 1 : 0;
+                    emp.Login = TxtUsuario.Text.Trim();
+                    emp.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    emp.ModificadoPor = Global.Usuario.UsuarioID;
+                    context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
+                    {
+                        MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error modificando datos del empleado.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
+                                                                                                      .SelectMany(x => x.ValidationErrors)
+                                                                                                      .Select(x => x.ErrorMessage);
+                        var fullErrorMessage = string.Join("; ", DbErrors);
+                        var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
+                        MessageBox.Show(exceptionMessage, "Error modificando datos del empleado.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    };
+                    return;
+                }
+                SetStatus("Empleado modificado.");
+            }; //(CmbTipoIDEmpleado.Tag != null)
+            ClearCrt();
+            CargaEmpleados();
+            Cursor.Current = Cursors.Default;
         }
 
         private void SetStatus(string Status = "", bool Error = false)
@@ -69,6 +210,30 @@ namespace EsconPOS.forms
 
         private bool ValEntReq()
         {
+            if (CmbTipoIDEmpleado.SelectedIndex == -1)
+            {
+                CmbTipoIDEmpleado.Focus();
+                MessageBox.Show("Debe seleccionar el tipo de documento de identificación del empleado.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (TxtNroIDEmpleado.Text.Trim().Length == 0)
+            {
+                TxtNroIDEmpleado.Focus();
+                MessageBox.Show("Debe transcribir el número de documento de identificación del empleado.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (TxtNombreEmpleado.Text.Trim().Length == 0)
+            {
+                TxtNombreEmpleado.Focus();
+                MessageBox.Show("Debe transcribir el nombre del empleado.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (TxtUsuario.Text.Trim().Length == 0)
+            {
+                TxtUsuario.Focus();
+                MessageBox.Show("Debe transcribir el nombre de usuario del empleado.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
             return true;
         }
 
@@ -76,57 +241,7 @@ namespace EsconPOS.forms
         {
             e.Value = ((Identificaciones)e.ListItem).Codigo + "-" + ((Identificaciones)e.ListItem).Identificacion;
         }
-        private void CmbDepartamento_Enter(object sender, EventArgs e)
-        {
-            CmbDepartamento.Width = 340;
-        }
-
-        private void CmbDepartamento_Format(object sender, ListControlConvertEventArgs e)
-        {
-            e.Value = ((Departamentos)e.ListItem).UBIGEO + "-" + ((Departamentos)e.ListItem).Departamento;
-        }
-
-        private void CmbDepartamento_Leave(object sender, EventArgs e)
-        {
-            CmbDepartamento.Width = 50;
-        }
-
-        private void CmbDepartamento_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (CmbDepartamento.SelectedIndex == -1) return;
-            CmbProvincia.DataSource = (from p in context.Provincias where p.DepartamentoID == ((Departamentos)(CmbDepartamento.SelectedItem)).DepartamentoID select p).ToList();
-            CmbProvincia.DisplayMember = "Provincia";
-            CmbProvincia.ValueMember = "ProvinciaID";
-        }
-
-        private void CmbProvincia_Enter(object sender, EventArgs e)
-        {
-            CmbProvincia.Width = 340;
-        }
-
-        private void CmbProvincia_Format(object sender, ListControlConvertEventArgs e)
-        {
-            e.Value = ((Provincias)e.ListItem).UBIGEO.Substring(2, 2) + "-" + ((Provincias)e.ListItem).Provincia;
-        }
-
-        private void CmbProvincia_Leave(object sender, EventArgs e)
-        {
-            CmbProvincia.Width = 50;
-        }
-
-        private void CmbProvincia_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (CmbProvincia.SelectedIndex == -1) return;
-            CmbDistrito.DataSource = (from d in context.Distritos where d.ProvinciaID == ((Provincias)(CmbProvincia.SelectedItem)).ProvinciaID select d).ToList();
-            CmbDistrito.DisplayMember = "Distrito";
-            CmbDistrito.ValueMember = "DistritoID";
-        }
-
-        private void CmbDistrito_Format(object sender, ListControlConvertEventArgs e)
-        {
-            e.Value = ((Distritos)e.ListItem).UBIGEO.Substring(4, 2) + "-" + ((Distritos)e.ListItem).Distrito;
-        }
-
+ 
         private void Cmb_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
@@ -134,6 +249,20 @@ namespace EsconPOS.forms
                 e.Handled = true;
                 SelectNextControl((ComboBox)sender, true, true, true, false);
             }
+        }
+        private void Chk_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Return))
+            {
+                e.Handled = true;
+                SelectNextControl((CheckBox)sender, true, true, true, false);
+            }
+        }
+
+        private void DgvEmpleados_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            MoverRegistroToCrt(long.Parse(DgvEmpleados["ID", e.RowIndex].Value.ToString()));
+            TabEmpleados.SelectTab("TabEditar");
         }
 
         public FrmEmpleado()
@@ -187,6 +316,5 @@ namespace EsconPOS.forms
         {
             this.Close();
         }
-
     }
 }

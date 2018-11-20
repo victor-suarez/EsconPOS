@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCliente));
             this.TabClientes = new System.Windows.Forms.TabControl();
             this.TabLista = new System.Windows.Forms.TabPage();
@@ -60,18 +59,16 @@
             this.TsBtnEliminar = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.TsBtnSalir = new System.Windows.Forms.ToolStripButton();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.TssLblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.TssLblAgregado = new System.Windows.Forms.ToolStripStatusLabel();
             this.TssLblModificado = new System.Windows.Forms.ToolStripStatusLabel();
-            this.clientesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.TabClientes.SuspendLayout();
             this.TabLista.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvClientes)).BeginInit();
             this.TabEditar.SuspendLayout();
             this.toolStrip.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.clientesBindingSource)).BeginInit();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabClientes
@@ -232,10 +229,10 @@
             this.CmbDistrito.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbDistrito.DropDownWidth = 326;
             this.CmbDistrito.FormattingEnabled = true;
-            this.CmbDistrito.Location = new System.Drawing.Point(298, 214);
+            this.CmbDistrito.Location = new System.Drawing.Point(278, 215);
             this.CmbDistrito.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CmbDistrito.Name = "CmbDistrito";
-            this.CmbDistrito.Size = new System.Drawing.Size(337, 28);
+            this.CmbDistrito.Size = new System.Drawing.Size(357, 28);
             this.CmbDistrito.TabIndex = 11;
             this.CmbDistrito.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.CmbDistrito_Format);
             this.CmbDistrito.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
@@ -246,10 +243,10 @@
             this.CmbProvincia.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbProvincia.DropDownWidth = 300;
             this.CmbProvincia.FormattingEnabled = true;
-            this.CmbProvincia.Location = new System.Drawing.Point(240, 214);
+            this.CmbProvincia.Location = new System.Drawing.Point(230, 214);
             this.CmbProvincia.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CmbProvincia.Name = "CmbProvincia";
-            this.CmbProvincia.Size = new System.Drawing.Size(50, 28);
+            this.CmbProvincia.Size = new System.Drawing.Size(40, 28);
             this.CmbProvincia.TabIndex = 10;
             this.CmbProvincia.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.CmbProvincia_Format);
             this.CmbProvincia.SelectedValueChanged += new System.EventHandler(this.CmbProvincia_SelectedValueChanged);
@@ -266,7 +263,7 @@
             this.CmbDepartamento.Location = new System.Drawing.Point(182, 214);
             this.CmbDepartamento.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CmbDepartamento.Name = "CmbDepartamento";
-            this.CmbDepartamento.Size = new System.Drawing.Size(50, 28);
+            this.CmbDepartamento.Size = new System.Drawing.Size(40, 28);
             this.CmbDepartamento.TabIndex = 9;
             this.CmbDepartamento.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.CmbDepartamento_Format);
             this.CmbDepartamento.SelectedValueChanged += new System.EventHandler(this.CmbDepartamento_SelectedValueChanged);
@@ -418,17 +415,17 @@
             this.TsBtnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsBtnSalir.Click += new System.EventHandler(this.TsBtnSalir_Click);
             // 
-            // statusStrip1
+            // statusStrip
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TssLblStatus,
             this.TssLblAgregado,
             this.TssLblModificado});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 445);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(673, 22);
-            this.statusStrip1.TabIndex = 2;
-            this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip.Location = new System.Drawing.Point(0, 445);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(673, 22);
+            this.statusStrip.TabIndex = 2;
+            this.statusStrip.Text = "statusStrip1";
             // 
             // TssLblStatus
             // 
@@ -451,17 +448,12 @@
             this.TssLblModificado.Size = new System.Drawing.Size(155, 17);
             this.TssLblModificado.Text = "Modificado por 99-99-9999 99:99:99";
             // 
-            // clientesBindingSource
-            // 
-            this.clientesBindingSource.AllowNew = false;
-            this.clientesBindingSource.DataSource = typeof(EsconPOS.Clientes);
-            // 
             // FrmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(673, 467);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.TabClientes);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -480,9 +472,8 @@
             this.TabEditar.PerformLayout();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.clientesBindingSource)).EndInit();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -509,7 +500,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox CmbTipoIDCliente;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.BindingSource clientesBindingSource;
         private System.Windows.Forms.TextBox TxtFilterNroTelefonico;
         private System.Windows.Forms.TextBox TxtFilterNombre;
         private System.Windows.Forms.ComboBox CmbFilterTipoID;
@@ -519,7 +509,7 @@
         private System.Windows.Forms.ToolStripButton TsBtnEliminar;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton TsBtnSalir;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel TssLblStatus;
         private System.Windows.Forms.ToolStripStatusLabel TssLblAgregado;
         private System.Windows.Forms.ToolStripStatusLabel TssLblModificado;

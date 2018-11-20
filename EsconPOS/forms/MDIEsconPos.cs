@@ -17,6 +17,11 @@ namespace EsconPOS.forms
         private bool CajaAbierta = false;
         private FrmCliente FrmCli = null;
         private FrmEmpleado FrmEmp = null;
+        private FrmEmpresa FrmEpr = null;
+        private FrmMoneda FrmMon = null;
+        private FrmMarca FrmMar = null;
+        private FrmClase FrmCla = null;
+        private FrmProducto FrmPro = null;
 
         public MDIEsconPos()
         {
@@ -28,13 +33,9 @@ namespace EsconPOS.forms
             CajaAbierta = !CajaAbierta;
             if (CajaAbierta)
             {
-                RibBtnCaja.LargeImage = Properties.Resources.CajaCerrada;
-                RibBtnCaja.Text = "Abrir Caja";
             }
             else
             {
-                RibBtnCaja.LargeImage = Properties.Resources.CajaAbierta;
-                RibBtnCaja.Text = "Cerrar Caja";
             }
         }
 
@@ -72,28 +73,63 @@ namespace EsconPOS.forms
             TsslHora.Text = DateTime.Now.ToString("h:mm tt");
         }
 
-        private void ribbonOrbMenuItem1_Click(object sender, EventArgs e)
+        private void TsmiClases_Click(object sender, EventArgs e)
         {
-            Dispose();
+            FrmCla = new forms.FrmClase();
+            FrmCla.MdiParent = this;
+            FrmCla.Show();
         }
 
-        private void RibBtnAbrir_Click(object sender, EventArgs e)
+        private void TsmiClientes_Click(object sender, EventArgs e)
         {
-            AbrirCerrarCaja();
+            FrmCli = new forms.FrmCliente();
+            FrmCli.MdiParent = this;
+            FrmCli.Show();
         }
 
-        private void RibBtnEmpleados_Click(object sender, EventArgs e)
+        private void TsmiEmpleados_Click(object sender, EventArgs e)
         {
             FrmEmp = new forms.FrmEmpleado();
             FrmEmp.MdiParent = this;
             FrmEmp.Show();
         }
 
-        private void RibBtnClientes_Click(object sender, EventArgs e)
+        private void TsmiEmpresas_Click(object sender, EventArgs e)
         {
-            FrmCli = new forms.FrmCliente();
-            FrmCli.MdiParent = this;
-            FrmCli.Show();
+            FrmEpr = new forms.FrmEmpresa();
+            FrmEpr.MdiParent = this;
+            FrmEpr.Show();
+        }
+
+        private void TsmiMarcas_Click(object sender, EventArgs e)
+        {
+            FrmMar = new forms.FrmMarca();
+            FrmMar.MdiParent = this;
+            FrmMar.Show();
+        }
+
+        private void TsmiMonedas_Click(object sender, EventArgs e)
+        {
+            FrmMon = new forms.FrmMoneda();
+            FrmMon.MdiParent = this;
+            FrmMon.Show();
+        }
+
+        private void TsmiProductosServicios_Click(object sender, EventArgs e)
+        {
+            FrmPro = new forms.FrmProducto();
+            FrmPro.MdiParent = this;
+            FrmPro.Show();
+        }
+
+        private void TssbCaja_Click(object sender, EventArgs e)
+        {
+            AbrirCerrarCaja();
+        }
+
+        private void TssbSalir_Click(object sender, EventArgs e)
+        {
+            Dispose();
         }
     }
 }

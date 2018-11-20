@@ -18,8 +18,8 @@ namespace EsconPOS
         public Empleados()
         {
             this.CajaLog = new HashSet<CajaLog>();
-            this.ClienteUpd = new HashSet<Clientes>();
-            this.ClienteAdd = new HashSet<Clientes>();
+            this.ClientesUpdated = new HashSet<Clientes>();
+            this.ClientesAdded = new HashSet<Clientes>();
             this.Documentos = new HashSet<Documentos>();
             this.EmpresasUpdated = new HashSet<Empresas>();
             this.EmpresasAdded = new HashSet<Empresas>();
@@ -34,6 +34,8 @@ namespace EsconPOS
             this.TiposProductosUpdated = new HashSet<TiposProductos>();
             this.TiposProductosAdded = new HashSet<TiposProductos>();
             this.Empresas = new HashSet<Empresas>();
+            this.EmpleadosAdded = new HashSet<Empleados>();
+            this.EmpleadosUpdated = new HashSet<Empleados>();
         }
     
         public long EmpleadoID { get; set; }
@@ -56,9 +58,9 @@ namespace EsconPOS
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CajaLog> CajaLog { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Clientes> ClienteUpd { get; set; }
+        public virtual ICollection<Clientes> ClientesUpdated { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Clientes> ClienteAdd { get; set; }
+        public virtual ICollection<Clientes> ClientesAdded { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Documentos> Documentos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -88,5 +90,11 @@ namespace EsconPOS
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Empresas> Empresas { get; set; }
         public virtual Identificaciones Identificaciones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Empleados> EmpleadosAdded { get; set; }
+        public virtual Empleados EmpleadoAdd { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Empleados> EmpleadosUpdated { get; set; }
+        public virtual Empleados EmpleadoUpd { get; set; }
     }
 }

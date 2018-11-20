@@ -14,8 +14,10 @@ namespace EsconPOS.forms
     public partial class FrmCliente : Form
     {
         private mainEntities context = new mainEntities();
+        private const int CMB_ANCHO_MINIMO = 40;
+        private const int CMB_ANCHO_MAXIMO = 340;
 
-         private void CargaClientes()
+        private void CargaClientes()
         {
             var dataset = context.Clientes
                 .Select(c => new { ID = c.ClienteID,
@@ -72,12 +74,16 @@ namespace EsconPOS.forms
             CmbProvincia.SelectedValue = cli.Distritos.Provincias.ProvinciaID;
             CmbDistrito.SelectedValue = cli.DistritoID;
             TssLblAgregado.Text = cli.EmpleadoAdd.Login.ToLower() + " " + cli.AgregadoEl;
-            TssLblModificado.Text = (cli.EmpleadoUpd.Login.ToLower() + " " + cli.ModificadoEl) ?? "";
+            if (cli.EmpleadoUpd != null)
+                TssLblModificado.Text = (cli.EmpleadoUpd.Login.ToLower() + " " + cli.ModificadoEl) ?? "";
+            else
+                TssLblModificado.Text = "";
         }
 
         private void Eliminar()
         {
             if (CmbTipoIDCliente.Tag == null) return;
+            Cursor.Current = Cursors.WaitCursor;
             try
             {
                 long ID = long.Parse(CmbTipoIDCliente.Tag.ToString());
@@ -106,6 +112,7 @@ namespace EsconPOS.forms
             SetStatus("Cliente eliminado.");
             ClearCrt();
             CargaClientes();
+            Cursor.Current = Cursors.Default;
         }
 
         private void Guardar()
@@ -338,22 +345,24 @@ namespace EsconPOS.forms
 
         private void CmbDepartamento_Enter(object sender, EventArgs e)
         {
-            CmbDepartamento.Width = 340;
+            CmbDepartamento.BringToFront();
+            CmbDepartamento.Width = CMB_ANCHO_MAXIMO;
         }
 
         private void CmbDepartamento_Leave(object sender, EventArgs e)
         {
-            CmbDepartamento.Width = 50;
+            CmbDepartamento.Width = CMB_ANCHO_MINIMO;
         }
 
         private void CmbProvincia_Enter(object sender, EventArgs e)
         {
-            CmbProvincia.Width = 340;
+            CmbProvincia.BringToFront();
+            CmbProvincia.Width = CMB_ANCHO_MAXIMO;
         }
 
         private void CmbProvincia_Leave(object sender, EventArgs e)
         {
-            CmbProvincia.Width = 50;
+            CmbProvincia.Width = CMB_ANCHO_MINIMO;
         }
     }
 }

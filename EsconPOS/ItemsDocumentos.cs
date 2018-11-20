@@ -28,7 +28,7 @@ namespace EsconPOS
         public string FechaHoraAutorizado { get; set; }
     
         public virtual Documentos Documentos { get; set; }
-        public virtual Empleados Empleados { get; set; }
+        public virtual Empleados EmpleadoAut { get; set; }
         public virtual Impuestos Impuestos { get; set; }
         public virtual Productos Productos { get; set; }
     }

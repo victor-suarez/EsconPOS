@@ -24,6 +24,9 @@ namespace EsconPOS
         public string Codigo { get; set; }
         public string TipoDocumento { get; set; }
         public string Iniciales { get; set; }
+        public Nullable<long> NroSiguiente { get; set; }
+        public string ModificadoEl { get; set; }
+        public Nullable<long> ModificadoPor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Documentos> Documentos { get; set; }
