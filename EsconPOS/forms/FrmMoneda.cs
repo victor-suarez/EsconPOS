@@ -27,6 +27,7 @@ namespace EsconPOS.forms
                 }).ToList();
             DgvMonedas.DataSource = dataset;
             DgvMonedas.Columns["ID"].Visible = false;
+            DgvMonedas.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
         }
 
         private void ClearCrt()
@@ -47,6 +48,7 @@ namespace EsconPOS.forms
                        select m).First();
 
             TxtCodigo.Text = mon.Codigo;
+            TxtCodigo.Tag = mon.MonedaID;
             TxtMoneda.Text = mon.Moneda;
             ChkActiva.Checked = (mon.Activo == 1);
             ChkPorDefecto.Checked = (mon.PorDefecto == 1);
@@ -68,19 +70,10 @@ namespace EsconPOS.forms
             }
             catch (Exception ex)
             {
-                if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                {
-                    MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error eliminando moneda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                    Global.MensajeErrorBd(ex, "Error eliminando moneda.");
                 else
-                {
-                    var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                  .SelectMany(x => x.ValidationErrors)
-                                                                                                  .Select(x => x.ErrorMessage);
-                    var fullErrorMessage = string.Join("; ", DbErrors);
-                    var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                    MessageBox.Show(exceptionMessage, "Error eliminando moneda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                };
+                    Global.MensajeError(ex, "Error eliminando moneda.");
                 return;
             }
             SetStatus("Moneda eliminada.");
@@ -114,19 +107,10 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                    {
-                        MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error guardando datos de la moneda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                        Global.MensajeErrorBd(ex, "Error guardando datos de la moneda.");
                     else
-                    {
-                        var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                      .SelectMany(x => x.ValidationErrors)
-                                                                                                      .Select(x => x.ErrorMessage);
-                        var fullErrorMessage = string.Join("; ", DbErrors);
-                        var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                        MessageBox.Show(exceptionMessage, "Error guardando datos de la moneda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    };
+                        Global.MensajeError(ex, "Error guardando datos de la moneda.");
                     return;
                 }
                 SetStatus("Empleado agregado.");
@@ -149,19 +133,10 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                    {
-                        MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error modificando datos de la moneda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                        Global.MensajeErrorBd(ex, "Error modificando datos de la moneda.");
                     else
-                    {
-                        var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                      .SelectMany(x => x.ValidationErrors)
-                                                                                                      .Select(x => x.ErrorMessage);
-                        var fullErrorMessage = string.Join("; ", DbErrors);
-                        var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                        MessageBox.Show(exceptionMessage, "Error modificando datos de la moneda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    };
+                        Global.MensajeError(ex, "Error modificando datos de la moneda.");
                     return;
                 }
                 SetStatus("Moneda modificada.");

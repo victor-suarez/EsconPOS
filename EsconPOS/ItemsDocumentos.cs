@@ -17,7 +17,6 @@ namespace EsconPOS
         public long DocumentoID { get; set; }
         public long ItemID { get; set; }
         public long ProductoID { get; set; }
-        public double MontoUnitario { get; set; }
         public long Cantidad { get; set; }
         public long ImpuestoID { get; set; }
         public double TasaImpuesto { get; set; }
@@ -26,10 +25,14 @@ namespace EsconPOS
         public long EsDevolucion { get; set; }
         public Nullable<long> AutorizadoPor { get; set; }
         public string FechaHoraAutorizado { get; set; }
+        public double PrecioUnitario { get; set; }
+        public double MontoDescuento { get; set; }
+        public Nullable<long> VendidoPor { get; set; }
     
         public virtual Documentos Documentos { get; set; }
         public virtual Empleados EmpleadoAut { get; set; }
         public virtual Impuestos Impuestos { get; set; }
         public virtual Productos Productos { get; set; }
+        public virtual Empleados EmpleadoVen { get; set; }
     }
 }

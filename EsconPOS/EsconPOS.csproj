@@ -275,7 +275,7 @@
     <Compile Include="forms\MDIEsconPos.Designer.cs">
       <DependentUpon>MDIEsconPos.cs</DependentUpon>
     </Compile>
-    <Compile Include="forms\ObservableListSource.cs" />
+    <Compile Include="classes\ObservableListSource.cs" />
     <Compile Include="Identificaciones.cs">
       <DependentUpon>EsconPOS.tt</DependentUpon>
     </Compile>

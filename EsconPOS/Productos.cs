@@ -38,7 +38,7 @@ namespace EsconPOS
         public double PrecioUnitario { get; set; }
     
         public virtual Empleados EmpleadoUpd { get; set; }
-        public virtual Empleados EmpleadosAdd { get; set; }
+        public virtual Empleados EmpleadoAdd { get; set; }
         public virtual Impuestos Impuestos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ItemsDocumentos> ItemsDocumentos { get; set; }

@@ -63,19 +63,10 @@ namespace EsconPOS.forms
             }
             catch (Exception ex)
             {
-                if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                {
-                    MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error guardando datos de la empresa", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                    Global.MensajeErrorBd(ex, "Error guardando datos de la empresa.");
                 else
-                {
-                    var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                  .SelectMany(x => x.ValidationErrors)
-                                                                                                  .Select(x => x.ErrorMessage);
-                    var fullErrorMessage = string.Join("; ", DbErrors);
-                    var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                    MessageBox.Show(exceptionMessage, "Error guardando datos de la empresa", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                };
+                    Global.MensajeError(ex, "Error guardando datos de la empresa.");
                 return;
             }
             // Localizo la empresa que acabo de ingresar
@@ -108,19 +99,10 @@ namespace EsconPOS.forms
             }
             catch (Exception ex)
             {
-                if(((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                {
-                    MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error guardando datos del administrador", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                    Global.MensajeErrorBd(ex, "Error guardando datos del administrador.");
                 else
-                {
-                    var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                  .SelectMany(x => x.ValidationErrors)
-                                                                                                  .Select(x => x.ErrorMessage);
-                    var fullErrorMessage = string.Join("; ", DbErrors);
-                    var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                    MessageBox.Show(exceptionMessage, "Error guardando datos del administrador", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                };
+                    Global.MensajeError(ex, "Error guardando datos del administrador.");
                 return;
             }
             // Localizo el empleado que acabo de ingresar
@@ -145,19 +127,10 @@ namespace EsconPOS.forms
             }
             catch (Exception ex)
             {
-                if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                {
-                    MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error guardando datos de la caja", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                    Global.MensajeErrorBd(ex, "Error guardando datos de la caja.");
                 else
-                {
-                    var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                  .SelectMany(x => x.ValidationErrors)
-                                                                                                  .Select(x => x.ErrorMessage);
-                    var fullErrorMessage = string.Join("; ", DbErrors);
-                    var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                    MessageBox.Show(exceptionMessage, "Error guardando datos de la caja", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                };
+                    Global.MensajeError(ex, "Error guardando datos de la caja.");
                 return;
             }
             Resultado = true;

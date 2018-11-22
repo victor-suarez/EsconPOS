@@ -36,6 +36,14 @@ namespace EsconPOS
             this.Empresas = new HashSet<Empresas>();
             this.EmpleadosAdded = new HashSet<Empleados>();
             this.EmpleadosUpdated = new HashSet<Empleados>();
+            this.ConfiguracionesAdded = new HashSet<Configuraciones>();
+            this.ConfiguracionesUpdated = new HashSet<Configuraciones>();
+            this.FormasPagosAdded = new HashSet<FormasPagos>();
+            this.FormasPagosUpdated = new HashSet<FormasPagos>();
+            this.Impuestos = new HashSet<Impuestos>();
+            this.UnidadesMedidasUpdated = new HashSet<UnidadesMedidas>();
+            this.ItemsDocumentos1 = new HashSet<ItemsDocumentos>();
+            this.TiposDocumentos = new HashSet<TiposDocumentos>();
         }
     
         public long EmpleadoID { get; set; }
@@ -96,5 +104,21 @@ namespace EsconPOS
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Empleados> EmpleadosUpdated { get; set; }
         public virtual Empleados EmpleadoUpd { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Configuraciones> ConfiguracionesAdded { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Configuraciones> ConfiguracionesUpdated { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FormasPagos> FormasPagosAdded { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FormasPagos> FormasPagosUpdated { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Impuestos> Impuestos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UnidadesMedidas> UnidadesMedidasUpdated { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ItemsDocumentos> ItemsDocumentos1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TiposDocumentos> TiposDocumentos { get; set; }
     }
 }

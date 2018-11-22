@@ -26,6 +26,7 @@ namespace EsconPOS.forms
                 }).ToList();
             DgvMarcas.DataSource = dataset;
             DgvMarcas.Columns["ID"].Visible = false;
+            DgvMarcas.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
         }
 
         private void ClearCrt()
@@ -45,6 +46,7 @@ namespace EsconPOS.forms
                        select m).First();
 
             TxtCodigo.Text = mar.Codigo;
+            TxtCodigo.Tag = mar.MarcaID;
             TxtMarca.Text = mar.Marca;
             ChkActiva.Checked = (mar.Activo == 1);
             TssLblAgregado.Text = mar.EmpleadoAdd.Login.ToLower() + " " + mar.AgregadoEl;
@@ -68,19 +70,10 @@ namespace EsconPOS.forms
             }
             catch (Exception ex)
             {
-                if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                {
-                    MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error eliminando marca.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                    Global.MensajeErrorBd(ex, "Error eliminando marca.");
                 else
-                {
-                    var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                  .SelectMany(x => x.ValidationErrors)
-                                                                                                  .Select(x => x.ErrorMessage);
-                    var fullErrorMessage = string.Join("; ", DbErrors);
-                    var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                    MessageBox.Show(exceptionMessage, "Error eliminando marca.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                };
+                    Global.MensajeError(ex, "Error eliminando marca.");
                 return;
             }
             SetStatus("Marca eliminada.");
@@ -112,19 +105,10 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                    {
-                        MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error guardando datos de la marca.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                        Global.MensajeErrorBd(ex, "Error guardando datos de la marca.");
                     else
-                    {
-                        var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                      .SelectMany(x => x.ValidationErrors)
-                                                                                                      .Select(x => x.ErrorMessage);
-                        var fullErrorMessage = string.Join("; ", DbErrors);
-                        var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                        MessageBox.Show(exceptionMessage, "Error guardando datos de la marca.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    };
+                        Global.MensajeError(ex, "Error guardando datos de la marca.");
                     return;
                 }
                 SetStatus("Marca de productos agregada.");
@@ -147,19 +131,10 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                    {
-                        MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error modificando datos de la marca.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                        Global.MensajeErrorBd(ex, "Error modificando datos de la marca.");
                     else
-                    {
-                        var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                      .SelectMany(x => x.ValidationErrors)
-                                                                                                      .Select(x => x.ErrorMessage);
-                        var fullErrorMessage = string.Join("; ", DbErrors);
-                        var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                        MessageBox.Show(exceptionMessage, "Error modificando datos de la marca.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    };
+                        Global.MensajeError(ex, "Error modificando datos de la marca.");
                     return;
                 }
                 SetStatus("Marca de productos modificada.");
@@ -206,6 +181,7 @@ namespace EsconPOS.forms
 
         private void DgvMarcas_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
             MoverRegistroToCrt(long.Parse(DgvMarcas["ID", e.RowIndex].Value.ToString()));
             TabMarcas.SelectTab("PagEditar");
         }

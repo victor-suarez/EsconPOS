@@ -117,7 +117,7 @@
             // TssLblStatus
             // 
             this.TssLblStatus.Name = "TssLblStatus";
-            this.TssLblStatus.Size = new System.Drawing.Size(318, 17);
+            this.TssLblStatus.Size = new System.Drawing.Size(349, 17);
             this.TssLblStatus.Spring = true;
             this.TssLblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -144,7 +144,7 @@
             this.Controls.Add(this.toolStrip);
             this.KeyPreview = true;
             this.Name = "FrmEmpresa";
-            this.Text = "FrmEmpresa";
+            this.Text = "Administrar Empresas";
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);

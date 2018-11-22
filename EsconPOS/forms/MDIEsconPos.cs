@@ -19,6 +19,7 @@ namespace EsconPOS.forms
         private FrmEmpleado FrmEmp = null;
         private FrmEmpresa FrmEpr = null;
         private FrmMoneda FrmMon = null;
+        private FrmUnidadMedida FrmUnd = null;
         private FrmMarca FrmMar = null;
         private FrmClase FrmCla = null;
         private FrmProducto FrmPro = null;
@@ -120,6 +121,13 @@ namespace EsconPOS.forms
             FrmPro = new forms.FrmProducto();
             FrmPro.MdiParent = this;
             FrmPro.Show();
+        }
+
+        private void TsmiUnidadesMedida_Click(object sender, EventArgs e)
+        {
+            FrmUnd = new forms.FrmUnidadMedida();
+            FrmUnd.MdiParent = this;
+            FrmUnd.Show();
         }
 
         private void TssbCaja_Click(object sender, EventArgs e)

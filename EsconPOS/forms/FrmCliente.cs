@@ -29,6 +29,7 @@ namespace EsconPOS.forms
                                  }).ToList();
             DgvClientes.DataSource = dataset;
             DgvClientes.Columns["ID"].Visible = false;
+            DgvClientes.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
         }
 
         private void CargarCombos()
@@ -94,19 +95,10 @@ namespace EsconPOS.forms
             }
             catch (Exception ex)
             {
-                if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                {
-                    MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error eliminando cliente.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                    Global.MensajeErrorBd(ex, "Error eliminando cliente.");
                 else
-                {
-                    var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                  .SelectMany(x => x.ValidationErrors)
-                                                                                                  .Select(x => x.ErrorMessage);
-                    var fullErrorMessage = string.Join("; ", DbErrors);
-                    var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                    MessageBox.Show(exceptionMessage, "Error eliminando cliente.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                };
+                    Global.MensajeError(ex, "Error eliminando cliente.");
                 return;
             }
             SetStatus("Cliente eliminado.");
@@ -142,19 +134,10 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                    {
-                        MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error guardando datos del cliente.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                        Global.MensajeErrorBd(ex, "Error guardando datos del cliente.");
                     else
-                    {
-                        var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                      .SelectMany(x => x.ValidationErrors)
-                                                                                                      .Select(x => x.ErrorMessage);
-                        var fullErrorMessage = string.Join("; ", DbErrors);
-                        var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                        MessageBox.Show(exceptionMessage, "Error guardando datos del cliente.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    };
+                        Global.MensajeError(ex, "Error guardando datos del cliente.");
                     return;
                 }
                 SetStatus("Cliente agregado.");
@@ -180,19 +163,10 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                    {
-                        MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error modificando datos del cliente.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                        Global.MensajeErrorBd(ex, "Error modificando datos del cliente.");
                     else
-                    {
-                        var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                      .SelectMany(x => x.ValidationErrors)
-                                                                                                      .Select(x => x.ErrorMessage);
-                        var fullErrorMessage = string.Join("; ", DbErrors);
-                        var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                        MessageBox.Show(exceptionMessage, "Error modificando datos del cliente.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    };
+                        Global.MensajeError(ex, "Error modificando datos del cliente.");
                     return;
                 }
                 SetStatus("Cliente modificado.");

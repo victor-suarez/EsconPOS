@@ -434,7 +434,7 @@
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FrmEmpleado";
-            this.Text = "Administrar empleados";
+            this.Text = "Administrar Empleados";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmEmpleado_FormClosing);
             this.Load += new System.EventHandler(this.FrmEmpleado_Load);
             this.toolStrip.ResumeLayout(false);

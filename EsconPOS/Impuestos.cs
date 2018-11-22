@@ -31,10 +31,13 @@ namespace EsconPOS
         public string ValidoDesde { get; set; }
         public string ValidoHasta { get; set; }
         public long Activo { get; set; }
+        public string ModificadoEl { get; set; }
+        public Nullable<long> ModificadoPor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ItemsDocumentos> ItemsDocumentos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Productos> Productos { get; set; }
+        public virtual Empleados EmpleadoUpd { get; set; }
     }
 }

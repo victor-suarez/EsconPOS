@@ -55,20 +55,10 @@ namespace EsconPOS.forms
                     }
                     catch(Exception ex)
                     {
-                        if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                        {
-                            MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error buscando el administrador", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                            Global.MensajeErrorBd(ex, "Error buscando el administrador.");
                         else
-                        {
-                            var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                          .SelectMany(x => x.ValidationErrors)
-                                                                                                          .Select(x => x.ErrorMessage);
-                            var fullErrorMessage = string.Join("; ", DbErrors);
-                            var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                            MessageBox.Show(exceptionMessage, "Error buscando el administrador.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        };
-                        //MessageBox.Show(ex.Source + "\n\r" + ex.Message, "Error buscando el administrador", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            Global.MensajeError(ex, "Error buscando el administrador.");
                         return;
                     }
 
@@ -88,7 +78,10 @@ namespace EsconPOS.forms
                     }
                     catch(Exception ex)
                     {
-                        MessageBox.Show(ex.Source + "\n\r" + ex.Message, "Error buscando el usuario", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                            Global.MensajeErrorBd(ex, "Error buscando el usuario.");
+                        else
+                            Global.MensajeError(ex, "Error buscando el usuario.");
                         return;
                     }
 
@@ -115,7 +108,10 @@ namespace EsconPOS.forms
                     }
                     catch(Exception ex)
                     {
-                        MessageBox.Show(ex.Source + "\n\r" + ex.Message, "Error buscando el empleado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                            Global.MensajeErrorBd(ex, "Error buscando el empleado.");
+                        else
+                            Global.MensajeError(ex, "Error buscando el empleado.");
                         return;
                     }
                 }

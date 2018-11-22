@@ -26,6 +26,7 @@ namespace EsconPOS.forms
                 }).ToList();
             DgvClases.DataSource = dataset;
             DgvClases.Columns["ID"].Visible = false;
+            DgvClases.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
         }
 
         private void CargarCombos()
@@ -49,6 +50,7 @@ namespace EsconPOS.forms
                        select c).First();
 
             TxtCodigo.Text = cls.Codigo;
+            TxtCodigo.Tag = cls.TipoProductoID;
             TxtClase.Text = cls.TipoProducto;
             ChkActiva.Checked = (cls.Activo == 1);
             TssLblAgregado.Text = cls.EmpleadoAdd.Login.ToLower() + " " + cls.AgregadoEl;
@@ -72,19 +74,10 @@ namespace EsconPOS.forms
             }
             catch (Exception ex)
             {
-                if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                {
-                    MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error eliminando clase.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                    Global.MensajeErrorBd(ex, "Error eliminando clase.");
                 else
-                {
-                    var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                  .SelectMany(x => x.ValidationErrors)
-                                                                                                  .Select(x => x.ErrorMessage);
-                    var fullErrorMessage = string.Join("; ", DbErrors);
-                    var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                    MessageBox.Show(exceptionMessage, "Error eliminando clase.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                };
+                    Global.MensajeError(ex, "Error eliminando clase.");
                 return;
             }
             SetStatus("Clase eliminada.");
@@ -116,19 +109,10 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                    {
-                        MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error guardando datos de la clase.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                        Global.MensajeErrorBd(ex, "Error guardando datos de la clase.");
                     else
-                    {
-                        var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                      .SelectMany(x => x.ValidationErrors)
-                                                                                                      .Select(x => x.ErrorMessage);
-                        var fullErrorMessage = string.Join("; ", DbErrors);
-                        var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                        MessageBox.Show(exceptionMessage, "Error guardando datos de la clase.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    };
+                        Global.MensajeError(ex, "Error guardando datos de la clase.");
                     return;
                 }
                 SetStatus("Clase de productos agregada.");
@@ -151,19 +135,10 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                    {
-                        MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error modificando datos de la clase.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                        Global.MensajeErrorBd(ex, "Error modificando datos de la clase.");
                     else
-                    {
-                        var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                      .SelectMany(x => x.ValidationErrors)
-                                                                                                      .Select(x => x.ErrorMessage);
-                        var fullErrorMessage = string.Join("; ", DbErrors);
-                        var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                        MessageBox.Show(exceptionMessage, "Error modificando datos de la clase.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    };
+                        Global.MensajeError(ex, "Error modificando datos de la clase.");
                     return;
                 }
                 SetStatus("Clase de productos modificada.");

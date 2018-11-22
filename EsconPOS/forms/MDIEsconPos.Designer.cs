@@ -202,7 +202,7 @@
             this.TsmiDistritos});
             this.TssbUbicacion.Image = global::EsconPOS.Properties.Resources.Ubigeo;
             this.TssbUbicacion.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TssbUbicacion.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TssbUbicacion.ImageTransparentColor = System.Drawing.Color.White;
             this.TssbUbicacion.Name = "TssbUbicacion";
             this.TssbUbicacion.Size = new System.Drawing.Size(76, 51);
             this.TssbUbicacion.Text = "Ubicación";
@@ -245,7 +245,7 @@
             this.TsmiUnidadesMedida});
             this.TssbSunat.Image = global::EsconPOS.Properties.Resources.SUNAT;
             this.TssbSunat.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TssbSunat.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TssbSunat.ImageTransparentColor = System.Drawing.Color.White;
             this.TssbSunat.Name = "TssbSunat";
             this.TssbSunat.Size = new System.Drawing.Size(60, 51);
             this.TssbSunat.Text = "SUNAT";
@@ -278,6 +278,7 @@
             this.TsmiUnidadesMedida.Name = "TsmiUnidadesMedida";
             this.TsmiUnidadesMedida.Size = new System.Drawing.Size(189, 22);
             this.TsmiUnidadesMedida.Text = "&Unidades de medida";
+            this.TsmiUnidadesMedida.Click += new System.EventHandler(this.TsmiUnidadesMedida_Click);
             // 
             // TssbProductos
             // 
@@ -287,7 +288,7 @@
             this.TsmiProductosServicios});
             this.TssbProductos.Image = global::EsconPOS.Properties.Resources.Productos;
             this.TssbProductos.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TssbProductos.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TssbProductos.ImageTransparentColor = System.Drawing.Color.White;
             this.TssbProductos.Name = "TssbProductos";
             this.TssbProductos.Size = new System.Drawing.Size(85, 51);
             this.TssbProductos.Text = "Prods/Servs";
@@ -323,7 +324,7 @@
             // 
             this.TssbSalir.Image = global::EsconPOS.Properties.Resources.Close;
             this.TssbSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TssbSalir.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TssbSalir.ImageTransparentColor = System.Drawing.Color.White;
             this.TssbSalir.Name = "TssbSalir";
             this.TssbSalir.Size = new System.Drawing.Size(36, 51);
             this.TssbSalir.Text = "Salir";

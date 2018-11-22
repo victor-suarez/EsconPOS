@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace EsconPOS.classes
 {
@@ -50,6 +51,20 @@ namespace EsconPOS.classes
                 byte[] hash = sha.ComputeHash(textData);
                 return BitConverter.ToString(hash).Replace("-", String.Empty);
             }
+        }
+
+        public static void MensajeError(Exception ex, string Msj = "")
+        {
+            MessageBox.Show(ex.Source + "\r\n" + ex.Message, Msj, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public static void MensajeErrorBd(Exception ex, string Msj = "")
+        {
+            var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
+                                                                                          .SelectMany(ve => ve.ValidationErrors)
+                                                                                          .Select(ve => ve.ErrorMessage);
+            var fullErrorMessage = string.Join("; ", DbErrors);
+            MessageBox.Show(fullErrorMessage, Msj, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

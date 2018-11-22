@@ -67,6 +67,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.TxtCodigo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.BtnAgragarUnidad = new System.Windows.Forms.Button();
+            this.BtnAgregarImpuesto = new System.Windows.Forms.Button();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.TabProductos.SuspendLayout();
@@ -101,6 +103,7 @@
             this.TsBtnGuardar.Size = new System.Drawing.Size(53, 51);
             this.TsBtnGuardar.Text = "Guardar";
             this.TsBtnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsBtnGuardar.Click += new System.EventHandler(this.TsBtnGuardar_Click);
             // 
             // TsBtnDeshacer
             // 
@@ -111,6 +114,7 @@
             this.TsBtnDeshacer.Size = new System.Drawing.Size(59, 51);
             this.TsBtnDeshacer.Text = "Deshacer";
             this.TsBtnDeshacer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsBtnDeshacer.Click += new System.EventHandler(this.TsBtnDeshacer_Click);
             // 
             // TsBtnEliminar
             // 
@@ -121,6 +125,7 @@
             this.TsBtnEliminar.Size = new System.Drawing.Size(54, 51);
             this.TsBtnEliminar.Text = "Eliminar";
             this.TsBtnEliminar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsBtnEliminar.Click += new System.EventHandler(this.TsBtnEliminar_Click);
             // 
             // toolStripSeparator1
             // 
@@ -136,6 +141,7 @@
             this.TsBtnSalir.Size = new System.Drawing.Size(36, 51);
             this.TsBtnSalir.Text = "Salir";
             this.TsBtnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsBtnSalir.Click += new System.EventHandler(this.TsBtnSalir_Click);
             // 
             // statusStrip
             // 
@@ -238,6 +244,8 @@
             // 
             // PagEditar
             // 
+            this.PagEditar.Controls.Add(this.BtnAgregarImpuesto);
+            this.PagEditar.Controls.Add(this.BtnAgragarUnidad);
             this.PagEditar.Controls.Add(this.button1);
             this.PagEditar.Controls.Add(this.BtnAgregarCliente);
             this.PagEditar.Controls.Add(this.NumPrecioUnitario);
@@ -280,7 +288,7 @@
             // BtnAgregarCliente
             // 
             this.BtnAgregarCliente.Image = global::EsconPOS.Properties.Resources.Agregar;
-            this.BtnAgregarCliente.Location = new System.Drawing.Point(609, 76);
+            this.BtnAgregarCliente.Location = new System.Drawing.Point(609, 75);
             this.BtnAgregarCliente.Name = "BtnAgregarCliente";
             this.BtnAgregarCliente.Size = new System.Drawing.Size(28, 28);
             this.BtnAgregarCliente.TabIndex = 6;
@@ -325,6 +333,7 @@
             this.NumCostoUnitario.TabIndex = 19;
             this.NumCostoUnitario.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NumCostoUnitario.ThousandsSeparator = true;
+            this.NumCostoUnitario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Num_KeyPress);
             // 
             // label9
             // 
@@ -343,6 +352,7 @@
             this.TxtProducto.Name = "TxtProducto";
             this.TxtProducto.Size = new System.Drawing.Size(403, 26);
             this.TxtProducto.TabIndex = 11;
+            this.TxtProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // label8
             // 
@@ -356,11 +366,14 @@
             // 
             // CmbImpuestos
             // 
+            this.CmbImpuestos.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CmbImpuestos.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbImpuestos.FormattingEnabled = true;
             this.CmbImpuestos.Location = new System.Drawing.Point(200, 242);
             this.CmbImpuestos.Name = "CmbImpuestos";
             this.CmbImpuestos.Size = new System.Drawing.Size(318, 28);
             this.CmbImpuestos.TabIndex = 17;
+            this.CmbImpuestos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
             // 
             // label7
             // 
@@ -374,11 +387,14 @@
             // 
             // CmbUnidades
             // 
+            this.CmbUnidades.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CmbUnidades.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbUnidades.FormattingEnabled = true;
             this.CmbUnidades.Location = new System.Drawing.Point(200, 208);
             this.CmbUnidades.Name = "CmbUnidades";
             this.CmbUnidades.Size = new System.Drawing.Size(318, 28);
             this.CmbUnidades.TabIndex = 15;
+            this.CmbUnidades.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
             // 
             // label6
             // 
@@ -397,6 +413,7 @@
             this.TxtPresentacion.Name = "TxtPresentacion";
             this.TxtPresentacion.Size = new System.Drawing.Size(403, 26);
             this.TxtPresentacion.TabIndex = 13;
+            this.TxtPresentacion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // label5
             // 
@@ -410,11 +427,14 @@
             // 
             // CmbTipos
             // 
+            this.CmbTipos.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CmbTipos.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbTipos.FormattingEnabled = true;
             this.CmbTipos.Location = new System.Drawing.Point(200, 110);
             this.CmbTipos.Name = "CmbTipos";
             this.CmbTipos.Size = new System.Drawing.Size(403, 28);
             this.CmbTipos.TabIndex = 8;
+            this.CmbTipos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
             // 
             // label4
             // 
@@ -428,11 +448,14 @@
             // 
             // CmbMarcas
             // 
+            this.CmbMarcas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CmbMarcas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbMarcas.FormattingEnabled = true;
             this.CmbMarcas.Location = new System.Drawing.Point(200, 76);
             this.CmbMarcas.Name = "CmbMarcas";
             this.CmbMarcas.Size = new System.Drawing.Size(403, 28);
             this.CmbMarcas.TabIndex = 5;
+            this.CmbMarcas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
             // 
             // label3
             // 
@@ -451,6 +474,7 @@
             this.TxtCodigoBarra.Name = "TxtCodigoBarra";
             this.TxtCodigoBarra.Size = new System.Drawing.Size(156, 26);
             this.TxtCodigoBarra.TabIndex = 3;
+            this.TxtCodigoBarra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // label2
             // 
@@ -469,6 +493,7 @@
             this.TxtCodigo.Name = "TxtCodigo";
             this.TxtCodigo.Size = new System.Drawing.Size(156, 26);
             this.TxtCodigo.TabIndex = 1;
+            this.TxtCodigo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // label1
             // 
@@ -479,6 +504,24 @@
             this.label1.Size = new System.Drawing.Size(116, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Código interno:";
+            // 
+            // BtnAgragarUnidad
+            // 
+            this.BtnAgragarUnidad.Image = global::EsconPOS.Properties.Resources.Agregar;
+            this.BtnAgragarUnidad.Location = new System.Drawing.Point(524, 208);
+            this.BtnAgragarUnidad.Name = "BtnAgragarUnidad";
+            this.BtnAgragarUnidad.Size = new System.Drawing.Size(28, 28);
+            this.BtnAgragarUnidad.TabIndex = 22;
+            this.BtnAgragarUnidad.UseVisualStyleBackColor = true;
+            // 
+            // BtnAgregarImpuesto
+            // 
+            this.BtnAgregarImpuesto.Image = global::EsconPOS.Properties.Resources.Agregar;
+            this.BtnAgregarImpuesto.Location = new System.Drawing.Point(524, 242);
+            this.BtnAgregarImpuesto.Name = "BtnAgregarImpuesto";
+            this.BtnAgregarImpuesto.Size = new System.Drawing.Size(28, 28);
+            this.BtnAgregarImpuesto.TabIndex = 23;
+            this.BtnAgregarImpuesto.UseVisualStyleBackColor = true;
             // 
             // FrmProducto
             // 
@@ -552,5 +595,7 @@
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.ComboBox comboBox5;
         private System.Windows.Forms.DataGridView DgvProductos;
+        private System.Windows.Forms.Button BtnAgregarImpuesto;
+        private System.Windows.Forms.Button BtnAgragarUnidad;
     }
 }

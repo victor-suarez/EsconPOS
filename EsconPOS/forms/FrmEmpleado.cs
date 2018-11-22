@@ -15,7 +15,7 @@ namespace EsconPOS.forms
     {
         private mainEntities context = new mainEntities();
 
-        private void CargaEmpleados()
+        private void CargarEmpleados()
         {
             var dataset = context.Empleados
                 .Where(e => e.EmpleadoID > 0)
@@ -27,6 +27,7 @@ namespace EsconPOS.forms
                 }).ToList();
             DgvEmpleados.DataSource = dataset;
             DgvEmpleados.Columns["ID"].Visible = false;
+            DgvEmpleados.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
         }
 
         private void CargarCombos()
@@ -86,24 +87,15 @@ namespace EsconPOS.forms
             }
             catch (Exception ex)
             {
-                if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                {
-                    MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error eliminando empleado.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                    Global.MensajeErrorBd(ex, "Error eliminando empleado.");
                 else
-                {
-                    var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                  .SelectMany(x => x.ValidationErrors)
-                                                                                                  .Select(x => x.ErrorMessage);
-                    var fullErrorMessage = string.Join("; ", DbErrors);
-                    var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                    MessageBox.Show(exceptionMessage, "Error eliminando empleado.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                };
+                    Global.MensajeError(ex, "Error eliminando empleado.");
                 return;
             }
             SetStatus("Empleado eliminado.");
             ClearCrt();
-            CargaEmpleados();
+            CargarEmpleados();
             Cursor.Current = Cursors.Default;
         }
 
@@ -138,24 +130,15 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                    {
-                        MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error guardando datos del empleado.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                        Global.MensajeErrorBd(ex, "Error guardando datos del empleado.");
                     else
-                    {
-                        var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                      .SelectMany(x => x.ValidationErrors)
-                                                                                                      .Select(x => x.ErrorMessage);
-                        var fullErrorMessage = string.Join("; ", DbErrors);
-                        var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                        MessageBox.Show(exceptionMessage, "Error guardando datos del empleado.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    };
+                        Global.MensajeError(ex, "Error guardando datos del empleado.");
                     return;
                 }
                 SetStatus("Empleado agregado.");
-            } //(CmbTipoIDEmpleado.Tag == null)
-            else //(CmbTipoIDEmpleado.Tag != null)
+            } //(.Tag == null)
+            else //(.Tag != null)
             {
                 try
                 {
@@ -177,25 +160,16 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors.Count() == 0)
-                    {
-                        MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error modificando datos del empleado.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                        Global.MensajeErrorBd(ex, "Error modificando datos del empleado.");
                     else
-                    {
-                        var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
-                                                                                                      .SelectMany(x => x.ValidationErrors)
-                                                                                                      .Select(x => x.ErrorMessage);
-                        var fullErrorMessage = string.Join("; ", DbErrors);
-                        var exceptionMessage = string.Concat(ex.Message, "\n\rErrores de validación en la base de datos: \n\r", fullErrorMessage);
-                        MessageBox.Show(exceptionMessage, "Error modificando datos del empleado.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    };
+                        Global.MensajeError(ex, "Error modificando datos del empleado.");
                     return;
                 }
                 SetStatus("Empleado modificado.");
-            }; //(CmbTipoIDEmpleado.Tag != null)
+            }; //(.Tag != null)
             ClearCrt();
-            CargaEmpleados();
+            CargarEmpleados();
             Cursor.Current = Cursors.Default;
         }
 
@@ -279,7 +253,7 @@ namespace EsconPOS.forms
         private void FrmEmpleado_Load(object sender, EventArgs e)
         {
             CargarCombos();
-            CargaEmpleados();
+            CargarEmpleados();
             TssLblAgregado.Text = "";
             TssLblModificado.Text = "";
             Left = 10;
