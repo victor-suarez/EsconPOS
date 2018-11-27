@@ -17,27 +17,45 @@ namespace EsconPOS.forms
 
         private void CargarCombos()
         {
-            CmbMarcas.DataSource = context.Marcas.ToList();
-            CmbMarcas.DisplayMember = "Marca";
-            CmbMarcas.ValueMember = "MarcaID";
-
-            CmbTipos.DataSource = context.TiposProductos.ToList();
-            CmbTipos.DisplayMember = "TipoProducto";
-            CmbTipos.ValueMember = "TipoProductoID";
-
-            CmbUnidades.DataSource = context.UnidadesMedidas.ToList();
-            CmbUnidades.DisplayMember = "UnidadMedida";
-            CmbUnidades.ValueMember = "UnidadMedidaID";
-
+            CargarMarcas();
+            CargarTipoProductos();
+            CargarUnidades();
             CmbImpuestos.DataSource = context.Impuestos.ToList();
             CmbImpuestos.DisplayMember = "Impuesto";
             CmbImpuestos.ValueMember = "ImpuestoID";
         }
 
+        private void CargarMarcas()
+        {
+            CmbMarcas.DataSource = context.Marcas
+                .Where(m => m.Activo == 1)
+                .ToList();
+            CmbMarcas.DisplayMember = "Marca";
+            CmbMarcas.ValueMember = "MarcaID";
+        }
+
+        private void CargarTipoProductos()
+        {
+            CmbTipos.DataSource = context.TiposProductos
+                .Where(p => p.Activo == 1)
+                .ToList();
+            CmbTipos.DisplayMember = "TipoProducto";
+            CmbTipos.ValueMember = "TipoProductoID";
+        }
+
+        private void CargarUnidades()
+        {
+            CmbUnidades.DataSource = context.UnidadesMedidas
+                .Where(um => um.Activo == 1)
+                .ToList();
+            CmbUnidades.DisplayMember = "UnidadMedida";
+            CmbUnidades.ValueMember = "UnidadMedidaID";
+        }
+
         private void CargarProductos()
         {
             var dataset = context.Productos
-                .Where(p => p.ProductoID > 0)
+                .Where(p => p.ProductoID > 0 && p.Activo == 1)
                 .Select(p => new {
                     ID = p.ProductoID,
                     Código = p.Codigo,
@@ -92,6 +110,8 @@ namespace EsconPOS.forms
         private void Eliminar()
         {
             if (TxtCodigo.Tag == null) return;
+            if (MessageBox.Show("¿Seguro desea eliminar el registro seleccionado?", "Eliminar registro", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
             Cursor.Current = Cursors.WaitCursor;
             try
             {

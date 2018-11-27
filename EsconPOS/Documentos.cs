@@ -44,6 +44,8 @@ namespace EsconPOS
         public string ModificadoEl { get; set; }
         public Nullable<long> ModificadoPor { get; set; }
         public double MontoPagado { get; set; }
+        public string DocumentoEnviado { get; set; }
+        public string ReciboRecibido { get; set; }
     
         public virtual Cajas Cajas { get; set; }
         public virtual Clientes Clientes { get; set; }

@@ -14,20 +14,72 @@ namespace EsconPOS.forms
     public partial class FrmUnidadMedida : Form
     {
         private mainEntities context = new mainEntities();
-
-        private void CargarUnidades()
+        private enum dataOrder
         {
-            var dataset = context.UnidadesMedidas
-                .Select(u => new {
-                    ID = u.UnidadMedidaID,
-                    Codigo = u.Codigo,
-                    Descripción = u.UnidadMedida,
-                    Iniciales = u.Iniciales,
-                    En_Uso = u.Activo == 0 ? "NO" : "SI"
-                }).ToList();
-            DgvUnidades.DataSource = dataset;
+            PorDefecto,
+            PorCodigo,
+            PorDescripcion
+        }
+
+        private void IncluirBtnClear(TextBox txt)
+        {
+            var btn = new Button();
+            btn.AutoSize = false;
+            btn.Size = new Size(25, txt.ClientSize.Height + 2);
+            btn.Location = new Point(txt.ClientSize.Width - btn.Width, -1);
+            btn.Cursor = Cursors.Default;
+            btn.Image = Properties.Resources.ClearTxt;
+            btn.Click += btn_Click;
+            //btn.Visible = false;
+            txt.Controls.Add(btn);
+        }
+
+        private void btn_Click(object sender, EventArgs e)
+        {
+            ((TextBox)((Button)sender).Parent).Clear();
+        }
+
+        private void CargarUnidades(dataOrder OrderBy = dataOrder.PorDefecto)
+        {
+            switch(OrderBy)
+            {
+                case dataOrder.PorDefecto:
+                    DgvUnidades.DataSource = context.UnidadesMedidas
+                                              .Select(u => new {
+                                                    ID = u.UnidadMedidaID,
+                                                    Código = u.Codigo,
+                                                    Descripción = u.UnidadMedida,
+                                                    Iniciales = u.Iniciales,
+                                                    En_Uso = u.Activo == 0 ? "NO" : "SI"})
+                                                //.Where(u => u.Código.Contains(TxtFiltroCodigo.Text))
+                                              .ToList();
+                    break;
+                case dataOrder.PorCodigo:
+                    DgvUnidades.DataSource = context.UnidadesMedidas
+                                              .Select(u => new {
+                                                    ID = u.UnidadMedidaID,
+                                                    Código = u.Codigo,
+                                                    Descripción = u.UnidadMedida,
+                                                    Iniciales = u.Iniciales,
+                                                    En_Uso = u.Activo == 0 ? "NO" : "SI"})
+                                              .OrderBy(u => u.Código)
+                                              .ToList();
+                    break;
+                case dataOrder.PorDescripcion:
+                    DgvUnidades.DataSource = context.UnidadesMedidas
+                                              .Select(u => new {
+                                                    ID = u.UnidadMedidaID,
+                                                    Código = u.Codigo,
+                                                    Descripción = u.UnidadMedida,
+                                                    Iniciales = u.Iniciales,
+                                                    En_Uso = u.Activo == 0 ? "NO" : "SI"})
+                                              .OrderBy(u => u.Descripción)
+                                              .ToList();
+                    break;
+            }
             DgvUnidades.Columns["ID"].Visible = false;
-            DgvUnidades.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+            DgvUnidades.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
+            DgvUnidades.AllowUserToResizeColumns = true;
         }
 
         private void ClearCrt()
@@ -41,7 +93,8 @@ namespace EsconPOS.forms
 
         private void MoverRegistroToCrt(long ID)
         {
-            var und = (from u in context.UnidadesMedidas
+            var und = (from u
+                       in context.UnidadesMedidas
                        where u.UnidadMedidaID == ID
                        select u).First();
 
@@ -59,6 +112,8 @@ namespace EsconPOS.forms
         private void Eliminar()
         {
             if (TxtCodigo.Tag == null) return;
+            if (MessageBox.Show("¿Seguro desea eliminar el registro seleccionado?", "Eliminar registro", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
             Cursor.Current = Cursors.WaitCursor;
             try
             {
@@ -96,7 +151,7 @@ namespace EsconPOS.forms
                         {
                             Codigo = TxtCodigo.Text,
                             UnidadMedida = TxtUnidadMedida.Text,
-                            Iniciales = string.IsNullOrEmpty(TxtIniciales.Text) ? null : TxtIniciales.Text,
+                            Iniciales = string.IsNullOrEmpty(TxtIniciales.Text) ? null : TxtIniciales.Text.Length > 6 ? TxtIniciales.Text.Substring(0, 6) : TxtIniciales.Text,
                             Activo = ChkActiva.Checked ? 1 : 0
                         }
                     );
@@ -120,9 +175,10 @@ namespace EsconPOS.forms
                     var und = context.UnidadesMedidas.Single(u => u.UnidadMedidaID == ID);
                     context.UnidadesMedidas.Attach(und);
 
+                    und.UnidadMedidaID = long.Parse(TxtCodigo.Tag.ToString());
                     und.Codigo = TxtCodigo.Text;
                     und.UnidadMedida = TxtUnidadMedida.Text;
-                    und.Iniciales = string.IsNullOrEmpty(TxtIniciales.Text) ? null : TxtIniciales.Text;
+                    und.Iniciales = string.IsNullOrEmpty(TxtIniciales.Text) ? null : TxtIniciales.Text.Length > 6 ? TxtIniciales.Text.Substring(0, 6) : TxtIniciales.Text;
                     und.Activo = ChkActiva.Checked ? 1 : 0;
                     und.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     und.ModificadoPor = Global.Usuario.UsuarioID;
@@ -167,6 +223,12 @@ namespace EsconPOS.forms
                 MessageBox.Show("Debe transcribir el nombre de la unidad de medida.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
+            if (TxtIniciales.Text.Trim().Length == 0)
+            {
+                TxtIniciales.Focus();
+                MessageBox.Show("Debe transcribir las iniciales de la unidad de medida.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
             return true;
         }
 
@@ -184,6 +246,22 @@ namespace EsconPOS.forms
             if (e.RowIndex < 0) return;
             MoverRegistroToCrt(long.Parse(DgvUnidades["ID", e.RowIndex].Value.ToString()));
             TabUnidades.SelectTab("PagEditar");
+        }
+
+        private void DgvUnidades_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            switch (e.ColumnIndex)
+            {
+                case 1:
+                    CargarUnidades(dataOrder.PorCodigo);
+                    break;
+                case 2:
+                    CargarUnidades(dataOrder.PorDescripcion);
+                    break;
+                default:
+                    CargarUnidades();
+                    break;
+            }
         }
 
         public FrmUnidadMedida()
@@ -204,6 +282,7 @@ namespace EsconPOS.forms
             TssLblModificado.Text = "";
             Left = 10;
             Top = 10;
+            IncluirBtnClear(TxtFiltroUnidad);
         }
 
         private void Txt_KeyPress(object sender, KeyPressEventArgs e)
@@ -225,34 +304,31 @@ namespace EsconPOS.forms
             {
                 if (((TextBox)sender).Name == "TxtFiltroUnidad")
                 {
-                    var filtered_dataset = context.UnidadesMedidas
-                        .Where(u => u.UnidadMedida.Contains(((TextBox)sender).Text))
-                        .Select(u => new
-                        {
-                            ID = u.UnidadMedidaID,
-                            Codigo = u.Codigo,
-                            Descripción = u.UnidadMedida,
-                            Iniciales = u.Iniciales,
-                            En_Uso = u.Activo == 0 ? "NO" : "SI"
-                        }).ToList();
-                    DgvUnidades.DataSource = filtered_dataset;
+
+                    DgvUnidades.DataSource = context.UnidadesMedidas
+                                                .Select(u => new {
+                                                    ID = u.UnidadMedidaID,
+                                                    Código = u.Codigo,
+                                                    Descripción = u.UnidadMedida,
+                                                    Iniciales = u.Iniciales,
+                                                    En_Uso = u.Activo == 0 ? "NO" : "SI"})
+                                                .Where(u => u.Descripción.Contains(((TextBox)sender).Text))
+                                                .ToList();
                     DgvUnidades.Columns["ID"].Visible = false;
                     DgvUnidades.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
                 }
                 else
                 if (((TextBox)sender).Name == "TxtFiltroCodigo")
                 {
-                    var filtered_dataset = context.UnidadesMedidas
-                        .Where(u => u.Codigo.Contains(((TextBox)sender).Text))
-                        .Select(u => new
-                        {
-                            ID = u.UnidadMedidaID,
-                            Codigo = u.Codigo,
-                            Descripción = u.UnidadMedida,
-                            Iniciales = u.Iniciales,
-                            En_Uso = u.Activo == 0 ? "NO" : "SI"
-                        }).ToList();
-                    DgvUnidades.DataSource = filtered_dataset;
+                    DgvUnidades.DataSource = context.UnidadesMedidas
+                                                .Select(u => new {
+                                                    ID = u.UnidadMedidaID,
+                                                    Código = u.Codigo,
+                                                    Descripción = u.UnidadMedida,
+                                                    Iniciales = u.Iniciales,
+                                                    En_Uso = u.Activo == 0 ? "NO" : "SI"})
+                                                .Where(u => u.Código.Contains(((TextBox)sender).Text))
+                                                .ToList();
                     DgvUnidades.Columns["ID"].Visible = false;
                     DgvUnidades.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
                 }

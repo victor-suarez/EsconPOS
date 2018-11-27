@@ -401,8 +401,6 @@
     </None>
     <None Include="EsconPOS_TemporaryKey.pfx" />
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\Clientes.datasource" />
-    <None Include="Properties\DataSources\Usuarios.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -427,6 +425,8 @@
       <DependentUpon>EsconPOS.edmx</DependentUpon>
       <LastGenOutput>EsconPOS.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\ClearTxt.png" />
+    <None Include="Resources\Paises.png" />
     <None Include="Resources\Agregar.png" />
     <None Include="Resources\Administrar.png" />
     <None Include="Resources\Productos.png" />
@@ -448,13 +448,14 @@
     <None Include="Resources\Ubicacion.png" />
     <None Include="Resources\Provincias.png" />
     <None Include="Resources\Departamentos.png" />
-    <None Include="Resources\Paises.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="controls\" />
     <Folder Include="models\" />
+    <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

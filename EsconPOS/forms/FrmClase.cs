@@ -63,6 +63,8 @@ namespace EsconPOS.forms
         private void Eliminar()
         {
             if (TxtCodigo.Tag == null) return;
+            if (MessageBox.Show("¿Seguro desea eliminar el registro seleccionado?", "Eliminar registro", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
             Cursor.Current = Cursors.WaitCursor;
             try
             {

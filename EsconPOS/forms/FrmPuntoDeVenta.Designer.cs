@@ -33,8 +33,8 @@
             "Total X",
             "9.999,99"}, -1);
             this.label1 = new System.Windows.Forms.Label();
-            this.CmbTipoIdCli = new System.Windows.Forms.ComboBox();
-            this.TxtNroIdCli = new System.Windows.Forms.TextBox();
+            this.CmbTipoIDCli = new System.Windows.Forms.ComboBox();
+            this.TxtNroIDCli = new System.Windows.Forms.TextBox();
             this.DgvProdServ = new System.Windows.Forms.DataGridView();
             this.TxtProdCodigo = new System.Windows.Forms.TextBox();
             this.CmbMarca = new System.Windows.Forms.ComboBox();
@@ -48,17 +48,17 @@
             this.colDescripcion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colMonto = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.BtnAgregarEmpleado = new System.Windows.Forms.Button();
-            this.TxtNroIdEmp = new System.Windows.Forms.TextBox();
-            this.CmbTipoIdEmp = new System.Windows.Forms.ComboBox();
+            this.TxtNroIDEmp = new System.Windows.Forms.TextBox();
+            this.CmbTipoIDEmp = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.CmbNombreCli = new System.Windows.Forms.ComboBox();
             this.CmbNombreEmp = new System.Windows.Forms.ComboBox();
-            this.NumPrecioUnit = new System.Windows.Forms.NumericUpDown();
+            this.NumValorUnit = new System.Windows.Forms.NumericUpDown();
             this.NumDcto = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.DgvProdServ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumCantidad)).BeginInit();
             this.GbxTotales.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumPrecioUnit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumValorUnit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumDcto)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,21 +72,21 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Cliente";
             // 
-            // CmbTipoIdCli
+            // CmbTipoIDCli
             // 
-            this.CmbTipoIdCli.FormattingEnabled = true;
-            this.CmbTipoIdCli.Location = new System.Drawing.Point(172, 12);
-            this.CmbTipoIdCli.Name = "CmbTipoIdCli";
-            this.CmbTipoIdCli.Size = new System.Drawing.Size(48, 28);
-            this.CmbTipoIdCli.TabIndex = 1;
+            this.CmbTipoIDCli.FormattingEnabled = true;
+            this.CmbTipoIDCli.Location = new System.Drawing.Point(172, 12);
+            this.CmbTipoIDCli.Name = "CmbTipoIDCli";
+            this.CmbTipoIDCli.Size = new System.Drawing.Size(48, 28);
+            this.CmbTipoIDCli.TabIndex = 1;
             // 
-            // TxtNroIdCli
+            // TxtNroIDCli
             // 
-            this.TxtNroIdCli.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.TxtNroIdCli.Location = new System.Drawing.Point(223, 13);
-            this.TxtNroIdCli.Name = "TxtNroIdCli";
-            this.TxtNroIdCli.Size = new System.Drawing.Size(151, 26);
-            this.TxtNroIdCli.TabIndex = 2;
+            this.TxtNroIDCli.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.TxtNroIDCli.Location = new System.Drawing.Point(223, 13);
+            this.TxtNroIDCli.Name = "TxtNroIDCli";
+            this.TxtNroIDCli.Size = new System.Drawing.Size(151, 26);
+            this.TxtNroIDCli.TabIndex = 2;
             // 
             // DgvProdServ
             // 
@@ -199,7 +199,6 @@
             this.listView.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
             listViewGroup1});
             this.listView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            listViewItem1.Group = listViewGroup1;
             this.listView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1});
             this.listView.Location = new System.Drawing.Point(26, 30);
@@ -231,21 +230,21 @@
             this.BtnAgregarEmpleado.TabIndex = 21;
             this.BtnAgregarEmpleado.UseVisualStyleBackColor = true;
             // 
-            // TxtNroIdEmp
+            // TxtNroIDEmp
             // 
-            this.TxtNroIdEmp.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.TxtNroIdEmp.Location = new System.Drawing.Point(223, 45);
-            this.TxtNroIdEmp.Name = "TxtNroIdEmp";
-            this.TxtNroIdEmp.Size = new System.Drawing.Size(151, 26);
-            this.TxtNroIdEmp.TabIndex = 20;
+            this.TxtNroIDEmp.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.TxtNroIDEmp.Location = new System.Drawing.Point(223, 45);
+            this.TxtNroIDEmp.Name = "TxtNroIDEmp";
+            this.TxtNroIDEmp.Size = new System.Drawing.Size(151, 26);
+            this.TxtNroIDEmp.TabIndex = 20;
             // 
-            // CmbTipoIdEmp
+            // CmbTipoIDEmp
             // 
-            this.CmbTipoIdEmp.FormattingEnabled = true;
-            this.CmbTipoIdEmp.Location = new System.Drawing.Point(172, 44);
-            this.CmbTipoIdEmp.Name = "CmbTipoIdEmp";
-            this.CmbTipoIdEmp.Size = new System.Drawing.Size(48, 28);
-            this.CmbTipoIdEmp.TabIndex = 19;
+            this.CmbTipoIDEmp.FormattingEnabled = true;
+            this.CmbTipoIDEmp.Location = new System.Drawing.Point(172, 44);
+            this.CmbTipoIDEmp.Name = "CmbTipoIDEmp";
+            this.CmbTipoIDEmp.Size = new System.Drawing.Size(48, 28);
+            this.CmbTipoIDEmp.TabIndex = 19;
             // 
             // label2
             // 
@@ -259,6 +258,8 @@
             // 
             // CmbNombreCli
             // 
+            this.CmbNombreCli.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CmbNombreCli.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbNombreCli.FormattingEnabled = true;
             this.CmbNombreCli.Location = new System.Drawing.Point(380, 12);
             this.CmbNombreCli.Name = "CmbNombreCli";
@@ -267,27 +268,29 @@
             // 
             // CmbNombreEmp
             // 
+            this.CmbNombreEmp.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CmbNombreEmp.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbNombreEmp.FormattingEnabled = true;
             this.CmbNombreEmp.Location = new System.Drawing.Point(380, 44);
             this.CmbNombreEmp.Name = "CmbNombreEmp";
             this.CmbNombreEmp.Size = new System.Drawing.Size(407, 28);
             this.CmbNombreEmp.TabIndex = 23;
             // 
-            // NumPrecioUnit
+            // NumValorUnit
             // 
-            this.NumPrecioUnit.DecimalPlaces = 2;
-            this.NumPrecioUnit.Location = new System.Drawing.Point(835, 79);
-            this.NumPrecioUnit.Maximum = new decimal(new int[] {
+            this.NumValorUnit.DecimalPlaces = 2;
+            this.NumValorUnit.Location = new System.Drawing.Point(835, 79);
+            this.NumValorUnit.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
-            this.NumPrecioUnit.Name = "NumPrecioUnit";
-            this.NumPrecioUnit.Size = new System.Drawing.Size(127, 26);
-            this.NumPrecioUnit.TabIndex = 24;
-            this.NumPrecioUnit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.NumPrecioUnit.ThousandsSeparator = true;
-            this.NumPrecioUnit.Value = new decimal(new int[] {
+            this.NumValorUnit.Name = "NumValorUnit";
+            this.NumValorUnit.Size = new System.Drawing.Size(127, 26);
+            this.NumValorUnit.TabIndex = 24;
+            this.NumValorUnit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumValorUnit.ThousandsSeparator = true;
+            this.NumValorUnit.Value = new decimal(new int[] {
             1000001,
             0,
             0,
@@ -319,12 +322,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1192, 579);
             this.Controls.Add(this.NumDcto);
-            this.Controls.Add(this.NumPrecioUnit);
+            this.Controls.Add(this.NumValorUnit);
             this.Controls.Add(this.CmbNombreEmp);
             this.Controls.Add(this.CmbNombreCli);
             this.Controls.Add(this.BtnAgregarEmpleado);
-            this.Controls.Add(this.TxtNroIdEmp);
-            this.Controls.Add(this.CmbTipoIdEmp);
+            this.Controls.Add(this.TxtNroIDEmp);
+            this.Controls.Add(this.CmbTipoIDEmp);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.GbxTotales);
             this.Controls.Add(this.BtnAgregarProducto);
@@ -335,8 +338,8 @@
             this.Controls.Add(this.CmbMarca);
             this.Controls.Add(this.TxtProdCodigo);
             this.Controls.Add(this.DgvProdServ);
-            this.Controls.Add(this.TxtNroIdCli);
-            this.Controls.Add(this.CmbTipoIdCli);
+            this.Controls.Add(this.TxtNroIDCli);
+            this.Controls.Add(this.CmbTipoIDCli);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -347,7 +350,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DgvProdServ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumCantidad)).EndInit();
             this.GbxTotales.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.NumPrecioUnit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumValorUnit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumDcto)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -357,8 +360,8 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox CmbTipoIdCli;
-        private System.Windows.Forms.TextBox TxtNroIdCli;
+        private System.Windows.Forms.ComboBox CmbTipoIDCli;
+        private System.Windows.Forms.TextBox TxtNroIDCli;
         private System.Windows.Forms.DataGridView DgvProdServ;
         private System.Windows.Forms.TextBox TxtProdCodigo;
         private System.Windows.Forms.ComboBox CmbMarca;
@@ -372,12 +375,12 @@
         private System.Windows.Forms.ColumnHeader colDescripcion;
         private System.Windows.Forms.ColumnHeader colMonto;
         private System.Windows.Forms.Button BtnAgregarEmpleado;
-        private System.Windows.Forms.TextBox TxtNroIdEmp;
-        private System.Windows.Forms.ComboBox CmbTipoIdEmp;
+        private System.Windows.Forms.TextBox TxtNroIDEmp;
+        private System.Windows.Forms.ComboBox CmbTipoIDEmp;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox CmbNombreCli;
         private System.Windows.Forms.ComboBox CmbNombreEmp;
-        private System.Windows.Forms.NumericUpDown NumPrecioUnit;
+        private System.Windows.Forms.NumericUpDown NumValorUnit;
         private System.Windows.Forms.NumericUpDown NumDcto;
     }
 }

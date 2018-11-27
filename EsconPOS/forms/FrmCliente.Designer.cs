@@ -31,9 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCliente));
             this.TabClientes = new System.Windows.Forms.TabControl();
             this.TabLista = new System.Windows.Forms.TabPage();
-            this.TxtFilterNroTelefonico = new System.Windows.Forms.TextBox();
-            this.TxtFilterNombre = new System.Windows.Forms.TextBox();
-            this.CmbFilterTipoID = new System.Windows.Forms.ComboBox();
+            this.TxtFiltroNroID = new System.Windows.Forms.TextBox();
+            this.CmbFiltroTipoID = new System.Windows.Forms.ComboBox();
             this.DgvClientes = new System.Windows.Forms.DataGridView();
             this.TabEditar = new System.Windows.Forms.TabPage();
             this.TxtCorreoElectronicoCliente = new System.Windows.Forms.TextBox();
@@ -48,7 +47,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.TxtNombreCliente = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.TxtNroIDCliente = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.CmbTipoIDCliente = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -63,12 +61,21 @@
             this.TssLblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.TssLblAgregado = new System.Windows.Forms.ToolStripStatusLabel();
             this.TssLblModificado = new System.Windows.Forms.ToolStripStatusLabel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.NumDiaNac = new System.Windows.Forms.NumericUpDown();
+            this.NumMesNac = new System.Windows.Forms.NumericUpDown();
+            this.NumAñoNac = new System.Windows.Forms.NumericUpDown();
+            this.TxtNroIDCliente = new System.Windows.Forms.TextBox();
+            this.TxtFiltroNombre = new System.Windows.Forms.TextBox();
             this.TabClientes.SuspendLayout();
             this.TabLista.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvClientes)).BeginInit();
             this.TabEditar.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumDiaNac)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumMesNac)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumAñoNac)).BeginInit();
             this.SuspendLayout();
             // 
             // TabClientes
@@ -78,44 +85,38 @@
             this.TabClientes.Location = new System.Drawing.Point(6, 66);
             this.TabClientes.Name = "TabClientes";
             this.TabClientes.SelectedIndex = 0;
-            this.TabClientes.Size = new System.Drawing.Size(655, 372);
+            this.TabClientes.Size = new System.Drawing.Size(655, 377);
             this.TabClientes.TabIndex = 0;
             // 
             // TabLista
             // 
-            this.TabLista.Controls.Add(this.TxtFilterNroTelefonico);
-            this.TabLista.Controls.Add(this.TxtFilterNombre);
-            this.TabLista.Controls.Add(this.CmbFilterTipoID);
+            this.TabLista.Controls.Add(this.TxtFiltroNombre);
+            this.TabLista.Controls.Add(this.TxtFiltroNroID);
+            this.TabLista.Controls.Add(this.CmbFiltroTipoID);
             this.TabLista.Controls.Add(this.DgvClientes);
             this.TabLista.Location = new System.Drawing.Point(4, 29);
             this.TabLista.Name = "TabLista";
             this.TabLista.Padding = new System.Windows.Forms.Padding(3);
-            this.TabLista.Size = new System.Drawing.Size(647, 339);
+            this.TabLista.Size = new System.Drawing.Size(647, 344);
             this.TabLista.TabIndex = 0;
             this.TabLista.Text = "Lista";
             this.TabLista.UseVisualStyleBackColor = true;
             // 
-            // TxtFilterNroTelefonico
+            // TxtFiltroNroID
             // 
-            this.TxtFilterNroTelefonico.Location = new System.Drawing.Point(491, 6);
-            this.TxtFilterNroTelefonico.Name = "TxtFilterNroTelefonico";
-            this.TxtFilterNroTelefonico.Size = new System.Drawing.Size(150, 26);
-            this.TxtFilterNroTelefonico.TabIndex = 2;
+            this.TxtFiltroNroID.Location = new System.Drawing.Point(70, 6);
+            this.TxtFiltroNroID.Name = "TxtFiltroNroID";
+            this.TxtFiltroNroID.Size = new System.Drawing.Size(143, 26);
+            this.TxtFiltroNroID.TabIndex = 1;
+            this.TxtFiltroNroID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // TxtFilterNombre
+            // CmbFiltroTipoID
             // 
-            this.TxtFilterNombre.Location = new System.Drawing.Point(6, 6);
-            this.TxtFilterNombre.Name = "TxtFilterNombre";
-            this.TxtFilterNombre.Size = new System.Drawing.Size(231, 26);
-            this.TxtFilterNombre.TabIndex = 0;
-            // 
-            // CmbFilterTipoID
-            // 
-            this.CmbFilterTipoID.FormattingEnabled = true;
-            this.CmbFilterTipoID.Location = new System.Drawing.Point(243, 6);
-            this.CmbFilterTipoID.Name = "CmbFilterTipoID";
-            this.CmbFilterTipoID.Size = new System.Drawing.Size(58, 28);
-            this.CmbFilterTipoID.TabIndex = 1;
+            this.CmbFiltroTipoID.FormattingEnabled = true;
+            this.CmbFiltroTipoID.Location = new System.Drawing.Point(6, 6);
+            this.CmbFiltroTipoID.Name = "CmbFiltroTipoID";
+            this.CmbFiltroTipoID.Size = new System.Drawing.Size(58, 28);
+            this.CmbFiltroTipoID.TabIndex = 0;
             // 
             // DgvClientes
             // 
@@ -137,6 +138,11 @@
             // 
             // TabEditar
             // 
+            this.TabEditar.Controls.Add(this.TxtNroIDCliente);
+            this.TabEditar.Controls.Add(this.NumAñoNac);
+            this.TabEditar.Controls.Add(this.NumMesNac);
+            this.TabEditar.Controls.Add(this.NumDiaNac);
+            this.TabEditar.Controls.Add(this.label7);
             this.TabEditar.Controls.Add(this.TxtCorreoElectronicoCliente);
             this.TabEditar.Controls.Add(this.label3);
             this.TabEditar.Controls.Add(this.TxtNroTelefonicoCliente);
@@ -149,14 +155,13 @@
             this.TabEditar.Controls.Add(this.label12);
             this.TabEditar.Controls.Add(this.TxtNombreCliente);
             this.TabEditar.Controls.Add(this.label6);
-            this.TabEditar.Controls.Add(this.TxtNroIDCliente);
             this.TabEditar.Controls.Add(this.label5);
             this.TabEditar.Controls.Add(this.CmbTipoIDCliente);
             this.TabEditar.Controls.Add(this.label4);
             this.TabEditar.Location = new System.Drawing.Point(4, 29);
             this.TabEditar.Name = "TabEditar";
             this.TabEditar.Padding = new System.Windows.Forms.Padding(3);
-            this.TabEditar.Size = new System.Drawing.Size(647, 339);
+            this.TabEditar.Size = new System.Drawing.Size(647, 344);
             this.TabEditar.TabIndex = 1;
             this.TabEditar.Text = "Editar";
             this.TabEditar.UseVisualStyleBackColor = true;
@@ -164,7 +169,7 @@
             // TxtCorreoElectronicoCliente
             // 
             this.TxtCorreoElectronicoCliente.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
-            this.TxtCorreoElectronicoCliente.Location = new System.Drawing.Point(182, 288);
+            this.TxtCorreoElectronicoCliente.Location = new System.Drawing.Point(182, 271);
             this.TxtCorreoElectronicoCliente.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TxtCorreoElectronicoCliente.MaxLength = 255;
             this.TxtCorreoElectronicoCliente.Name = "TxtCorreoElectronicoCliente";
@@ -175,7 +180,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 291);
+            this.label3.Location = new System.Drawing.Point(10, 274);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(144, 20);
@@ -184,7 +189,7 @@
             // 
             // TxtNroTelefonicoCliente
             // 
-            this.TxtNroTelefonicoCliente.Location = new System.Drawing.Point(182, 252);
+            this.TxtNroTelefonicoCliente.Location = new System.Drawing.Point(182, 235);
             this.TxtNroTelefonicoCliente.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TxtNroTelefonicoCliente.MaxLength = 255;
             this.TxtNroTelefonicoCliente.Name = "TxtNroTelefonicoCliente";
@@ -195,7 +200,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 255);
+            this.label2.Location = new System.Drawing.Point(10, 238);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 20);
@@ -204,7 +209,7 @@
             // 
             // TxtDireccionCliente
             // 
-            this.TxtDireccionCliente.Location = new System.Drawing.Point(182, 135);
+            this.TxtDireccionCliente.Location = new System.Drawing.Point(182, 118);
             this.TxtDireccionCliente.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TxtDireccionCliente.MaxLength = 255;
             this.TxtDireccionCliente.Multiline = true;
@@ -216,7 +221,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 135);
+            this.label1.Location = new System.Drawing.Point(10, 118);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(79, 20);
@@ -229,7 +234,7 @@
             this.CmbDistrito.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbDistrito.DropDownWidth = 326;
             this.CmbDistrito.FormattingEnabled = true;
-            this.CmbDistrito.Location = new System.Drawing.Point(278, 215);
+            this.CmbDistrito.Location = new System.Drawing.Point(278, 198);
             this.CmbDistrito.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CmbDistrito.Name = "CmbDistrito";
             this.CmbDistrito.Size = new System.Drawing.Size(357, 28);
@@ -243,7 +248,7 @@
             this.CmbProvincia.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbProvincia.DropDownWidth = 300;
             this.CmbProvincia.FormattingEnabled = true;
-            this.CmbProvincia.Location = new System.Drawing.Point(230, 214);
+            this.CmbProvincia.Location = new System.Drawing.Point(230, 197);
             this.CmbProvincia.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CmbProvincia.Name = "CmbProvincia";
             this.CmbProvincia.Size = new System.Drawing.Size(40, 28);
@@ -260,7 +265,7 @@
             this.CmbDepartamento.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbDepartamento.DropDownWidth = 200;
             this.CmbDepartamento.FormattingEnabled = true;
-            this.CmbDepartamento.Location = new System.Drawing.Point(182, 214);
+            this.CmbDepartamento.Location = new System.Drawing.Point(182, 197);
             this.CmbDepartamento.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CmbDepartamento.Name = "CmbDepartamento";
             this.CmbDepartamento.Size = new System.Drawing.Size(40, 28);
@@ -274,7 +279,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(10, 218);
+            this.label12.Location = new System.Drawing.Point(10, 201);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(83, 20);
@@ -283,7 +288,7 @@
             // 
             // TxtNombreCliente
             // 
-            this.TxtNombreCliente.Location = new System.Drawing.Point(182, 99);
+            this.TxtNombreCliente.Location = new System.Drawing.Point(182, 82);
             this.TxtNombreCliente.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TxtNombreCliente.MaxLength = 255;
             this.TxtNombreCliente.Name = "TxtNombreCliente";
@@ -294,28 +299,17 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(10, 102);
+            this.label6.Location = new System.Drawing.Point(10, 85);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 20);
             this.label6.TabIndex = 4;
             this.label6.Text = "Nombres:";
             // 
-            // TxtNroIDCliente
-            // 
-            this.TxtNroIDCliente.Location = new System.Drawing.Point(182, 63);
-            this.TxtNroIDCliente.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.TxtNroIDCliente.MaxLength = 20;
-            this.TxtNroIDCliente.Name = "TxtNroIDCliente";
-            this.TxtNroIDCliente.Size = new System.Drawing.Size(210, 26);
-            this.TxtNroIDCliente.TabIndex = 3;
-            this.TxtNroIDCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.TxtNroIDCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 66);
+            this.label5.Location = new System.Drawing.Point(10, 49);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(158, 20);
@@ -326,7 +320,7 @@
             // 
             this.CmbTipoIDCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CmbTipoIDCliente.FormattingEnabled = true;
-            this.CmbTipoIDCliente.Location = new System.Drawing.Point(182, 25);
+            this.CmbTipoIDCliente.Location = new System.Drawing.Point(182, 8);
             this.CmbTipoIDCliente.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CmbTipoIDCliente.Name = "CmbTipoIDCliente";
             this.CmbTipoIDCliente.Size = new System.Drawing.Size(340, 28);
@@ -337,7 +331,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 29);
+            this.label4.Location = new System.Drawing.Point(10, 12);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(163, 20);
@@ -361,9 +355,10 @@
             // 
             // TsLblAccion
             // 
+            this.TsLblAccion.ForeColor = System.Drawing.Color.Green;
             this.TsLblAccion.Name = "TsLblAccion";
-            this.TsLblAccion.Size = new System.Drawing.Size(49, 51);
-            this.TsLblAccion.Text = "Agregar";
+            this.TsLblAccion.Size = new System.Drawing.Size(66, 51);
+            this.TsLblAccion.Text = "Agregando";
             this.TsLblAccion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // TsBtnGuardar
@@ -421,7 +416,7 @@
             this.TssLblStatus,
             this.TssLblAgregado,
             this.TssLblModificado});
-            this.statusStrip.Location = new System.Drawing.Point(0, 445);
+            this.statusStrip.Location = new System.Drawing.Point(0, 444);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(673, 22);
             this.statusStrip.TabIndex = 2;
@@ -448,11 +443,108 @@
             this.TssLblModificado.Size = new System.Drawing.Size(155, 17);
             this.TssLblModificado.Text = "Modificado por 99-99-9999 99:99:99";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(10, 310);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(141, 20);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "Fecha Nacimiento:";
+            // 
+            // NumDiaNac
+            // 
+            this.NumDiaNac.Location = new System.Drawing.Point(182, 308);
+            this.NumDiaNac.Maximum = new decimal(new int[] {
+            31,
+            0,
+            0,
+            0});
+            this.NumDiaNac.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumDiaNac.Name = "NumDiaNac";
+            this.NumDiaNac.Size = new System.Drawing.Size(40, 26);
+            this.NumDiaNac.TabIndex = 17;
+            this.NumDiaNac.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumDiaNac.Value = new decimal(new int[] {
+            31,
+            0,
+            0,
+            0});
+            // 
+            // NumMesNac
+            // 
+            this.NumMesNac.Location = new System.Drawing.Point(228, 308);
+            this.NumMesNac.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.NumMesNac.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumMesNac.Name = "NumMesNac";
+            this.NumMesNac.Size = new System.Drawing.Size(40, 26);
+            this.NumMesNac.TabIndex = 18;
+            this.NumMesNac.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumMesNac.Value = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            // 
+            // NumAñoNac
+            // 
+            this.NumAñoNac.Location = new System.Drawing.Point(274, 308);
+            this.NumAñoNac.Maximum = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
+            this.NumAñoNac.Minimum = new decimal(new int[] {
+            1900,
+            0,
+            0,
+            0});
+            this.NumAñoNac.Name = "NumAñoNac";
+            this.NumAñoNac.Size = new System.Drawing.Size(63, 26);
+            this.NumAñoNac.TabIndex = 19;
+            this.NumAñoNac.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumAñoNac.Value = new decimal(new int[] {
+            1900,
+            0,
+            0,
+            0});
+            // 
+            // TxtNroIDCliente
+            // 
+            this.TxtNroIDCliente.Location = new System.Drawing.Point(182, 46);
+            this.TxtNroIDCliente.MaxLength = 15;
+            this.TxtNroIDCliente.Name = "TxtNroIDCliente";
+            this.TxtNroIDCliente.Size = new System.Drawing.Size(143, 26);
+            this.TxtNroIDCliente.TabIndex = 3;
+            this.TxtNroIDCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // TxtFiltroNombre
+            // 
+            this.TxtFiltroNombre.Location = new System.Drawing.Point(220, 6);
+            this.TxtFiltroNombre.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.TxtFiltroNombre.MaxLength = 255;
+            this.TxtFiltroNombre.Name = "TxtFiltroNombre";
+            this.TxtFiltroNombre.Size = new System.Drawing.Size(420, 26);
+            this.TxtFiltroNombre.TabIndex = 2;
+            // 
             // FrmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(673, 467);
+            this.ClientSize = new System.Drawing.Size(673, 466);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.TabClientes);
@@ -474,6 +566,9 @@
             this.toolStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumDiaNac)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumMesNac)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumAñoNac)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -496,13 +591,11 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox TxtNombreCliente;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox TxtNroIDCliente;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox CmbTipoIDCliente;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox TxtFilterNroTelefonico;
-        private System.Windows.Forms.TextBox TxtFilterNombre;
-        private System.Windows.Forms.ComboBox CmbFilterTipoID;
+        private System.Windows.Forms.TextBox TxtFiltroNroID;
+        private System.Windows.Forms.ComboBox CmbFiltroTipoID;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripButton TsBtnGuardar;
         private System.Windows.Forms.ToolStripButton TsBtnDeshacer;
@@ -514,5 +607,11 @@
         private System.Windows.Forms.ToolStripStatusLabel TssLblAgregado;
         private System.Windows.Forms.ToolStripStatusLabel TssLblModificado;
         private System.Windows.Forms.ToolStripLabel TsLblAccion;
+        private System.Windows.Forms.NumericUpDown NumAñoNac;
+        private System.Windows.Forms.NumericUpDown NumMesNac;
+        private System.Windows.Forms.NumericUpDown NumDiaNac;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox TxtNroIDCliente;
+        private System.Windows.Forms.TextBox TxtFiltroNombre;
     }
 }

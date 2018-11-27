@@ -199,6 +199,12 @@ namespace EsconPOS.forms
                 MessageBox.Show("Debe transcribir la contraseña de entrada al sistema del empleado.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
+            if (TxtPassword.Text.Trim().Length < 6)
+            {
+                TxtPassword.Focus();
+                MessageBox.Show("La contraseña de entrada al sistema debe tener mínimo 6 caracteres.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
             if (TxtDescripcion.Text.Trim().Length == 0)
             {
                 TxtDescripcion.Focus();

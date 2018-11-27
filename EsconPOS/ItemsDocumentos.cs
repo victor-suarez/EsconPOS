@@ -28,6 +28,7 @@ namespace EsconPOS
         public double PrecioUnitario { get; set; }
         public double MontoDescuento { get; set; }
         public Nullable<long> VendidoPor { get; set; }
+        public double ValorUnitario { get; set; }
     
         public virtual Documentos Documentos { get; set; }
         public virtual Empleados EmpleadoAut { get; set; }

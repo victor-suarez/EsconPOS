@@ -44,13 +44,13 @@
             this.DgvUnidades = new System.Windows.Forms.DataGridView();
             this.TxtFiltroUnidad = new System.Windows.Forms.TextBox();
             this.PagEditar = new System.Windows.Forms.TabPage();
+            this.TxtIniciales = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.ChkActiva = new System.Windows.Forms.CheckBox();
             this.TxtUnidadMedida = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.TxtCodigo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.TxtIniciales = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.TabUnidades.SuspendLayout();
@@ -185,7 +185,7 @@
             this.TxtFiltroCodigo.Location = new System.Drawing.Point(9, 6);
             this.TxtFiltroCodigo.MaxLength = 3;
             this.TxtFiltroCodigo.Name = "TxtFiltroCodigo";
-            this.TxtFiltroCodigo.Size = new System.Drawing.Size(57, 26);
+            this.TxtFiltroCodigo.Size = new System.Drawing.Size(88, 26);
             this.TxtFiltroCodigo.TabIndex = 0;
             // 
             // DgvUnidades
@@ -206,13 +206,14 @@
             this.DgvUnidades.Size = new System.Drawing.Size(578, 295);
             this.DgvUnidades.TabIndex = 2;
             this.DgvUnidades.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvUnidades_CellContentDoubleClick);
+            this.DgvUnidades.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvUnidades_ColumnHeaderMouseClick);
             // 
             // TxtFiltroUnidad
             // 
-            this.TxtFiltroUnidad.Location = new System.Drawing.Point(72, 6);
+            this.TxtFiltroUnidad.Location = new System.Drawing.Point(103, 6);
             this.TxtFiltroUnidad.MaxLength = 255;
             this.TxtFiltroUnidad.Name = "TxtFiltroUnidad";
-            this.TxtFiltroUnidad.Size = new System.Drawing.Size(515, 26);
+            this.TxtFiltroUnidad.Size = new System.Drawing.Size(484, 26);
             this.TxtFiltroUnidad.TabIndex = 1;
             this.TxtFiltroUnidad.TextChanged += new System.EventHandler(this.Txt_TextChanged);
             // 
@@ -232,6 +233,25 @@
             this.PagEditar.TabIndex = 1;
             this.PagEditar.Text = "Editar";
             this.PagEditar.UseVisualStyleBackColor = true;
+            // 
+            // TxtIniciales
+            // 
+            this.TxtIniciales.Location = new System.Drawing.Point(125, 107);
+            this.TxtIniciales.MaxLength = 6;
+            this.TxtIniciales.Name = "TxtIniciales";
+            this.TxtIniciales.Size = new System.Drawing.Size(57, 26);
+            this.TxtIniciales.TabIndex = 5;
+            this.TxtIniciales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 110);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 20);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Iniciales:";
             // 
             // ChkActiva
             // 
@@ -280,25 +300,6 @@
             this.label1.Size = new System.Drawing.Size(63, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Código:";
-            // 
-            // TxtIniciales
-            // 
-            this.TxtIniciales.Location = new System.Drawing.Point(125, 107);
-            this.TxtIniciales.MaxLength = 3;
-            this.TxtIniciales.Name = "TxtIniciales";
-            this.TxtIniciales.Size = new System.Drawing.Size(57, 26);
-            this.TxtIniciales.TabIndex = 5;
-            this.TxtIniciales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 110);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 20);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Iniciales:";
             // 
             // FrmUnidadMedida
             // 
