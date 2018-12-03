@@ -92,19 +92,17 @@ namespace EsconPOS.forms
             {
                 try
                 {
-                    context.Monedas.Add
-                    (
-                        new Monedas
-                        {
-                            Codigo = TxtCodigo.Text,
-                            Moneda = TxtMoneda.Text,
-                            PorDefecto = ChkPorDefecto.Checked ? 1 : 0,
-                            FactorCambiario = (double)NumFactorCambio.Value,
-                            Activo = ChkActiva.Checked ? 1 : 0,
-                            AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                            AgregadoPor = Global.Usuario.UsuarioID
-                        }
-                    );
+                    var moneda = new Monedas
+                    {
+                        Codigo = TxtCodigo.Text,
+                        Moneda = TxtMoneda.Text,
+                        PorDefecto = ChkPorDefecto.Checked ? 1 : 0,
+                        FactorCambiario = (double)NumFactorCambio.Value,
+                        Activo = ChkActiva.Checked ? 1 : 0,
+                        AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                        AgregadoPor = Global.glUsuario
+                    };
+                    context.Monedas.Add(moneda);
                     context.SaveChanges();
                 }
                 catch (Exception ex)
@@ -185,6 +183,7 @@ namespace EsconPOS.forms
 
         private void DgvMonedas_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
             MoverRegistroToCrt(long.Parse(DgvMonedas["ID", e.RowIndex].Value.ToString()));
             TabMonedas.SelectTab("PagEditar");
         }

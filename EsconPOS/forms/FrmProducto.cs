@@ -1,12 +1,9 @@
 ﻿using EsconPOS.classes;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Dynamic;
 using System.Windows.Forms;
 
 namespace EsconPOS.forms
@@ -20,9 +17,17 @@ namespace EsconPOS.forms
             CargarMarcas();
             CargarTipoProductos();
             CargarUnidades();
-            CmbImpuestos.DataSource = context.Impuestos.ToList();
+            CargarImpuestos();
+        }
+
+        private void CargarImpuestos()
+        {
+            CmbImpuestos.DataSource = context.Impuestos
+                .Where(i => i.Activo == 1)
+                .ToList();
             CmbImpuestos.DisplayMember = "Impuesto";
             CmbImpuestos.ValueMember = "ImpuestoID";
+            CmbImpuestos.SelectedIndex = -1;
         }
 
         private void CargarMarcas()
@@ -32,15 +37,17 @@ namespace EsconPOS.forms
                 .ToList();
             CmbMarcas.DisplayMember = "Marca";
             CmbMarcas.ValueMember = "MarcaID";
+            CmbMarcas.SelectedIndex = -1;
         }
 
         private void CargarTipoProductos()
         {
             CmbTipos.DataSource = context.TiposProductos
-                .Where(p => p.Activo == 1)
+                .Where(t => t.Activo == 1)
                 .ToList();
             CmbTipos.DisplayMember = "TipoProducto";
             CmbTipos.ValueMember = "TipoProductoID";
+            CmbTipos.SelectedIndex = -1;
         }
 
         private void CargarUnidades()
@@ -50,21 +57,46 @@ namespace EsconPOS.forms
                 .ToList();
             CmbUnidades.DisplayMember = "UnidadMedida";
             CmbUnidades.ValueMember = "UnidadMedidaID";
+            CmbUnidades.SelectedIndex = -1;
         }
 
-        private void CargarProductos()
+        private void CargarProductos(string OrderBy = "ID")
         {
-            var dataset = context.Productos
-                .Where(p => p.ProductoID > 0 && p.Activo == 1)
-                .Select(p => new {
-                    ID = p.ProductoID,
-                    Código = p.Codigo,
-                    Producto = p.Producto,
-                    PrecioUnit = p.PrecioUnitario
-                }).ToList();
-            DgvProductos.DataSource = dataset;
+            string FiltroCodigoBarra = TxtFiltroCodigoBarra.Text.Trim();
+            string FiltroCodigo = TxtFiltroCodigo.Text.Trim();
+            string FiltroMarca = CmbFiltroMarca.Text;
+            string FiltroTipo = CmbFiltroTipo.Text;
+            string FiltroProducto = TxtFiltroProducto.Text.Trim();
+            DgvProductos.DataSource = context.Productos
+                                        .Select(p => new {
+                                                            ID = p.ProductoID,
+                                                            Activo = p.Activo,
+                                                            Código = p.Codigo,
+                                                            Código_Barra = p.CodigoBarra,
+                                                            Marca = p.Marcas.Marca,
+                                                            Tipo = p.TiposProductos.TipoProducto,
+                                                            Producto = p.Producto,
+                                                            PrecioUnit = p.ValorUnitario
+                                                        })
+                                        .Where(p => p.ID > 0
+                                                    &&
+                                                    p.Activo == 1
+                                                    &&
+                                                    (p.Código_Barra.StartsWith(FiltroCodigoBarra) || FiltroCodigoBarra == "")
+                                                    &&
+                                                    (p.Código.StartsWith(FiltroCodigo) || FiltroCodigo == "")
+                                                    &&
+                                                    (p.Marca == FiltroMarca || FiltroMarca == "")
+                                                    &&
+                                                    (p.Tipo == FiltroTipo || FiltroTipo == "")
+                                                    &&
+                                                    (p.Producto.Contains(FiltroProducto) || FiltroProducto == "")
+                                                )
+                                        .OrderBy(OrderBy)
+                                        .ToList();
             DgvProductos.Columns["ID"].Visible = false;
-            DgvProductos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+            DgvProductos.Columns["Activo"].Visible = false;
+            DgvProductos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
         }
 
@@ -83,6 +115,19 @@ namespace EsconPOS.forms
             NumPrecioUnitario.Value = 0;
         }
 
+        private void IncluirBtnClear(TextBox txt)
+        {
+            var btn = new Button();
+            btn.AutoSize = false;
+            btn.Size = new Size(25, txt.ClientSize.Height + 2);
+            btn.Location = new Point(txt.ClientSize.Width - btn.Width, -1);
+            btn.Cursor = Cursors.Default;
+            btn.Image = Properties.Resources.ClearTxt;
+            btn.Click += btn_Click;
+            //btn.Visible = false;
+            txt.Controls.Add(btn);
+        }
+
         private void MoverRegistroToCrt(long ID)
         {
             var pro = (from p in context.Productos
@@ -99,7 +144,7 @@ namespace EsconPOS.forms
             CmbUnidades.SelectedValue = pro.UnidadMedidaID;
             CmbImpuestos.SelectedValue = pro.ImpuestoID;
             NumCostoUnitario.Value = (decimal)pro.CostoUnitario;
-            NumPrecioUnitario.Value = (decimal)pro.PrecioUnitario;
+            NumPrecioUnitario.Value = (decimal)pro.ValorUnitario;
             TssLblAgregado.Text = pro.EmpleadoAdd.Login.ToLower() + " " + pro.AgregadoEl;
             if (pro.EmpleadoUpd != null)
                 TssLblModificado.Text = (pro.EmpleadoUpd.Login.ToLower() + " " + pro.ModificadoEl) ?? "";
@@ -143,25 +188,23 @@ namespace EsconPOS.forms
             {
                 try
                 {
-                    context.Productos.Add
-                    (
-                        new Productos
-                        {
-                            Codigo = TxtCodigo.Text.Trim(),
-                            CodigoBarra = TxtCodigoBarra.Text.Trim(),
-                            Producto = TxtProducto.Text.Trim(),
-                            TipoProductoID = ((TiposProductos)CmbTipos.SelectedItem).TipoProductoID,
-                            MarcaID = ((Marcas)CmbMarcas.SelectedItem).MarcaID,
-                            ImpuestoID = ((Impuestos)CmbImpuestos.SelectedItem).ImpuestoID,
-                            UnidadMedidaID = ((UnidadesMedidas)CmbUnidades.SelectedItem).UnidadMedidaID,
-                            Presentacion = TxtPresentacion.Text.Trim(),
-                            CostoUnitario = (Double)NumCostoUnitario.Value,
-                            PrecioUnitario = (Double)NumPrecioUnitario.Value,
-                            Activo = 1,
-                            AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                            AgregadoPor = Global.Usuario.UsuarioID
-                        }
-                    );
+                    var prod = new Productos
+                    {
+                        Codigo = TxtCodigo.Text.Trim(),
+                        CodigoBarra = TxtCodigoBarra.Text.Trim(),
+                        Producto = TxtProducto.Text.Trim(),
+                        TipoProductoID = ((TiposProductos)CmbTipos.SelectedItem).TipoProductoID,
+                        MarcaID = ((Marcas)CmbMarcas.SelectedItem).MarcaID,
+                        ImpuestoID = ((Impuestos)CmbImpuestos.SelectedItem).ImpuestoID,
+                        UnidadMedidaID = ((UnidadesMedidas)CmbUnidades.SelectedItem).UnidadMedidaID,
+                        Presentacion = TxtPresentacion.Text.Trim(),
+                        CostoUnitario = (Double)NumCostoUnitario.Value,
+                        ValorUnitario = (Double)NumPrecioUnitario.Value,
+                        Activo = 1,
+                        AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                        AgregadoPor = Global.glUsuario
+                    };
+                    context.Productos.Add(prod);
                     context.SaveChanges();
                 }
                 catch (Exception ex)
@@ -191,9 +234,9 @@ namespace EsconPOS.forms
                     pro.UnidadMedidaID = ((UnidadesMedidas)CmbUnidades.SelectedItem).UnidadMedidaID;
                     pro.Presentacion = TxtPresentacion.Text.Trim();
                     pro.CostoUnitario = (Double)NumCostoUnitario.Value;
-                    pro.PrecioUnitario = (Double)NumPrecioUnitario.Value;
+                    pro.ValorUnitario = (Double)NumPrecioUnitario.Value;
                     pro.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    pro.ModificadoPor = Global.Usuario.UsuarioID;
+                    pro.ModificadoPor = Global.glUsuario;
 
                     context.SaveChanges();
                 }
@@ -250,10 +293,70 @@ namespace EsconPOS.forms
             return true;
         }
 
-        public FrmProducto()
+        private void BtnAgregarMarca_Click(object sender, EventArgs e)
         {
-            InitializeComponent();
+            if (CmbMarcas.Text.Trim() == "" || CmbMarcas.SelectedIndex != -1) return;
+            try
+            {
+                var marca = new Marcas
+                {
+                    Codigo = CmbMarcas.Text.Substring(0, 5).ToUpper(),
+                    Marca = CmbMarcas.Text.Trim(),
+                    Activo = 1,
+                    AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    AgregadoPor = Global.glUsuario
+                };
+                context.Marcas.Add(marca);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                    Global.MensajeErrorBd(ex, "Error guardando datos de la marca.");
+                else
+                    Global.MensajeError(ex, "Error guardando datos de la marca.");
+                return;
+            }
+            CargarMarcas();
+            SetStatus("Marca de productos agregada.");
         }
+
+        private void BtnAgregarTipo_Click(object sender, EventArgs e)
+        {
+            if (CmbTipos.Text.Trim() == "" || CmbTipos.SelectedIndex != -1) return;
+            try
+            {
+                context.TiposProductos.Add
+                (
+                    new TiposProductos
+                    {
+                        Codigo = CmbTipos.Text.Substring(0, 5).ToUpper(),
+                        TipoProducto = CmbTipos.Text.Trim(),
+                        Activo = 1,
+                        AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                        AgregadoPor = Global.glUsuario
+                    }
+                );
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                if (ex is System.Data.Entity.Validation.DbEntityValidationException)
+                    Global.MensajeErrorBd(ex, "Error guardando datos de la clase.");
+                else
+                    Global.MensajeError(ex, "Error guardando datos de la clase.");
+                return;
+            }
+            CargarTipoProductos();
+            SetStatus("Clase de productos agregada.");
+        }
+
+
+        private void btn_Click(object sender, EventArgs e)
+        {
+            ((TextBox)((Button)sender).Parent).Clear();
+        }
+
         private void Cmb_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
@@ -261,6 +364,27 @@ namespace EsconPOS.forms
                 e.Handled = true;
                 SelectNextControl((ComboBox)sender, true, true, true, false);
             }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                e.Handled = true;
+                ((ComboBox)sender).SelectedIndex = -1;
+            }
+
+        }
+
+        private void Cmb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarProductos();
+        }
+
+        public FrmProducto()
+        {
+            InitializeComponent();
+        }
+
+        private void DgvProductos_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            CargarProductos(((DataGridView)sender).Columns[e.ColumnIndex].HeaderText);
         }
 
         private void FrmProducto_FormClosing(object sender, FormClosingEventArgs e)
@@ -273,6 +397,9 @@ namespace EsconPOS.forms
         {
             CargarCombos();
             CargarProductos();
+            IncluirBtnClear(TxtFiltroCodigo);
+            IncluirBtnClear(TxtFiltroCodigoBarra);
+            IncluirBtnClear(TxtFiltroProducto);
             TssLblAgregado.Text = "";
             TssLblModificado.Text = "";
             Left = 10;
@@ -295,6 +422,11 @@ namespace EsconPOS.forms
                 e.Handled = true;
                 SelectNextControl((TextBox)sender, true, true, true, false);
             }
+        }
+
+        private void Txt_TextChanged(object sender, EventArgs e)
+        {
+            CargarProductos();
         }
 
         private void TsBtnDeshacer_Click(object sender, EventArgs e)

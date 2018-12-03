@@ -31,10 +31,16 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCliente));
             this.TabClientes = new System.Windows.Forms.TabControl();
             this.TabLista = new System.Windows.Forms.TabPage();
+            this.TxtFiltroNombre = new System.Windows.Forms.TextBox();
             this.TxtFiltroNroID = new System.Windows.Forms.TextBox();
             this.CmbFiltroTipoID = new System.Windows.Forms.ComboBox();
             this.DgvClientes = new System.Windows.Forms.DataGridView();
             this.TabEditar = new System.Windows.Forms.TabPage();
+            this.TxtNroIDCliente = new System.Windows.Forms.TextBox();
+            this.NumAñoNac = new System.Windows.Forms.NumericUpDown();
+            this.NumMesNac = new System.Windows.Forms.NumericUpDown();
+            this.NumDiaNac = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
             this.TxtCorreoElectronicoCliente = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.TxtNroTelefonicoCliente = new System.Windows.Forms.TextBox();
@@ -61,21 +67,15 @@
             this.TssLblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.TssLblAgregado = new System.Windows.Forms.ToolStripStatusLabel();
             this.TssLblModificado = new System.Windows.Forms.ToolStripStatusLabel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.NumDiaNac = new System.Windows.Forms.NumericUpDown();
-            this.NumMesNac = new System.Windows.Forms.NumericUpDown();
-            this.NumAñoNac = new System.Windows.Forms.NumericUpDown();
-            this.TxtNroIDCliente = new System.Windows.Forms.TextBox();
-            this.TxtFiltroNombre = new System.Windows.Forms.TextBox();
             this.TabClientes.SuspendLayout();
             this.TabLista.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvClientes)).BeginInit();
             this.TabEditar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumAñoNac)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumMesNac)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumDiaNac)).BeginInit();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumDiaNac)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumMesNac)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumAñoNac)).BeginInit();
             this.SuspendLayout();
             // 
             // TabClientes
@@ -85,7 +85,7 @@
             this.TabClientes.Location = new System.Drawing.Point(6, 66);
             this.TabClientes.Name = "TabClientes";
             this.TabClientes.SelectedIndex = 0;
-            this.TabClientes.Size = new System.Drawing.Size(655, 377);
+            this.TabClientes.Size = new System.Drawing.Size(883, 377);
             this.TabClientes.TabIndex = 0;
             // 
             // TabLista
@@ -97,10 +97,19 @@
             this.TabLista.Location = new System.Drawing.Point(4, 29);
             this.TabLista.Name = "TabLista";
             this.TabLista.Padding = new System.Windows.Forms.Padding(3);
-            this.TabLista.Size = new System.Drawing.Size(647, 344);
+            this.TabLista.Size = new System.Drawing.Size(875, 344);
             this.TabLista.TabIndex = 0;
             this.TabLista.Text = "Lista";
             this.TabLista.UseVisualStyleBackColor = true;
+            // 
+            // TxtFiltroNombre
+            // 
+            this.TxtFiltroNombre.Location = new System.Drawing.Point(220, 6);
+            this.TxtFiltroNombre.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.TxtFiltroNombre.MaxLength = 255;
+            this.TxtFiltroNombre.Name = "TxtFiltroNombre";
+            this.TxtFiltroNombre.Size = new System.Drawing.Size(420, 26);
+            this.TxtFiltroNombre.TabIndex = 2;
             // 
             // TxtFiltroNroID
             // 
@@ -126,13 +135,14 @@
             this.DgvClientes.AllowUserToResizeRows = false;
             this.DgvClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.DgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgvClientes.Location = new System.Drawing.Point(6, 38);
+            this.DgvClientes.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DgvClientes.Location = new System.Drawing.Point(3, 38);
             this.DgvClientes.MultiSelect = false;
             this.DgvClientes.Name = "DgvClientes";
             this.DgvClientes.ReadOnly = true;
             this.DgvClientes.RowHeadersVisible = false;
             this.DgvClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DgvClientes.Size = new System.Drawing.Size(635, 295);
+            this.DgvClientes.Size = new System.Drawing.Size(869, 303);
             this.DgvClientes.TabIndex = 3;
             this.DgvClientes.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvClientes_CellContentDoubleClick);
             // 
@@ -165,6 +175,94 @@
             this.TabEditar.TabIndex = 1;
             this.TabEditar.Text = "Editar";
             this.TabEditar.UseVisualStyleBackColor = true;
+            // 
+            // TxtNroIDCliente
+            // 
+            this.TxtNroIDCliente.Location = new System.Drawing.Point(182, 46);
+            this.TxtNroIDCliente.MaxLength = 15;
+            this.TxtNroIDCliente.Name = "TxtNroIDCliente";
+            this.TxtNroIDCliente.Size = new System.Drawing.Size(143, 26);
+            this.TxtNroIDCliente.TabIndex = 3;
+            this.TxtNroIDCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // NumAñoNac
+            // 
+            this.NumAñoNac.Location = new System.Drawing.Point(274, 308);
+            this.NumAñoNac.Maximum = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
+            this.NumAñoNac.Minimum = new decimal(new int[] {
+            1900,
+            0,
+            0,
+            0});
+            this.NumAñoNac.Name = "NumAñoNac";
+            this.NumAñoNac.Size = new System.Drawing.Size(63, 26);
+            this.NumAñoNac.TabIndex = 19;
+            this.NumAñoNac.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumAñoNac.Value = new decimal(new int[] {
+            1900,
+            0,
+            0,
+            0});
+            // 
+            // NumMesNac
+            // 
+            this.NumMesNac.Location = new System.Drawing.Point(228, 308);
+            this.NumMesNac.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.NumMesNac.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumMesNac.Name = "NumMesNac";
+            this.NumMesNac.Size = new System.Drawing.Size(40, 26);
+            this.NumMesNac.TabIndex = 18;
+            this.NumMesNac.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumMesNac.Value = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            // 
+            // NumDiaNac
+            // 
+            this.NumDiaNac.Location = new System.Drawing.Point(182, 308);
+            this.NumDiaNac.Maximum = new decimal(new int[] {
+            31,
+            0,
+            0,
+            0});
+            this.NumDiaNac.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumDiaNac.Name = "NumDiaNac";
+            this.NumDiaNac.Size = new System.Drawing.Size(40, 26);
+            this.NumDiaNac.TabIndex = 17;
+            this.NumDiaNac.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumDiaNac.Value = new decimal(new int[] {
+            31,
+            0,
+            0,
+            0});
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(10, 310);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(141, 20);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "Fecha Nacimiento:";
             // 
             // TxtCorreoElectronicoCliente
             // 
@@ -349,7 +447,7 @@
             this.TsBtnSalir});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(673, 54);
+            this.toolStrip.Size = new System.Drawing.Size(889, 54);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -418,14 +516,14 @@
             this.TssLblModificado});
             this.statusStrip.Location = new System.Drawing.Point(0, 444);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(673, 22);
+            this.statusStrip.Size = new System.Drawing.Size(889, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusStrip1";
             // 
             // TssLblStatus
             // 
             this.TssLblStatus.Name = "TssLblStatus";
-            this.TssLblStatus.Size = new System.Drawing.Size(353, 17);
+            this.TssLblStatus.Size = new System.Drawing.Size(569, 17);
             this.TssLblStatus.Spring = true;
             this.TssLblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -443,108 +541,11 @@
             this.TssLblModificado.Size = new System.Drawing.Size(155, 17);
             this.TssLblModificado.Text = "Modificado por 99-99-9999 99:99:99";
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(10, 310);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(141, 20);
-            this.label7.TabIndex = 16;
-            this.label7.Text = "Fecha Nacimiento:";
-            // 
-            // NumDiaNac
-            // 
-            this.NumDiaNac.Location = new System.Drawing.Point(182, 308);
-            this.NumDiaNac.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.NumDiaNac.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.NumDiaNac.Name = "NumDiaNac";
-            this.NumDiaNac.Size = new System.Drawing.Size(40, 26);
-            this.NumDiaNac.TabIndex = 17;
-            this.NumDiaNac.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.NumDiaNac.Value = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            // 
-            // NumMesNac
-            // 
-            this.NumMesNac.Location = new System.Drawing.Point(228, 308);
-            this.NumMesNac.Maximum = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
-            this.NumMesNac.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.NumMesNac.Name = "NumMesNac";
-            this.NumMesNac.Size = new System.Drawing.Size(40, 26);
-            this.NumMesNac.TabIndex = 18;
-            this.NumMesNac.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.NumMesNac.Value = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
-            // 
-            // NumAñoNac
-            // 
-            this.NumAñoNac.Location = new System.Drawing.Point(274, 308);
-            this.NumAñoNac.Maximum = new decimal(new int[] {
-            3000,
-            0,
-            0,
-            0});
-            this.NumAñoNac.Minimum = new decimal(new int[] {
-            1900,
-            0,
-            0,
-            0});
-            this.NumAñoNac.Name = "NumAñoNac";
-            this.NumAñoNac.Size = new System.Drawing.Size(63, 26);
-            this.NumAñoNac.TabIndex = 19;
-            this.NumAñoNac.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.NumAñoNac.Value = new decimal(new int[] {
-            1900,
-            0,
-            0,
-            0});
-            // 
-            // TxtNroIDCliente
-            // 
-            this.TxtNroIDCliente.Location = new System.Drawing.Point(182, 46);
-            this.TxtNroIDCliente.MaxLength = 15;
-            this.TxtNroIDCliente.Name = "TxtNroIDCliente";
-            this.TxtNroIDCliente.Size = new System.Drawing.Size(143, 26);
-            this.TxtNroIDCliente.TabIndex = 3;
-            this.TxtNroIDCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // TxtFiltroNombre
-            // 
-            this.TxtFiltroNombre.Location = new System.Drawing.Point(220, 6);
-            this.TxtFiltroNombre.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.TxtFiltroNombre.MaxLength = 255;
-            this.TxtFiltroNombre.Name = "TxtFiltroNombre";
-            this.TxtFiltroNombre.Size = new System.Drawing.Size(420, 26);
-            this.TxtFiltroNombre.TabIndex = 2;
-            // 
             // FrmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(673, 466);
+            this.ClientSize = new System.Drawing.Size(889, 466);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.TabClientes);
@@ -562,13 +563,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.DgvClientes)).EndInit();
             this.TabEditar.ResumeLayout(false);
             this.TabEditar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumAñoNac)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumMesNac)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumDiaNac)).EndInit();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumDiaNac)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumMesNac)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumAñoNac)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

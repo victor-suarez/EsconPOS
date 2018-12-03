@@ -194,14 +194,15 @@
             this.DgvMarcas.AllowUserToResizeRows = false;
             this.DgvMarcas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.DgvMarcas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgvMarcas.Location = new System.Drawing.Point(9, 42);
+            this.DgvMarcas.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DgvMarcas.Location = new System.Drawing.Point(3, 40);
             this.DgvMarcas.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.DgvMarcas.MultiSelect = false;
             this.DgvMarcas.Name = "DgvMarcas";
             this.DgvMarcas.ReadOnly = true;
             this.DgvMarcas.RowHeadersVisible = false;
             this.DgvMarcas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DgvMarcas.Size = new System.Drawing.Size(578, 295);
+            this.DgvMarcas.Size = new System.Drawing.Size(613, 302);
             this.DgvMarcas.TabIndex = 2;
             this.DgvMarcas.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvMarcas_CellContentDoubleClick);
             // 
@@ -210,7 +211,7 @@
             this.TxtFiltroMarca.Location = new System.Drawing.Point(72, 6);
             this.TxtFiltroMarca.MaxLength = 255;
             this.TxtFiltroMarca.Name = "TxtFiltroMarca";
-            this.TxtFiltroMarca.Size = new System.Drawing.Size(515, 26);
+            this.TxtFiltroMarca.Size = new System.Drawing.Size(541, 26);
             this.TxtFiltroMarca.TabIndex = 1;
             // 
             // PagEditar

@@ -41,25 +41,27 @@ namespace EsconPOS.forms
         private void Guardar()
         {
             if (!ValEntReq()) return;
+            Empresas empr;
+            Empleados empl;
+            Cajas caja;
             try
             {
-                context.Empresas.Add(
-                    new Empresas
-                    {
-                        IdentificacionID = ((Identificaciones)CmbTipoIDEmpresa.SelectedItem).IdentificacionID,
-                        NroDocIdent = TxtNroIDEmpresa.Text,
-                        NombreComercial = TxtNombreComercial.Text,
-                        RazonSocial = TxtRazonSocial.Text,
-                        Direccion = null,
-                        Urbanizacion = null,
-                        NroTelefonico = null,
-                        CorreoElectronico = null,
-                        DistritoID = ((Distritos)(CmbDistrito.SelectedItem)).DistritoID,
-                        AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                        AgregadoPor = -1
-                    }
-               );
-               context.SaveChanges();
+                empr = new Empresas
+                {
+                    IdentificacionID = ((Identificaciones)CmbTipoIDEmpresa.SelectedItem).IdentificacionID,
+                    NroDocIdent = TxtNroIDEmpresa.Text,
+                    NombreComercial = TxtNombreComercial.Text,
+                    RazonSocial = TxtRazonSocial.Text,
+                    Direccion = null,
+                    Urbanizacion = null,
+                    NroTelefonico = null,
+                    CorreoElectronico = null,
+                    DistritoID = ((Distritos)(CmbDistrito.SelectedItem)).DistritoID,
+                    AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    AgregadoPor = -1
+                };
+                context.Empresas.Add(empr);
+                context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -69,32 +71,26 @@ namespace EsconPOS.forms
                     Global.MensajeError(ex, "Error guardando datos de la empresa.");
                 return;
             }
-            // Localizo la empresa que acabo de ingresar
-            var empr = (from e in context.Empresas
-                        where e.IdentificacionID == ((Identificaciones)CmbTipoIDEmpresa.SelectedItem).IdentificacionID
-                        && e.NroDocIdent == TxtNroIDEmpresa.Text
-                        select e).First();
 
             try
             {
-                context.Empleados.Add(
-                    new Empleados
-                    {
-                        IdentificacionID = ((Identificaciones)CmbTipoIDEmpleado.SelectedItem).IdentificacionID,
-                        NroDocIdent = TxtNroIDEmpleado.Text,
-                        Nombre = TxtNombre.Text,
-                        Direccion = null,
-                        Telefono = null,
-                        CorreoElectronico = null,
-                        Login = TxtLogin.Text,
-                        PasswdHash = Global.GetStringSha256Hash(TxtPassword.Text),
-                        EsSupervisor = ChkEsSupervisor.Checked ? 1 : 0,
-                        EsAdministrador = 1,
-                        Activo = 1,
-                        AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                        AgregadoPor = -1
-                    }
-                );
+                empl = new Empleados
+                {
+                    IdentificacionID = ((Identificaciones)CmbTipoIDEmpleado.SelectedItem).IdentificacionID,
+                    NroDocIdent = TxtNroIDEmpleado.Text,
+                    Nombre = TxtNombre.Text,
+                    Direccion = null,
+                    Telefono = null,
+                    CorreoElectronico = null,
+                    Login = TxtLogin.Text,
+                    PasswdHash = Global.GetStringSha256Hash(TxtPassword.Text),
+                    EsSupervisor = ChkEsSupervisor.Checked ? 1 : 0,
+                    EsAdministrador = 1,
+                    Activo = 1,
+                    AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    AgregadoPor = -1
+                };
+                context.Empleados.Add(empl);
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -105,24 +101,18 @@ namespace EsconPOS.forms
                     Global.MensajeError(ex, "Error guardando datos del administrador.");
                 return;
             }
-            // Localizo el empleado que acabo de ingresar
-            var empl = (from e in context.Empleados
-                        where e.IdentificacionID == ((Identificaciones)CmbTipoIDEmpleado.SelectedItem).IdentificacionID
-                        && e.NroDocIdent == TxtNroIDEmpleado.Text
-                        select e).First();
             // Guardar la relación Empleado / Empresa
             empr.Empleados.Add(empl);
             context.SaveChanges();
             try
             {
-                context.Cajas.Add(
-                    new Cajas
-                    {
-                        CajaID = (int)NumCajaID.Value,
-                        Descripcion = TxtDescripcion.Text,
-                        FechaHoraEstado = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-                    }
-                );
+                caja = new Cajas
+                {
+                    CajaID = (int)NumCajaID.Value,
+                    Descripcion = TxtDescripcion.Text,
+                    FechaHoraEstado = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                };
+                context.Cajas.Add(caja);
                context.SaveChanges();
             }
             catch (Exception ex)

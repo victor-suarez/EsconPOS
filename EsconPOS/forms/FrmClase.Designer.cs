@@ -195,23 +195,25 @@
             this.DgvClases.AllowUserToResizeRows = false;
             this.DgvClases.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.DgvClases.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgvClases.Location = new System.Drawing.Point(9, 42);
+            this.DgvClases.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DgvClases.Location = new System.Drawing.Point(3, 40);
             this.DgvClases.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.DgvClases.MultiSelect = false;
             this.DgvClases.Name = "DgvClases";
             this.DgvClases.ReadOnly = true;
             this.DgvClases.RowHeadersVisible = false;
             this.DgvClases.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DgvClases.Size = new System.Drawing.Size(578, 295);
+            this.DgvClases.Size = new System.Drawing.Size(613, 302);
             this.DgvClases.TabIndex = 2;
             this.DgvClases.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvClases_CellContentDoubleClick);
+            this.DgvClases.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvClases_ColumnHeaderMouseClick);
             // 
             // TxtFiltroClase
             // 
             this.TxtFiltroClase.Location = new System.Drawing.Point(72, 6);
             this.TxtFiltroClase.MaxLength = 255;
             this.TxtFiltroClase.Name = "TxtFiltroClase";
-            this.TxtFiltroClase.Size = new System.Drawing.Size(515, 26);
+            this.TxtFiltroClase.Size = new System.Drawing.Size(541, 26);
             this.TxtFiltroClase.TabIndex = 1;
             this.TxtFiltroClase.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 

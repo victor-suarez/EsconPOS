@@ -74,7 +74,7 @@ namespace EsconPOS.forms
                             MessageBox.Show("Usuario o contraseña inválidos.", "Error buscando el usuario", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             return;
                         };
-                        Global.Usuario = user;
+                        Global.glUsuario = user.UsuarioID;
                     }
                     catch(Exception ex)
                     {
@@ -89,22 +89,29 @@ namespace EsconPOS.forms
                     {
                         SetStatus("Buscando datos del empleado...");
                         var emp = (from e in context.Empleados
-                                    where e.EmpleadoID == Global.Usuario.UsuarioID
+                                    where e.EmpleadoID == Global.glUsuario
                                    select e).First();
                         if (emp != null)
                         {
-                            Global.Empleado = emp;
+                            Global.glEmpleado = emp.EmpleadoID;
+                            Global.glNomEmpleado = emp.Nombre;
                             SetStatus("Buscando datos de la empresa...");
                             var empr = emp.Empresas.First();
                             if (empr != null)
-                                Global.Empresa = empr;
+                            {
+                                Global.glEmpresa = empr.EmpresaID;
+                                Global.glNomEmpresa = empr.NombreComercial;
+                            }
                         }
 
                         SetStatus("Buscando datos de la caja...");
                         var pos = (from p in context.Cajas
                                    select p).First();
                         if (pos != null)
-                            Global.Caja = pos;
+                        {
+                            Global.glCaja = pos.CajaID;
+                            Global.glNomCaja = pos.Descripcion;
+                        }
                     }
                     catch(Exception ex)
                     {
@@ -161,8 +168,8 @@ namespace EsconPOS.forms
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
             LoggedIN = false;
-            Global.Empleado = null;
-            Global.Caja = null;
+            //Global.Empleado = null;
+            //Global.Caja = null;
             Close();
         }
 

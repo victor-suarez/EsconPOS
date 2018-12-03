@@ -17,7 +17,7 @@ namespace EsconPOS.forms
         private const int CMB_ANCHO_MINIMO = 40;
         private const int CMB_ANCHO_MAXIMO = 340;
 
-        private void CargaClientes()
+        private void CargarClientes()
         {
             var dataset = context.Clientes
                 .Select(c => new { ID = c.ClienteID,
@@ -105,7 +105,7 @@ namespace EsconPOS.forms
             }
             SetStatus("Cliente eliminado.");
             ClearCrt();
-            CargaClientes();
+            CargarClientes();
             Cursor.Current = Cursors.Default;
         }
 
@@ -117,21 +117,21 @@ namespace EsconPOS.forms
             {
                 try
                 {
-                    context.Clientes.Add(
-                        new Clientes{
-                                        IdentificacionID = ((Identificaciones)CmbTipoIDCliente.SelectedItem).IdentificacionID,
-                                        NroDocIdent = TxtNroIDCliente.Text,
-                                        Nombre = TxtNombreCliente.Text,
-                                        Direccion = TxtDireccionCliente.Text.Trim() == "" ? null : TxtDireccionCliente.Text.Trim(),
-                                        PaisID = ((Departamentos)CmbDepartamento.SelectedItem).PaisID,
-                                        DistritoID = ((Distritos)CmbDistrito.SelectedItem).DistritoID,
-                                        NroTelefonico = TxtNroTelefonicoCliente.Text.Trim() == "" ? null : TxtNroTelefonicoCliente.Text.Trim(),
-                                        CorreoElectronico = TxtCorreoElectronicoCliente.Text.Trim() == "" ? null : TxtCorreoElectronicoCliente.Text.Trim(),
-                                        Activo = 1,
-                                        AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                                        AgregadoPor = Global.Usuario.UsuarioID
-                                    }
-                                        );
+                    var clie = new Clientes
+                    {
+                        IdentificacionID = ((Identificaciones)CmbTipoIDCliente.SelectedItem).IdentificacionID,
+                        NroDocIdent = TxtNroIDCliente.Text,
+                        Nombre = TxtNombreCliente.Text,
+                        Direccion = TxtDireccionCliente.Text.Trim() == "" ? null : TxtDireccionCliente.Text.Trim(),
+                        PaisID = ((Departamentos)CmbDepartamento.SelectedItem).PaisID,
+                        DistritoID = ((Distritos)CmbDistrito.SelectedItem).DistritoID,
+                        NroTelefonico = TxtNroTelefonicoCliente.Text.Trim() == "" ? null : TxtNroTelefonicoCliente.Text.Trim(),
+                        CorreoElectronico = TxtCorreoElectronicoCliente.Text.Trim() == "" ? null : TxtCorreoElectronicoCliente.Text.Trim(),
+                        Activo = 1,
+                        AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                        AgregadoPor = Global.glUsuario
+                    };
+                    context.Clientes.Add(clie);
                     context.SaveChanges();
                 }
                 catch (Exception ex)
@@ -160,7 +160,7 @@ namespace EsconPOS.forms
                     cli.NroTelefonico = TxtNroTelefonicoCliente.Text.Trim() == "" ? null : TxtNroTelefonicoCliente.Text.Trim();
                     cli.CorreoElectronico = TxtCorreoElectronicoCliente.Text.Trim() == "" ? null : TxtCorreoElectronicoCliente.Text.Trim();
                     cli.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    cli.ModificadoPor = Global.Usuario.UsuarioID;
+                    cli.ModificadoPor = Global.glUsuario;
                     context.SaveChanges();
                 }
                 catch (Exception ex)
@@ -174,7 +174,7 @@ namespace EsconPOS.forms
                 SetStatus("Cliente modificado.");
             }; //(CmbTipoIDCliente.Tag != null)
             ClearCrt();
-            CargaClientes();
+            CargarClientes();
             Cursor.Current = Cursors.Default;
         }
 
@@ -204,7 +204,7 @@ namespace EsconPOS.forms
             if (TxtNombreCliente.Text.Trim().Length == 0)
             {
                 TxtNombreCliente.Focus();
-                MessageBox.Show("Debe transcribir el nombre comercial del cliente.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Debe transcribir el nombre del cliente.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
             if (CmbDistrito.SelectedIndex == -1)
@@ -275,7 +275,7 @@ namespace EsconPOS.forms
         private void FrmCliente_Load(object sender, EventArgs e)
         {
             CargarCombos();
-            CargaClientes();
+            CargarClientes();
             TssLblAgregado.Text = "";
             TssLblModificado.Text = "";
             Left = 10;
@@ -315,6 +315,7 @@ namespace EsconPOS.forms
 
         private void DgvClientes_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
             MoverRegistroToCrt(long.Parse(DgvClientes["ID", e.RowIndex].Value.ToString()));
             TabClientes.SelectTab("TabEditar");
         }

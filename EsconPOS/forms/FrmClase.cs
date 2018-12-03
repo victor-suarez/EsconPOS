@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,16 +16,22 @@ namespace EsconPOS.forms
     {
         private mainEntities context = new mainEntities();
 
-        private void CargarClases()
+        private void CargarClases(string OrderBy = "ID")
         {
-            var dataset = context.TiposProductos
-                .Select(t => new {
-                    ID = t.TipoProductoID,
-                    Codigo = t.Codigo,
-                    Nombre = t.TipoProducto,
-                    En_Uso = t.Activo == 0 ? "NO" : "SI"
-                }).ToList();
-            DgvClases.DataSource = dataset;
+            string FiltroCodigo = TxtFiltroCodigo.Text;
+            string FiltroClase = TxtFiltroClase.Text;
+            DgvClases.DataSource = context.TiposProductos
+                                    .Select(t => new {
+                                        ID = t.TipoProductoID,
+                                        Código = t.Codigo,
+                                        Nombre = t.TipoProducto,
+                                        En_Uso = t.Activo == 0 ? "NO" : "SI"
+                                        })
+                                    .Where(t => (t.Código.Contains(FiltroCodigo) || FiltroCodigo == "")
+                                                &&
+                                                (t.Nombre.Contains(FiltroClase) || FiltroClase == ""))
+                                    .OrderBy(OrderBy)
+                                    .ToList();
             DgvClases.Columns["ID"].Visible = false;
             DgvClases.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
         }
@@ -41,6 +48,24 @@ namespace EsconPOS.forms
             ChkActiva.Checked = false;
             TssLblAgregado.Text = "";
             TssLblModificado.Text = "";
+        }
+
+        private void IncluirBtnClear(TextBox txt)
+        {
+            var btn = new Button();
+            btn.AutoSize = false;
+            btn.Size = new Size(25, txt.ClientSize.Height + 2);
+            btn.Location = new Point(txt.ClientSize.Width - btn.Width, -1);
+            btn.Cursor = Cursors.Default;
+            btn.Image = Properties.Resources.ClearTxt;
+            btn.Click += btn_Click;
+            //btn.Visible = false;
+            txt.Controls.Add(btn);
+        }
+
+        private void btn_Click(object sender, EventArgs e)
+        {
+            ((TextBox)((Button)sender).Parent).Clear();
         }
 
         private void MoverRegistroToCrt(long ID)
@@ -104,7 +129,7 @@ namespace EsconPOS.forms
                             TipoProducto = TxtClase.Text,
                             Activo = ChkActiva.Checked ? 1 : 0,
                             AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                            AgregadoPor = Global.Usuario.UsuarioID
+                            AgregadoPor = Global.glUsuario
                         }
                     );
                     context.SaveChanges();
@@ -131,7 +156,7 @@ namespace EsconPOS.forms
                     cls.TipoProducto = TxtClase.Text;
                     cls.Activo = ChkActiva.Checked ? 1 : 0;
                     cls.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    cls.ModificadoPor = Global.Usuario.UsuarioID;
+                    cls.ModificadoPor = Global.glUsuario;
 
                     context.SaveChanges();
                 }
@@ -187,8 +212,14 @@ namespace EsconPOS.forms
 
         private void DgvClases_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
             MoverRegistroToCrt(long.Parse(DgvClases["ID", e.RowIndex].Value.ToString()));
             TabClases.SelectTab("PagEditar");
+        }
+
+        private void DgvClases_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            CargarClases(((DataGridView)sender).Columns[e.ColumnIndex].HeaderText);
         }
 
         public FrmClase()
@@ -209,6 +240,8 @@ namespace EsconPOS.forms
             TssLblModificado.Text = "";
             Left = 10;
             Top = 10;
+            IncluirBtnClear(TxtFiltroCodigo);
+            IncluirBtnClear(TxtFiltroClase);
         }
 
         private void Txt_KeyPress(object sender, KeyPressEventArgs e)

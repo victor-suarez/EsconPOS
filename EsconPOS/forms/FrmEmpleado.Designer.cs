@@ -41,8 +41,8 @@
             this.TabEmpleados = new System.Windows.Forms.TabControl();
             this.TabLista = new System.Windows.Forms.TabPage();
             this.TxtFilterNroTelefonico = new System.Windows.Forms.TextBox();
-            this.TxtFilterNombre = new System.Windows.Forms.TextBox();
-            this.CmbFilterTipoID = new System.Windows.Forms.ComboBox();
+            this.TxtFiltroNombre = new System.Windows.Forms.TextBox();
+            this.CmbFiltroTipoID = new System.Windows.Forms.ComboBox();
             this.DgvEmpleados = new System.Windows.Forms.DataGridView();
             this.TabEditar = new System.Windows.Forms.TabPage();
             this.TxtUsuario = new System.Windows.Forms.TextBox();
@@ -60,6 +60,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.CmbTipoIDEmpleado = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.TxtFiltroNroID = new System.Windows.Forms.TextBox();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.TabEmpleados.SuspendLayout();
@@ -79,7 +80,7 @@
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.toolStrip.Size = new System.Drawing.Size(669, 54);
+            this.toolStrip.Size = new System.Drawing.Size(889, 54);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -141,14 +142,14 @@
             this.statusStrip.Location = new System.Drawing.Point(0, 504);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
-            this.statusStrip.Size = new System.Drawing.Size(669, 22);
+            this.statusStrip.Size = new System.Drawing.Size(889, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusStrip1";
             // 
             // TssLblStatus
             // 
             this.TssLblStatus.Name = "TssLblStatus";
-            this.TssLblStatus.Size = new System.Drawing.Size(341, 17);
+            this.TssLblStatus.Size = new System.Drawing.Size(561, 17);
             this.TssLblStatus.Spring = true;
             this.TssLblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -176,48 +177,50 @@
             this.TabEmpleados.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TabEmpleados.Name = "TabEmpleados";
             this.TabEmpleados.SelectedIndex = 0;
-            this.TabEmpleados.Size = new System.Drawing.Size(655, 435);
+            this.TabEmpleados.Size = new System.Drawing.Size(883, 435);
             this.TabEmpleados.TabIndex = 0;
             // 
             // TabLista
             // 
+            this.TabLista.Controls.Add(this.TxtFiltroNroID);
             this.TabLista.Controls.Add(this.TxtFilterNroTelefonico);
-            this.TabLista.Controls.Add(this.TxtFilterNombre);
-            this.TabLista.Controls.Add(this.CmbFilterTipoID);
+            this.TabLista.Controls.Add(this.TxtFiltroNombre);
+            this.TabLista.Controls.Add(this.CmbFiltroTipoID);
             this.TabLista.Controls.Add(this.DgvEmpleados);
             this.TabLista.Location = new System.Drawing.Point(4, 29);
             this.TabLista.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TabLista.Name = "TabLista";
             this.TabLista.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.TabLista.Size = new System.Drawing.Size(647, 402);
+            this.TabLista.Size = new System.Drawing.Size(875, 402);
             this.TabLista.TabIndex = 0;
             this.TabLista.Text = "Lista";
             this.TabLista.UseVisualStyleBackColor = true;
             // 
             // TxtFilterNroTelefonico
             // 
-            this.TxtFilterNroTelefonico.Location = new System.Drawing.Point(736, 9);
+            this.TxtFilterNroTelefonico.Location = new System.Drawing.Point(691, 10);
             this.TxtFilterNroTelefonico.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TxtFilterNroTelefonico.Name = "TxtFilterNroTelefonico";
-            this.TxtFilterNroTelefonico.Size = new System.Drawing.Size(223, 26);
+            this.TxtFilterNroTelefonico.Size = new System.Drawing.Size(176, 26);
             this.TxtFilterNroTelefonico.TabIndex = 3;
             // 
-            // TxtFilterNombre
+            // TxtFiltroNombre
             // 
-            this.TxtFilterNombre.Location = new System.Drawing.Point(9, 9);
-            this.TxtFilterNombre.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.TxtFilterNombre.Name = "TxtFilterNombre";
-            this.TxtFilterNombre.Size = new System.Drawing.Size(344, 26);
-            this.TxtFilterNombre.TabIndex = 2;
+            this.TxtFiltroNombre.Location = new System.Drawing.Point(254, 10);
+            this.TxtFiltroNombre.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.TxtFiltroNombre.Name = "TxtFiltroNombre";
+            this.TxtFiltroNombre.Size = new System.Drawing.Size(429, 26);
+            this.TxtFiltroNombre.TabIndex = 2;
             // 
-            // CmbFilterTipoID
+            // CmbFiltroTipoID
             // 
-            this.CmbFilterTipoID.FormattingEnabled = true;
-            this.CmbFilterTipoID.Location = new System.Drawing.Point(364, 9);
-            this.CmbFilterTipoID.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.CmbFilterTipoID.Name = "CmbFilterTipoID";
-            this.CmbFilterTipoID.Size = new System.Drawing.Size(85, 28);
-            this.CmbFilterTipoID.TabIndex = 1;
+            this.CmbFiltroTipoID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbFiltroTipoID.FormattingEnabled = true;
+            this.CmbFiltroTipoID.Location = new System.Drawing.Point(8, 10);
+            this.CmbFiltroTipoID.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.CmbFiltroTipoID.Name = "CmbFiltroTipoID";
+            this.CmbFiltroTipoID.Size = new System.Drawing.Size(85, 28);
+            this.CmbFiltroTipoID.TabIndex = 0;
             // 
             // DgvEmpleados
             // 
@@ -227,16 +230,18 @@
             this.DgvEmpleados.AllowUserToResizeRows = false;
             this.DgvEmpleados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.DgvEmpleados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgvEmpleados.Location = new System.Drawing.Point(8, 47);
+            this.DgvEmpleados.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DgvEmpleados.Location = new System.Drawing.Point(4, 46);
             this.DgvEmpleados.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.DgvEmpleados.MultiSelect = false;
             this.DgvEmpleados.Name = "DgvEmpleados";
             this.DgvEmpleados.ReadOnly = true;
             this.DgvEmpleados.RowHeadersVisible = false;
             this.DgvEmpleados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DgvEmpleados.Size = new System.Drawing.Size(631, 345);
-            this.DgvEmpleados.TabIndex = 0;
+            this.DgvEmpleados.Size = new System.Drawing.Size(867, 351);
+            this.DgvEmpleados.TabIndex = 4;
             this.DgvEmpleados.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvEmpleados_CellContentDoubleClick);
+            this.DgvEmpleados.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvEmpleados_ColumnHeaderMouseClick);
             // 
             // TabEditar
             // 
@@ -259,7 +264,7 @@
             this.TabEditar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TabEditar.Name = "TabEditar";
             this.TabEditar.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.TabEditar.Size = new System.Drawing.Size(647, 402);
+            this.TabEditar.Size = new System.Drawing.Size(875, 402);
             this.TabEditar.TabIndex = 1;
             this.TabEditar.Text = "Editar";
             this.TabEditar.UseVisualStyleBackColor = true;
@@ -422,11 +427,19 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "Tipo de Identificación:";
             // 
+            // TxtFiltroNroID
+            // 
+            this.TxtFiltroNroID.Location = new System.Drawing.Point(101, 10);
+            this.TxtFiltroNroID.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.TxtFiltroNroID.Name = "TxtFiltroNroID";
+            this.TxtFiltroNroID.Size = new System.Drawing.Size(145, 26);
+            this.TxtFiltroNroID.TabIndex = 1;
+            // 
             // FrmEmpleado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 526);
+            this.ClientSize = new System.Drawing.Size(889, 526);
             this.Controls.Add(this.TabEmpleados);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
@@ -466,8 +479,8 @@
         private System.Windows.Forms.TabControl TabEmpleados;
         private System.Windows.Forms.TabPage TabLista;
         private System.Windows.Forms.TextBox TxtFilterNroTelefonico;
-        private System.Windows.Forms.TextBox TxtFilterNombre;
-        private System.Windows.Forms.ComboBox CmbFilterTipoID;
+        private System.Windows.Forms.TextBox TxtFiltroNombre;
+        private System.Windows.Forms.ComboBox CmbFiltroTipoID;
         private System.Windows.Forms.DataGridView DgvEmpleados;
         private System.Windows.Forms.TabPage TabEditar;
         private System.Windows.Forms.TextBox TxtCorreoElectronicoEmpleado;
@@ -485,5 +498,6 @@
         private System.Windows.Forms.CheckBox ChkEsSupervisor;
         private System.Windows.Forms.TextBox TxtUsuario;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox TxtFiltroNroID;
     }
 }

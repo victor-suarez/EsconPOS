@@ -40,13 +40,17 @@
             this.TssLblModificado = new System.Windows.Forms.ToolStripStatusLabel();
             this.TabProductos = new System.Windows.Forms.TabControl();
             this.PagLista = new System.Windows.Forms.TabPage();
+            this.CmbFiltroTipo = new System.Windows.Forms.ComboBox();
+            this.CmbFiltroMarca = new System.Windows.Forms.ComboBox();
+            this.TxtFiltroCodigo = new System.Windows.Forms.TextBox();
+            this.TxtFiltroCodigoBarra = new System.Windows.Forms.TextBox();
             this.DgvProductos = new System.Windows.Forms.DataGridView();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.TxtFiltroProducto = new System.Windows.Forms.TextBox();
             this.PagEditar = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.BtnAgregarCliente = new System.Windows.Forms.Button();
+            this.BtnAgregarImpuesto = new System.Windows.Forms.Button();
+            this.BtnAgragarUnidad = new System.Windows.Forms.Button();
+            this.BtnAgregarTipo = new System.Windows.Forms.Button();
+            this.BtnAgregarMarca = new System.Windows.Forms.Button();
             this.NumPrecioUnitario = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             this.NumCostoUnitario = new System.Windows.Forms.NumericUpDown();
@@ -67,8 +71,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.TxtCodigo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.BtnAgragarUnidad = new System.Windows.Forms.Button();
-            this.BtnAgregarImpuesto = new System.Windows.Forms.Button();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.TabProductos.SuspendLayout();
@@ -90,7 +92,7 @@
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.toolStrip.Size = new System.Drawing.Size(795, 54);
+            this.toolStrip.Size = new System.Drawing.Size(994, 54);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -152,14 +154,14 @@
             this.statusStrip.Location = new System.Drawing.Point(0, 439);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
-            this.statusStrip.Size = new System.Drawing.Size(795, 22);
+            this.statusStrip.Size = new System.Drawing.Size(994, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusStrip1";
             // 
             // TssLblStatus
             // 
             this.TssLblStatus.Name = "TssLblStatus";
-            this.TssLblStatus.Size = new System.Drawing.Size(467, 17);
+            this.TssLblStatus.Size = new System.Drawing.Size(666, 17);
             this.TssLblStatus.Spring = true;
             this.TssLblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -184,22 +186,62 @@
             this.TabProductos.Location = new System.Drawing.Point(12, 57);
             this.TabProductos.Name = "TabProductos";
             this.TabProductos.SelectedIndex = 0;
-            this.TabProductos.Size = new System.Drawing.Size(771, 378);
+            this.TabProductos.Size = new System.Drawing.Size(970, 378);
             this.TabProductos.TabIndex = 0;
             // 
             // PagLista
             // 
+            this.PagLista.Controls.Add(this.CmbFiltroTipo);
+            this.PagLista.Controls.Add(this.CmbFiltroMarca);
+            this.PagLista.Controls.Add(this.TxtFiltroCodigo);
+            this.PagLista.Controls.Add(this.TxtFiltroCodigoBarra);
             this.PagLista.Controls.Add(this.DgvProductos);
-            this.PagLista.Controls.Add(this.comboBox6);
-            this.PagLista.Controls.Add(this.textBox5);
-            this.PagLista.Controls.Add(this.comboBox5);
+            this.PagLista.Controls.Add(this.TxtFiltroProducto);
             this.PagLista.Location = new System.Drawing.Point(4, 29);
             this.PagLista.Name = "PagLista";
             this.PagLista.Padding = new System.Windows.Forms.Padding(3);
-            this.PagLista.Size = new System.Drawing.Size(763, 345);
+            this.PagLista.Size = new System.Drawing.Size(962, 345);
             this.PagLista.TabIndex = 0;
             this.PagLista.Text = "Lista";
             this.PagLista.UseVisualStyleBackColor = true;
+            // 
+            // CmbFiltroTipo
+            // 
+            this.CmbFiltroTipo.FormattingEnabled = true;
+            this.CmbFiltroTipo.Location = new System.Drawing.Point(354, 6);
+            this.CmbFiltroTipo.Name = "CmbFiltroTipo";
+            this.CmbFiltroTipo.Size = new System.Drawing.Size(63, 28);
+            this.CmbFiltroTipo.TabIndex = 3;
+            this.CmbFiltroTipo.SelectedIndexChanged += new System.EventHandler(this.Cmb_SelectedIndexChanged);
+            this.CmbFiltroTipo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
+            // 
+            // CmbFiltroMarca
+            // 
+            this.CmbFiltroMarca.FormattingEnabled = true;
+            this.CmbFiltroMarca.Location = new System.Drawing.Point(285, 6);
+            this.CmbFiltroMarca.Name = "CmbFiltroMarca";
+            this.CmbFiltroMarca.Size = new System.Drawing.Size(63, 28);
+            this.CmbFiltroMarca.TabIndex = 2;
+            this.CmbFiltroMarca.SelectedIndexChanged += new System.EventHandler(this.Cmb_SelectedIndexChanged);
+            this.CmbFiltroMarca.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
+            // 
+            // TxtFiltroCodigo
+            // 
+            this.TxtFiltroCodigo.Location = new System.Drawing.Point(144, 6);
+            this.TxtFiltroCodigo.Name = "TxtFiltroCodigo";
+            this.TxtFiltroCodigo.Size = new System.Drawing.Size(135, 26);
+            this.TxtFiltroCodigo.TabIndex = 1;
+            this.TxtFiltroCodigo.TextChanged += new System.EventHandler(this.Txt_TextChanged);
+            this.TxtFiltroCodigo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
+            // 
+            // TxtFiltroCodigoBarra
+            // 
+            this.TxtFiltroCodigoBarra.Location = new System.Drawing.Point(3, 6);
+            this.TxtFiltroCodigoBarra.Name = "TxtFiltroCodigoBarra";
+            this.TxtFiltroCodigoBarra.Size = new System.Drawing.Size(135, 26);
+            this.TxtFiltroCodigoBarra.TabIndex = 0;
+            this.TxtFiltroCodigoBarra.TextChanged += new System.EventHandler(this.Txt_TextChanged);
+            this.TxtFiltroCodigoBarra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // DgvProductos
             // 
@@ -209,45 +251,33 @@
             this.DgvProductos.AllowUserToResizeRows = false;
             this.DgvProductos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.DgvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgvProductos.Location = new System.Drawing.Point(9, 42);
+            this.DgvProductos.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DgvProductos.Location = new System.Drawing.Point(3, 40);
             this.DgvProductos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.DgvProductos.MultiSelect = false;
             this.DgvProductos.Name = "DgvProductos";
             this.DgvProductos.ReadOnly = true;
             this.DgvProductos.RowHeadersVisible = false;
             this.DgvProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DgvProductos.Size = new System.Drawing.Size(747, 295);
-            this.DgvProductos.TabIndex = 0;
+            this.DgvProductos.Size = new System.Drawing.Size(956, 302);
+            this.DgvProductos.TabIndex = 5;
+            this.DgvProductos.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvProductos_ColumnHeaderMouseClick);
             // 
-            // comboBox6
+            // TxtFiltroProducto
             // 
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Location = new System.Drawing.Point(133, 6);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(121, 28);
-            this.comboBox6.TabIndex = 2;
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(260, 8);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(496, 26);
-            this.textBox5.TabIndex = 3;
-            // 
-            // comboBox5
-            // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(6, 6);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(121, 28);
-            this.comboBox5.TabIndex = 1;
+            this.TxtFiltroProducto.Location = new System.Drawing.Point(423, 6);
+            this.TxtFiltroProducto.Name = "TxtFiltroProducto";
+            this.TxtFiltroProducto.Size = new System.Drawing.Size(533, 26);
+            this.TxtFiltroProducto.TabIndex = 4;
+            this.TxtFiltroProducto.TextChanged += new System.EventHandler(this.Txt_TextChanged);
+            this.TxtFiltroProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // PagEditar
             // 
             this.PagEditar.Controls.Add(this.BtnAgregarImpuesto);
             this.PagEditar.Controls.Add(this.BtnAgragarUnidad);
-            this.PagEditar.Controls.Add(this.button1);
-            this.PagEditar.Controls.Add(this.BtnAgregarCliente);
+            this.PagEditar.Controls.Add(this.BtnAgregarTipo);
+            this.PagEditar.Controls.Add(this.BtnAgregarMarca);
             this.PagEditar.Controls.Add(this.NumPrecioUnitario);
             this.PagEditar.Controls.Add(this.label10);
             this.PagEditar.Controls.Add(this.NumCostoUnitario);
@@ -271,28 +301,48 @@
             this.PagEditar.Location = new System.Drawing.Point(4, 29);
             this.PagEditar.Name = "PagEditar";
             this.PagEditar.Padding = new System.Windows.Forms.Padding(3);
-            this.PagEditar.Size = new System.Drawing.Size(763, 345);
+            this.PagEditar.Size = new System.Drawing.Size(962, 345);
             this.PagEditar.TabIndex = 1;
             this.PagEditar.Text = "Editar";
             this.PagEditar.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // BtnAgregarImpuesto
             // 
-            this.button1.Image = global::EsconPOS.Properties.Resources.Agregar;
-            this.button1.Location = new System.Drawing.Point(609, 110);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(28, 28);
-            this.button1.TabIndex = 9;
-            this.button1.UseVisualStyleBackColor = true;
+            this.BtnAgregarImpuesto.Image = global::EsconPOS.Properties.Resources.Agregar;
+            this.BtnAgregarImpuesto.Location = new System.Drawing.Point(524, 242);
+            this.BtnAgregarImpuesto.Name = "BtnAgregarImpuesto";
+            this.BtnAgregarImpuesto.Size = new System.Drawing.Size(28, 28);
+            this.BtnAgregarImpuesto.TabIndex = 23;
+            this.BtnAgregarImpuesto.UseVisualStyleBackColor = true;
             // 
-            // BtnAgregarCliente
+            // BtnAgragarUnidad
             // 
-            this.BtnAgregarCliente.Image = global::EsconPOS.Properties.Resources.Agregar;
-            this.BtnAgregarCliente.Location = new System.Drawing.Point(609, 75);
-            this.BtnAgregarCliente.Name = "BtnAgregarCliente";
-            this.BtnAgregarCliente.Size = new System.Drawing.Size(28, 28);
-            this.BtnAgregarCliente.TabIndex = 6;
-            this.BtnAgregarCliente.UseVisualStyleBackColor = true;
+            this.BtnAgragarUnidad.Image = global::EsconPOS.Properties.Resources.Agregar;
+            this.BtnAgragarUnidad.Location = new System.Drawing.Point(524, 208);
+            this.BtnAgragarUnidad.Name = "BtnAgragarUnidad";
+            this.BtnAgragarUnidad.Size = new System.Drawing.Size(28, 28);
+            this.BtnAgragarUnidad.TabIndex = 22;
+            this.BtnAgragarUnidad.UseVisualStyleBackColor = true;
+            // 
+            // BtnAgregarTipo
+            // 
+            this.BtnAgregarTipo.Image = global::EsconPOS.Properties.Resources.Agregar;
+            this.BtnAgregarTipo.Location = new System.Drawing.Point(609, 110);
+            this.BtnAgregarTipo.Name = "BtnAgregarTipo";
+            this.BtnAgregarTipo.Size = new System.Drawing.Size(28, 28);
+            this.BtnAgregarTipo.TabIndex = 9;
+            this.BtnAgregarTipo.UseVisualStyleBackColor = true;
+            this.BtnAgregarTipo.Click += new System.EventHandler(this.BtnAgregarTipo_Click);
+            // 
+            // BtnAgregarMarca
+            // 
+            this.BtnAgregarMarca.Image = global::EsconPOS.Properties.Resources.Agregar;
+            this.BtnAgregarMarca.Location = new System.Drawing.Point(609, 75);
+            this.BtnAgregarMarca.Name = "BtnAgregarMarca";
+            this.BtnAgregarMarca.Size = new System.Drawing.Size(28, 28);
+            this.BtnAgregarMarca.TabIndex = 6;
+            this.BtnAgregarMarca.UseVisualStyleBackColor = true;
+            this.BtnAgregarMarca.Click += new System.EventHandler(this.BtnAgregarMarca_Click);
             // 
             // NumPrecioUnitario
             // 
@@ -350,7 +400,7 @@
             this.TxtProducto.Location = new System.Drawing.Point(200, 144);
             this.TxtProducto.MaxLength = 255;
             this.TxtProducto.Name = "TxtProducto";
-            this.TxtProducto.Size = new System.Drawing.Size(403, 26);
+            this.TxtProducto.Size = new System.Drawing.Size(756, 26);
             this.TxtProducto.TabIndex = 11;
             this.TxtProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
@@ -411,7 +461,7 @@
             this.TxtPresentacion.Location = new System.Drawing.Point(200, 176);
             this.TxtPresentacion.MaxLength = 255;
             this.TxtPresentacion.Name = "TxtPresentacion";
-            this.TxtPresentacion.Size = new System.Drawing.Size(403, 26);
+            this.TxtPresentacion.Size = new System.Drawing.Size(756, 26);
             this.TxtPresentacion.TabIndex = 13;
             this.TxtPresentacion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
@@ -505,29 +555,11 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Código interno:";
             // 
-            // BtnAgragarUnidad
-            // 
-            this.BtnAgragarUnidad.Image = global::EsconPOS.Properties.Resources.Agregar;
-            this.BtnAgragarUnidad.Location = new System.Drawing.Point(524, 208);
-            this.BtnAgragarUnidad.Name = "BtnAgragarUnidad";
-            this.BtnAgragarUnidad.Size = new System.Drawing.Size(28, 28);
-            this.BtnAgragarUnidad.TabIndex = 22;
-            this.BtnAgragarUnidad.UseVisualStyleBackColor = true;
-            // 
-            // BtnAgregarImpuesto
-            // 
-            this.BtnAgregarImpuesto.Image = global::EsconPOS.Properties.Resources.Agregar;
-            this.BtnAgregarImpuesto.Location = new System.Drawing.Point(524, 242);
-            this.BtnAgregarImpuesto.Name = "BtnAgregarImpuesto";
-            this.BtnAgregarImpuesto.Size = new System.Drawing.Size(28, 28);
-            this.BtnAgregarImpuesto.TabIndex = 23;
-            this.BtnAgregarImpuesto.UseVisualStyleBackColor = true;
-            // 
             // FrmProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(795, 461);
+            this.ClientSize = new System.Drawing.Size(994, 461);
             this.Controls.Add(this.TabProductos);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
@@ -569,8 +601,8 @@
         private System.Windows.Forms.TabControl TabProductos;
         private System.Windows.Forms.TabPage PagLista;
         private System.Windows.Forms.TabPage PagEditar;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button BtnAgregarCliente;
+        private System.Windows.Forms.Button BtnAgregarTipo;
+        private System.Windows.Forms.Button BtnAgregarMarca;
         private System.Windows.Forms.NumericUpDown NumPrecioUnitario;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown NumCostoUnitario;
@@ -591,11 +623,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox TxtCodigo;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox6;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.TextBox TxtFiltroProducto;
         private System.Windows.Forms.DataGridView DgvProductos;
         private System.Windows.Forms.Button BtnAgregarImpuesto;
         private System.Windows.Forms.Button BtnAgragarUnidad;
+        private System.Windows.Forms.TextBox TxtFiltroCodigo;
+        private System.Windows.Forms.TextBox TxtFiltroCodigoBarra;
+        private System.Windows.Forms.ComboBox CmbFiltroTipo;
+        private System.Windows.Forms.ComboBox CmbFiltroMarca;
     }
 }

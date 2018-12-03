@@ -14,7 +14,9 @@ namespace EsconPOS.forms
 {
     public partial class MDIEsconPos : Form
     {
-        private bool CajaAbierta = false;
+        private mainEntities context = new mainEntities();
+
+        private static bool CajaAbierta = false;
         private FrmCliente FrmCli = null;
         private FrmEmpleado FrmEmp = null;
         private FrmEmpresa FrmEpr = null;
@@ -23,6 +25,7 @@ namespace EsconPOS.forms
         private FrmMarca FrmMar = null;
         private FrmClase FrmCla = null;
         private FrmProducto FrmPro = null;
+        private FrmPuntoDeVenta FrmPos = null;
 
         public MDIEsconPos()
         {
@@ -31,13 +34,30 @@ namespace EsconPOS.forms
 
         private void AbrirCerrarCaja()
         {
+            Cursor.Current = Cursors.WaitCursor;
             CajaAbierta = !CajaAbierta;
-            if (CajaAbierta)
-            {
-            }
-            else
-            {
-            }
+
+            context.CajaLog.Add(
+                new CajaLog
+                {
+                    CajaID = Global.glCaja,
+                    TransaccionID = CajaAbierta ? 1 : 4, // APERTURA, CIERRE
+                    EmpleadoID = Global.glEmpleado,
+                    Monto = 0,
+                    Fecha = DateTime.Now.ToString("yyyy-MM-dd"),
+                    Hora = DateTime.Now.ToString("HH:mm:ss")
+                }
+            );
+            var pos = context.Cajas.Single(p => p.CajaID == Global.glCaja);
+            context.Cajas.Attach(pos);
+            pos.Abierta = CajaAbierta ? 1 : 0;
+            pos.FechaHoraEstado = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            context.SaveChanges();
+            TssbCaja.Image = CajaAbierta ? Properties.Resources.CajaAbierta : Properties.Resources.CajaCerrada;
+            TssbCaja.Text = CajaAbierta ? "Cerrar Caja" : "Abrir Caja";
+            TsmiIncluirFactura.Visible = CajaAbierta;
+            TsmiAbrirCuenta.Visible = CajaAbierta;
+            Cursor.Current = Cursors.Default;
         }
 
         private void IniciarInfo()
@@ -46,10 +66,10 @@ namespace EsconPOS.forms
                         System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Major.ToString() + "." +
                         System.Reflection.Assembly.GetEntryAssembly().GetName().Version.MajorRevision.ToString() + "." +
                         System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Minor.ToString() +
-                       " - " + Global.Empresa.NombreComercial;
-            TsslCaja.Text = Global.Caja.Descripcion;
-            TsslEmpleado.Text = Global.Empleado.Nombre;
-            TsslFecha.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy");
+                       " - " + Global.glNomEmpresa;
+            TsslCaja.Text = Global.glNomCaja;
+            TsslEmpleado.Text = Global.glNomEmpleado;
+            TsslFecha.Text = DateTime.Now.ToLongDateString();
             TsslHora.Text = DateTime.Now.ToShortTimeString();
             TmrHora.Start();
         }
@@ -130,14 +150,22 @@ namespace EsconPOS.forms
             FrmUnd.Show();
         }
 
-        private void TssbCaja_Click(object sender, EventArgs e)
-        {
-            AbrirCerrarCaja();
-        }
-
         private void TssbSalir_Click(object sender, EventArgs e)
         {
             Dispose();
+        }
+
+        private void TssbCaja_ButtonClick(object sender, EventArgs e)
+        {
+            AbrirCerrarCaja();
+
+        }
+
+        private void TsmiIncluirFactura_Click(object sender, EventArgs e)
+        {
+            FrmPos = new forms.FrmPuntoDeVenta();
+            FrmPos.MdiParent = this;
+            FrmPos.Show();
         }
     }
 }

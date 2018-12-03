@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("No Header", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("No Header", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
             "Total X",
             "9.999,99"}, -1);
             this.label1 = new System.Windows.Forms.Label();
@@ -37,9 +37,9 @@
             this.TxtNroIDCli = new System.Windows.Forms.TextBox();
             this.DgvProdServ = new System.Windows.Forms.DataGridView();
             this.TxtProdCodigo = new System.Windows.Forms.TextBox();
-            this.CmbMarca = new System.Windows.Forms.ComboBox();
-            this.CmbClase = new System.Windows.Forms.ComboBox();
-            this.CmbDescripcion = new System.Windows.Forms.ComboBox();
+            this.CmbMarcas = new System.Windows.Forms.ComboBox();
+            this.CmbClases = new System.Windows.Forms.ComboBox();
+            this.CmbProductos = new System.Windows.Forms.ComboBox();
             this.NumCantidad = new System.Windows.Forms.NumericUpDown();
             this.BtnAgregarCliente = new System.Windows.Forms.Button();
             this.BtnAgregarProducto = new System.Windows.Forms.Button();
@@ -51,15 +51,20 @@
             this.TxtNroIDEmp = new System.Windows.Forms.TextBox();
             this.CmbTipoIDEmp = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.CmbNombreCli = new System.Windows.Forms.ComboBox();
-            this.CmbNombreEmp = new System.Windows.Forms.ComboBox();
+            this.CmbClientes = new System.Windows.Forms.ComboBox();
+            this.CmbEmpleados = new System.Windows.Forms.ComboBox();
             this.NumValorUnit = new System.Windows.Forms.NumericUpDown();
-            this.NumDcto = new System.Windows.Forms.NumericUpDown();
+            this.NumDescuento = new System.Windows.Forms.NumericUpDown();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.TssLblStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TssLblAgregado = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TssLblModificado = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.DgvProdServ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumCantidad)).BeginInit();
             this.GbxTotales.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumValorUnit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumDcto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumDescuento)).BeginInit();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -74,19 +79,25 @@
             // 
             // CmbTipoIDCli
             // 
+            this.CmbTipoIDCli.DropDownWidth = 200;
             this.CmbTipoIDCli.FormattingEnabled = true;
-            this.CmbTipoIDCli.Location = new System.Drawing.Point(172, 12);
+            this.CmbTipoIDCli.Location = new System.Drawing.Point(172, 11);
             this.CmbTipoIDCli.Name = "CmbTipoIDCli";
-            this.CmbTipoIDCli.Size = new System.Drawing.Size(48, 28);
+            this.CmbTipoIDCli.Size = new System.Drawing.Size(68, 28);
             this.CmbTipoIDCli.TabIndex = 1;
+            this.CmbTipoIDCli.SelectedIndexChanged += new System.EventHandler(this.CmbTipoIDCli_SelectedIndexChanged);
+            this.CmbTipoIDCli.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.CmbTipoID_Format);
+            this.CmbTipoIDCli.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
             // 
             // TxtNroIDCli
             // 
             this.TxtNroIDCli.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.TxtNroIDCli.Location = new System.Drawing.Point(223, 13);
+            this.TxtNroIDCli.Location = new System.Drawing.Point(246, 12);
             this.TxtNroIDCli.Name = "TxtNroIDCli";
             this.TxtNroIDCli.Size = new System.Drawing.Size(151, 26);
             this.TxtNroIDCli.TabIndex = 2;
+            this.TxtNroIDCli.TextChanged += new System.EventHandler(this.TxtNroIDCli_TextChanged);
+            this.TxtNroIDCli.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // DgvProdServ
             // 
@@ -94,87 +105,84 @@
             this.DgvProdServ.Location = new System.Drawing.Point(11, 112);
             this.DgvProdServ.Name = "DgvProdServ";
             this.DgvProdServ.Size = new System.Drawing.Size(1144, 281);
-            this.DgvProdServ.TabIndex = 3;
+            this.DgvProdServ.TabIndex = 15;
             // 
             // TxtProdCodigo
             // 
             this.TxtProdCodigo.Location = new System.Drawing.Point(11, 78);
             this.TxtProdCodigo.Name = "TxtProdCodigo";
             this.TxtProdCodigo.Size = new System.Drawing.Size(125, 26);
-            this.TxtProdCodigo.TabIndex = 10;
-            this.TxtProdCodigo.Text = "1234567890123";
+            this.TxtProdCodigo.TabIndex = 8;
+            this.TxtProdCodigo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
-            // CmbMarca
+            // CmbMarcas
             // 
-            this.CmbMarca.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.CmbMarca.DropDownWidth = 200;
-            this.CmbMarca.FormattingEnabled = true;
-            this.CmbMarca.Location = new System.Drawing.Point(142, 77);
-            this.CmbMarca.Name = "CmbMarca";
-            this.CmbMarca.Size = new System.Drawing.Size(78, 28);
-            this.CmbMarca.TabIndex = 11;
-            this.CmbMarca.Text = "WWW";
+            this.CmbMarcas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CmbMarcas.DropDownWidth = 200;
+            this.CmbMarcas.FormattingEnabled = true;
+            this.CmbMarcas.Location = new System.Drawing.Point(142, 77);
+            this.CmbMarcas.Name = "CmbMarcas";
+            this.CmbMarcas.Size = new System.Drawing.Size(68, 28);
+            this.CmbMarcas.TabIndex = 9;
+            this.CmbMarcas.SelectedIndexChanged += new System.EventHandler(this.CmbMarcas_SelectedIndexChanged);
+            this.CmbMarcas.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.CmbMarcas_Format);
+            this.CmbMarcas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
             // 
-            // CmbClase
+            // CmbClases
             // 
-            this.CmbClase.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.CmbClase.DropDownWidth = 200;
-            this.CmbClase.FormattingEnabled = true;
-            this.CmbClase.Location = new System.Drawing.Point(226, 77);
-            this.CmbClase.Name = "CmbClase";
-            this.CmbClase.Size = new System.Drawing.Size(78, 28);
-            this.CmbClase.TabIndex = 12;
+            this.CmbClases.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CmbClases.DropDownWidth = 200;
+            this.CmbClases.FormattingEnabled = true;
+            this.CmbClases.Location = new System.Drawing.Point(216, 77);
+            this.CmbClases.Name = "CmbClases";
+            this.CmbClases.Size = new System.Drawing.Size(68, 28);
+            this.CmbClases.TabIndex = 10;
+            this.CmbClases.SelectedIndexChanged += new System.EventHandler(this.CmbClases_SelectedIndexChanged);
+            this.CmbClases.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.CmbClases_Format);
+            this.CmbClases.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
             // 
-            // CmbDescripcion
+            // CmbProductos
             // 
-            this.CmbDescripcion.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.CmbDescripcion.DropDownWidth = 500;
-            this.CmbDescripcion.FormattingEnabled = true;
-            this.CmbDescripcion.Location = new System.Drawing.Point(310, 77);
-            this.CmbDescripcion.Name = "CmbDescripcion";
-            this.CmbDescripcion.Size = new System.Drawing.Size(435, 28);
-            this.CmbDescripcion.TabIndex = 13;
+            this.CmbProductos.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CmbProductos.DropDownWidth = 500;
+            this.CmbProductos.FormattingEnabled = true;
+            this.CmbProductos.Location = new System.Drawing.Point(290, 77);
+            this.CmbProductos.Name = "CmbProductos";
+            this.CmbProductos.Size = new System.Drawing.Size(435, 28);
+            this.CmbProductos.TabIndex = 11;
+            this.CmbProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
             // 
             // NumCantidad
             // 
             this.NumCantidad.DecimalPlaces = 2;
-            this.NumCantidad.Location = new System.Drawing.Point(751, 78);
+            this.NumCantidad.Location = new System.Drawing.Point(731, 78);
             this.NumCantidad.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.NumCantidad.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
             this.NumCantidad.Name = "NumCantidad";
             this.NumCantidad.Size = new System.Drawing.Size(78, 26);
-            this.NumCantidad.TabIndex = 14;
+            this.NumCantidad.TabIndex = 12;
             this.NumCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.NumCantidad.Value = new decimal(new int[] {
-            10001,
-            0,
-            0,
-            131072});
+            this.NumCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Num_KeyPress);
             // 
             // BtnAgregarCliente
             // 
             this.BtnAgregarCliente.Image = global::EsconPOS.Properties.Resources.Agregar;
-            this.BtnAgregarCliente.Location = new System.Drawing.Point(928, 13);
+            this.BtnAgregarCliente.Location = new System.Drawing.Point(928, 12);
             this.BtnAgregarCliente.Name = "BtnAgregarCliente";
             this.BtnAgregarCliente.Size = new System.Drawing.Size(31, 26);
-            this.BtnAgregarCliente.TabIndex = 15;
+            this.BtnAgregarCliente.TabIndex = 16;
             this.BtnAgregarCliente.UseVisualStyleBackColor = true;
             // 
             // BtnAgregarProducto
             // 
             this.BtnAgregarProducto.Image = global::EsconPOS.Properties.Resources.Agregar;
-            this.BtnAgregarProducto.Location = new System.Drawing.Point(1124, 78);
+            this.BtnAgregarProducto.Location = new System.Drawing.Point(1081, 78);
             this.BtnAgregarProducto.Name = "BtnAgregarProducto";
             this.BtnAgregarProducto.Size = new System.Drawing.Size(31, 26);
-            this.BtnAgregarProducto.TabIndex = 16;
+            this.BtnAgregarProducto.TabIndex = 18;
             this.BtnAgregarProducto.UseVisualStyleBackColor = true;
             // 
             // GbxTotales
@@ -183,7 +191,7 @@
             this.GbxTotales.Location = new System.Drawing.Point(677, 399);
             this.GbxTotales.Name = "GbxTotales";
             this.GbxTotales.Size = new System.Drawing.Size(478, 166);
-            this.GbxTotales.TabIndex = 17;
+            this.GbxTotales.TabIndex = 19;
             this.GbxTotales.TabStop = false;
             this.GbxTotales.Text = "Totales";
             // 
@@ -194,13 +202,13 @@
             this.colMonto});
             this.listView.FullRowSelect = true;
             this.listView.GridLines = true;
-            listViewGroup1.Header = "No Header";
-            listViewGroup1.Name = "Dummy";
+            listViewGroup5.Header = "No Header";
+            listViewGroup5.Name = "Dummy";
             this.listView.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1});
+            listViewGroup5});
             this.listView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem5});
             this.listView.Location = new System.Drawing.Point(26, 30);
             this.listView.MultiSelect = false;
             this.listView.Name = "listView";
@@ -227,24 +235,30 @@
             this.BtnAgregarEmpleado.Location = new System.Drawing.Point(928, 44);
             this.BtnAgregarEmpleado.Name = "BtnAgregarEmpleado";
             this.BtnAgregarEmpleado.Size = new System.Drawing.Size(31, 26);
-            this.BtnAgregarEmpleado.TabIndex = 21;
+            this.BtnAgregarEmpleado.TabIndex = 17;
             this.BtnAgregarEmpleado.UseVisualStyleBackColor = true;
             // 
             // TxtNroIDEmp
             // 
             this.TxtNroIDEmp.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.TxtNroIDEmp.Location = new System.Drawing.Point(223, 45);
+            this.TxtNroIDEmp.Location = new System.Drawing.Point(246, 44);
             this.TxtNroIDEmp.Name = "TxtNroIDEmp";
             this.TxtNroIDEmp.Size = new System.Drawing.Size(151, 26);
-            this.TxtNroIDEmp.TabIndex = 20;
+            this.TxtNroIDEmp.TabIndex = 6;
+            this.TxtNroIDEmp.TextChanged += new System.EventHandler(this.TxtNroIDEmp_TextChanged);
+            this.TxtNroIDEmp.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // CmbTipoIDEmp
             // 
+            this.CmbTipoIDEmp.DropDownWidth = 200;
             this.CmbTipoIDEmp.FormattingEnabled = true;
-            this.CmbTipoIDEmp.Location = new System.Drawing.Point(172, 44);
+            this.CmbTipoIDEmp.Location = new System.Drawing.Point(172, 43);
             this.CmbTipoIDEmp.Name = "CmbTipoIDEmp";
-            this.CmbTipoIDEmp.Size = new System.Drawing.Size(48, 28);
-            this.CmbTipoIDEmp.TabIndex = 19;
+            this.CmbTipoIDEmp.Size = new System.Drawing.Size(68, 28);
+            this.CmbTipoIDEmp.TabIndex = 5;
+            this.CmbTipoIDEmp.SelectedIndexChanged += new System.EventHandler(this.CmbTipoIDEmp_SelectedIndexChanged);
+            this.CmbTipoIDEmp.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.CmbTipoID_Format);
+            this.CmbTipoIDEmp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
             // 
             // label2
             // 
@@ -253,33 +267,35 @@
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(155, 20);
-            this.label2.TabIndex = 18;
+            this.label2.TabIndex = 4;
             this.label2.Text = "Empleado/Vendedor";
             // 
-            // CmbNombreCli
+            // CmbClientes
             // 
-            this.CmbNombreCli.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.CmbNombreCli.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CmbNombreCli.FormattingEnabled = true;
-            this.CmbNombreCli.Location = new System.Drawing.Point(380, 12);
-            this.CmbNombreCli.Name = "CmbNombreCli";
-            this.CmbNombreCli.Size = new System.Drawing.Size(407, 28);
-            this.CmbNombreCli.TabIndex = 22;
+            this.CmbClientes.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CmbClientes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CmbClientes.FormattingEnabled = true;
+            this.CmbClientes.Location = new System.Drawing.Point(403, 11);
+            this.CmbClientes.Name = "CmbClientes";
+            this.CmbClientes.Size = new System.Drawing.Size(407, 28);
+            this.CmbClientes.TabIndex = 3;
+            this.CmbClientes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
             // 
-            // CmbNombreEmp
+            // CmbEmpleados
             // 
-            this.CmbNombreEmp.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.CmbNombreEmp.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CmbNombreEmp.FormattingEnabled = true;
-            this.CmbNombreEmp.Location = new System.Drawing.Point(380, 44);
-            this.CmbNombreEmp.Name = "CmbNombreEmp";
-            this.CmbNombreEmp.Size = new System.Drawing.Size(407, 28);
-            this.CmbNombreEmp.TabIndex = 23;
+            this.CmbEmpleados.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CmbEmpleados.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CmbEmpleados.FormattingEnabled = true;
+            this.CmbEmpleados.Location = new System.Drawing.Point(403, 43);
+            this.CmbEmpleados.Name = "CmbEmpleados";
+            this.CmbEmpleados.Size = new System.Drawing.Size(407, 28);
+            this.CmbEmpleados.TabIndex = 7;
+            this.CmbEmpleados.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
             // 
             // NumValorUnit
             // 
             this.NumValorUnit.DecimalPlaces = 2;
-            this.NumValorUnit.Location = new System.Drawing.Point(835, 79);
+            this.NumValorUnit.Location = new System.Drawing.Point(815, 78);
             this.NumValorUnit.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -287,44 +303,71 @@
             0});
             this.NumValorUnit.Name = "NumValorUnit";
             this.NumValorUnit.Size = new System.Drawing.Size(127, 26);
-            this.NumValorUnit.TabIndex = 24;
+            this.NumValorUnit.TabIndex = 13;
             this.NumValorUnit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NumValorUnit.ThousandsSeparator = true;
-            this.NumValorUnit.Value = new decimal(new int[] {
-            1000001,
-            0,
-            0,
-            131072});
+            this.NumValorUnit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Num_KeyPress);
             // 
-            // NumDcto
+            // NumDescuento
             // 
-            this.NumDcto.DecimalPlaces = 2;
-            this.NumDcto.Location = new System.Drawing.Point(968, 78);
-            this.NumDcto.Maximum = new decimal(new int[] {
+            this.NumDescuento.DecimalPlaces = 2;
+            this.NumDescuento.Location = new System.Drawing.Point(948, 78);
+            this.NumDescuento.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
-            this.NumDcto.Name = "NumDcto";
-            this.NumDcto.Size = new System.Drawing.Size(127, 26);
-            this.NumDcto.TabIndex = 25;
-            this.NumDcto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.NumDcto.ThousandsSeparator = true;
-            this.NumDcto.Value = new decimal(new int[] {
-            1000001,
-            0,
-            0,
-            131072});
+            this.NumDescuento.Name = "NumDescuento";
+            this.NumDescuento.Size = new System.Drawing.Size(127, 26);
+            this.NumDescuento.TabIndex = 14;
+            this.NumDescuento.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumDescuento.ThousandsSeparator = true;
+            this.NumDescuento.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Num_KeyPress);
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TssLblStatus,
+            this.TssLblAgregado,
+            this.TssLblModificado});
+            this.statusStrip.Location = new System.Drawing.Point(0, 569);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
+            this.statusStrip.Size = new System.Drawing.Size(1192, 22);
+            this.statusStrip.TabIndex = 20;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // TssLblStatus
+            // 
+            this.TssLblStatus.Name = "TssLblStatus";
+            this.TssLblStatus.Size = new System.Drawing.Size(864, 17);
+            this.TssLblStatus.Spring = true;
+            this.TssLblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // TssLblAgregado
+            // 
+            this.TssLblAgregado.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TssLblAgregado.Name = "TssLblAgregado";
+            this.TssLblAgregado.Size = new System.Drawing.Size(150, 17);
+            this.TssLblAgregado.Text = "Agregado por 99-99-9999 99:99:99";
+            // 
+            // TssLblModificado
+            // 
+            this.TssLblModificado.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TssLblModificado.Name = "TssLblModificado";
+            this.TssLblModificado.Size = new System.Drawing.Size(155, 17);
+            this.TssLblModificado.Text = "Modificado por 99-99-9999 99:99:99";
             // 
             // FrmPuntoDeVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1192, 579);
-            this.Controls.Add(this.NumDcto);
+            this.ClientSize = new System.Drawing.Size(1192, 591);
+            this.Controls.Add(this.statusStrip);
+            this.Controls.Add(this.NumDescuento);
             this.Controls.Add(this.NumValorUnit);
-            this.Controls.Add(this.CmbNombreEmp);
-            this.Controls.Add(this.CmbNombreCli);
+            this.Controls.Add(this.CmbEmpleados);
+            this.Controls.Add(this.CmbClientes);
             this.Controls.Add(this.BtnAgregarEmpleado);
             this.Controls.Add(this.TxtNroIDEmp);
             this.Controls.Add(this.CmbTipoIDEmp);
@@ -333,9 +376,9 @@
             this.Controls.Add(this.BtnAgregarProducto);
             this.Controls.Add(this.BtnAgregarCliente);
             this.Controls.Add(this.NumCantidad);
-            this.Controls.Add(this.CmbDescripcion);
-            this.Controls.Add(this.CmbClase);
-            this.Controls.Add(this.CmbMarca);
+            this.Controls.Add(this.CmbProductos);
+            this.Controls.Add(this.CmbClases);
+            this.Controls.Add(this.CmbMarcas);
             this.Controls.Add(this.TxtProdCodigo);
             this.Controls.Add(this.DgvProdServ);
             this.Controls.Add(this.TxtNroIDCli);
@@ -346,12 +389,15 @@
             this.Name = "FrmPuntoDeVenta";
             this.Text = "FrmPuntoDeVenta";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmPuntoDeVenta_FormClosing);
             this.Load += new System.EventHandler(this.FrmPuntoDeVenta_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DgvProdServ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumCantidad)).EndInit();
             this.GbxTotales.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.NumValorUnit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumDcto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumDescuento)).EndInit();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -364,9 +410,9 @@
         private System.Windows.Forms.TextBox TxtNroIDCli;
         private System.Windows.Forms.DataGridView DgvProdServ;
         private System.Windows.Forms.TextBox TxtProdCodigo;
-        private System.Windows.Forms.ComboBox CmbMarca;
-        private System.Windows.Forms.ComboBox CmbClase;
-        private System.Windows.Forms.ComboBox CmbDescripcion;
+        private System.Windows.Forms.ComboBox CmbMarcas;
+        private System.Windows.Forms.ComboBox CmbClases;
+        private System.Windows.Forms.ComboBox CmbProductos;
         private System.Windows.Forms.NumericUpDown NumCantidad;
         private System.Windows.Forms.Button BtnAgregarCliente;
         private System.Windows.Forms.Button BtnAgregarProducto;
@@ -378,9 +424,13 @@
         private System.Windows.Forms.TextBox TxtNroIDEmp;
         private System.Windows.Forms.ComboBox CmbTipoIDEmp;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox CmbNombreCli;
-        private System.Windows.Forms.ComboBox CmbNombreEmp;
+        private System.Windows.Forms.ComboBox CmbClientes;
+        private System.Windows.Forms.ComboBox CmbEmpleados;
         private System.Windows.Forms.NumericUpDown NumValorUnit;
-        private System.Windows.Forms.NumericUpDown NumDcto;
+        private System.Windows.Forms.NumericUpDown NumDescuento;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel TssLblStatus;
+        private System.Windows.Forms.ToolStripStatusLabel TssLblAgregado;
+        private System.Windows.Forms.ToolStripStatusLabel TssLblModificado;
     }
 }

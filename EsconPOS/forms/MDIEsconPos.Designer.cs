@@ -38,7 +38,9 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.TmrHora = new System.Windows.Forms.Timer(this.components);
             this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.TssbCaja = new System.Windows.Forms.ToolStripButton();
+            this.TssbCaja = new System.Windows.Forms.ToolStripSplitButton();
+            this.TsmiIncluirFactura = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiAbrirCuenta = new System.Windows.Forms.ToolStripMenuItem();
             this.TssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.TssbAdministrar = new System.Windows.Forms.ToolStripSplitButton();
             this.TsmiEmpresas = new System.Windows.Forms.ToolStripMenuItem();
@@ -134,14 +136,32 @@
             // 
             // TssbCaja
             // 
+            this.TssbCaja.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TsmiIncluirFactura,
+            this.TsmiAbrirCuenta});
             this.TssbCaja.Image = global::EsconPOS.Properties.Resources.CajaCerrada;
             this.TssbCaja.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.TssbCaja.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TssbCaja.Name = "TssbCaja";
-            this.TssbCaja.Size = new System.Drawing.Size(63, 51);
+            this.TssbCaja.Size = new System.Drawing.Size(75, 51);
             this.TssbCaja.Text = "Abrir Caja";
             this.TssbCaja.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.TssbCaja.Click += new System.EventHandler(this.TssbCaja_Click);
+            this.TssbCaja.ButtonClick += new System.EventHandler(this.TssbCaja_ButtonClick);
+            // 
+            // TsmiIncluirFactura
+            // 
+            this.TsmiIncluirFactura.Name = "TsmiIncluirFactura";
+            this.TsmiIncluirFactura.Size = new System.Drawing.Size(152, 22);
+            this.TsmiIncluirFactura.Text = "Incluir &Factura";
+            this.TsmiIncluirFactura.Visible = false;
+            this.TsmiIncluirFactura.Click += new System.EventHandler(this.TsmiIncluirFactura_Click);
+            // 
+            // TsmiAbrirCuenta
+            // 
+            this.TsmiAbrirCuenta.Name = "TsmiAbrirCuenta";
+            this.TsmiAbrirCuenta.Size = new System.Drawing.Size(152, 22);
+            this.TsmiAbrirCuenta.Text = "Abrir &Cuenta";
+            this.TsmiAbrirCuenta.Visible = false;
             // 
             // TssSeparator1
             // 
@@ -379,7 +399,6 @@
         private System.Windows.Forms.ToolStripMenuItem TsmiMonedas;
         private System.Windows.Forms.ToolStripMenuItem TsmiTiposDocumentos;
         private System.Windows.Forms.ToolStripMenuItem TsmiUnidadesMedida;
-        private System.Windows.Forms.ToolStripButton TssbCaja;
         private System.Windows.Forms.ToolStripSplitButton TssbProductos;
         private System.Windows.Forms.ToolStripMenuItem TsmiMarcas;
         private System.Windows.Forms.ToolStripMenuItem TsmiClases;
@@ -393,6 +412,9 @@
         private System.Windows.Forms.ToolStripMenuItem TsmiEmpleados;
         private System.Windows.Forms.ToolStripMenuItem TsmiClientes;
         private System.Windows.Forms.ToolStripMenuItem TsmiFormasPago;
+        private System.Windows.Forms.ToolStripSplitButton TssbCaja;
+        private System.Windows.Forms.ToolStripMenuItem TsmiIncluirFactura;
+        private System.Windows.Forms.ToolStripMenuItem TsmiAbrirCuenta;
     }
 }
 

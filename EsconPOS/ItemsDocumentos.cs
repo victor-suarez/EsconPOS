@@ -25,7 +25,6 @@ namespace EsconPOS
         public long EsDevolucion { get; set; }
         public Nullable<long> AutorizadoPor { get; set; }
         public string FechaHoraAutorizado { get; set; }
-        public double PrecioUnitario { get; set; }
         public double MontoDescuento { get; set; }
         public Nullable<long> VendidoPor { get; set; }
         public double ValorUnitario { get; set; }

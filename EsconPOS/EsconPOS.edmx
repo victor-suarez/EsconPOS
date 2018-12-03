@@ -1519,7 +1519,6 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           <NavigationProperty Name="EmpleadoAut" Relationship="Self.FK_ItemsDocumentos_0_0" FromRole="ItemsDocumentos" ToRole="Empleados" />
           <NavigationProperty Name="Impuestos" Relationship="Self.FK_ItemsDocumentos_1_0" FromRole="ItemsDocumentos" ToRole="Impuestos" />
           <NavigationProperty Name="Productos" Relationship="Self.FK_ItemsDocumentos_2_0" FromRole="ItemsDocumentos" ToRole="Productos" />
-          <Property Name="PrecioUnitario" Type="Double" Nullable="false" />
           <Property Name="MontoDescuento" Type="Double" Nullable="false" />
           <Property Name="VendidoPor" Type="Int64" />
           <NavigationProperty Name="EmpleadoVen" Relationship="EsconPOS.FK_ItemsDocumentos_1_01" FromRole="ItemsDocumentos" ToRole="Empleados" />
@@ -1614,7 +1613,6 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           <NavigationProperty Name="TiposProductos" Relationship="Self.FK_Productos_2_0" FromRole="Productos" ToRole="TiposProductos" />
           <NavigationProperty Name="UnidadesMedidas" Relationship="Self.FK_Productos_5_0" FromRole="Productos" ToRole="UnidadesMedidas" />
           <Property Name="CostoUnitario" Type="Double" Nullable="false" />
-          <Property Name="PrecioUnitario" Type="Double" Nullable="false" />
           <Property Name="ValorUnitario" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="Provincias">

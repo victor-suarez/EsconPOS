@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,19 +16,32 @@ namespace EsconPOS.forms
     {
         private mainEntities context = new mainEntities();
 
-        private void CargarEmpleados()
+        private void CargarEmpleados(string OrderBy = "ID")
         {
-            var dataset = context.Empleados
-                .Where(e => e.EmpleadoID > 0)
-                .Select(e => new {
-                    ID = e.EmpleadoID,
-                    Nombres = e.Nombre,
-                    Identificación = e.Identificaciones.Iniciales + "-" + e.NroDocIdent,
-                    Teléfonos = e.Telefono
-                }).ToList();
-            DgvEmpleados.DataSource = dataset;
+            string FiltroTipoID = CmbFiltroTipoID.Text;
+            string FiltroNroID = TxtFiltroNroID.Text.Trim();
+            string FiltroNombre = TxtFiltroNombre.Text.Trim();
+            string FiltroNroTelefonico = TxtFilterNroTelefonico.Text.Trim();
+            DgvEmpleados.DataSource = context.Empleados
+                                        .Where(e => e.EmpleadoID > 0)
+                                        .Select(e => new {
+                                            ID = e.EmpleadoID,
+                                            Nombres = e.Nombre,
+                                            Identificación = e.Identificaciones.Iniciales + "-" + e.NroDocIdent,
+                                            Teléfonos = e.Telefono
+                                            })
+                                        .Where(e => (e.Identificación.StartsWith(FiltroTipoID) || FiltroTipoID == "")
+                                                    &&
+                                                    (e.Identificación.Contains(FiltroNroID) || FiltroNroID == "")
+                                                    &&
+                                                    (e.Nombres.Contains(FiltroNombre) || FiltroNombre == "")
+                                                    &&
+                                                    (e.Teléfonos.Contains(FiltroNroTelefonico) || FiltroNroTelefonico == "")
+                                            )
+                                        .OrderBy(OrderBy)
+                                        .ToList();
             DgvEmpleados.Columns["ID"].Visible = false;
-            DgvEmpleados.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+            DgvEmpleados.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
         private void CargarCombos()
@@ -35,6 +49,10 @@ namespace EsconPOS.forms
             CmbTipoIDEmpleado.DataSource = context.Identificaciones.ToList();
             CmbTipoIDEmpleado.DisplayMember = "Identificacion";
             CmbTipoIDEmpleado.ValueMember = "IdentificacionID";
+
+            CmbFiltroTipoID.DataSource = context.Identificaciones.ToList();
+            CmbFiltroTipoID.DisplayMember = "Iniciales";
+            CmbFiltroTipoID.ValueMember = "IdentificacionID";
         }
 
         private void ClearCrt()
@@ -49,6 +67,24 @@ namespace EsconPOS.forms
             TxtUsuario.Text = "";
             TssLblAgregado.Text = "";
             TssLblModificado.Text = "";
+        }
+
+        private void IncluirBtnClear(TextBox txt)
+        {
+            var btn = new Button();
+            btn.AutoSize = false;
+            btn.Size = new Size(25, txt.ClientSize.Height + 2);
+            btn.Location = new Point(txt.ClientSize.Width - btn.Width, -1);
+            btn.Cursor = Cursors.Default;
+            btn.Image = Properties.Resources.ClearTxt;
+            btn.Click += btn_Click;
+            //btn.Visible = false;
+            txt.Controls.Add(btn);
+        }
+
+        private void btn_Click(object sender, EventArgs e)
+        {
+            ((TextBox)((Button)sender).Parent).Clear();
         }
 
         private void MoverRegistroToCrt(long ID)
@@ -109,25 +145,23 @@ namespace EsconPOS.forms
             {
                 try
                 {
-                    context.Empleados.Add
-                    (
-                        new Empleados
-                        {
-                            IdentificacionID = ((Identificaciones)CmbTipoIDEmpleado.SelectedItem).IdentificacionID,
-                            NroDocIdent = TxtNroIDEmpleado.Text,
-                            Nombre = TxtNombreEmpleado.Text,
-                            Direccion = TxtDireccionEmpleado.Text.Trim() == "" ? null : TxtDireccionEmpleado.Text.Trim(),
-                            Telefono = TxtTelefonoEmpleado.Text.Trim() == "" ? null : TxtTelefonoEmpleado.Text.Trim(),
-                            CorreoElectronico = TxtCorreoElectronicoEmpleado.Text.Trim() == "" ? null : TxtCorreoElectronicoEmpleado.Text.Trim(),
-                            Login = TxtUsuario.Text.Trim(),
-                            PasswdHash = "",
-                            EsSupervisor = ChkEsSupervisor.Checked ? 1 : 0,
-                            EsAdministrador = 0,
-                            Activo = 1,
-                            AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                            AgregadoPor = Global.Usuario.UsuarioID
-                        }
-                    );
+                    var empl = new Empleados
+                    {
+                        IdentificacionID = ((Identificaciones)CmbTipoIDEmpleado.SelectedItem).IdentificacionID,
+                        NroDocIdent = TxtNroIDEmpleado.Text,
+                        Nombre = TxtNombreEmpleado.Text,
+                        Direccion = TxtDireccionEmpleado.Text.Trim() == "" ? null : TxtDireccionEmpleado.Text.Trim(),
+                        Telefono = TxtTelefonoEmpleado.Text.Trim() == "" ? null : TxtTelefonoEmpleado.Text.Trim(),
+                        CorreoElectronico = TxtCorreoElectronicoEmpleado.Text.Trim() == "" ? null : TxtCorreoElectronicoEmpleado.Text.Trim(),
+                        Login = TxtUsuario.Text.Trim(),
+                        PasswdHash = "",
+                        EsSupervisor = ChkEsSupervisor.Checked ? 1 : 0,
+                        EsAdministrador = 0,
+                        Activo = 1,
+                        AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                        AgregadoPor = Global.glUsuario
+                    };
+                    context.Empleados.Add(empl);
                     context.SaveChanges();
                 }
                 catch (Exception ex)
@@ -157,7 +191,7 @@ namespace EsconPOS.forms
                     emp.EsSupervisor = ChkEsSupervisor.Checked ? 1 : 0;
                     emp.Login = TxtUsuario.Text.Trim();
                     emp.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    emp.ModificadoPor = Global.Usuario.UsuarioID;
+                    emp.ModificadoPor = Global.glUsuario;
                     context.SaveChanges();
                 }
                 catch (Exception ex)
@@ -237,8 +271,14 @@ namespace EsconPOS.forms
 
         private void DgvEmpleados_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
             MoverRegistroToCrt(long.Parse(DgvEmpleados["ID", e.RowIndex].Value.ToString()));
             TabEmpleados.SelectTab("TabEditar");
+        }
+
+        private void DgvEmpleados_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            CargarEmpleados(((DataGridView)sender).Columns[e.ColumnIndex].HeaderText);
         }
 
         public FrmEmpleado()
@@ -260,6 +300,9 @@ namespace EsconPOS.forms
             TssLblModificado.Text = "";
             Left = 10;
             Top = 10;
+            IncluirBtnClear(TxtFiltroNroID);
+            IncluirBtnClear(TxtFiltroNombre);
+            IncluirBtnClear(TxtFilterNroTelefonico);
         }
 
         //Siguiente campo cuando presiona [ENTER]

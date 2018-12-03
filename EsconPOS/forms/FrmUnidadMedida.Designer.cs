@@ -51,6 +51,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.TxtCodigo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.TxtFiltroIniciales = new System.Windows.Forms.TextBox();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.TabUnidades.SuspendLayout();
@@ -70,7 +71,7 @@
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.toolStrip.Size = new System.Drawing.Size(623, 54);
+            this.toolStrip.Size = new System.Drawing.Size(820, 54);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -132,14 +133,14 @@
             this.statusStrip.Location = new System.Drawing.Point(0, 446);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
-            this.statusStrip.Size = new System.Drawing.Size(623, 22);
+            this.statusStrip.Size = new System.Drawing.Size(820, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusStrip1";
             // 
             // TssLblStatus
             // 
             this.TssLblStatus.Name = "TssLblStatus";
-            this.TssLblStatus.Size = new System.Drawing.Size(295, 17);
+            this.TssLblStatus.Size = new System.Drawing.Size(492, 17);
             this.TssLblStatus.Spring = true;
             this.TssLblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -161,32 +162,34 @@
             // 
             this.TabUnidades.Controls.Add(this.PagLista);
             this.TabUnidades.Controls.Add(this.PagEditar);
-            this.TabUnidades.Location = new System.Drawing.Point(12, 57);
+            this.TabUnidades.Location = new System.Drawing.Point(0, 57);
             this.TabUnidades.Name = "TabUnidades";
             this.TabUnidades.SelectedIndex = 0;
-            this.TabUnidades.Size = new System.Drawing.Size(604, 378);
+            this.TabUnidades.Size = new System.Drawing.Size(820, 378);
             this.TabUnidades.TabIndex = 0;
             // 
             // PagLista
             // 
+            this.PagLista.Controls.Add(this.TxtFiltroIniciales);
             this.PagLista.Controls.Add(this.TxtFiltroCodigo);
             this.PagLista.Controls.Add(this.DgvUnidades);
             this.PagLista.Controls.Add(this.TxtFiltroUnidad);
             this.PagLista.Location = new System.Drawing.Point(4, 29);
             this.PagLista.Name = "PagLista";
             this.PagLista.Padding = new System.Windows.Forms.Padding(3);
-            this.PagLista.Size = new System.Drawing.Size(596, 345);
+            this.PagLista.Size = new System.Drawing.Size(812, 345);
             this.PagLista.TabIndex = 0;
             this.PagLista.Text = "Lista";
             this.PagLista.UseVisualStyleBackColor = true;
             // 
             // TxtFiltroCodigo
             // 
-            this.TxtFiltroCodigo.Location = new System.Drawing.Point(9, 6);
+            this.TxtFiltroCodigo.Location = new System.Drawing.Point(6, 6);
             this.TxtFiltroCodigo.MaxLength = 3;
             this.TxtFiltroCodigo.Name = "TxtFiltroCodigo";
             this.TxtFiltroCodigo.Size = new System.Drawing.Size(88, 26);
             this.TxtFiltroCodigo.TabIndex = 0;
+            this.TxtFiltroCodigo.TextChanged += new System.EventHandler(this.Txt_TextChanged);
             // 
             // DgvUnidades
             // 
@@ -196,24 +199,25 @@
             this.DgvUnidades.AllowUserToResizeRows = false;
             this.DgvUnidades.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.DgvUnidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgvUnidades.Location = new System.Drawing.Point(9, 42);
+            this.DgvUnidades.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DgvUnidades.Location = new System.Drawing.Point(3, 40);
             this.DgvUnidades.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.DgvUnidades.MultiSelect = false;
             this.DgvUnidades.Name = "DgvUnidades";
             this.DgvUnidades.ReadOnly = true;
             this.DgvUnidades.RowHeadersVisible = false;
             this.DgvUnidades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DgvUnidades.Size = new System.Drawing.Size(578, 295);
-            this.DgvUnidades.TabIndex = 2;
+            this.DgvUnidades.Size = new System.Drawing.Size(806, 302);
+            this.DgvUnidades.TabIndex = 3;
             this.DgvUnidades.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvUnidades_CellContentDoubleClick);
             this.DgvUnidades.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvUnidades_ColumnHeaderMouseClick);
             // 
             // TxtFiltroUnidad
             // 
-            this.TxtFiltroUnidad.Location = new System.Drawing.Point(103, 6);
+            this.TxtFiltroUnidad.Location = new System.Drawing.Point(100, 6);
             this.TxtFiltroUnidad.MaxLength = 255;
             this.TxtFiltroUnidad.Name = "TxtFiltroUnidad";
-            this.TxtFiltroUnidad.Size = new System.Drawing.Size(484, 26);
+            this.TxtFiltroUnidad.Size = new System.Drawing.Size(612, 26);
             this.TxtFiltroUnidad.TabIndex = 1;
             this.TxtFiltroUnidad.TextChanged += new System.EventHandler(this.Txt_TextChanged);
             // 
@@ -229,7 +233,7 @@
             this.PagEditar.Location = new System.Drawing.Point(4, 29);
             this.PagEditar.Name = "PagEditar";
             this.PagEditar.Padding = new System.Windows.Forms.Padding(3);
-            this.PagEditar.Size = new System.Drawing.Size(596, 345);
+            this.PagEditar.Size = new System.Drawing.Size(812, 345);
             this.PagEditar.TabIndex = 1;
             this.PagEditar.Text = "Editar";
             this.PagEditar.UseVisualStyleBackColor = true;
@@ -301,11 +305,19 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Código:";
             // 
+            // TxtFiltroIniciales
+            // 
+            this.TxtFiltroIniciales.Location = new System.Drawing.Point(718, 6);
+            this.TxtFiltroIniciales.MaxLength = 3;
+            this.TxtFiltroIniciales.Name = "TxtFiltroIniciales";
+            this.TxtFiltroIniciales.Size = new System.Drawing.Size(88, 26);
+            this.TxtFiltroIniciales.TabIndex = 2;
+            // 
             // FrmUnidadMedida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(623, 468);
+            this.ClientSize = new System.Drawing.Size(820, 468);
             this.Controls.Add(this.TabUnidades);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
@@ -355,5 +367,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox TxtIniciales;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox TxtFiltroIniciales;
     }
 }

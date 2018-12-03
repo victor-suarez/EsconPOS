@@ -35,7 +35,6 @@ namespace EsconPOS
         public string ModificadoEl { get; set; }
         public Nullable<long> ModificadoPor { get; set; }
         public double CostoUnitario { get; set; }
-        public double PrecioUnitario { get; set; }
         public double ValorUnitario { get; set; }
     
         public virtual Empleados EmpleadoUpd { get; set; }

@@ -1,12 +1,9 @@
 ﻿using EsconPOS.classes;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Dynamic;
 using System.Windows.Forms;
 
 namespace EsconPOS.forms
@@ -15,18 +12,45 @@ namespace EsconPOS.forms
     {
         private mainEntities context = new mainEntities();
 
-        private void CargarMarcas()
+        private void CargarMarcas(string OrderBy = "ID")
         {
-            var dataset = context.Marcas
-                .Select(m => new {
-                    ID = m.MarcaID,
-                    Codigo = m.Codigo,
-                    Nombre = m.Marca,
-                    En_Uso = m.Activo == 0 ? "NO" : "SI"
-                }).ToList();
-            DgvMarcas.DataSource = dataset;
+            string FiltroCodigo = TxtFiltroCodigo.Text.Trim();
+            string FiltroMarca = TxtFiltroMarca.Text.Trim();
+            DgvMarcas.DataSource = context.Marcas
+                                    .Select(m => new {
+                                                        ID = m.MarcaID,
+                                                        Activo = m.Activo,
+                                                        Código = m.Codigo,
+                                                        Nombre = m.Marca,
+                                                        En_Uso = m.Activo == 0 ? "NO" : "SI"
+                                                    })
+                                    .Where(m =>
+                                           (m.Código.StartsWith(FiltroCodigo) || FiltroCodigo == "")
+                                           &&
+                                           (m.Nombre.Contains(FiltroMarca) || FiltroMarca == "") 
+                                           )
+                                    .OrderBy(OrderBy)
+                                    .ToList();
             DgvMarcas.Columns["ID"].Visible = false;
-            DgvMarcas.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+            DgvMarcas.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+        }
+
+        private void IncluirBtnClear(TextBox txt)
+        {
+            var btn = new Button();
+            btn.AutoSize = false;
+            btn.Size = new Size(25, txt.ClientSize.Height + 2);
+            btn.Location = new Point(txt.ClientSize.Width - btn.Width, -1);
+            btn.Cursor = Cursors.Default;
+            btn.Image = Properties.Resources.ClearTxt;
+            btn.Click += btn_Click;
+            //btn.Visible = false;
+            txt.Controls.Add(btn);
+        }
+
+        private void btn_Click(object sender, EventArgs e)
+        {
+            ((TextBox)((Button)sender).Parent).Clear();
         }
 
         private void ClearCrt()
@@ -92,17 +116,15 @@ namespace EsconPOS.forms
             {
                 try
                 {
-                    context.Marcas.Add
-                    (
-                        new Marcas
-                        {
-                            Codigo = TxtCodigo.Text,
-                            Marca = TxtMarca.Text,
-                            Activo = ChkActiva.Checked ? 1 : 0,
-                            AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                            AgregadoPor = Global.Usuario.UsuarioID
-                        }
-                    );
+                    var marca = new Marcas
+                    {
+                        Codigo = TxtCodigo.Text,
+                        Marca = TxtMarca.Text,
+                        Activo = ChkActiva.Checked ? 1 : 0,
+                        AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                        AgregadoPor = Global.glUsuario
+                    };
+                    context.Marcas.Add(marca);
                     context.SaveChanges();
                 }
                 catch (Exception ex)
@@ -127,7 +149,7 @@ namespace EsconPOS.forms
                     mar.Marca = TxtMarca.Text;
                     mar.Activo = ChkActiva.Checked ? 1 : 0;
                     mar.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    mar.ModificadoPor = Global.Usuario.UsuarioID;
+                    mar.ModificadoPor = Global.glUsuario;
 
                     context.SaveChanges();
                 }

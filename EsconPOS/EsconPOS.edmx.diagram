@@ -28,7 +28,7 @@
         <EntityTypeShape EntityType="EsconPOS.TiposProductos" Width="1.5" PointX="5.25" PointY="51.375" IsExpanded="true" />
         <EntityTypeShape EntityType="EsconPOS.Transacciones" Width="1.5" PointX="6" PointY="32.625" IsExpanded="true" />
         <EntityTypeShape EntityType="EsconPOS.UnidadesMedidas" Width="1.5" PointX="5.25" PointY="35.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="EsconPOS.Usuarios" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EsconPOS.Usuarios" Width="1.5" PointX="2" PointY="16.875" IsExpanded="true" />
         <AssociationConnector Association="EsconPOS.FK_CajaLog_0_0" ManuallyRouted="false" />
         <AssociationConnector Association="EsconPOS.FK_CajaLog_1_0" ManuallyRouted="false" />
         <AssociationConnector Association="EsconPOS.FK_CajaLog_2_0" ManuallyRouted="false" />

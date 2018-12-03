@@ -10,6 +10,14 @@ namespace EsconPOS.classes
     class Global
     {
         private static bool _LoggedIN;
+        private static long ID_Usuario;
+        private static long ID_Empleado;
+        private static string NomEmpleado;
+        private static long ID_Caja;
+        private static string NomCaja;
+        private static long ID_Empresa;
+        private static string NomEmpresa;
+
         private static Usuarios _Usuario;
         private static Empleados _Empleado;
         private static Cajas _Caja;
@@ -19,6 +27,42 @@ namespace EsconPOS.classes
             get { return _LoggedIN; }
             set { _LoggedIN = value; }
         }
+        public static long glUsuario
+        {
+            get { return ID_Usuario; }
+            set { ID_Usuario = value; }
+        }
+        public static long glEmpleado
+        {
+            get { return ID_Empleado; }
+            set { ID_Empleado = value; }
+        }
+        public static string glNomEmpleado
+        {
+            get { return NomEmpleado; }
+            set { NomEmpleado = value; }
+        }
+        public static long glCaja
+        {
+            get { return ID_Caja; }
+            set { ID_Caja = value; }
+        }
+        public static string glNomCaja
+        {
+            get { return NomCaja; }
+            set { NomCaja = value; }
+        }
+        public static long glEmpresa
+        {
+            get { return ID_Empresa; }
+            set { ID_Empresa = value; }
+        }
+        public static string glNomEmpresa
+        {
+            get { return NomEmpresa; }
+            set { NomEmpresa = value; }
+        }
+
         public static Usuarios Usuario
         {
             get { return _Usuario; }
