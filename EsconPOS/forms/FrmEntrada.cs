@@ -1,30 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using EsconPOS.classes;
+using System;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using EsconPOS.classes;
 
 namespace EsconPOS.forms
 {
     public partial class FrmEntrada : Form
     {
+        #region Variables y constantes
+
         //private Datos Conx = Datos.Conx;
         private bool LoggedIN = false;
 
-        public FrmEntrada()
-        {
-            InitializeComponent();
-        }
+        #endregion Variables y constantes
+
+        #region Funciones
 
         private void Entrada()
         {
-            // Lo necesito en una variable porque no puedo pasarle la función a LINQ.
-            string passwd = Global.GetStringSha256Hash(txtContrasenia.Text.Trim());
             //try
             //{
             //    Conx.OpenDatabase();
@@ -36,12 +31,12 @@ namespace EsconPOS.forms
             try
             {
                 SetStatus("Abriendo la base de datos...");
-                using(var context = new mainEntities())
+                using (var context = new mainEntities())
                 {
                     try
                     {
                         SetStatus("Buscando el administrador...");
-                       // Verificar la existencia de un usuario administrador
+                        // Verificar la existencia de un usuario administrador
                         var adm = (from a in context.Empleados
                                    where a.EsAdministrador == 1
                                    select a).FirstOrDefault();
@@ -53,18 +48,17 @@ namespace EsconPOS.forms
                             return;
                         };
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
-                        if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                            Global.MensajeErrorBd(ex, "Error buscando el administrador.");
-                        else
-                            Global.MensajeError(ex, "Error buscando el administrador.");
+                        Global.MensajeError(ex, "Error buscando el administrador.");
                         return;
                     }
 
                     try
                     {
                         SetStatus("Buscando datos del usuario...");
+                        // Lo necesito en una variable porque no puedo pasarle la función a LINQ.
+                        string passwd = Global.GetStringSha256Hash(txtContrasenia.Text.Trim());
                         var user = (from u in context.Usuarios
                                     where u.Login == TxtLogin.Text.ToUpper().Trim()
                                     && u.PasswdHash == passwd
@@ -76,12 +70,9 @@ namespace EsconPOS.forms
                         };
                         Global.glUsuario = user.UsuarioID;
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
-                        if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                            Global.MensajeErrorBd(ex, "Error buscando el usuario.");
-                        else
-                            Global.MensajeError(ex, "Error buscando el usuario.");
+                        Global.MensajeError(ex, "Error buscando el usuario.");
                         return;
                     }
 
@@ -89,7 +80,7 @@ namespace EsconPOS.forms
                     {
                         SetStatus("Buscando datos del empleado...");
                         var emp = (from e in context.Empleados
-                                    where e.EmpleadoID == Global.glUsuario
+                                   where e.EmpleadoID == Global.glUsuario
                                    select e).First();
                         if (emp != null)
                         {
@@ -101,6 +92,7 @@ namespace EsconPOS.forms
                             {
                                 Global.glEmpresa = empr.EmpresaID;
                                 Global.glNomEmpresa = empr.NombreComercial;
+                                Global.glDistritoEmpresa = empr.DistritoID;
                             }
                         }
 
@@ -113,27 +105,24 @@ namespace EsconPOS.forms
                             Global.glNomCaja = pos.Descripcion;
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
-                        if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                            Global.MensajeErrorBd(ex, "Error buscando el empleado.");
-                        else
-                            Global.MensajeError(ex, "Error buscando el empleado.");
+                        Global.MensajeError(ex, "Error buscando el empleado.");
                         return;
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Source + "\r\n" + ex.Message, "Error buscando el usuario", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-                LoggedIN = true;
+            LoggedIN = true;
             SetStatus();
             Close();
         }
 
-         private void SetStatus(string StrStatus = "", bool Error = false)
+        private void SetStatus(string StrStatus = "", bool Error = false)
         {
             if (Error)
                 lblStatus.ForeColor = Color.Red;
@@ -160,9 +149,13 @@ namespace EsconPOS.forms
             return true;
         }
 
-        private void BtnEntrar_Click(object sender, EventArgs e)
+        #endregion Funciones
+
+        #region Métodos
+
+        public FrmEntrada()
         {
-            if(ValEntReq()) Entrada();
+            InitializeComponent();
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)
@@ -173,13 +166,14 @@ namespace EsconPOS.forms
             Close();
         }
 
-        private void TxtUsuario_KeyPress(object sender, KeyPressEventArgs e)
+        private void BtnEntrar_Click(object sender, EventArgs e)
         {
-            if (e.KeyChar == Convert.ToChar(Keys.Return))
-            {
-                e.Handled = true;
-                SelectNextControl((TextBox)sender, true, true, true, false);
-            }
+            if (ValEntReq()) Entrada();
+        }
+
+        private void FrmEntrada_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Global.LoggedIN = LoggedIN;
         }
 
         private void TxtContrasenia_KeyPress(object sender, KeyPressEventArgs e)
@@ -191,9 +185,15 @@ namespace EsconPOS.forms
             }
         }
 
-        private void FrmEntrada_FormClosed(object sender, FormClosedEventArgs e)
+        private void TxtUsuario_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Global.LoggedIN = LoggedIN;
+            if (e.KeyChar == Convert.ToChar(Keys.Return))
+            {
+                e.Handled = true;
+                SelectNextControl((TextBox)sender, true, true, true, false);
+            }
         }
+
+        #endregion Métodos
     }
 }

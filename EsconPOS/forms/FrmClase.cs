@@ -1,39 +1,42 @@
 ﻿using EsconPOS.classes;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Linq.Dynamic;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EsconPOS.forms
 {
     public partial class FrmClase : Form
     {
+        #region Veriables y constantes
+
         private mainEntities context = new mainEntities();
 
-        private void CargarClases(string OrderBy = "ID")
+        #endregion Veriables y constantes
+
+        #region Funciones
+
+        private void CargarClases(string OrderBy = "Nombre")
         {
-            string FiltroCodigo = TxtFiltroCodigo.Text;
-            string FiltroClase = TxtFiltroClase.Text;
+            string FiltroCodigo = TxtFiltroCodigo.Text.Trim();
+            string FiltroClase = TxtFiltroClase.Text.Trim();
             DgvClases.DataSource = context.TiposProductos
-                                    .Select(t => new {
+                                    .Select(t => new
+                                    {
                                         ID = t.TipoProductoID,
                                         Código = t.Codigo,
                                         Nombre = t.TipoProducto,
                                         En_Uso = t.Activo == 0 ? "NO" : "SI"
-                                        })
+                                    })
                                     .Where(t => (t.Código.Contains(FiltroCodigo) || FiltroCodigo == "")
                                                 &&
                                                 (t.Nombre.Contains(FiltroClase) || FiltroClase == ""))
                                     .OrderBy(OrderBy)
                                     .ToList();
             DgvClases.Columns["ID"].Visible = false;
-            DgvClases.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+            DgvClases.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
         private void CargarCombos()
@@ -48,41 +51,6 @@ namespace EsconPOS.forms
             ChkActiva.Checked = false;
             TssLblAgregado.Text = "";
             TssLblModificado.Text = "";
-        }
-
-        private void IncluirBtnClear(TextBox txt)
-        {
-            var btn = new Button();
-            btn.AutoSize = false;
-            btn.Size = new Size(25, txt.ClientSize.Height + 2);
-            btn.Location = new Point(txt.ClientSize.Width - btn.Width, -1);
-            btn.Cursor = Cursors.Default;
-            btn.Image = Properties.Resources.ClearTxt;
-            btn.Click += btn_Click;
-            //btn.Visible = false;
-            txt.Controls.Add(btn);
-        }
-
-        private void btn_Click(object sender, EventArgs e)
-        {
-            ((TextBox)((Button)sender).Parent).Clear();
-        }
-
-        private void MoverRegistroToCrt(long ID)
-        {
-            var cls = (from c in context.TiposProductos
-                       where c.TipoProductoID == ID
-                       select c).First();
-
-            TxtCodigo.Text = cls.Codigo;
-            TxtCodigo.Tag = cls.TipoProductoID;
-            TxtClase.Text = cls.TipoProducto;
-            ChkActiva.Checked = (cls.Activo == 1);
-            TssLblAgregado.Text = cls.EmpleadoAdd.Login.ToLower() + " " + cls.AgregadoEl;
-            if (cls.EmpleadoUpd != null)
-                TssLblModificado.Text = (cls.EmpleadoUpd.Login.ToLower() + " " + cls.ModificadoEl) ?? "";
-            else
-                TssLblModificado.Text = "";
         }
 
         private void Eliminar()
@@ -101,10 +69,7 @@ namespace EsconPOS.forms
             }
             catch (Exception ex)
             {
-                if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                    Global.MensajeErrorBd(ex, "Error eliminando clase.");
-                else
-                    Global.MensajeError(ex, "Error eliminando clase.");
+                Global.MensajeError(ex, "Error eliminando clase.");
                 return;
             }
             SetStatus("Clase eliminada.");
@@ -136,10 +101,7 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                        Global.MensajeErrorBd(ex, "Error guardando datos de la clase.");
-                    else
-                        Global.MensajeError(ex, "Error guardando datos de la clase.");
+                    Global.MensajeError(ex, "Error guardando datos de la clase.");
                     return;
                 }
                 SetStatus("Clase de productos agregada.");
@@ -162,10 +124,7 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                        Global.MensajeErrorBd(ex, "Error modificando datos de la clase.");
-                    else
-                        Global.MensajeError(ex, "Error modificando datos de la clase.");
+                    Global.MensajeError(ex, "Error modificando datos de la clase.");
                     return;
                 }
                 SetStatus("Clase de productos modificada.");
@@ -173,6 +132,36 @@ namespace EsconPOS.forms
             ClearCrt();
             CargarClases();
             Cursor.Current = Cursors.Default;
+        }
+
+        private void IncluirBtnClear(TextBox txt)
+        {
+            var btn = new Button();
+            btn.AutoSize = false;
+            btn.Size = new Size(25, txt.ClientSize.Height + 2);
+            btn.Location = new Point(txt.ClientSize.Width - btn.Width, -1);
+            btn.Cursor = Cursors.Default;
+            btn.Image = Properties.Resources.ClearTxt;
+            btn.Click += btn_Click;
+            //btn.Visible = false;
+            txt.Controls.Add(btn);
+        }
+
+        private void MoverRegistroToCrt(long ID)
+        {
+            var cls = (from c in context.TiposProductos
+                       where c.TipoProductoID == ID
+                       select c).First();
+
+            TxtCodigo.Text = cls.Codigo;
+            TxtCodigo.Tag = cls.TipoProductoID;
+            TxtClase.Text = cls.TipoProducto;
+            ChkActiva.Checked = (cls.Activo == 1);
+            TssLblAgregado.Text = cls.EmpleadoAdd.Login.ToLower() + " " + cls.AgregadoEl;
+            if (cls.EmpleadoUpd != null)
+                TssLblModificado.Text = (cls.EmpleadoUpd.Login.ToLower() + " " + cls.ModificadoEl) ?? "";
+            else
+                TssLblModificado.Text = "";
         }
 
         private void SetStatus(string Status = "", bool Error = false)
@@ -201,6 +190,20 @@ namespace EsconPOS.forms
             return true;
         }
 
+        #endregion Funciones
+
+        #region Métodos
+
+        public FrmClase()
+        {
+            InitializeComponent();
+        }
+
+        private void btn_Click(object sender, EventArgs e)
+        {
+            ((TextBox)((Button)sender).Parent).Clear();
+        }
+
         private void Chk_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Return))
@@ -222,11 +225,6 @@ namespace EsconPOS.forms
             CargarClases(((DataGridView)sender).Columns[e.ColumnIndex].HeaderText);
         }
 
-        public FrmClase()
-        {
-            InitializeComponent();
-        }
-
         private void FrmClase_FormClosing(object sender, FormClosingEventArgs e)
         {
             base.OnClosing(e);
@@ -242,15 +240,6 @@ namespace EsconPOS.forms
             Top = 10;
             IncluirBtnClear(TxtFiltroCodigo);
             IncluirBtnClear(TxtFiltroClase);
-        }
-
-        private void Txt_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == Convert.ToChar(Keys.Return))
-            {
-                e.Handled = true;
-                SelectNextControl((TextBox)sender, true, true, true, false);
-            }
         }
 
         private void TsBtnDeshacer_Click(object sender, EventArgs e)
@@ -271,6 +260,22 @@ namespace EsconPOS.forms
         private void TsBtnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void Txt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Return))
+            {
+                e.Handled = true;
+                SelectNextControl((TextBox)sender, true, true, true, false);
+            }
+        }
+
+        #endregion Métodos
+
+        private void Txt_TextChanged(object sender, EventArgs e)
+        {
+            CargarClases();
         }
     }
 }

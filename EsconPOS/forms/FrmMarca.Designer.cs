@@ -205,6 +205,7 @@
             this.DgvMarcas.Size = new System.Drawing.Size(613, 302);
             this.DgvMarcas.TabIndex = 2;
             this.DgvMarcas.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvMarcas_CellContentDoubleClick);
+            this.DgvMarcas.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvMarcas_ColumnHeaderMouseClick);
             // 
             // TxtFiltroMarca
             // 

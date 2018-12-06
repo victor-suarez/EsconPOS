@@ -1,41 +1,38 @@
 ﻿using EsconPOS.classes;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Dynamic;
 using System.Windows.Forms;
 
 namespace EsconPOS.forms
 {
     public partial class FrmConfiguracion : Form
     {
+        #region Variables y constantes
+
         public bool Resultado = false;
-        private mainEntities context = new mainEntities();
-        private const int CMB_ANCHO_MINIMO = 40;
         private const int CMB_ANCHO_MAXIMO = 340;
+        private const int CMB_ANCHO_MINIMO = 40;
+        private mainEntities context = new mainEntities();
+
+        #endregion Variables y constantes
+
+        #region Funciones
 
         public void CargarCombos()
         {
-            CmbTipoIDEmpresa.DataSource = context.Identificaciones.ToList();
+            CmbTipoIDEmpresa.DataSource = context.Identificaciones.OrderBy("Codigo").ToList();
             CmbTipoIDEmpresa.DisplayMember = "Identificacion";
             CmbTipoIDEmpresa.ValueMember = "IdentificacionID";
-            
-            CmbTipoIDEmpleado.DataSource = context.Identificaciones.ToList();
+
+            CmbTipoIDEmpleado.DataSource = context.Identificaciones.OrderBy("Codigo").ToList();
             CmbTipoIDEmpleado.DisplayMember = "Identificacion";
             CmbTipoIDEmpleado.ValueMember = "IdentificacionID";
 
-            CmbDepartamento.DataSource = context.Departamentos.ToList();
+            CmbDepartamento.DataSource = context.Departamentos.OrderBy("UBIGEO").ToList();
             CmbDepartamento.DisplayMember = "Departamento";
             CmbDepartamento.ValueMember = "Departamento";
-        }
-
-        public FrmConfiguracion()
-        {
-            InitializeComponent();
         }
 
         private void Guardar()
@@ -65,10 +62,7 @@ namespace EsconPOS.forms
             }
             catch (Exception ex)
             {
-                if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                    Global.MensajeErrorBd(ex, "Error guardando datos de la empresa.");
-                else
-                    Global.MensajeError(ex, "Error guardando datos de la empresa.");
+                Global.MensajeError(ex, "Error guardando datos de la empresa.");
                 return;
             }
 
@@ -95,10 +89,7 @@ namespace EsconPOS.forms
             }
             catch (Exception ex)
             {
-                if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                    Global.MensajeErrorBd(ex, "Error guardando datos del administrador.");
-                else
-                    Global.MensajeError(ex, "Error guardando datos del administrador.");
+                Global.MensajeError(ex, "Error guardando datos del administrador.");
                 return;
             }
             // Guardar la relación Empleado / Empresa
@@ -113,14 +104,11 @@ namespace EsconPOS.forms
                     FechaHoraEstado = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
                 };
                 context.Cajas.Add(caja);
-               context.SaveChanges();
+                context.SaveChanges();
             }
             catch (Exception ex)
             {
-                if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                    Global.MensajeErrorBd(ex, "Error guardando datos de la caja.");
-                else
-                    Global.MensajeError(ex, "Error guardando datos de la caja.");
+                Global.MensajeError(ex, "Error guardando datos de la caja.");
                 return;
             }
             Resultado = true;
@@ -159,7 +147,7 @@ namespace EsconPOS.forms
                 MessageBox.Show("Debe seleccionar la ubicación (UBIGEO) de la empresa.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
-            if (CmbTipoIDEmpleado.SelectedIndex == -1 )
+            if (CmbTipoIDEmpleado.SelectedIndex == -1)
             {
                 CmbTipoIDEmpleado.Focus();
                 MessageBox.Show("Debe seleccionar el tipo de documento de identificación del empleado.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -204,10 +192,87 @@ namespace EsconPOS.forms
             return true;
         }
 
-        private void FrmConfiguracion_FormClosing(object sender, FormClosingEventArgs e)
+        #endregion Funciones
+
+        #region Métodos
+
+        public FrmConfiguracion()
         {
-            base.OnClosing(e);
-            context.Dispose();
+            InitializeComponent();
+        }
+
+        private void ChkEsSupervisor_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Return))
+            {
+                e.Handled = true;
+                SelectNextControl((CheckBox)sender, true, true, true, false);
+            }
+        }
+
+        private void Cmb_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                e.Handled = true;
+                SelectNextControl((ComboBox)sender, true, true, true, false);
+            }
+        }
+
+        private void CmbDepartamento_Enter(object sender, EventArgs e)
+        {
+            CmbDepartamento.BringToFront();
+            CmbDepartamento.Width = CMB_ANCHO_MAXIMO;
+        }
+
+        private void CmbDepartamento_Leave(object sender, EventArgs e)
+        {
+            CmbDepartamento.Width = CMB_ANCHO_MINIMO;
+        }
+
+        private void CmbDepartamento_SelectedValueChanged(object sender, EventArgs e)
+        {
+            CmbProvincia.DataSource = (from p in context.Provincias where p.DepartamentoID == ((Departamentos)(CmbDepartamento.SelectedItem)).DepartamentoID select p).OrderBy("UBIGEO").ToList();
+            CmbProvincia.DisplayMember = "Provincia";
+            CmbProvincia.ValueMember = "Provincia";
+        }
+
+        private void CmbDistrito_Format(object sender, ListControlConvertEventArgs e)
+        {
+            e.Value = ((Distritos)e.ListItem).UBIGEO.Substring(4, 2) + "-" + ((Distritos)e.ListItem).Distrito;
+        }
+
+        private void CmbProvincia_Enter(object sender, EventArgs e)
+        {
+            CmbProvincia.BringToFront();
+            CmbProvincia.Width = CMB_ANCHO_MAXIMO;
+        }
+
+        private void CmbProvincia_Format(object sender, ListControlConvertEventArgs e)
+        {
+            e.Value = ((Provincias)e.ListItem).UBIGEO.Substring(2, 2) + "-" + ((Provincias)e.ListItem).Provincia;
+        }
+
+        private void CmbProvincia_Leave(object sender, EventArgs e)
+        {
+            CmbProvincia.Width = CMB_ANCHO_MINIMO;
+        }
+
+        private void CmbProvincia_SelectedValueChanged(object sender, EventArgs e)
+        {
+            CmbDistrito.DataSource = (from d in context.Distritos where d.ProvinciaID == ((Provincias)(CmbProvincia.SelectedItem)).ProvinciaID select d).OrderBy("UBIGEO").ToList();
+            CmbDistrito.DisplayMember = "Distrito";
+            CmbDistrito.ValueMember = "Distrito";
+        }
+
+        private void ComboDepartamento_Format(object sender, ListControlConvertEventArgs e)
+        {
+            e.Value = ((Departamentos)e.ListItem).UBIGEO + "-" + ((Departamentos)e.ListItem).Departamento;
+        }
+
+        private void ComboID_Format(object sender, ListControlConvertEventArgs e)
+        {
+            e.Value = ((Identificaciones)e.ListItem).Codigo + "-" + ((Identificaciones)e.ListItem).Identificacion;
         }
 
         private void FrmConfiguracion_FormClosed(object sender, FormClosedEventArgs e)
@@ -215,9 +280,24 @@ namespace EsconPOS.forms
             Global.LoggedIN = Resultado;
         }
 
+        private void FrmConfiguracion_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            base.OnClosing(e);
+            context.Dispose();
+        }
+
         private void FrmConfiguracion_Load(object sender, EventArgs e)
         {
             CargarCombos();
+        }
+
+        private void NumCajaID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Return))
+            {
+                e.Handled = true;
+                SelectNextControl((NumericUpDown)sender, true, true, true, false);
+            }
         }
 
         private void RibBtnGuardar_Click(object sender, EventArgs e)
@@ -240,87 +320,6 @@ namespace EsconPOS.forms
             }
         }
 
-        private void ChkEsSupervisor_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == Convert.ToChar(Keys.Return))
-            {
-                e.Handled = true;
-                SelectNextControl((CheckBox)sender, true, true, true, false);
-            }
-        }
-
-        private void ComboID_Format(object sender, ListControlConvertEventArgs e)
-        {
-            e.Value = ((Identificaciones)e.ListItem).Codigo + "-" + ((Identificaciones)e.ListItem).Identificacion;
-        }
-
-        private void CmbDepartamento_Enter(object sender, EventArgs e)
-        {
-            CmbDepartamento.BringToFront();
-            CmbDepartamento.Width = CMB_ANCHO_MAXIMO;
-        }
-
-        private void ComboDepartamento_Format(object sender, ListControlConvertEventArgs e)
-        {
-            e.Value = ((Departamentos)e.ListItem).UBIGEO + "-" + ((Departamentos)e.ListItem).Departamento;
-        }
-
-        private void CmbDepartamento_Leave(object sender, EventArgs e)
-        {
-            CmbDepartamento.Width = CMB_ANCHO_MINIMO;
-        }
-
-        private void CmbDepartamento_SelectedValueChanged(object sender, EventArgs e)
-        {
-            CmbProvincia.DataSource = (from p in context.Provincias where p.DepartamentoID == ((Departamentos)(CmbDepartamento.SelectedItem)).DepartamentoID select p).ToList();
-            CmbProvincia.DisplayMember = "Provincia";
-            CmbProvincia.ValueMember = "Provincia";
-        }
-
-        private void CmbProvincia_Enter(object sender, EventArgs e)
-        {
-            CmbProvincia.BringToFront();
-            CmbProvincia.Width = CMB_ANCHO_MAXIMO;
-        }
-
-        private void CmbProvincia_Format(object sender, ListControlConvertEventArgs e)
-        {
-            e.Value = ((Provincias)e.ListItem).UBIGEO.Substring(2,2) + "-" + ((Provincias)e.ListItem).Provincia;
-        }
-
-        private void CmbProvincia_Leave(object sender, EventArgs e)
-        {
-            CmbProvincia.Width = CMB_ANCHO_MINIMO;
-        }
-
-        private void CmbProvincia_SelectedValueChanged(object sender, EventArgs e)
-        {
-            CmbDistrito.DataSource = (from d in context.Distritos where d.ProvinciaID == ((Provincias)(CmbProvincia.SelectedItem)).ProvinciaID select d).ToList();
-            CmbDistrito.DisplayMember = "Distrito";
-            CmbDistrito.ValueMember = "Distrito";
-        }
-
-        private void CmbDistrito_Format(object sender, ListControlConvertEventArgs e)
-        {
-            e.Value = ((Distritos)e.ListItem).UBIGEO.Substring(4, 2) + "-" + ((Distritos)e.ListItem).Distrito;
-        }
-
-        private void NumCajaID_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == Convert.ToChar(Keys.Return))
-            {
-                e.Handled = true;
-                SelectNextControl((NumericUpDown)sender, true, true, true, false);
-            }
-        }
-
-        private void Cmb_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Return)
-            {
-                e.Handled = true;
-                SelectNextControl((ComboBox)sender, true, true, true, false);
-            }
-        }
+        #endregion Métodos
     }
 }

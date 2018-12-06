@@ -3,40 +3,60 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Windows.Forms;
 
 namespace EsconPOS.forms
 {
     public partial class FrmEmpresa : Form
     {
-        private mainEntities context = new mainEntities();
-        private const int CMB_ANCHO_MINIMO = 40;
-        private const int CMB_ANCHO_MAXIMO = 340;
+        #region Variables y constantes
 
-        private void CargarEmpresas()
-        {
-            var dataset = context.Empresas
-                .Select(e => new {
-                    ID = e.EmpresaID,
-                    NombreComercial = e.NombreComercial,
-                    Identificación = e.Identificaciones.Iniciales + "-" + e.NroDocIdent,
-                    Teléfonos = e.NroTelefonico,
-                    Distrito = e.Distritos.UBIGEO + "-" + e.Distritos.Distrito
-                }).ToList();
-            DgvEmpresas.DataSource = dataset;
-            DgvEmpresas.Columns["ID"].Visible = false;
-            DgvEmpresas.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
-        }
+        private const int CMB_ANCHO_MAXIMO = 340;
+        private const int CMB_ANCHO_MINIMO = 40;
+        private mainEntities context = new mainEntities();
+
+        #endregion Variables y constantes
+
+        #region Funciones
 
         private void CargarCombos()
         {
-            CmbTipoIDEmpresa.DataSource = context.Identificaciones.ToList();
+            CmbTipoIDEmpresa.DataSource = context.Identificaciones.OrderBy("Codigo").ToList();
             CmbTipoIDEmpresa.DisplayMember = "Identificacion";
             CmbTipoIDEmpresa.ValueMember = "IdentificacionID";
 
-            CmbDepartamento.DataSource = context.Departamentos.ToList();
+            CmbDepartamento.DataSource = context.Departamentos.OrderBy("Codigo").ToList();
             CmbDepartamento.DisplayMember = "Departamento";
             CmbDepartamento.ValueMember = "DepartamentoID";
+        }
+
+        private void CargarEmpresas(string OrderBy = "NombreComercial")
+        {
+            string FiltroTipoID = CmbFiltroTipoID.SelectedIndex == -1 ? "" : CmbFiltroTipoID.Text.Substring(0, CmbFiltroTipoID.Text.IndexOf("-"));
+            string FiltroNroID = TxtFiltroNroID.Text.Trim();
+            string FiltroNombre = TxtFiltroNombre.Text.Trim();
+
+            DgvEmpresas.DataSource = context.Empresas
+                                        .Select(e => new
+                                        {
+                                            ID = e.EmpresaID,
+                                            NombreComercial = e.NombreComercial,
+                                            Identificación = e.Identificaciones.Iniciales + "-" + e.NroDocIdent,
+                                            Teléfonos = e.NroTelefonico,
+                                            Distrito = e.Distritos.UBIGEO + "-" + e.Distritos.Distrito
+                                        })
+                                        .Where(e =>
+                                                (e.Identificación.StartsWith(FiltroTipoID) || FiltroTipoID == "")
+                                                &&
+                                                (e.Identificación.Contains(FiltroNroID) || FiltroNroID == "")
+                                                &&
+                                                (e.NombreComercial.Contains(FiltroNombre) || FiltroNombre == "")
+                                              )
+                                        .OrderBy(OrderBy)
+                                        .ToList();
+            DgvEmpresas.Columns["ID"].Visible = false;
+            DgvEmpresas.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
         private void ClearCrt()
@@ -57,30 +77,6 @@ namespace EsconPOS.forms
             TssLblModificado.Text = "";
         }
 
-        private void MoverRegistroToCrt(long ID)
-        {
-            var emp = (from e in context.Empresas
-                       where e.EmpresaID == ID
-                       select e).First();
-            CmbTipoIDEmpresa.SelectedValue = emp.IdentificacionID;
-            CmbTipoIDEmpresa.Tag = ID;
-            TxtNroIDEmpresa.Text = emp.NroDocIdent;
-            TxtNombreComercial.Text = emp.NombreComercial;
-            TxtRazonSocial.Text = emp.RazonSocial;
-            TxtDireccionEmpresa.Text = emp.Direccion ?? "";
-            TxtUrbanizacion.Text = emp.Urbanizacion ?? ""; ;
-            CmbDepartamento.SelectedValue = emp.Distritos.Provincias.DepartamentoID;
-            CmbProvincia.SelectedValue = emp.Distritos.Provincias.ProvinciaID;
-            CmbDistrito.SelectedValue = emp.DistritoID;
-            TxtNroTelefonicoEmpresa.Text = emp.NroTelefonico ?? "";
-            TxtCorreoElectronicoEmpresa.Text = emp.CorreoElectronico ?? "";
-            TssLblAgregado.Text = emp.EmpleadoAdd.Login.ToLower() + " " + emp.AgregadoEl;
-            if (emp.EmpleadoUpd != null)
-                TssLblModificado.Text = (emp.EmpleadoUpd.Login.ToLower() + " " + emp.ModificadoEl) ?? "";
-            else
-                TssLblModificado.Text = "";
-        }
-
         private void Eliminar()
         {
             if (CmbTipoIDEmpresa.Tag == null) return;
@@ -97,10 +93,7 @@ namespace EsconPOS.forms
             }
             catch (Exception ex)
             {
-                if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                    Global.MensajeErrorBd(ex, "Error eliminando empresa.");
-                else
-                    Global.MensajeError(ex, "Error eliminando empresa.");
+                Global.MensajeError(ex, "Error eliminando empresa.");
                 return;
             }
             SetStatus("Empresa eliminada.");
@@ -136,10 +129,7 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                        Global.MensajeErrorBd(ex, "Error guardando datos de la empresa.");
-                    else
-                        Global.MensajeError(ex, "Error guardando datos de la empresa.");
+                    Global.MensajeError(ex, "Error guardando datos de la empresa.");
                     return;
                 }
                 SetStatus("Empresa agregada.");
@@ -166,10 +156,7 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                        Global.MensajeErrorBd(ex, "Error modificando datos de la empresa.");
-                    else
-                        Global.MensajeError(ex, "Error modificando datos de la empresa.");
+                    Global.MensajeError(ex, "Error modificando datos de la empresa.");
                     return;
                 }
                 SetStatus("Empresa modificada.");
@@ -177,6 +164,30 @@ namespace EsconPOS.forms
             ClearCrt();
             CargarEmpresas();
             Cursor.Current = Cursors.Default;
+        }
+
+        private void MoverRegistroToCrt(long ID)
+        {
+            var emp = (from e in context.Empresas
+                       where e.EmpresaID == ID
+                       select e).First();
+            CmbTipoIDEmpresa.SelectedValue = emp.IdentificacionID;
+            CmbTipoIDEmpresa.Tag = ID;
+            TxtNroIDEmpresa.Text = emp.NroDocIdent;
+            TxtNombreComercial.Text = emp.NombreComercial;
+            TxtRazonSocial.Text = emp.RazonSocial;
+            TxtDireccionEmpresa.Text = emp.Direccion ?? "";
+            TxtUrbanizacion.Text = emp.Urbanizacion ?? ""; ;
+            CmbDepartamento.SelectedValue = emp.Distritos.Provincias.DepartamentoID;
+            CmbProvincia.SelectedValue = emp.Distritos.Provincias.ProvinciaID;
+            CmbDistrito.SelectedValue = emp.DistritoID;
+            TxtNroTelefonicoEmpresa.Text = emp.NroTelefonico ?? "";
+            TxtCorreoElectronicoEmpresa.Text = emp.CorreoElectronico ?? "";
+            TssLblAgregado.Text = emp.EmpleadoAdd.Login.ToLower() + " " + emp.AgregadoEl;
+            if (emp.EmpleadoUpd != null)
+                TssLblModificado.Text = (emp.EmpleadoUpd.Login.ToLower() + " " + emp.ModificadoEl) ?? "";
+            else
+                TssLblModificado.Text = "";
         }
 
         private void SetStatus(string Status = "", bool Error = false)
@@ -223,40 +234,13 @@ namespace EsconPOS.forms
             return true;
         }
 
-        private void CmbID_Format(object sender, ListControlConvertEventArgs e)
-        {
-            e.Value = ((Identificaciones)e.ListItem).Codigo + "-" + ((Identificaciones)e.ListItem).Identificacion;
-        }
+        #endregion Funciones
 
-        private void CmbDepartamento_Format(object sender, ListControlConvertEventArgs e)
-        {
-            e.Value = ((Departamentos)e.ListItem).UBIGEO + "-" + ((Departamentos)e.ListItem).Departamento;
-        }
+        #region Métodos
 
-        private void CmbDepartamento_SelectedValueChanged(object sender, EventArgs e)
+        public FrmEmpresa()
         {
-            if (CmbDepartamento.SelectedIndex == -1) return;
-            CmbProvincia.DataSource = (from p in context.Provincias where p.DepartamentoID == ((Departamentos)(CmbDepartamento.SelectedItem)).DepartamentoID select p).ToList();
-            CmbProvincia.DisplayMember = "Provincia";
-            CmbProvincia.ValueMember = "ProvinciaID";
-        }
-
-        private void CmbProvincia_Format(object sender, ListControlConvertEventArgs e)
-        {
-            e.Value = ((Provincias)e.ListItem).UBIGEO.Substring(2, 2) + "-" + ((Provincias)e.ListItem).Provincia;
-        }
-
-        private void CmbProvincia_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (CmbProvincia.SelectedIndex == -1) return;
-            CmbDistrito.DataSource = (from d in context.Distritos where d.ProvinciaID == ((Provincias)(CmbProvincia.SelectedItem)).ProvinciaID select d).ToList();
-            CmbDistrito.DisplayMember = "Distrito";
-            CmbDistrito.ValueMember = "DistritoID";
-        }
-
-        private void CmbDistrito_Format(object sender, ListControlConvertEventArgs e)
-        {
-            e.Value = ((Distritos)e.ListItem).UBIGEO.Substring(4, 2) + "-" + ((Distritos)e.ListItem).Distrito;
+            InitializeComponent();
         }
 
         private void Cmb_KeyDown(object sender, KeyEventArgs e)
@@ -268,9 +252,74 @@ namespace EsconPOS.forms
             }
         }
 
-        public FrmEmpresa()
+        private void Cmb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            InitializeComponent();
+            CargarEmpresas();
+        }
+
+        private void CmbDepartamento_Enter(object sender, EventArgs e)
+        {
+            CmbDepartamento.BringToFront();
+            CmbDepartamento.Width = CMB_ANCHO_MAXIMO;
+        }
+
+        private void CmbDepartamento_Format(object sender, ListControlConvertEventArgs e)
+        {
+            e.Value = ((Departamentos)e.ListItem).UBIGEO + "-" + ((Departamentos)e.ListItem).Departamento;
+        }
+
+        private void CmbDepartamento_Leave(object sender, EventArgs e)
+        {
+            CmbDepartamento.Width = CMB_ANCHO_MINIMO;
+        }
+
+        private void CmbDepartamento_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (CmbDepartamento.SelectedIndex == -1) return;
+            CmbProvincia.DataSource = (from p in context.Provincias where p.DepartamentoID == ((Departamentos)(CmbDepartamento.SelectedItem)).DepartamentoID select p).OrderBy("UBIGEO").ToList();
+            CmbProvincia.DisplayMember = "Provincia";
+            CmbProvincia.ValueMember = "ProvinciaID";
+        }
+
+        private void CmbDistrito_Format(object sender, ListControlConvertEventArgs e)
+        {
+            e.Value = ((Distritos)e.ListItem).UBIGEO.Substring(4, 2) + "-" + ((Distritos)e.ListItem).Distrito;
+        }
+
+        private void CmbID_Format(object sender, ListControlConvertEventArgs e)
+        {
+            e.Value = ((Identificaciones)e.ListItem).Codigo + "-" + ((Identificaciones)e.ListItem).Identificacion;
+        }
+
+        private void CmbProvincia_Enter(object sender, EventArgs e)
+        {
+            CmbProvincia.BringToFront();
+            CmbProvincia.Width = CMB_ANCHO_MAXIMO;
+        }
+
+        private void CmbProvincia_Format(object sender, ListControlConvertEventArgs e)
+        {
+            e.Value = ((Provincias)e.ListItem).UBIGEO.Substring(2, 2) + "-" + ((Provincias)e.ListItem).Provincia;
+        }
+
+        private void CmbProvincia_Leave(object sender, EventArgs e)
+        {
+            CmbProvincia.Width = CMB_ANCHO_MINIMO;
+        }
+
+        private void CmbProvincia_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (CmbProvincia.SelectedIndex == -1) return;
+            CmbDistrito.DataSource = (from d in context.Distritos where d.ProvinciaID == ((Provincias)(CmbProvincia.SelectedItem)).ProvinciaID select d).OrderBy("UBIGEO").ToList();
+            CmbDistrito.DisplayMember = "Distrito";
+            CmbDistrito.ValueMember = "DistritoID";
+        }
+
+        private void DgvEmpresas_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            MoverRegistroToCrt(long.Parse(DgvEmpresas["ID", e.RowIndex].Value.ToString()));
+            TabEmpresas.SelectTab("TabEditar");
         }
 
         private void FrmEmpresa_FormClosing(object sender, FormClosingEventArgs e)
@@ -287,16 +336,6 @@ namespace EsconPOS.forms
             TssLblModificado.Text = "";
             Left = 10;
             Top = 10;
-        }
-
-        private void Txt_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == Convert.ToChar(Keys.Return))
-            {
-                e.Handled = true;
-                SelectNextControl((TextBox)sender, true, true, true, false);
-                //if(((TextBox)sender).Name == "TxtCorreoElectronicoCliente") RibBtnGuardar.
-            }
         }
 
         private void TsBtnDeshacer_Click(object sender, EventArgs e)
@@ -319,33 +358,21 @@ namespace EsconPOS.forms
             this.Close();
         }
 
-        private void DgvEmpresas_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void Txt_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.RowIndex < 0) return;
-            MoverRegistroToCrt(long.Parse(DgvEmpresas["ID", e.RowIndex].Value.ToString()));
-            TabEmpresas.SelectTab("TabEditar");
+            if (e.KeyChar == Convert.ToChar(Keys.Return))
+            {
+                e.Handled = true;
+                SelectNextControl((TextBox)sender, true, true, true, false);
+                //if(((TextBox)sender).Name == "TxtCorreoElectronicoCliente") RibBtnGuardar.
+            }
         }
 
-        private void CmbDepartamento_Enter(object sender, EventArgs e)
+        private void Txt_TextChanged(object sender, EventArgs e)
         {
-            CmbDepartamento.BringToFront();
-            CmbDepartamento.Width = CMB_ANCHO_MAXIMO;
+            CargarEmpresas();
         }
 
-        private void CmbDepartamento_Leave(object sender, EventArgs e)
-        {
-            CmbDepartamento.Width = CMB_ANCHO_MINIMO;
-        }
-
-        private void CmbProvincia_Enter(object sender, EventArgs e)
-        {
-            CmbProvincia.BringToFront();
-            CmbProvincia.Width = CMB_ANCHO_MAXIMO;
-        }
-
-        private void CmbProvincia_Leave(object sender, EventArgs e)
-        {
-            CmbProvincia.Width = CMB_ANCHO_MINIMO;
-        }
+        #endregion Métodos
     }
 }

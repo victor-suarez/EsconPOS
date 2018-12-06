@@ -484,6 +484,7 @@
             this.CmbTipos.Name = "CmbTipos";
             this.CmbTipos.Size = new System.Drawing.Size(403, 28);
             this.CmbTipos.TabIndex = 8;
+            this.CmbTipos.SelectedIndexChanged += new System.EventHandler(this.CmbClasifProd_SelectedIndexChanged);
             this.CmbTipos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
             // 
             // label4
@@ -505,6 +506,7 @@
             this.CmbMarcas.Name = "CmbMarcas";
             this.CmbMarcas.Size = new System.Drawing.Size(403, 28);
             this.CmbMarcas.TabIndex = 5;
+            this.CmbMarcas.SelectedIndexChanged += new System.EventHandler(this.CmbClasifProd_SelectedIndexChanged);
             this.CmbMarcas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
             // 
             // label3

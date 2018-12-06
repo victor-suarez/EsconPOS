@@ -1,33 +1,45 @@
 ﻿using EsconPOS.classes;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Dynamic;
 using System.Windows.Forms;
 
 namespace EsconPOS.forms
 {
     public partial class FrmMoneda : Form
     {
+        #region Variables y constantes
+
         private mainEntities context = new mainEntities();
 
-        private void CargarMonedas()
+        #endregion Variables y constantes
+
+        #region Funciones
+
+        private void CargarMonedas(string OrderBy = "Nombre")
         {
-            var dataset = context.Monedas
-                .Select(m => new {
-                    ID = m.MonedaID,
-                    Codigo = m.Codigo,
-                    Nombre = m.Moneda,
-                    FactorCambio = m.FactorCambiario,
-                    En_Uso = m.Activo == 0 ? "NO" : "SI"
-                }).ToList();
-            DgvMonedas.DataSource = dataset;
+            string FiltroCodigo = TxtFiltroCodigo.Text.Trim();
+            string FiltroMoneda = TxtFiltroMoneda.Text.Trim();
+            DgvMonedas.DataSource = context.Monedas
+                                    .Select(m => new
+                                    {
+                                        ID = m.MonedaID,
+                                        Código = m.Codigo,
+                                        Nombre = m.Moneda,
+                                        Factor_Cambiario = m.FactorCambiario,
+                                        En_Uso = m.Activo == 0 ? "NO" : "SI"
+                                    })
+                                    .Where(m =>
+                                          (m.Código.Contains(FiltroCodigo) || FiltroCodigo == "")
+                                          &&
+                                          (m.Nombre.Contains(FiltroMoneda) || FiltroMoneda == "")
+                                    )
+                                    .OrderBy(OrderBy)
+                                    .ToList();
             DgvMonedas.Columns["ID"].Visible = false;
-            DgvMonedas.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+            DgvMonedas.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
         private void ClearCrt()
@@ -39,21 +51,6 @@ namespace EsconPOS.forms
             ChkActiva.Checked = false;
             TssLblAgregado.Text = "";
             TssLblModificado.Text = "";
-        }
-
-        private void MoverRegistroToCrt(long ID)
-        {
-            var mon = (from m in context.Monedas
-                       where m.MonedaID == ID
-                       select m).First();
-
-            TxtCodigo.Text = mon.Codigo;
-            TxtCodigo.Tag = mon.MonedaID;
-            TxtMoneda.Text = mon.Moneda;
-            ChkActiva.Checked = (mon.Activo == 1);
-            ChkPorDefecto.Checked = (mon.PorDefecto == 1);
-            NumFactorCambio.Value = (decimal)mon.FactorCambiario;
-            TssLblAgregado.Text = mon.EmpleadoAdd.Login.ToLower() + " " + mon.AgregadoEl;
         }
 
         private void Eliminar()
@@ -72,10 +69,7 @@ namespace EsconPOS.forms
             }
             catch (Exception ex)
             {
-                if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                    Global.MensajeErrorBd(ex, "Error eliminando moneda.");
-                else
-                    Global.MensajeError(ex, "Error eliminando moneda.");
+                Global.MensajeError(ex, "Error eliminando moneda.");
                 return;
             }
             SetStatus("Moneda eliminada.");
@@ -107,10 +101,7 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                        Global.MensajeErrorBd(ex, "Error guardando datos de la moneda.");
-                    else
-                        Global.MensajeError(ex, "Error guardando datos de la moneda.");
+                    Global.MensajeError(ex, "Error guardando datos de la moneda.");
                     return;
                 }
                 SetStatus("Empleado agregado.");
@@ -133,10 +124,7 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                        Global.MensajeErrorBd(ex, "Error modificando datos de la moneda.");
-                    else
-                        Global.MensajeError(ex, "Error modificando datos de la moneda.");
+                    Global.MensajeError(ex, "Error modificando datos de la moneda.");
                     return;
                 }
                 SetStatus("Moneda modificada.");
@@ -144,6 +132,34 @@ namespace EsconPOS.forms
             ClearCrt();
             CargarMonedas();
             Cursor.Current = Cursors.Default;
+        }
+
+        private void IncluirBtnClear(TextBox txt)
+        {
+            var btn = new Button();
+            btn.AutoSize = false;
+            btn.Size = new Size(25, txt.ClientSize.Height + 2);
+            btn.Location = new Point(txt.ClientSize.Width - btn.Width, -1);
+            btn.Cursor = Cursors.Default;
+            btn.Image = Properties.Resources.ClearTxt;
+            btn.Click += btn_Click;
+            //btn.Visible = false;
+            txt.Controls.Add(btn);
+        }
+
+        private void MoverRegistroToCrt(long ID)
+        {
+            var mon = (from m in context.Monedas
+                       where m.MonedaID == ID
+                       select m).First();
+
+            TxtCodigo.Text = mon.Codigo;
+            TxtCodigo.Tag = mon.MonedaID;
+            TxtMoneda.Text = mon.Moneda;
+            ChkActiva.Checked = (mon.Activo == 1);
+            ChkPorDefecto.Checked = (mon.PorDefecto == 1);
+            NumFactorCambio.Value = (decimal)mon.FactorCambiario;
+            TssLblAgregado.Text = mon.EmpleadoAdd.Login.ToLower() + " " + mon.AgregadoEl;
         }
 
         private void SetStatus(string Status = "", bool Error = false)
@@ -172,6 +188,20 @@ namespace EsconPOS.forms
             return true;
         }
 
+        #endregion Funciones
+
+        #region Métodos
+
+        public FrmMoneda()
+        {
+            InitializeComponent();
+        }
+
+        private void btn_Click(object sender, EventArgs e)
+        {
+            ((TextBox)((Button)sender).Parent).Clear();
+        }
+
         private void Chk_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Return))
@@ -188,9 +218,9 @@ namespace EsconPOS.forms
             TabMonedas.SelectTab("PagEditar");
         }
 
-        public FrmMoneda()
+        private void DgvMonedas_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            InitializeComponent();
+            CargarMonedas(((DataGridView)sender).Columns[e.ColumnIndex].HeaderText);
         }
 
         private void FrmMoneda_FormClosing(object sender, FormClosingEventArgs e)
@@ -206,16 +236,8 @@ namespace EsconPOS.forms
             TssLblModificado.Text = "";
             Left = 10;
             Top = 10;
-        }
-
-        private void Txt_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == Convert.ToChar(Keys.Return))
-            {
-                e.Handled = true;
-                SelectNextControl((TextBox)sender, true, true, true, false);
-                //if(((TextBox)sender).Name == "TxtCorreoElectronicoCliente") RibBtnGuardar.
-            }
+            IncluirBtnClear(TxtFiltroCodigo);
+            IncluirBtnClear(TxtFiltroMoneda);
         }
 
         private void TsBtnDeshacer_Click(object sender, EventArgs e)
@@ -237,5 +259,17 @@ namespace EsconPOS.forms
         {
             this.Close();
         }
+
+        private void Txt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Return))
+            {
+                e.Handled = true;
+                SelectNextControl((TextBox)sender, true, true, true, false);
+                //if(((TextBox)sender).Name == "TxtCorreoElectronicoCliente") RibBtnGuardar.
+            }
+        }
+
+        #endregion Métodos
     }
 }

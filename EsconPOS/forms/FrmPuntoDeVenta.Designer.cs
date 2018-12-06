@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("No Header", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("No Header", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "Total X",
             "9.999,99"}, -1);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPuntoDeVenta));
             this.label1 = new System.Windows.Forms.Label();
             this.CmbTipoIDCli = new System.Windows.Forms.ComboBox();
             this.TxtNroIDCli = new System.Windows.Forms.TextBox();
@@ -83,7 +84,7 @@
             this.CmbTipoIDCli.FormattingEnabled = true;
             this.CmbTipoIDCli.Location = new System.Drawing.Point(172, 11);
             this.CmbTipoIDCli.Name = "CmbTipoIDCli";
-            this.CmbTipoIDCli.Size = new System.Drawing.Size(68, 28);
+            this.CmbTipoIDCli.Size = new System.Drawing.Size(60, 28);
             this.CmbTipoIDCli.TabIndex = 1;
             this.CmbTipoIDCli.SelectedIndexChanged += new System.EventHandler(this.CmbTipoIDCli_SelectedIndexChanged);
             this.CmbTipoIDCli.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.CmbTipoID_Format);
@@ -92,7 +93,7 @@
             // TxtNroIDCli
             // 
             this.TxtNroIDCli.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.TxtNroIDCli.Location = new System.Drawing.Point(246, 12);
+            this.TxtNroIDCli.Location = new System.Drawing.Point(238, 12);
             this.TxtNroIDCli.Name = "TxtNroIDCli";
             this.TxtNroIDCli.Size = new System.Drawing.Size(151, 26);
             this.TxtNroIDCli.TabIndex = 2;
@@ -170,11 +171,12 @@
             // BtnAgregarCliente
             // 
             this.BtnAgregarCliente.Image = global::EsconPOS.Properties.Resources.Agregar;
-            this.BtnAgregarCliente.Location = new System.Drawing.Point(928, 12);
+            this.BtnAgregarCliente.Location = new System.Drawing.Point(808, 12);
             this.BtnAgregarCliente.Name = "BtnAgregarCliente";
             this.BtnAgregarCliente.Size = new System.Drawing.Size(31, 26);
             this.BtnAgregarCliente.TabIndex = 16;
             this.BtnAgregarCliente.UseVisualStyleBackColor = true;
+            this.BtnAgregarCliente.Click += new System.EventHandler(this.BtnAgregarCliente_Click);
             // 
             // BtnAgregarProducto
             // 
@@ -202,13 +204,13 @@
             this.colMonto});
             this.listView.FullRowSelect = true;
             this.listView.GridLines = true;
-            listViewGroup5.Header = "No Header";
-            listViewGroup5.Name = "Dummy";
+            listViewGroup1.Header = "No Header";
+            listViewGroup1.Name = "Dummy";
             this.listView.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup5});
+            listViewGroup1});
             this.listView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem5});
+            listViewItem1});
             this.listView.Location = new System.Drawing.Point(26, 30);
             this.listView.MultiSelect = false;
             this.listView.Name = "listView";
@@ -232,16 +234,17 @@
             // BtnAgregarEmpleado
             // 
             this.BtnAgregarEmpleado.Image = global::EsconPOS.Properties.Resources.Agregar;
-            this.BtnAgregarEmpleado.Location = new System.Drawing.Point(928, 44);
+            this.BtnAgregarEmpleado.Location = new System.Drawing.Point(808, 44);
             this.BtnAgregarEmpleado.Name = "BtnAgregarEmpleado";
             this.BtnAgregarEmpleado.Size = new System.Drawing.Size(31, 26);
             this.BtnAgregarEmpleado.TabIndex = 17;
             this.BtnAgregarEmpleado.UseVisualStyleBackColor = true;
+            this.BtnAgregarEmpleado.Click += new System.EventHandler(this.BtnAgregarEmpleado_Click);
             // 
             // TxtNroIDEmp
             // 
             this.TxtNroIDEmp.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.TxtNroIDEmp.Location = new System.Drawing.Point(246, 44);
+            this.TxtNroIDEmp.Location = new System.Drawing.Point(238, 44);
             this.TxtNroIDEmp.Name = "TxtNroIDEmp";
             this.TxtNroIDEmp.Size = new System.Drawing.Size(151, 26);
             this.TxtNroIDEmp.TabIndex = 6;
@@ -254,7 +257,7 @@
             this.CmbTipoIDEmp.FormattingEnabled = true;
             this.CmbTipoIDEmp.Location = new System.Drawing.Point(172, 43);
             this.CmbTipoIDEmp.Name = "CmbTipoIDEmp";
-            this.CmbTipoIDEmp.Size = new System.Drawing.Size(68, 28);
+            this.CmbTipoIDEmp.Size = new System.Drawing.Size(60, 28);
             this.CmbTipoIDEmp.TabIndex = 5;
             this.CmbTipoIDEmp.SelectedIndexChanged += new System.EventHandler(this.CmbTipoIDEmp_SelectedIndexChanged);
             this.CmbTipoIDEmp.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.CmbTipoID_Format);
@@ -275,7 +278,7 @@
             this.CmbClientes.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.CmbClientes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbClientes.FormattingEnabled = true;
-            this.CmbClientes.Location = new System.Drawing.Point(403, 11);
+            this.CmbClientes.Location = new System.Drawing.Point(395, 11);
             this.CmbClientes.Name = "CmbClientes";
             this.CmbClientes.Size = new System.Drawing.Size(407, 28);
             this.CmbClientes.TabIndex = 3;
@@ -286,7 +289,7 @@
             this.CmbEmpleados.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.CmbEmpleados.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbEmpleados.FormattingEnabled = true;
-            this.CmbEmpleados.Location = new System.Drawing.Point(403, 43);
+            this.CmbEmpleados.Location = new System.Drawing.Point(395, 43);
             this.CmbEmpleados.Name = "CmbEmpleados";
             this.CmbEmpleados.Size = new System.Drawing.Size(407, 28);
             this.CmbEmpleados.TabIndex = 7;
@@ -385,6 +388,7 @@
             this.Controls.Add(this.CmbTipoIDCli);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FrmPuntoDeVenta";
             this.Text = "FrmPuntoDeVenta";

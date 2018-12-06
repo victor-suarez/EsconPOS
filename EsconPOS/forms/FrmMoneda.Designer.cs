@@ -184,7 +184,7 @@
             // 
             // TxtFiltroCodigo
             // 
-            this.TxtFiltroCodigo.Location = new System.Drawing.Point(9, 6);
+            this.TxtFiltroCodigo.Location = new System.Drawing.Point(6, 6);
             this.TxtFiltroCodigo.MaxLength = 3;
             this.TxtFiltroCodigo.Name = "TxtFiltroCodigo";
             this.TxtFiltroCodigo.Size = new System.Drawing.Size(57, 26);
@@ -198,23 +198,25 @@
             this.DgvMonedas.AllowUserToResizeRows = false;
             this.DgvMonedas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.DgvMonedas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgvMonedas.Location = new System.Drawing.Point(9, 42);
+            this.DgvMonedas.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DgvMonedas.Location = new System.Drawing.Point(3, 40);
             this.DgvMonedas.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.DgvMonedas.MultiSelect = false;
             this.DgvMonedas.Name = "DgvMonedas";
             this.DgvMonedas.ReadOnly = true;
             this.DgvMonedas.RowHeadersVisible = false;
             this.DgvMonedas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DgvMonedas.Size = new System.Drawing.Size(578, 295);
+            this.DgvMonedas.Size = new System.Drawing.Size(613, 302);
             this.DgvMonedas.TabIndex = 2;
             this.DgvMonedas.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvMonedas_CellContentDoubleClick);
+            this.DgvMonedas.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvMonedas_ColumnHeaderMouseClick);
             // 
             // TxtFiltroMoneda
             // 
             this.TxtFiltroMoneda.Location = new System.Drawing.Point(72, 6);
             this.TxtFiltroMoneda.MaxLength = 255;
             this.TxtFiltroMoneda.Name = "TxtFiltroMoneda";
-            this.TxtFiltroMoneda.Size = new System.Drawing.Size(515, 26);
+            this.TxtFiltroMoneda.Size = new System.Drawing.Size(541, 26);
             this.TxtFiltroMoneda.TabIndex = 1;
             // 
             // PagEditar

@@ -1,46 +1,31 @@
 ﻿using EsconPOS.classes;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Linq.Dynamic;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EsconPOS.forms
 {
     public partial class FrmUnidadMedida : Form
     {
+        #region Variables y constantes
+
         private mainEntities context = new mainEntities();
 
-        private void IncluirBtnClear(TextBox txt)
-        {
-            var btn = new Button();
-            btn.AutoSize = false;
-            btn.Size = new Size(25, txt.ClientSize.Height + 2);
-            btn.Location = new Point(txt.ClientSize.Width - btn.Width, -1);
-            btn.Cursor = Cursors.Default;
-            btn.Image = Properties.Resources.ClearTxt;
-            btn.Click += btn_Click;
-            //btn.Visible = false;
-            txt.Controls.Add(btn);
-        }
+        #endregion Variables y constantes
 
-        private void btn_Click(object sender, EventArgs e)
-        {
-            ((TextBox)((Button)sender).Parent).Clear();
-        }
+        #region Funciones
 
-        private void CargarUnidades(string OrderBy = "ID")
+        private void CargarUnidades(string OrderBy = "Descripción")
         {
             string FiltroCodigo = TxtFiltroCodigo.Text.Trim();
             string FiltroUnidad = TxtFiltroUnidad.Text.Trim();
             string FiltroIniciales = TxtFiltroIniciales.Text.Trim();
             DgvUnidades.DataSource = context.UnidadesMedidas
-                                      .Select(u => new {
+                                      .Select(u => new
+                                      {
                                           ID = u.UnidadMedidaID,
                                           Código = u.Codigo,
                                           Descripción = u.UnidadMedida,
@@ -69,24 +54,6 @@ namespace EsconPOS.forms
             ChkActiva.Checked = false;
         }
 
-        private void MoverRegistroToCrt(long ID)
-        {
-            var und = (from u
-                       in context.UnidadesMedidas
-                       where u.UnidadMedidaID == ID
-                       select u).First();
-
-            TxtCodigo.Text = und.Codigo;
-            TxtCodigo.Tag = und.UnidadMedidaID;
-            TxtUnidadMedida.Text = und.UnidadMedida;
-            TxtIniciales.Text = und.Iniciales ?? "";
-            ChkActiva.Checked = (und.Activo == 1);
-            if (und.EmpleadoUpd != null)
-                TssLblModificado.Text = (und.EmpleadoUpd.Login.ToLower() + " " + und.ModificadoEl) ?? "";
-            else
-                TssLblModificado.Text = "";
-        }
-
         private void Eliminar()
         {
             if (TxtCodigo.Tag == null) return;
@@ -103,10 +70,7 @@ namespace EsconPOS.forms
             }
             catch (Exception ex)
             {
-                if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                    Global.MensajeErrorBd(ex, "Error eliminando unidad de medida.");
-                else
-                    Global.MensajeError(ex, "Error eliminando unidad de medida.");
+                Global.MensajeError(ex, "Error eliminando unidad de medida.");
                 return;
             }
             SetStatus("Unidad de medida eliminada.");
@@ -135,10 +99,7 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                        Global.MensajeErrorBd(ex, "Error guardando datos de la unidad de medida.");
-                    else
-                        Global.MensajeError(ex, "Error guardando datos de la unidad de medida.");
+                    Global.MensajeError(ex, "Error guardando datos de la unidad de medida.");
                     return;
                 }
                 SetStatus("Unidad de medida de productos agregada.");
@@ -163,10 +124,7 @@ namespace EsconPOS.forms
                 }
                 catch (Exception ex)
                 {
-                    if (ex is System.Data.Entity.Validation.DbEntityValidationException)
-                        Global.MensajeErrorBd(ex, "Error modificando datos de la unidad de medida.");
-                    else
-                        Global.MensajeError(ex, "Error modificando datos de la unidad de medida.");
+                    Global.MensajeError(ex, "Error modificando datos de la unidad de medida.");
                     return;
                 }
                 SetStatus("Unidad de medida de productos modificada.");
@@ -174,6 +132,37 @@ namespace EsconPOS.forms
             ClearCrt();
             CargarUnidades();
             Cursor.Current = Cursors.Default;
+        }
+
+        private void IncluirBtnClear(TextBox txt)
+        {
+            var btn = new Button();
+            btn.AutoSize = false;
+            btn.Size = new Size(25, txt.ClientSize.Height + 2);
+            btn.Location = new Point(txt.ClientSize.Width - btn.Width, -1);
+            btn.Cursor = Cursors.Default;
+            btn.Image = Properties.Resources.ClearTxt;
+            btn.Click += btn_Click;
+            //btn.Visible = false;
+            txt.Controls.Add(btn);
+        }
+
+        private void MoverRegistroToCrt(long ID)
+        {
+            var und = (from u
+                       in context.UnidadesMedidas
+                       where u.UnidadMedidaID == ID
+                       select u).First();
+
+            TxtCodigo.Text = und.Codigo;
+            TxtCodigo.Tag = und.UnidadMedidaID;
+            TxtUnidadMedida.Text = und.UnidadMedida;
+            TxtIniciales.Text = und.Iniciales ?? "";
+            ChkActiva.Checked = (und.Activo == 1);
+            if (und.EmpleadoUpd != null)
+                TssLblModificado.Text = (und.EmpleadoUpd.Login.ToLower() + " " + und.ModificadoEl) ?? "";
+            else
+                TssLblModificado.Text = "";
         }
 
         private void SetStatus(string Status = "", bool Error = false)
@@ -208,6 +197,20 @@ namespace EsconPOS.forms
             return true;
         }
 
+        #endregion Funciones
+
+        #region Métodos
+
+        public FrmUnidadMedida()
+        {
+            InitializeComponent();
+        }
+
+        private void btn_Click(object sender, EventArgs e)
+        {
+            ((TextBox)((Button)sender).Parent).Clear();
+        }
+
         private void Chk_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Return))
@@ -229,11 +232,6 @@ namespace EsconPOS.forms
             CargarUnidades(((DataGridView)sender).Columns[e.ColumnIndex].HeaderText);
         }
 
-        public FrmUnidadMedida()
-        {
-            InitializeComponent();
-        }
-
         private void FrmUnidadMedida_FormClosing(object sender, FormClosingEventArgs e)
         {
             base.OnClosing(e);
@@ -250,20 +248,6 @@ namespace EsconPOS.forms
             IncluirBtnClear(TxtFiltroCodigo);
             IncluirBtnClear(TxtFiltroUnidad);
             IncluirBtnClear(TxtFiltroIniciales);
-        }
-
-        private void Txt_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == Convert.ToChar(Keys.Return))
-            {
-                e.Handled = true;
-                SelectNextControl((TextBox)sender, true, true, true, false);
-            }
-        }
-
-        private void Txt_TextChanged(object sender, EventArgs e)
-        {
-            CargarUnidades();
         }
 
         private void TsBtnDeshacer_Click(object sender, EventArgs e)
@@ -285,5 +269,21 @@ namespace EsconPOS.forms
         {
             this.Close();
         }
+
+        private void Txt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Return))
+            {
+                e.Handled = true;
+                SelectNextControl((TextBox)sender, true, true, true, false);
+            }
+        }
+
+        private void Txt_TextChanged(object sender, EventArgs e)
+        {
+            CargarUnidades();
+        }
+
+        #endregion Métodos
     }
 }

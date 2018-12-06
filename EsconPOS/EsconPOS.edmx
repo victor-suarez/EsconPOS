@@ -1419,10 +1419,10 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           <NavigationProperty Name="ConfiguracionesUpdated" Relationship="EsconPOS.FK_Configuraciones_1_0" FromRole="Empleados" ToRole="Configuraciones" />
           <NavigationProperty Name="FormasPagosAdded" Relationship="EsconPOS.FK_FormasPagos_0_0" FromRole="Empleados" ToRole="FormasPagos" />
           <NavigationProperty Name="FormasPagosUpdated" Relationship="EsconPOS.FK_FormasPagos_1_0" FromRole="Empleados" ToRole="FormasPagos" />
-          <NavigationProperty Name="Impuestos" Relationship="EsconPOS.FK_Impuestos_0_0" FromRole="Empleados" ToRole="Impuestos" />
+          <NavigationProperty Name="ImpuestosUpdated" Relationship="EsconPOS.FK_Impuestos_0_0" FromRole="Empleados" ToRole="Impuestos" />
           <NavigationProperty Name="UnidadesMedidasUpdated" Relationship="EsconPOS.FK_UnidadesMedidas_0_0" FromRole="Empleados" ToRole="UnidadesMedidas" />
-          <NavigationProperty Name="ItemsDocumentos1" Relationship="EsconPOS.FK_ItemsDocumentos_1_01" FromRole="Empleados" ToRole="ItemsDocumentos" />
-          <NavigationProperty Name="TiposDocumentos" Relationship="EsconPOS.FK_TiposDocumentos_0_0" FromRole="Empleados" ToRole="TiposDocumentos" />
+          <NavigationProperty Name="ItemVentasAdded" Relationship="EsconPOS.FK_ItemsDocumentos_1_01" FromRole="Empleados" ToRole="ItemsDocumentos" />
+          <NavigationProperty Name="TiposDocumentosUpdated" Relationship="EsconPOS.FK_TiposDocumentos_0_0" FromRole="Empleados" ToRole="TiposDocumentos" />
         </EntityType>
         <EntityType Name="Empresas">
           <Key>
@@ -1592,7 +1592,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <PropertyRef Name="ProductoID" />
           </Key>
           <Property Name="ProductoID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Codigo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CodigoBarra" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Producto" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TipoProductoID" Type="Int64" />

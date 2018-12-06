@@ -1,66 +1,106 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EsconPOS.classes
 {
-    class Global
+    internal class Global
     {
+        #region Variables privadas
+
         private static bool _LoggedIN;
-        private static long ID_Usuario;
-        private static long ID_Empleado;
-        private static string NomEmpleado;
         private static long ID_Caja;
-        private static string NomCaja;
+        private static long ID_DistritoEmpresa;
+        private static long ID_Empleado;
         private static long ID_Empresa;
+        private static long ID_Usuario;
+        private static string NomCaja;
+        private static string NomEmpleado;
         private static string NomEmpresa;
 
-        private static Usuarios _Usuario;
-        private static Empleados _Empleado;
+        #endregion Variables privadas
+
+        #region Objetos privados
+
         private static Cajas _Caja;
+        private static Empleados _Empleado;
         private static Empresas _Empresa;
-        public static bool LoggedIN
+        private static Usuarios _Usuario;
+
+        #endregion Objetos privados
+
+        #region Propiedades públicas
+
+        public static Cajas Caja
         {
-            get { return _LoggedIN; }
-            set { _LoggedIN = value; }
+            get { return _Caja; }
+            set { _Caja = value; }
         }
-        public static long glUsuario
+
+        public static Empleados Empleado
         {
-            get { return ID_Usuario; }
-            set { ID_Usuario = value; }
+            get { return _Empleado; }
+            set { _Empleado = value; }
         }
-        public static long glEmpleado
+
+        public static Empresas Empresa
         {
-            get { return ID_Empleado; }
-            set { ID_Empleado = value; }
+            get { return _Empresa; }
+            set { _Empresa = value; }
         }
-        public static string glNomEmpleado
-        {
-            get { return NomEmpleado; }
-            set { NomEmpleado = value; }
-        }
+
         public static long glCaja
         {
             get { return ID_Caja; }
             set { ID_Caja = value; }
         }
-        public static string glNomCaja
+
+        public static long glDistritoEmpresa
         {
-            get { return NomCaja; }
-            set { NomCaja = value; }
+            get { return ID_DistritoEmpresa; }
+            set { ID_DistritoEmpresa = value; }
         }
+
+        public static long glEmpleado
+        {
+            get { return ID_Empleado; }
+            set { ID_Empleado = value; }
+        }
+
         public static long glEmpresa
         {
             get { return ID_Empresa; }
             set { ID_Empresa = value; }
         }
+
+        public static string glNomCaja
+        {
+            get { return NomCaja; }
+            set { NomCaja = value; }
+        }
+
+        public static string glNomEmpleado
+        {
+            get { return NomEmpleado; }
+            set { NomEmpleado = value; }
+        }
+
         public static string glNomEmpresa
         {
             get { return NomEmpresa; }
             set { NomEmpresa = value; }
+        }
+
+        public static long glUsuario
+        {
+            get { return ID_Usuario; }
+            set { ID_Usuario = value; }
+        }
+
+        public static bool LoggedIN
+        {
+            get { return _LoggedIN; }
+            set { _LoggedIN = value; }
         }
 
         public static Usuarios Usuario
@@ -68,20 +108,22 @@ namespace EsconPOS.classes
             get { return _Usuario; }
             set { _Usuario = value; }
         }
-        public static Empleados Empleado
+
+        #endregion Propiedades públicas
+
+        #region Funciones públicas
+
+        public static void MensajeError(Exception ex, string Msj = "")
         {
-            get { return _Empleado; }
-            set { _Empleado = value; }
-        }
-        public static Cajas Caja
-        {
-            get { return _Caja; }
-            set { _Caja = value; }
-        }
-        public static Empresas Empresa
-        {
-            get { return _Empresa; }
-            set { _Empresa = value; }
+            if (ex.Source == "EntityFramework")
+            {
+                if (ex.Message.Contains("EntityValidationErrors") && ex.InnerException == null)
+                    MensajeErrorVal(ex, Msj);
+                else
+                    MensajeErrorBd(ex.InnerException, Msj);
+            }
+            else
+                MensajeErrorApp(ex, Msj);
         }
 
         internal static string GetStringSha256Hash(string text)
@@ -97,12 +139,29 @@ namespace EsconPOS.classes
             }
         }
 
-        public static void MensajeError(Exception ex, string Msj = "")
+        #endregion Funciones públicas
+
+        #region Funciones privadas
+
+        private static void MensajeErrorApp(Exception ex, string Msj = "")
         {
             MessageBox.Show(ex.Source + "\r\n" + ex.Message, Msj, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        public static void MensajeErrorBd(Exception ex, string Msj = "")
+        private static void MensajeErrorBd(Exception ex, string Msj = "")
+        {
+            Exception InnerEx = ex.InnerException ?? ex;
+            if (InnerEx.Source == "System.Data.SQLite")
+            {
+                MessageBox.Show(InnerEx.Message, Msj, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                MessageBox.Show(ex.Source + "\r\n" + ex.Message, Msj, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private static void MensajeErrorVal(Exception ex, string Msj = "")
         {
             var DbErrors = ((System.Data.Entity.Validation.DbEntityValidationException)ex).EntityValidationErrors
                                                                                           .SelectMany(ve => ve.ValidationErrors)
@@ -110,5 +169,6 @@ namespace EsconPOS.classes
             var fullErrorMessage = string.Join("; ", DbErrors);
             MessageBox.Show(fullErrorMessage, Msj, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+        #endregion Funciones privadas
     }
 }

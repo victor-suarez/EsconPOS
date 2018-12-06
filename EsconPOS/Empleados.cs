@@ -40,10 +40,10 @@ namespace EsconPOS
             this.ConfiguracionesUpdated = new HashSet<Configuraciones>();
             this.FormasPagosAdded = new HashSet<FormasPagos>();
             this.FormasPagosUpdated = new HashSet<FormasPagos>();
-            this.Impuestos = new HashSet<Impuestos>();
+            this.ImpuestosUpdated = new HashSet<Impuestos>();
             this.UnidadesMedidasUpdated = new HashSet<UnidadesMedidas>();
-            this.ItemsDocumentos1 = new HashSet<ItemsDocumentos>();
-            this.TiposDocumentos = new HashSet<TiposDocumentos>();
+            this.ItemVentasAdded = new HashSet<ItemsDocumentos>();
+            this.TiposDocumentosUpdated = new HashSet<TiposDocumentos>();
         }
     
         public long EmpleadoID { get; set; }
@@ -113,12 +113,12 @@ namespace EsconPOS
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FormasPagos> FormasPagosUpdated { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Impuestos> Impuestos { get; set; }
+        public virtual ICollection<Impuestos> ImpuestosUpdated { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UnidadesMedidas> UnidadesMedidasUpdated { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ItemsDocumentos> ItemsDocumentos1 { get; set; }
+        public virtual ICollection<ItemsDocumentos> ItemVentasAdded { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TiposDocumentos> TiposDocumentos { get; set; }
+        public virtual ICollection<TiposDocumentos> TiposDocumentosUpdated { get; set; }
     }
 }

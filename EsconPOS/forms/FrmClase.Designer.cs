@@ -180,11 +180,12 @@
             // 
             // TxtFiltroCodigo
             // 
-            this.TxtFiltroCodigo.Location = new System.Drawing.Point(9, 6);
+            this.TxtFiltroCodigo.Location = new System.Drawing.Point(3, 6);
             this.TxtFiltroCodigo.MaxLength = 3;
             this.TxtFiltroCodigo.Name = "TxtFiltroCodigo";
-            this.TxtFiltroCodigo.Size = new System.Drawing.Size(57, 26);
+            this.TxtFiltroCodigo.Size = new System.Drawing.Size(69, 26);
             this.TxtFiltroCodigo.TabIndex = 0;
+            this.TxtFiltroCodigo.TextChanged += new System.EventHandler(this.Txt_TextChanged);
             this.TxtFiltroCodigo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // DgvClases
@@ -206,15 +207,16 @@
             this.DgvClases.Size = new System.Drawing.Size(613, 302);
             this.DgvClases.TabIndex = 2;
             this.DgvClases.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvClases_CellContentDoubleClick);
-            this.DgvClases.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvClases_ColumnHeaderMouseClick);
+            this.DgvClases.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvClases_ColumnHeaderMouseClick);
             // 
             // TxtFiltroClase
             // 
-            this.TxtFiltroClase.Location = new System.Drawing.Point(72, 6);
+            this.TxtFiltroClase.Location = new System.Drawing.Point(78, 6);
             this.TxtFiltroClase.MaxLength = 255;
             this.TxtFiltroClase.Name = "TxtFiltroClase";
-            this.TxtFiltroClase.Size = new System.Drawing.Size(541, 26);
+            this.TxtFiltroClase.Size = new System.Drawing.Size(535, 26);
             this.TxtFiltroClase.TabIndex = 1;
+            this.TxtFiltroClase.TextChanged += new System.EventHandler(this.Txt_TextChanged);
             this.TxtFiltroClase.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // PagEditar

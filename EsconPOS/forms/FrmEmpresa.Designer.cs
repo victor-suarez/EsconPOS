@@ -45,6 +45,10 @@
             this.CmbFiltroTipoID = new System.Windows.Forms.ComboBox();
             this.DgvEmpresas = new System.Windows.Forms.DataGridView();
             this.TabEditar = new System.Windows.Forms.TabPage();
+            this.TxtUrbanizacion = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.TxtRazonSocial = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.TxtNroIDEmpresa = new System.Windows.Forms.TextBox();
             this.TxtCorreoElectronicoEmpresa = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -61,10 +65,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.CmbTipoIDEmpresa = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.TxtRazonSocial = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.TxtUrbanizacion = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.TabEmpresas.SuspendLayout();
@@ -178,7 +178,7 @@
             this.TabEmpresas.Location = new System.Drawing.Point(12, 57);
             this.TabEmpresas.Name = "TabEmpresas";
             this.TabEmpresas.SelectedIndex = 0;
-            this.TabEmpresas.Size = new System.Drawing.Size(655, 413);
+            this.TabEmpresas.Size = new System.Drawing.Size(735, 413);
             this.TabEmpresas.TabIndex = 0;
             // 
             // TabLista
@@ -190,7 +190,7 @@
             this.TabLista.Location = new System.Drawing.Point(4, 29);
             this.TabLista.Name = "TabLista";
             this.TabLista.Padding = new System.Windows.Forms.Padding(3);
-            this.TabLista.Size = new System.Drawing.Size(647, 380);
+            this.TabLista.Size = new System.Drawing.Size(727, 380);
             this.TabLista.TabIndex = 0;
             this.TabLista.Text = "Lista";
             this.TabLista.UseVisualStyleBackColor = true;
@@ -201,8 +201,9 @@
             this.TxtFiltroNombre.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TxtFiltroNombre.MaxLength = 255;
             this.TxtFiltroNombre.Name = "TxtFiltroNombre";
-            this.TxtFiltroNombre.Size = new System.Drawing.Size(420, 26);
+            this.TxtFiltroNombre.Size = new System.Drawing.Size(503, 26);
             this.TxtFiltroNombre.TabIndex = 2;
+            this.TxtFiltroNombre.TextChanged += new System.EventHandler(this.Txt_TextChanged);
             // 
             // TxtFiltroNroID
             // 
@@ -211,6 +212,7 @@
             this.TxtFiltroNroID.Size = new System.Drawing.Size(143, 26);
             this.TxtFiltroNroID.TabIndex = 1;
             this.TxtFiltroNroID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TxtFiltroNroID.TextChanged += new System.EventHandler(this.Txt_TextChanged);
             // 
             // CmbFiltroTipoID
             // 
@@ -219,6 +221,7 @@
             this.CmbFiltroTipoID.Name = "CmbFiltroTipoID";
             this.CmbFiltroTipoID.Size = new System.Drawing.Size(58, 28);
             this.CmbFiltroTipoID.TabIndex = 0;
+            this.CmbFiltroTipoID.SelectedIndexChanged += new System.EventHandler(this.Cmb_SelectedIndexChanged);
             // 
             // DgvEmpresas
             // 
@@ -228,13 +231,14 @@
             this.DgvEmpresas.AllowUserToResizeRows = false;
             this.DgvEmpresas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.DgvEmpresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgvEmpresas.Location = new System.Drawing.Point(6, 38);
+            this.DgvEmpresas.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DgvEmpresas.Location = new System.Drawing.Point(3, 38);
             this.DgvEmpresas.MultiSelect = false;
             this.DgvEmpresas.Name = "DgvEmpresas";
             this.DgvEmpresas.ReadOnly = true;
             this.DgvEmpresas.RowHeadersVisible = false;
             this.DgvEmpresas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DgvEmpresas.Size = new System.Drawing.Size(635, 336);
+            this.DgvEmpresas.Size = new System.Drawing.Size(721, 339);
             this.DgvEmpresas.TabIndex = 3;
             this.DgvEmpresas.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvEmpresas_CellContentDoubleClick);
             // 
@@ -267,6 +271,46 @@
             this.TabEditar.TabIndex = 1;
             this.TabEditar.Text = "Editar";
             this.TabEditar.UseVisualStyleBackColor = true;
+            // 
+            // TxtUrbanizacion
+            // 
+            this.TxtUrbanizacion.Location = new System.Drawing.Point(182, 233);
+            this.TxtUrbanizacion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.TxtUrbanizacion.MaxLength = 255;
+            this.TxtUrbanizacion.Name = "TxtUrbanizacion";
+            this.TxtUrbanizacion.Size = new System.Drawing.Size(453, 26);
+            this.TxtUrbanizacion.TabIndex = 11;
+            this.TxtUrbanizacion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(10, 236);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(106, 20);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "Urbanización:";
+            // 
+            // TxtRazonSocial
+            // 
+            this.TxtRazonSocial.Location = new System.Drawing.Point(182, 118);
+            this.TxtRazonSocial.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.TxtRazonSocial.MaxLength = 255;
+            this.TxtRazonSocial.Name = "TxtRazonSocial";
+            this.TxtRazonSocial.Size = new System.Drawing.Size(453, 26);
+            this.TxtRazonSocial.TabIndex = 7;
+            this.TxtRazonSocial.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(10, 121);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(107, 20);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Razón Social:";
             // 
             // TxtNroIDEmpresa
             // 
@@ -449,46 +493,6 @@
             this.label4.Size = new System.Drawing.Size(163, 20);
             this.label4.TabIndex = 0;
             this.label4.Text = "Tipo de Identificación:";
-            // 
-            // TxtRazonSocial
-            // 
-            this.TxtRazonSocial.Location = new System.Drawing.Point(182, 118);
-            this.TxtRazonSocial.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.TxtRazonSocial.MaxLength = 255;
-            this.TxtRazonSocial.Name = "TxtRazonSocial";
-            this.TxtRazonSocial.Size = new System.Drawing.Size(453, 26);
-            this.TxtRazonSocial.TabIndex = 7;
-            this.TxtRazonSocial.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(10, 121);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(107, 20);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "Razón Social:";
-            // 
-            // TxtUrbanizacion
-            // 
-            this.TxtUrbanizacion.Location = new System.Drawing.Point(182, 233);
-            this.TxtUrbanizacion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.TxtUrbanizacion.MaxLength = 255;
-            this.TxtUrbanizacion.Name = "TxtUrbanizacion";
-            this.TxtUrbanizacion.Size = new System.Drawing.Size(453, 26);
-            this.TxtUrbanizacion.TabIndex = 11;
-            this.TxtUrbanizacion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(10, 236);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(106, 20);
-            this.label8.TabIndex = 10;
-            this.label8.Text = "Urbanización:";
             // 
             // FrmEmpresa
             // 
