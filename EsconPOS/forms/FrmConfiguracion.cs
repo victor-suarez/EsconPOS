@@ -215,6 +215,7 @@ namespace EsconPOS.forms
             if (e.KeyCode == Keys.Return)
             {
                 e.Handled = true;
+                e.SuppressKeyPress = true;
                 SelectNextControl((ComboBox)sender, true, true, true, false);
             }
         }
@@ -291,21 +292,22 @@ namespace EsconPOS.forms
             CargarCombos();
         }
 
-        private void NumCajaID_KeyPress(object sender, KeyPressEventArgs e)
+        private void Num_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyChar == Convert.ToChar(Keys.Return))
+            if (e.KeyCode == Keys.Enter)
             {
+                e.SuppressKeyPress = true;
                 e.Handled = true;
                 SelectNextControl((NumericUpDown)sender, true, true, true, false);
             }
         }
 
-        private void RibBtnGuardar_Click(object sender, EventArgs e)
+        private void TsBtnGuardar_Click(object sender, EventArgs e)
         {
             Guardar();
         }
 
-        private void RibBtnSalir_Click(object sender, EventArgs e)
+        private void TsBtnSalir_Click(object sender, EventArgs e)
         {
             Close();
         }
@@ -316,7 +318,11 @@ namespace EsconPOS.forms
             if (e.KeyChar == Convert.ToChar(Keys.Return))
             {
                 e.Handled = true;
-                SelectNextControl((TextBox)sender, true, true, true, false);
+                //TxtDescripcion
+                if (((TextBox)sender).Name == "")
+                    TsBtnGuardar_Click(null, null);
+                else
+                    SelectNextControl((TextBox)sender, true, true, true, false);
             }
         }
 

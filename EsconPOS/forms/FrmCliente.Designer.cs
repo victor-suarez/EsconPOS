@@ -108,8 +108,9 @@
             this.TxtFiltroNombre.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TxtFiltroNombre.MaxLength = 255;
             this.TxtFiltroNombre.Name = "TxtFiltroNombre";
-            this.TxtFiltroNombre.Size = new System.Drawing.Size(420, 26);
+            this.TxtFiltroNombre.Size = new System.Drawing.Size(652, 26);
             this.TxtFiltroNombre.TabIndex = 2;
+            this.TxtFiltroNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // TxtFiltroNroID
             // 
@@ -118,6 +119,7 @@
             this.TxtFiltroNroID.Size = new System.Drawing.Size(143, 26);
             this.TxtFiltroNroID.TabIndex = 1;
             this.TxtFiltroNroID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TxtFiltroNroID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // CmbFiltroTipoID
             // 
@@ -126,6 +128,7 @@
             this.CmbFiltroTipoID.Name = "CmbFiltroTipoID";
             this.CmbFiltroTipoID.Size = new System.Drawing.Size(58, 28);
             this.CmbFiltroTipoID.TabIndex = 0;
+            this.CmbFiltroTipoID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
             // 
             // DgvClientes
             // 
@@ -171,7 +174,7 @@
             this.TabEditar.Location = new System.Drawing.Point(4, 29);
             this.TabEditar.Name = "TabEditar";
             this.TabEditar.Padding = new System.Windows.Forms.Padding(3);
-            this.TabEditar.Size = new System.Drawing.Size(647, 344);
+            this.TabEditar.Size = new System.Drawing.Size(875, 344);
             this.TabEditar.TabIndex = 1;
             this.TabEditar.Text = "Editar";
             this.TabEditar.UseVisualStyleBackColor = true;
@@ -184,6 +187,7 @@
             this.TxtNroIDCliente.Size = new System.Drawing.Size(143, 26);
             this.TxtNroIDCliente.TabIndex = 3;
             this.TxtNroIDCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TxtNroIDCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // NumAñoNac
             // 
@@ -207,6 +211,8 @@
             0,
             0,
             0});
+            this.NumAñoNac.Enter += new System.EventHandler(this.Num_Enter);
+            this.NumAñoNac.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Num_KeyDown);
             // 
             // NumMesNac
             // 
@@ -226,10 +232,12 @@
             this.NumMesNac.TabIndex = 18;
             this.NumMesNac.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NumMesNac.Value = new decimal(new int[] {
-            12,
+            1,
             0,
             0,
             0});
+            this.NumMesNac.Enter += new System.EventHandler(this.Num_Enter);
+            this.NumMesNac.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Num_KeyDown);
             // 
             // NumDiaNac
             // 
@@ -249,10 +257,12 @@
             this.NumDiaNac.TabIndex = 17;
             this.NumDiaNac.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NumDiaNac.Value = new decimal(new int[] {
-            31,
+            1,
             0,
             0,
             0});
+            this.NumDiaNac.Enter += new System.EventHandler(this.Num_Enter);
+            this.NumDiaNac.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Num_KeyDown);
             // 
             // label7
             // 
@@ -466,7 +476,7 @@
             this.TsBtnGuardar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TsBtnGuardar.Name = "TsBtnGuardar";
             this.TsBtnGuardar.Size = new System.Drawing.Size(53, 51);
-            this.TsBtnGuardar.Text = "Guardar";
+            this.TsBtnGuardar.Text = "&Guardar";
             this.TsBtnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsBtnGuardar.Click += new System.EventHandler(this.TsBtnGuardar_Click);
             // 
@@ -477,7 +487,7 @@
             this.TsBtnDeshacer.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TsBtnDeshacer.Name = "TsBtnDeshacer";
             this.TsBtnDeshacer.Size = new System.Drawing.Size(59, 51);
-            this.TsBtnDeshacer.Text = "Deshacer";
+            this.TsBtnDeshacer.Text = "&Deshacer";
             this.TsBtnDeshacer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsBtnDeshacer.Click += new System.EventHandler(this.TsBtnDeshacer_Click);
             // 
@@ -488,7 +498,7 @@
             this.TsBtnEliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TsBtnEliminar.Name = "TsBtnEliminar";
             this.TsBtnEliminar.Size = new System.Drawing.Size(54, 51);
-            this.TsBtnEliminar.Text = "Eliminar";
+            this.TsBtnEliminar.Text = "&Eliminar";
             this.TsBtnEliminar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsBtnEliminar.Click += new System.EventHandler(this.TsBtnEliminar_Click);
             // 
@@ -503,8 +513,8 @@
             this.TsBtnSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.TsBtnSalir.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.TsBtnSalir.Name = "TsBtnSalir";
-            this.TsBtnSalir.Size = new System.Drawing.Size(36, 51);
-            this.TsBtnSalir.Text = "Salir";
+            this.TsBtnSalir.Size = new System.Drawing.Size(43, 51);
+            this.TsBtnSalir.Text = "&Cerrar";
             this.TsBtnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsBtnSalir.Click += new System.EventHandler(this.TsBtnSalir_Click);
             // 

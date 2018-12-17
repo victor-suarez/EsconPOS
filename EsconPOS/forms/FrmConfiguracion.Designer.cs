@@ -46,11 +46,6 @@
             this.TxtDescripcion = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.RibbonMenu = new System.Windows.Forms.Ribbon();
-            this.RibTabInicio = new System.Windows.Forms.RibbonTab();
-            this.RibPanelAcciones = new System.Windows.Forms.RibbonPanel();
-            this.RibBtnGuardar = new System.Windows.Forms.RibbonButton();
-            this.RibBtnSalir = new System.Windows.Forms.RibbonButton();
             this.GboxEmpresa = new System.Windows.Forms.GroupBox();
             this.CmbDistrito = new System.Windows.Forms.ComboBox();
             this.CmbProvincia = new System.Windows.Forms.ComboBox();
@@ -64,10 +59,14 @@
             this.label5 = new System.Windows.Forms.Label();
             this.CmbTipoIDEmpresa = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.TsBtnGuardar = new System.Windows.Forms.ToolStripButton();
+            this.TsBtnSalir = new System.Windows.Forms.ToolStripButton();
             this.GboxAdministrador.SuspendLayout();
             this.GboxCaja.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumCajaID)).BeginInit();
             this.GboxEmpresa.SuspendLayout();
+            this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // GboxAdministrador
@@ -83,14 +82,14 @@
             this.GboxAdministrador.Controls.Add(this.label3);
             this.GboxAdministrador.Controls.Add(this.label2);
             this.GboxAdministrador.Controls.Add(this.label1);
-            this.GboxAdministrador.Location = new System.Drawing.Point(18, 323);
+            this.GboxAdministrador.Location = new System.Drawing.Point(16, 264);
             this.GboxAdministrador.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.GboxAdministrador.Name = "GboxAdministrador";
             this.GboxAdministrador.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.GboxAdministrador.Size = new System.Drawing.Size(598, 213);
             this.GboxAdministrador.TabIndex = 1;
             this.GboxAdministrador.TabStop = false;
-            this.GboxAdministrador.Text = "Empleado Administrador";
+            this.GboxAdministrador.Text = "Administrador";
             // 
             // ChkEsSupervisor
             // 
@@ -205,7 +204,7 @@
             this.GboxCaja.Controls.Add(this.TxtDescripcion);
             this.GboxCaja.Controls.Add(this.label10);
             this.GboxCaja.Controls.Add(this.label9);
-            this.GboxCaja.Location = new System.Drawing.Point(18, 546);
+            this.GboxCaja.Location = new System.Drawing.Point(16, 487);
             this.GboxCaja.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.GboxCaja.Name = "GboxCaja";
             this.GboxCaja.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -236,7 +235,7 @@
             0,
             0,
             0});
-            this.NumCajaID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumCajaID_KeyPress);
+            this.NumCajaID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Num_KeyDown);
             // 
             // TxtDescripcion
             // 
@@ -245,6 +244,7 @@
             this.TxtDescripcion.Name = "TxtDescripcion";
             this.TxtDescripcion.Size = new System.Drawing.Size(409, 26);
             this.TxtDescripcion.TabIndex = 3;
+            this.TxtDescripcion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // label10
             // 
@@ -264,62 +264,6 @@
             this.label9.TabIndex = 0;
             this.label9.Text = "Nro de Caja:";
             // 
-            // RibbonMenu
-            // 
-            this.RibbonMenu.CaptionBarVisible = false;
-            this.RibbonMenu.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.RibbonMenu.Location = new System.Drawing.Point(0, 0);
-            this.RibbonMenu.Minimized = false;
-            this.RibbonMenu.Name = "RibbonMenu";
-            // 
-            // 
-            // 
-            this.RibbonMenu.OrbDropDown.BorderRoundness = 8;
-            this.RibbonMenu.OrbDropDown.Location = new System.Drawing.Point(0, 0);
-            this.RibbonMenu.OrbDropDown.Name = "";
-            this.RibbonMenu.OrbDropDown.Size = new System.Drawing.Size(527, 72);
-            this.RibbonMenu.OrbDropDown.TabIndex = 0;
-            this.RibbonMenu.OrbStyle = System.Windows.Forms.RibbonOrbStyle.Office_2013;
-            this.RibbonMenu.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
-            this.RibbonMenu.Size = new System.Drawing.Size(626, 110);
-            this.RibbonMenu.TabIndex = 3;
-            this.RibbonMenu.Tabs.Add(this.RibTabInicio);
-            this.RibbonMenu.TabsMargin = new System.Windows.Forms.Padding(5, 2, 20, 0);
-            this.RibbonMenu.TabSpacing = 4;
-            this.RibbonMenu.Text = "Acciones";
-            // 
-            // RibTabInicio
-            // 
-            this.RibTabInicio.Name = "RibTabInicio";
-            this.RibTabInicio.Panels.Add(this.RibPanelAcciones);
-            this.RibTabInicio.Text = "Inicio";
-            // 
-            // RibPanelAcciones
-            // 
-            this.RibPanelAcciones.ButtonMoreVisible = false;
-            this.RibPanelAcciones.Items.Add(this.RibBtnGuardar);
-            this.RibPanelAcciones.Items.Add(this.RibBtnSalir);
-            this.RibPanelAcciones.Name = "RibPanelAcciones";
-            this.RibPanelAcciones.Text = "Acciones";
-            // 
-            // RibBtnGuardar
-            // 
-            this.RibBtnGuardar.Image = global::EsconPOS.Properties.Resources.Guardar;
-            this.RibBtnGuardar.LargeImage = global::EsconPOS.Properties.Resources.Guardar;
-            this.RibBtnGuardar.Name = "RibBtnGuardar";
-            this.RibBtnGuardar.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnGuardar.SmallImage")));
-            this.RibBtnGuardar.Text = "Guardar";
-            this.RibBtnGuardar.Click += new System.EventHandler(this.RibBtnGuardar_Click);
-            // 
-            // RibBtnSalir
-            // 
-            this.RibBtnSalir.Image = global::EsconPOS.Properties.Resources.Close;
-            this.RibBtnSalir.LargeImage = global::EsconPOS.Properties.Resources.Close;
-            this.RibBtnSalir.Name = "RibBtnSalir";
-            this.RibBtnSalir.SmallImage = ((System.Drawing.Image)(resources.GetObject("RibBtnSalir.SmallImage")));
-            this.RibBtnSalir.Text = "Salir";
-            this.RibBtnSalir.Click += new System.EventHandler(this.RibBtnSalir_Click);
-            // 
             // GboxEmpresa
             // 
             this.GboxEmpresa.Controls.Add(this.CmbDistrito);
@@ -335,7 +279,7 @@
             this.GboxEmpresa.Controls.Add(this.CmbTipoIDEmpresa);
             this.GboxEmpresa.Controls.Add(this.label4);
             this.GboxEmpresa.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GboxEmpresa.Location = new System.Drawing.Point(18, 116);
+            this.GboxEmpresa.Location = new System.Drawing.Point(16, 57);
             this.GboxEmpresa.Name = "GboxEmpresa";
             this.GboxEmpresa.Size = new System.Drawing.Size(598, 199);
             this.GboxEmpresa.TabIndex = 0;
@@ -471,13 +415,47 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "Tipo de Identificación:";
             // 
+            // toolStrip
+            // 
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TsBtnGuardar,
+            this.TsBtnSalir});
+            this.toolStrip.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.toolStrip.Size = new System.Drawing.Size(626, 54);
+            this.toolStrip.TabIndex = 3;
+            this.toolStrip.Text = "toolStrip1";
+            // 
+            // TsBtnGuardar
+            // 
+            this.TsBtnGuardar.Image = global::EsconPOS.Properties.Resources.Guardar;
+            this.TsBtnGuardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TsBtnGuardar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsBtnGuardar.Name = "TsBtnGuardar";
+            this.TsBtnGuardar.Size = new System.Drawing.Size(53, 51);
+            this.TsBtnGuardar.Text = "&Guardar";
+            this.TsBtnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsBtnGuardar.Click += new System.EventHandler(this.TsBtnGuardar_Click);
+            // 
+            // TsBtnSalir
+            // 
+            this.TsBtnSalir.Image = global::EsconPOS.Properties.Resources.Close;
+            this.TsBtnSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TsBtnSalir.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.TsBtnSalir.Name = "TsBtnSalir";
+            this.TsBtnSalir.Size = new System.Drawing.Size(43, 51);
+            this.TsBtnSalir.Text = "&Cerrar";
+            this.TsBtnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsBtnSalir.Click += new System.EventHandler(this.TsBtnSalir_Click);
+            // 
             // FrmConfiguracion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(626, 650);
+            this.ClientSize = new System.Drawing.Size(626, 592);
+            this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.GboxEmpresa);
-            this.Controls.Add(this.RibbonMenu);
             this.Controls.Add(this.GboxCaja);
             this.Controls.Add(this.GboxAdministrador);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -499,7 +477,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumCajaID)).EndInit();
             this.GboxEmpresa.ResumeLayout(false);
             this.GboxEmpresa.PerformLayout();
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -522,11 +503,6 @@
         private System.Windows.Forms.TextBox TxtDescripcion;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Ribbon RibbonMenu;
-        private System.Windows.Forms.RibbonTab RibTabInicio;
-        private System.Windows.Forms.RibbonPanel RibPanelAcciones;
-        private System.Windows.Forms.RibbonButton RibBtnGuardar;
-        private System.Windows.Forms.RibbonButton RibBtnSalir;
         private System.Windows.Forms.GroupBox GboxEmpresa;
         private System.Windows.Forms.TextBox TxtNroIDEmpresa;
         private System.Windows.Forms.Label label5;
@@ -540,5 +516,8 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox CmbProvincia;
         private System.Windows.Forms.ComboBox CmbDistrito;
+        private System.Windows.Forms.ToolStrip toolStrip;
+        private System.Windows.Forms.ToolStripButton TsBtnGuardar;
+        private System.Windows.Forms.ToolStripButton TsBtnSalir;
     }
 }

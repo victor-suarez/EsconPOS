@@ -26,7 +26,7 @@ namespace EsconPOS.forms
             CmbTipoIDEmpresa.DisplayMember = "Identificacion";
             CmbTipoIDEmpresa.ValueMember = "IdentificacionID";
 
-            CmbDepartamento.DataSource = context.Departamentos.OrderBy("Codigo").ToList();
+            CmbDepartamento.DataSource = context.Departamentos.OrderBy("UBIGEO").ToList();
             CmbDepartamento.DisplayMember = "Departamento";
             CmbDepartamento.ValueMember = "DepartamentoID";
         }

@@ -226,6 +226,7 @@ namespace EsconPOS.forms
             if (e.KeyCode == Keys.Return)
             {
                 e.Handled = true;
+                e.SuppressKeyPress = true;
                 SelectNextControl((ComboBox)sender, true, true, true, false);
             }
         }
@@ -314,6 +315,24 @@ namespace EsconPOS.forms
             TssLblModificado.Text = "";
             Left = 10;
             Top = 10;
+        }
+        private void Num_Enter(object sender, EventArgs e)
+        {
+            ((NumericUpDown)sender).Select(0, ((NumericUpDown)sender).Text.Length);
+        }
+
+        private void Num_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+                //"NumAñoNac"
+                if (((NumericUpDown)sender).Name == "NumAñoNac")
+                    TsBtnGuardar_Click(null, null);
+                else
+                    SelectNextControl((NumericUpDown)sender, true, true, true, false);
+            }
         }
 
         private void TsBtnDeshacer_Click(object sender, EventArgs e)

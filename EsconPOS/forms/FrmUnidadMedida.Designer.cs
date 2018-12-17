@@ -40,6 +40,7 @@
             this.TssLblModificado = new System.Windows.Forms.ToolStripStatusLabel();
             this.TabUnidades = new System.Windows.Forms.TabControl();
             this.PagLista = new System.Windows.Forms.TabPage();
+            this.TxtFiltroIniciales = new System.Windows.Forms.TextBox();
             this.TxtFiltroCodigo = new System.Windows.Forms.TextBox();
             this.DgvUnidades = new System.Windows.Forms.DataGridView();
             this.TxtFiltroUnidad = new System.Windows.Forms.TextBox();
@@ -51,7 +52,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.TxtCodigo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.TxtFiltroIniciales = new System.Windows.Forms.TextBox();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.TabUnidades.SuspendLayout();
@@ -82,7 +82,7 @@
             this.TsBtnGuardar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TsBtnGuardar.Name = "TsBtnGuardar";
             this.TsBtnGuardar.Size = new System.Drawing.Size(53, 51);
-            this.TsBtnGuardar.Text = "Guardar";
+            this.TsBtnGuardar.Text = "&Guardar";
             this.TsBtnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsBtnGuardar.Click += new System.EventHandler(this.TsBtnGuardar_Click);
             // 
@@ -93,7 +93,7 @@
             this.TsBtnDeshacer.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TsBtnDeshacer.Name = "TsBtnDeshacer";
             this.TsBtnDeshacer.Size = new System.Drawing.Size(59, 51);
-            this.TsBtnDeshacer.Text = "Deshacer";
+            this.TsBtnDeshacer.Text = "&Deshacer";
             this.TsBtnDeshacer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsBtnDeshacer.Click += new System.EventHandler(this.TsBtnDeshacer_Click);
             // 
@@ -104,7 +104,7 @@
             this.TsBtnEliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TsBtnEliminar.Name = "TsBtnEliminar";
             this.TsBtnEliminar.Size = new System.Drawing.Size(54, 51);
-            this.TsBtnEliminar.Text = "Eliminar";
+            this.TsBtnEliminar.Text = "&Eliminar";
             this.TsBtnEliminar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsBtnEliminar.Click += new System.EventHandler(this.TsBtnEliminar_Click);
             // 
@@ -119,8 +119,8 @@
             this.TsBtnSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.TsBtnSalir.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.TsBtnSalir.Name = "TsBtnSalir";
-            this.TsBtnSalir.Size = new System.Drawing.Size(36, 51);
-            this.TsBtnSalir.Text = "Salir";
+            this.TsBtnSalir.Size = new System.Drawing.Size(43, 51);
+            this.TsBtnSalir.Text = "&Cerrar";
             this.TsBtnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsBtnSalir.Click += new System.EventHandler(this.TsBtnSalir_Click);
             // 
@@ -181,6 +181,14 @@
             this.PagLista.TabIndex = 0;
             this.PagLista.Text = "Lista";
             this.PagLista.UseVisualStyleBackColor = true;
+            // 
+            // TxtFiltroIniciales
+            // 
+            this.TxtFiltroIniciales.Location = new System.Drawing.Point(718, 6);
+            this.TxtFiltroIniciales.MaxLength = 3;
+            this.TxtFiltroIniciales.Name = "TxtFiltroIniciales";
+            this.TxtFiltroIniciales.Size = new System.Drawing.Size(88, 26);
+            this.TxtFiltroIniciales.TabIndex = 2;
             // 
             // TxtFiltroCodigo
             // 
@@ -304,14 +312,6 @@
             this.label1.Size = new System.Drawing.Size(63, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Código:";
-            // 
-            // TxtFiltroIniciales
-            // 
-            this.TxtFiltroIniciales.Location = new System.Drawing.Point(718, 6);
-            this.TxtFiltroIniciales.MaxLength = 3;
-            this.TxtFiltroIniciales.Name = "TxtFiltroIniciales";
-            this.TxtFiltroIniciales.Size = new System.Drawing.Size(88, 26);
-            this.TxtFiltroIniciales.TabIndex = 2;
             // 
             // FrmUnidadMedida
             // 

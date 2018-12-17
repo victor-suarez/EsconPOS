@@ -64,7 +64,7 @@
             this.TsBtnGuardar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TsBtnGuardar.Name = "TsBtnGuardar";
             this.TsBtnGuardar.Size = new System.Drawing.Size(53, 51);
-            this.TsBtnGuardar.Text = "Guardar";
+            this.TsBtnGuardar.Text = "&Guardar";
             this.TsBtnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // TsBtnDeshacer
@@ -74,7 +74,7 @@
             this.TsBtnDeshacer.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TsBtnDeshacer.Name = "TsBtnDeshacer";
             this.TsBtnDeshacer.Size = new System.Drawing.Size(59, 51);
-            this.TsBtnDeshacer.Text = "Deshacer";
+            this.TsBtnDeshacer.Text = "&Deshacer";
             this.TsBtnDeshacer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // TsBtnEliminar
@@ -84,7 +84,7 @@
             this.TsBtnEliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TsBtnEliminar.Name = "TsBtnEliminar";
             this.TsBtnEliminar.Size = new System.Drawing.Size(54, 51);
-            this.TsBtnEliminar.Text = "Eliminar";
+            this.TsBtnEliminar.Text = "&Eliminar";
             this.TsBtnEliminar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // toolStripSeparator1
@@ -98,8 +98,8 @@
             this.TsBtnSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.TsBtnSalir.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.TsBtnSalir.Name = "TsBtnSalir";
-            this.TsBtnSalir.Size = new System.Drawing.Size(36, 51);
-            this.TsBtnSalir.Text = "Salir";
+            this.TsBtnSalir.Size = new System.Drawing.Size(43, 51);
+            this.TsBtnSalir.Text = "&Cerrar";
             this.TsBtnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // statusStrip
@@ -117,7 +117,7 @@
             // TssLblStatus
             // 
             this.TssLblStatus.Name = "TssLblStatus";
-            this.TssLblStatus.Size = new System.Drawing.Size(318, 17);
+            this.TssLblStatus.Size = new System.Drawing.Size(349, 17);
             this.TssLblStatus.Spring = true;
             this.TssLblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 

@@ -40,6 +40,7 @@
             this.TssLblModificado = new System.Windows.Forms.ToolStripStatusLabel();
             this.TabEmpleados = new System.Windows.Forms.TabControl();
             this.TabLista = new System.Windows.Forms.TabPage();
+            this.TxtFiltroNroID = new System.Windows.Forms.TextBox();
             this.TxtFilterNroTelefonico = new System.Windows.Forms.TextBox();
             this.TxtFiltroNombre = new System.Windows.Forms.TextBox();
             this.CmbFiltroTipoID = new System.Windows.Forms.ComboBox();
@@ -60,7 +61,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.CmbTipoIDEmpleado = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.TxtFiltroNroID = new System.Windows.Forms.TextBox();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.TabEmpleados.SuspendLayout();
@@ -91,7 +91,7 @@
             this.TsBtnGuardar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TsBtnGuardar.Name = "TsBtnGuardar";
             this.TsBtnGuardar.Size = new System.Drawing.Size(53, 51);
-            this.TsBtnGuardar.Text = "Guardar";
+            this.TsBtnGuardar.Text = "&Guardar";
             this.TsBtnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsBtnGuardar.Click += new System.EventHandler(this.TsBtnGuardar_Click);
             // 
@@ -102,7 +102,7 @@
             this.TsBtnDeshacer.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TsBtnDeshacer.Name = "TsBtnDeshacer";
             this.TsBtnDeshacer.Size = new System.Drawing.Size(59, 51);
-            this.TsBtnDeshacer.Text = "Deshacer";
+            this.TsBtnDeshacer.Text = "&Deshacer";
             this.TsBtnDeshacer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsBtnDeshacer.Click += new System.EventHandler(this.TsBtnDeshacer_Click);
             // 
@@ -113,7 +113,7 @@
             this.TsBtnEliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TsBtnEliminar.Name = "TsBtnEliminar";
             this.TsBtnEliminar.Size = new System.Drawing.Size(54, 51);
-            this.TsBtnEliminar.Text = "Eliminar";
+            this.TsBtnEliminar.Text = "&Eliminar";
             this.TsBtnEliminar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsBtnEliminar.Click += new System.EventHandler(this.TsBtnEliminar_Click);
             // 
@@ -128,8 +128,8 @@
             this.TsBtnSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.TsBtnSalir.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.TsBtnSalir.Name = "TsBtnSalir";
-            this.TsBtnSalir.Size = new System.Drawing.Size(36, 51);
-            this.TsBtnSalir.Text = "Salir";
+            this.TsBtnSalir.Size = new System.Drawing.Size(43, 51);
+            this.TsBtnSalir.Text = "&Cerrar";
             this.TsBtnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsBtnSalir.Click += new System.EventHandler(this.TsBtnSalir_Click);
             // 
@@ -195,6 +195,14 @@
             this.TabLista.TabIndex = 0;
             this.TabLista.Text = "Lista";
             this.TabLista.UseVisualStyleBackColor = true;
+            // 
+            // TxtFiltroNroID
+            // 
+            this.TxtFiltroNroID.Location = new System.Drawing.Point(101, 10);
+            this.TxtFiltroNroID.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.TxtFiltroNroID.Name = "TxtFiltroNroID";
+            this.TxtFiltroNroID.Size = new System.Drawing.Size(145, 26);
+            this.TxtFiltroNroID.TabIndex = 1;
             // 
             // TxtFilterNroTelefonico
             // 
@@ -426,14 +434,6 @@
             this.label4.Size = new System.Drawing.Size(163, 20);
             this.label4.TabIndex = 0;
             this.label4.Text = "Tipo de Identificación:";
-            // 
-            // TxtFiltroNroID
-            // 
-            this.TxtFiltroNroID.Location = new System.Drawing.Point(101, 10);
-            this.TxtFiltroNroID.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.TxtFiltroNroID.Name = "TxtFiltroNroID";
-            this.TxtFiltroNroID.Size = new System.Drawing.Size(145, 26);
-            this.TxtFiltroNroID.TabIndex = 1;
             // 
             // FrmEmpleado
             // 

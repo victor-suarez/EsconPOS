@@ -132,7 +132,6 @@
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(948, 54);
             this.toolStrip.TabIndex = 4;
-            this.toolStrip.Text = "toolStrip1";
             // 
             // TssbCaja
             // 
@@ -144,14 +143,14 @@
             this.TssbCaja.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TssbCaja.Name = "TssbCaja";
             this.TssbCaja.Size = new System.Drawing.Size(75, 51);
-            this.TssbCaja.Text = "Abrir Caja";
+            this.TssbCaja.Text = "Abrir &Caja";
             this.TssbCaja.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TssbCaja.ButtonClick += new System.EventHandler(this.TssbCaja_ButtonClick);
             // 
             // TsmiIncluirFactura
             // 
             this.TsmiIncluirFactura.Name = "TsmiIncluirFactura";
-            this.TsmiIncluirFactura.Size = new System.Drawing.Size(152, 22);
+            this.TsmiIncluirFactura.Size = new System.Drawing.Size(149, 22);
             this.TsmiIncluirFactura.Text = "Incluir &Factura";
             this.TsmiIncluirFactura.Visible = false;
             this.TsmiIncluirFactura.Click += new System.EventHandler(this.TsmiIncluirFactura_Click);
@@ -159,7 +158,7 @@
             // TsmiAbrirCuenta
             // 
             this.TsmiAbrirCuenta.Name = "TsmiAbrirCuenta";
-            this.TsmiAbrirCuenta.Size = new System.Drawing.Size(152, 22);
+            this.TsmiAbrirCuenta.Size = new System.Drawing.Size(149, 22);
             this.TsmiAbrirCuenta.Text = "Abrir &Cuenta";
             this.TsmiAbrirCuenta.Visible = false;
             // 
@@ -180,7 +179,7 @@
             this.TssbAdministrar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TssbAdministrar.Name = "TssbAdministrar";
             this.TssbAdministrar.Size = new System.Drawing.Size(85, 51);
-            this.TssbAdministrar.Text = "Administrar";
+            this.TssbAdministrar.Text = "&Administrar";
             this.TssbAdministrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // TsmiEmpresas
@@ -225,7 +224,7 @@
             this.TssbUbicacion.ImageTransparentColor = System.Drawing.Color.White;
             this.TssbUbicacion.Name = "TssbUbicacion";
             this.TssbUbicacion.Size = new System.Drawing.Size(76, 51);
-            this.TssbUbicacion.Text = "Ubicación";
+            this.TssbUbicacion.Text = "&Ubicación";
             this.TssbUbicacion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // TsmiPaises
@@ -268,7 +267,7 @@
             this.TssbSunat.ImageTransparentColor = System.Drawing.Color.White;
             this.TssbSunat.Name = "TssbSunat";
             this.TssbSunat.Size = new System.Drawing.Size(60, 51);
-            this.TssbSunat.Text = "SUNAT";
+            this.TssbSunat.Text = "SU&NAT";
             this.TssbSunat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // TsmiImpuestos
@@ -311,7 +310,7 @@
             this.TssbProductos.ImageTransparentColor = System.Drawing.Color.White;
             this.TssbProductos.Name = "TssbProductos";
             this.TssbProductos.Size = new System.Drawing.Size(85, 51);
-            this.TssbProductos.Text = "Prods/Servs";
+            this.TssbProductos.Text = "&Prods/Servs";
             this.TssbProductos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // TsmiMarcas
@@ -342,12 +341,12 @@
             // 
             // TssbSalir
             // 
-            this.TssbSalir.Image = global::EsconPOS.Properties.Resources.Close;
+            this.TssbSalir.Image = global::EsconPOS.Properties.Resources.Logout;
             this.TssbSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.TssbSalir.ImageTransparentColor = System.Drawing.Color.White;
             this.TssbSalir.Name = "TssbSalir";
             this.TssbSalir.Size = new System.Drawing.Size(36, 51);
-            this.TssbSalir.Text = "Salir";
+            this.TssbSalir.Text = "&Salir";
             this.TssbSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TssbSalir.Click += new System.EventHandler(this.TssbSalir_Click);
             // 
@@ -370,6 +369,7 @@
             this.Name = "MDIEsconPos";
             this.Text = "EsconPOS";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MDIEsconPos_FormClosing);
             this.Load += new System.EventHandler(this.MDIEsconPos_Load);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
@@ -388,7 +388,6 @@
         private System.Windows.Forms.ToolStripStatusLabel TsslFecha;
         private System.Windows.Forms.ToolStripStatusLabel TsslHora;
         private System.Windows.Forms.Timer TmrHora;
-        private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripSplitButton TssbUbicacion;
         private System.Windows.Forms.ToolStripMenuItem TsmiPaises;
         private System.Windows.Forms.ToolStripMenuItem TsmiDepartamentos;
@@ -415,6 +414,7 @@
         private System.Windows.Forms.ToolStripSplitButton TssbCaja;
         private System.Windows.Forms.ToolStripMenuItem TsmiIncluirFactura;
         private System.Windows.Forms.ToolStripMenuItem TsmiAbrirCuenta;
+        public System.Windows.Forms.ToolStrip toolStrip;
     }
 }
 

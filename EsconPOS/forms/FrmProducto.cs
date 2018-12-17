@@ -13,7 +13,6 @@ namespace EsconPOS.forms
         #region Variables y constantes
 
         private mainEntities context = new mainEntities();
-        private bool isLoading = false;
 
         #endregion Variables y constantes
 
@@ -40,28 +39,36 @@ namespace EsconPOS.forms
 
         private void CargarMarcas()
         {
-            isLoading = true;
             CmbMarcas.DataSource = context.Marcas
-                .Where(m => m.Activo == 1)
-                .OrderBy("Marca")
-                .ToList();
+                                    .Where(m => m.Activo == 1)
+                                    .OrderBy("Marca")
+                                    .ToList();
             CmbMarcas.DisplayMember = "Marca";
             CmbMarcas.ValueMember = "MarcaID";
             CmbMarcas.SelectedIndex = -1;
-            isLoading = false;
+
+            CmbFiltroMarca.DataSource = context.Marcas
+                                        .Where(m => m.Activo == 1)
+                                        .OrderBy("Codigo")
+                                        .ToList();
+            CmbFiltroMarca.DisplayMember = "Codigo";
+            CmbFiltroMarca.ValueMember = "MarcaID";
+            CmbFiltroMarca.SelectedIndex = -1;
         }
 
         private void CargarProductos(string OrderBy = "Producto")
         {
             string FiltroCodigoBarra = TxtFiltroCodigoBarra.Text.Trim();
             string FiltroCodigo = TxtFiltroCodigo.Text.Trim();
-            string FiltroMarca = CmbFiltroMarca.Text;
-            string FiltroTipo = CmbFiltroTipo.Text;
+            string FiltroMarca = CmbFiltroMarca.SelectedIndex < 0 ? "" : CmbFiltroMarca.Text.Substring(0, CmbFiltroMarca.Text.IndexOf("-"));
+            string FiltroTipo = CmbFiltroTipo.SelectedIndex < 0 ? "" : CmbFiltroTipo.Text.Substring(0, CmbFiltroTipo.Text.IndexOf("-"));
             string FiltroProducto = TxtFiltroProducto.Text.Trim();
             DgvProductos.DataSource = context.Productos
                                         .Select(p => new
                                         {
                                             ID = p.ProductoID,
+                                            Cod_Marca = p.Marcas.Codigo,
+                                            Cod_Tipo = p.TiposProductos.Codigo,
                                             Activo = p.Activo,
                                             Código = p.Codigo,
                                             Código_Barra = p.CodigoBarra,
@@ -78,30 +85,38 @@ namespace EsconPOS.forms
                                                     &&
                                                     (p.Código.StartsWith(FiltroCodigo) || FiltroCodigo == "")
                                                     &&
-                                                    (p.Marca == FiltroMarca || FiltroMarca == "")
+                                                    (p.Cod_Marca == FiltroMarca || FiltroMarca == "")
                                                     &&
-                                                    (p.Tipo == FiltroTipo || FiltroTipo == "")
+                                                    (p.Cod_Tipo == FiltroTipo || FiltroTipo == "")
                                                     &&
                                                     (p.Producto.Contains(FiltroProducto) || FiltroProducto == "")
                                                 )
                                         .OrderBy(OrderBy)
                                         .ToList();
             DgvProductos.Columns["ID"].Visible = false;
+            DgvProductos.Columns["Cod_Marca"].Visible = false;
+            DgvProductos.Columns["Cod_Tipo"].Visible = false;
             DgvProductos.Columns["Activo"].Visible = false;
             DgvProductos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
         private void CargarTipoProductos()
         {
-            isLoading = true;
             CmbTipos.DataSource = context.TiposProductos
-                .Where(t => t.Activo == 1)
-                .OrderBy("TipoProducto")
-                .ToList();
+                                    .Where(t => t.Activo == 1)
+                                    .OrderBy("TipoProducto")
+                                    .ToList();
             CmbTipos.DisplayMember = "TipoProducto";
             CmbTipos.ValueMember = "TipoProductoID";
             CmbTipos.SelectedIndex = -1;
-            isLoading = false;
+
+            CmbFiltroTipo.DataSource = context.TiposProductos
+                                        .Where(t => t.Activo == 1)
+                                        .OrderBy("Codigo")
+                                        .ToList();
+            CmbFiltroTipo.DisplayMember = "Codigo";
+            CmbFiltroTipo.ValueMember = "TipoProductoID";
+            CmbFiltroTipo.SelectedIndex = -1;
         }
 
         private void CargarUnidades()
@@ -128,6 +143,7 @@ namespace EsconPOS.forms
             CmbImpuestos.SelectedIndex = -1;
             NumCostoUnitario.Value = 0;
             NumPrecioUnitario.Value = 0;
+            TxtCodigo.Focus();
         }
 
         private string CreaCodigoProd()
@@ -135,9 +151,9 @@ namespace EsconPOS.forms
             string Codigo = "";
             string Marca = CmbMarcas.SelectedIndex == -1 ? "" : ((Marcas)CmbMarcas.SelectedItem).Codigo;
             string Clase = CmbTipos.SelectedIndex == -1 ? "" : ((TiposProductos)CmbTipos.SelectedItem).Codigo;
-            int Consecutivo = (from p in context.Productos where p.Marcas.Codigo == Marca && p.TiposProductos.Codigo == Clase select Codigo.Substring(8, 3)).Count() + 1;
-            string Siguiente = Consecutivo.ToString("000");
-            Codigo = Marca + "-" + Clase + "-" + Siguiente;
+            int Consecutivo = (from p in context.Productos where (p.Marcas.Codigo == Marca || Marca == "") && (p.TiposProductos.Codigo == Clase || Clase == "") select Codigo.Substring(Codigo.Length - 4, 4)).Count() + 1;
+            string Siguiente = Consecutivo.ToString("0000");
+            Codigo = Marca + (Marca.Length > 0 ? "-" : "") + Clase + (Clase.Length > 0 ? "-" : "") + Siguiente;
             return Codigo;
         }
 
@@ -168,11 +184,11 @@ namespace EsconPOS.forms
 
         private void Guardar()
         {
+            if (TxtCodigo.Text.Trim().Length == 0) TxtCodigo.Text = CreaCodigoProd();
             if (!ValEntReq()) return;
             Cursor.Current = Cursors.WaitCursor;
             if (TxtCodigo.Tag == null)
             {
-                if (TxtCodigo.Text.Trim().Length == 0) TxtCodigo.Text = CreaCodigoProd();
                 try
                 {
                     var prod = new Productos
@@ -245,6 +261,8 @@ namespace EsconPOS.forms
             btn.Cursor = Cursors.Default;
             btn.Image = Properties.Resources.ClearTxt;
             btn.Click += btn_Click;
+            btn.KeyDown += btn_KeyDown;
+            btn.PreviewKeyDown += btn_PreviewKeyDown;
             //btn.Visible = false;
             txt.Controls.Add(btn);
         }
@@ -284,12 +302,12 @@ namespace EsconPOS.forms
 
         private bool ValEntReq()
         {
-            //if (TxtCodigo.Text.Trim().Length == 0)
-            //{
-            //    TxtCodigo.Focus();
-            //    MessageBox.Show("Debe transcribir el código del producto.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    return false;
-            //}
+            if (TxtCodigo.Text.Trim().Length == 0)
+            {
+                TxtCodigo.Focus();
+                MessageBox.Show("Debe transcribir el código del producto.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
             if (TxtProducto.Text.Trim().Length == 0)
             {
                 TxtProducto.Focus();
@@ -323,6 +341,20 @@ namespace EsconPOS.forms
         private void btn_Click(object sender, EventArgs e)
         {
             ((TextBox)((Button)sender).Parent).Clear();
+        }
+
+        private void btn_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+                SelectNextControl((Button)sender, true, true, true, false);
+            }
+        }
+        private void btn_PreviewKeyDown(object sender ,PreviewKeyDownEventArgs e )
+        {
+            if (e.KeyCode == Keys.Return) e.IsInputKey = true;
         }
 
         private void BtnAgregarMarca_Click(object sender, EventArgs e)
@@ -381,11 +413,13 @@ namespace EsconPOS.forms
         {
             if (e.KeyCode == Keys.Return)
             {
+                e.SuppressKeyPress = true;
                 e.Handled = true;
                 SelectNextControl((ComboBox)sender, true, true, true, false);
             }
             else if (e.KeyCode == Keys.Escape)
             {
+                e.SuppressKeyPress = true;
                 e.Handled = true;
                 ((ComboBox)sender).SelectedIndex = -1;
             }
@@ -396,8 +430,24 @@ namespace EsconPOS.forms
             CargarProductos();
         }
 
-        private void CmbClasifProd_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbFiltroMarca_Format(object sender, ListControlConvertEventArgs e)
         {
+            e.Value = ((Marcas)e.ListItem).Codigo + "-" + ((Marcas)e.ListItem).Marca;
+        }
+
+        private void CmbFiltroTipo_Format(object sender, ListControlConvertEventArgs e)
+        {
+            e.Value = ((TiposProductos)e.ListItem).Codigo + "-" + ((TiposProductos)e.ListItem).TipoProducto;
+        }
+
+        private void CmbMarcas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BtnAgregarMarca.TabStop = (CmbMarcas.SelectedIndex < 0);
+        }
+
+        private void CmbTipos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BtnAgregarTipo.TabStop = (CmbTipos.SelectedIndex < 0);
         }
 
         private void DgvProductos_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -413,23 +463,27 @@ namespace EsconPOS.forms
 
         private void FrmProducto_Load(object sender, EventArgs e)
         {
-            CargarCombos();
             CargarProductos();
             IncluirBtnClear(TxtFiltroCodigo);
             IncluirBtnClear(TxtFiltroCodigoBarra);
             IncluirBtnClear(TxtFiltroProducto);
+            CargarCombos();
             TssLblAgregado.Text = "";
             TssLblModificado.Text = "";
             Left = 10;
             Top = 10;
         }
 
-        private void Num_KeyPress(object sender, KeyPressEventArgs e)
+        private void Num_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyChar == Convert.ToChar(Keys.Return))
+            if (e.KeyCode == Keys.Return)
             {
+                e.SuppressKeyPress = true;
                 e.Handled = true;
-                SelectNextControl((NumericUpDown)sender, true, true, true, false);
+                if (((NumericUpDown)sender).Name == "NumPrecioUnitario")
+                    TsBtnGuardar_Click(null, null);
+                else
+                    SelectNextControl((NumericUpDown)sender, true, true, true, false);
             }
         }
 

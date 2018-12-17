@@ -8,6 +8,7 @@ namespace EsconPOS.classes
     {
         #region Variables privadas
 
+        private static string _CnxStr;
         private static bool _LoggedIN;
         private static long ID_Caja;
         private static long ID_DistritoEmpresa;
@@ -35,6 +36,12 @@ namespace EsconPOS.classes
         {
             get { return _Caja; }
             set { _Caja = value; }
+        }
+
+        public static string CnxStr
+        {
+            get { return _CnxStr; }
+            set { _CnxStr = value; }
         }
 
         public static Empleados Empleado

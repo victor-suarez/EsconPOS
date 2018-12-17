@@ -29,7 +29,11 @@
         private void InitializeComponent()
         {
             this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.TsBtnGuardar = new System.Windows.Forms.ToolStripButton();
+            this.TsBtnDeshacer = new System.Windows.Forms.ToolStripButton();
+            this.TsBtnEliminar = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.TsBtnSalir = new System.Windows.Forms.ToolStripButton();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.TssLblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.TssLblAgregado = new System.Windows.Forms.ToolStripStatusLabel();
@@ -41,10 +45,6 @@
             this.CmbFilterTipoID = new System.Windows.Forms.ComboBox();
             this.Dgv = new System.Windows.Forms.DataGridView();
             this.TabEditar = new System.Windows.Forms.TabPage();
-            this.TsBtnGuardar = new System.Windows.Forms.ToolStripButton();
-            this.TsBtnDeshacer = new System.Windows.Forms.ToolStripButton();
-            this.TsBtnEliminar = new System.Windows.Forms.ToolStripButton();
-            this.TsBtnSalir = new System.Windows.Forms.ToolStripButton();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.Tab.SuspendLayout();
@@ -67,10 +67,50 @@
             this.toolStrip.TabIndex = 2;
             this.toolStrip.Text = "toolStrip1";
             // 
+            // TsBtnGuardar
+            // 
+            this.TsBtnGuardar.Image = global::EsconPOS.Properties.Resources.Guardar;
+            this.TsBtnGuardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TsBtnGuardar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsBtnGuardar.Name = "TsBtnGuardar";
+            this.TsBtnGuardar.Size = new System.Drawing.Size(53, 51);
+            this.TsBtnGuardar.Text = "&Guardar";
+            this.TsBtnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // TsBtnDeshacer
+            // 
+            this.TsBtnDeshacer.Image = global::EsconPOS.Properties.Resources.Limpiar;
+            this.TsBtnDeshacer.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TsBtnDeshacer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsBtnDeshacer.Name = "TsBtnDeshacer";
+            this.TsBtnDeshacer.Size = new System.Drawing.Size(59, 51);
+            this.TsBtnDeshacer.Text = "&Deshacer";
+            this.TsBtnDeshacer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // TsBtnEliminar
+            // 
+            this.TsBtnEliminar.Image = global::EsconPOS.Properties.Resources.Eliminar;
+            this.TsBtnEliminar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TsBtnEliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsBtnEliminar.Name = "TsBtnEliminar";
+            this.TsBtnEliminar.Size = new System.Drawing.Size(54, 51);
+            this.TsBtnEliminar.Text = "&Eliminar";
+            this.TsBtnEliminar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 54);
+            // 
+            // TsBtnSalir
+            // 
+            this.TsBtnSalir.Image = global::EsconPOS.Properties.Resources.Close;
+            this.TsBtnSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TsBtnSalir.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.TsBtnSalir.Name = "TsBtnSalir";
+            this.TsBtnSalir.Size = new System.Drawing.Size(43, 51);
+            this.TsBtnSalir.Text = "&Cerrar";
+            this.TsBtnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // statusStrip
             // 
@@ -186,46 +226,6 @@
             this.TabEditar.TabIndex = 1;
             this.TabEditar.Text = "Editar";
             this.TabEditar.UseVisualStyleBackColor = true;
-            // 
-            // TsBtnGuardar
-            // 
-            this.TsBtnGuardar.Image = global::EsconPOS.Properties.Resources.Guardar;
-            this.TsBtnGuardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TsBtnGuardar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TsBtnGuardar.Name = "TsBtnGuardar";
-            this.TsBtnGuardar.Size = new System.Drawing.Size(53, 51);
-            this.TsBtnGuardar.Text = "Guardar";
-            this.TsBtnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // TsBtnDeshacer
-            // 
-            this.TsBtnDeshacer.Image = global::EsconPOS.Properties.Resources.Limpiar;
-            this.TsBtnDeshacer.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TsBtnDeshacer.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TsBtnDeshacer.Name = "TsBtnDeshacer";
-            this.TsBtnDeshacer.Size = new System.Drawing.Size(59, 51);
-            this.TsBtnDeshacer.Text = "Deshacer";
-            this.TsBtnDeshacer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // TsBtnEliminar
-            // 
-            this.TsBtnEliminar.Image = global::EsconPOS.Properties.Resources.Eliminar;
-            this.TsBtnEliminar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TsBtnEliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TsBtnEliminar.Name = "TsBtnEliminar";
-            this.TsBtnEliminar.Size = new System.Drawing.Size(54, 51);
-            this.TsBtnEliminar.Text = "Eliminar";
-            this.TsBtnEliminar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // TsBtnSalir
-            // 
-            this.TsBtnSalir.Image = global::EsconPOS.Properties.Resources.Close;
-            this.TsBtnSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TsBtnSalir.ImageTransparentColor = System.Drawing.Color.Transparent;
-            this.TsBtnSalir.Name = "TsBtnSalir";
-            this.TsBtnSalir.Size = new System.Drawing.Size(36, 51);
-            this.TsBtnSalir.Text = "Salir";
-            this.TsBtnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // FrmCaja
             // 

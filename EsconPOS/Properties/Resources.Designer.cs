@@ -203,6 +203,16 @@ namespace EsconPOS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Logout {
+            get {
+                object obj = ResourceManager.GetObject("Logout", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Monedas {
             get {
                 object obj = ResourceManager.GetObject("Monedas", resourceCulture);
@@ -236,6 +246,16 @@ namespace EsconPOS.Properties {
         internal static System.Drawing.Bitmap Provincias {
             get {
                 object obj = ResourceManager.GetObject("Provincias", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Quitar {
+            get {
+                object obj = ResourceManager.GetObject("Quitar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

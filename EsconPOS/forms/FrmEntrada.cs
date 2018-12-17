@@ -20,18 +20,11 @@ namespace EsconPOS.forms
 
         private void Entrada()
         {
-            //try
-            //{
-            //    Conx.OpenDatabase();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error abriendo la base de datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //}
             try
             {
                 SetStatus("Abriendo la base de datos...");
-                using (var context = new mainEntities())
+
+                using(var context = new mainEntities())
                 {
                     try
                     {

@@ -12,14 +12,16 @@ namespace EsconPOS
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+    using System.Data.SQLite;
+
     public partial class mainEntities : DbContext
     {
+        // FIX connection string in App.config
         public mainEntities()
             : base("name=mainEntities")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

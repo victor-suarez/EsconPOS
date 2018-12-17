@@ -69,6 +69,9 @@
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>POS.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -429,6 +432,9 @@
       <DependentUpon>EsconPOS.edmx</DependentUpon>
       <LastGenOutput>EsconPOS.cs</LastGenOutput>
     </Content>
+    <Content Include="POS.ico" />
+    <None Include="Resources\Logout.png" />
+    <None Include="Resources\Quitar.png" />
     <None Include="Resources\ClearTxt.png" />
     <None Include="Resources\Paises.png" />
     <None Include="Resources\Agregar.png" />

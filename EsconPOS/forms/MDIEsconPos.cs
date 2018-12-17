@@ -1,36 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using EsconPOS.classes;
+using System;
 using System.Drawing;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using EsconPOS.classes;
 
 namespace EsconPOS.forms
 {
     public partial class MDIEsconPos : Form
     {
-        private mainEntities context = new mainEntities();
+        #region Variables privadas
 
         private static bool CajaAbierta = false;
+        private mainEntities context = new mainEntities();
+        private FrmClase FrmCla = null;
         private FrmCliente FrmCli = null;
         private FrmEmpleado FrmEmp = null;
         private FrmEmpresa FrmEpr = null;
-        private FrmMoneda FrmMon = null;
-        private FrmUnidadMedida FrmUnd = null;
         private FrmMarca FrmMar = null;
-        private FrmClase FrmCla = null;
-        private FrmProducto FrmPro = null;
+        private FrmMoneda FrmMon = null;
         private FrmPuntoDeVenta FrmPos = null;
+        private FrmProducto FrmPro = null;
+        private FrmUnidadMedida FrmUnd = null;
 
-        public MDIEsconPos()
-        {
-            InitializeComponent();
-        }
+        #endregion Variables privadas
+
+        #region Funciones privadas
 
         private void AbrirCerrarCaja()
         {
@@ -54,7 +48,7 @@ namespace EsconPOS.forms
             pos.FechaHoraEstado = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             context.SaveChanges();
             TssbCaja.Image = CajaAbierta ? Properties.Resources.CajaAbierta : Properties.Resources.CajaCerrada;
-            TssbCaja.Text = CajaAbierta ? "Cerrar Caja" : "Abrir Caja";
+            TssbCaja.Text = CajaAbierta ? "Cerrar &Caja" : "Abrir &Caja";
             TsmiIncluirFactura.Visible = CajaAbierta;
             TsmiAbrirCuenta.Visible = CajaAbierta;
             Cursor.Current = Cursors.Default;
@@ -83,6 +77,20 @@ namespace EsconPOS.forms
             TsslStatus.Text = StrStatus;
         }
 
+        #endregion Funciones privadas
+
+        #region Propiedades y métodos
+
+        public MDIEsconPos()
+        {
+            InitializeComponent();
+        }
+
+        private void MDIEsconPos_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (CajaAbierta) AbrirCerrarCaja();
+        }
+
         private void MDIEsconPos_Load(object sender, EventArgs e)
         {
             IniciarInfo();
@@ -90,8 +98,8 @@ namespace EsconPOS.forms
 
         private void TmrHora_Tick(object sender, EventArgs e)
         {
-            TsslFecha.Text = DateTime.Now.ToString("dddd, d de MMMM de yyyy");
-            TsslHora.Text = DateTime.Now.ToString("h:mm tt");
+            TsslFecha.Text = DateTime.Now.ToLongDateString();
+            TsslHora.Text = DateTime.Now.ToShortTimeString();
         }
 
         private void TsmiClases_Click(object sender, EventArgs e)
@@ -122,6 +130,14 @@ namespace EsconPOS.forms
             FrmEpr.Show();
         }
 
+        private void TsmiIncluirFactura_Click(object sender, EventArgs e)
+        {
+            FrmPos = new forms.FrmPuntoDeVenta();
+            FrmPos.MdiParent = this;
+            FrmPos.Show();
+            //ToolStripManager.Merge(FrmPos.toolStrip, this.toolStrip);
+        }
+
         private void TsmiMarcas_Click(object sender, EventArgs e)
         {
             FrmMar = new forms.FrmMarca();
@@ -150,22 +166,17 @@ namespace EsconPOS.forms
             FrmUnd.Show();
         }
 
-        private void TssbSalir_Click(object sender, EventArgs e)
-        {
-            Dispose();
-        }
-
         private void TssbCaja_ButtonClick(object sender, EventArgs e)
         {
             AbrirCerrarCaja();
-
         }
 
-        private void TsmiIncluirFactura_Click(object sender, EventArgs e)
+        private void TssbSalir_Click(object sender, EventArgs e)
         {
-            FrmPos = new forms.FrmPuntoDeVenta();
-            FrmPos.MdiParent = this;
-            FrmPos.Show();
+            if (MessageBox.Show("¿Seguro desea cerrar el sistema?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                Close();
         }
+
+        #endregion Propiedades y métodos
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Windows.Forms;
@@ -13,6 +14,7 @@ namespace EsconPOS.forms
         #region Variables y constantes
 
         private mainEntities context = new mainEntities();
+        private bool isLoading = true;
 
         #endregion Variables y constantes
 
@@ -53,6 +55,55 @@ namespace EsconPOS.forms
                 Global.MensajeError(ex, "Error guardando datos del cliente.");
                 return;
             }
+        }
+
+        private void AgregarItemDoc()
+        {
+            if (!ValItemEntReq()) return;
+            if (ItemYaExiste(TxtProdCodigo.Text)) return;
+
+            // ((ValorUnitario * Cantidad) - Descuento) + ((ValorUnitario * Cantidad) - Descuento)  * (TasaImpuesto / 100))
+            decimal Precio = NumValorUnit.Value * NumCantidad.Value;
+            decimal SubTotalItem = Precio - NumDescuento.Value;
+            decimal FactorImpuesto = (decimal)(((Productos)CmbProductos.SelectedItem).Impuestos.Tasa / 100);
+            decimal MontoImpuesto = SubTotalItem * FactorImpuesto;
+            decimal TotalItem = SubTotalItem + MontoImpuesto;
+
+            DgvProdServ.Rows.Add(
+                                    TxtProdCodigo.Text,
+                                    CmbProductos.Text,
+                                    NumValorUnit.Value.ToString("N2"),
+                                    NumCantidad.Value.ToString("N2"),
+                                    NumDescuento.Value.ToString("N2"),
+                                    SubTotalItem.ToString("N2"),
+                                    MontoImpuesto.ToString("N2"),
+                                    TotalItem.ToString("N2")
+                                );
+            DgvProdServ.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            AgregarTotalesDoc();
+            ClearItem();
+            TxtProdCodigo.Focus();
+        }
+
+        private void AgregarTotalesDoc()
+        {
+            if (DgvProdServ.RowCount == 0) return;
+            decimal TotalMtoItems = 0;
+            decimal TotalMtoDctos = 0;
+            decimal TotalMtoImpuestos = 0;
+            decimal SubTotalDoc = 0;
+
+            foreach (DataGridViewRow r in DgvProdServ.Rows)
+            {
+                TotalMtoItems += DecimalGringo(r.Cells[5].Value.ToString());
+                TotalMtoDctos += DecimalGringo(r.Cells[4].Value.ToString());
+                TotalMtoImpuestos += DecimalGringo(r.Cells[6].Value.ToString());
+                SubTotalDoc += DecimalGringo(r.Cells[7].Value.ToString());
+            }
+            LblMontoBruto.Text = TotalMtoItems.ToString("N2");
+            LblDescuentos.Text = TotalMtoDctos.ToString("N2");
+            LblImpuestos.Text = TotalMtoImpuestos.ToString("N2");
+            LblMontoNeto.Text = SubTotalDoc.ToString("N2");
         }
 
         private void AgregarVendedorRapido()
@@ -127,6 +178,7 @@ namespace EsconPOS.forms
             CargarMarcas();
             CargarClases();
             CargarProductos();
+            CargarMonedas();
         }
 
         private void CargarIdent()
@@ -144,28 +196,37 @@ namespace EsconPOS.forms
 
         private void CargarMarcas()
         {
-            CmbMarcas.DataSource = context.Marcas
-                .Where(m => m.Activo == 1)
-                .ToList();
+            CmbMarcas.DataSource = context.Marcas.Where(m => m.Activo == 1).ToList();
             CmbMarcas.DisplayMember = "Marca";
             CmbMarcas.ValueMember = "MarcaID";
             CmbMarcas.SelectedIndex = -1;
         }
 
+        private void CargarMonedas()
+        {
+            cmbMonedas.DataSource = context.Monedas.Where(m => m.Activo == 1).OrderBy("Moneda").ToList();
+            cmbMonedas.DisplayMember = "Moneda";
+            cmbMonedas.ValueMember = "MonedaID";
+            cmbMonedas.SelectedIndex = 0;
+        }
+
         private void CargarProductos()
         {
+            isLoading = true;
             long MarcaID = CmbMarcas.SelectedIndex < 0 ? -1 : ((Marcas)CmbMarcas.SelectedItem).MarcaID;
             long TipoProductoID = CmbClases.SelectedIndex < 0 ? -1 : ((TiposProductos)CmbClases.SelectedItem).TipoProductoID;
             CmbProductos.DataSource = context.Productos
-                .Where(p => (p.MarcaID == MarcaID || MarcaID == -1)
-                            &&
-                            (p.TipoProductoID == TipoProductoID || TipoProductoID == -1)
-                            &&
-                            p.Activo == 1)
-                .ToList();
+                                        .Where(p => (p.MarcaID == MarcaID || MarcaID == -1)
+                                                    &&
+                                                    (p.TipoProductoID == TipoProductoID || TipoProductoID == -1)
+                                                    &&
+                                                    p.Activo == 1)
+                                        .OrderBy("Producto")
+                                        .ToList();
             CmbProductos.DisplayMember = "Producto";
             CmbProductos.ValueMember = "ProductoID";
-            CmbProductos.SelectedIndex = -1;
+            if (MarcaID == -1 && TipoProductoID == -1) CmbProductos.SelectedIndex = -1;
+            isLoading = false;
         }
 
         private void CargarVendedores()
@@ -198,10 +259,57 @@ namespace EsconPOS.forms
             NumCantidad.Value = 0;
             NumValorUnit.Value = 0;
             NumDescuento.Value = 0;
+            DgvProdServ.Rows.Clear();
+            cmbMonedas.SelectedIndex = 0;
+            LblMontoBruto.Text = "0,00";
+            LblDescuentos.Text = "0,00";
+            LblImpuestos.Text = "0,00";
+            LblMontoNeto.Text = "0,00";
+        }
+
+        private void ClearItem()
+        {
+            TxtProdCodigo.Text = "";
+            CmbMarcas.SelectedIndex = -1;
+            CmbClases.SelectedIndex = -1;
+            CmbProductos.SelectedIndex = -1;
+            NumCantidad.Value = 0;
+            NumValorUnit.Value = 0;
+            NumDescuento.Value = 0;
+        }
+
+        private decimal DecimalGringo(string Num)
+        {
+            return decimal.Parse(Num.ToString().Replace(".", "").Replace(",", "."), new CultureInfo("us-US"));
         }
 
         private void Eliminar()
         {
+        }
+
+        private void EliminarItem()
+        {
+            if (DgvProdServ.SelectedRows.Count == 0) return;
+            DgvProdServ.Rows.RemoveAt(DgvProdServ.SelectedRows[0].Index);
+            TxtProdCodigo.Focus();
+        }
+
+        private bool ItemYaExiste(string Codigo)
+        {
+            foreach (DataGridViewRow r in DgvProdServ.Rows)
+            {
+                if (r.Cells[0].Value.ToString() == Codigo)
+                    return true;
+            }
+            return false;
+        }
+
+        private void SeleccionarProducto()
+        {
+            if (CmbProductos.SelectedIndex == -1) return;
+            var pro = (Productos)CmbProductos.SelectedItem;
+            TxtProdCodigo.Text = pro.Codigo;
+            NumValorUnit.Value = (Decimal)pro.ValorUnitario;
         }
 
         private void SetStatus(string Status = "", bool Error = false)
@@ -236,8 +344,38 @@ namespace EsconPOS.forms
             return true;
         }
 
-        private bool ValEntReq()
+        private bool ValItemEntReq()
         {
+            if (TxtProdCodigo.Text.Length == 0)
+            {
+                TxtProdCodigo.Focus();
+                MessageBox.Show("Debe seleccionar un producto de la lista.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (CmbProductos.SelectedIndex == -1)
+            {
+                CmbProductos.Focus();
+                MessageBox.Show("Debe seleccionar un producto de la lista.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (NumCantidad.Value == 0)
+            {
+                NumCantidad.Focus();
+                MessageBox.Show("La cantidad no puede ser cero.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (NumDescuento.Value > 0 && NumDescuento.Value > (NumValorUnit.Value * NumCantidad.Value))
+            {
+                NumDescuento.Focus();
+                MessageBox.Show("El descuento por item no puede ser mayor al sub-total.", "Datos inválidos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+            if (NumDescuento.Value > 0 && NumDescuento.Value > (NumValorUnit.Value * NumCantidad.Value) * (decimal)(((Productos)CmbProductos.SelectedItem).Impuestos.Tasa / 100))
+            {
+                NumDescuento.Focus();
+                MessageBox.Show("El descuento por item no puede ser mayor al impuesto.", "Datos inválidos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
             return true;
         }
 
@@ -283,12 +421,29 @@ namespace EsconPOS.forms
             AgregarVendedorRapido();
         }
 
+        private void BtnAgregarProducto_Click(object sender, EventArgs e)
+        {
+            AgregarItemDoc();
+        }
+
+        private void BtnQuitarItem_Click(object sender, EventArgs e)
+        {
+            EliminarItem();
+        }
+
         private void Cmb_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
             {
                 e.Handled = true;
+                e.SuppressKeyPress = true;
                 SelectNextControl((ComboBox)sender, true, true, true, false);
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                ((ComboBox)sender).SelectedIndex = -1;
             }
         }
 
@@ -312,6 +467,12 @@ namespace EsconPOS.forms
             CargarProductos();
         }
 
+        private void CmbProductos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (isLoading) return;
+            SeleccionarProducto();
+        }
+
         private void CmbTipoID_Format(object sender, ListControlConvertEventArgs e)
         {
             e.Value = ((Identificaciones)e.ListItem).Iniciales + "-" + ((Identificaciones)e.ListItem).Identificacion;
@@ -327,24 +488,69 @@ namespace EsconPOS.forms
             CargarVendedores();
         }
 
+        private void FrmPuntoDeVenta_Activated(object sender, EventArgs e)
+        {
+            ToolStripManager.Merge(this.toolStrip, (ToolStrip)this.MdiParent.Controls["toolStrip"]);
+            DgvProdServ.Width = this.Width - DgvProdServ.Left - 27;
+            PnlTotales.Left = DgvProdServ.Right - PnlTotales.Width;
+            PnlTotales.Top = this.Height - toolStrip.Height - statusStrip.Height - PnlTotales.Height - 38;
+            DgvProdServ.Height = this.Height - toolStrip.Height - statusStrip.Height - DgvProdServ.Top - PnlTotales.Height - 38;
+        }
+
+        private void FrmPuntoDeVenta_Deactivate(object sender, EventArgs e)
+        {
+            ToolStripManager.RevertMerge((ToolStrip)this.MdiParent.Controls["toolStrip"]);
+        }
+
         private void FrmPuntoDeVenta_FormClosing(object sender, FormClosingEventArgs e)
         {
+            ToolStripManager.RevertMerge((ToolStrip)this.MdiParent.Controls["toolStrip"]);
             base.OnClosing(e);
             context.Dispose();
         }
 
         private void FrmPuntoDeVenta_Load(object sender, EventArgs e)
         {
+            TssLblAgregado.Text = "";
+            TssLblModificado.Text = "";
+            LblMontoBruto.Text = "0,00";
+            LblDescuentos.Text = "0,00";
+            LblImpuestos.Text = "0,00";
+            LblMontoNeto.Text = "0,00";
             CargarCombos();
         }
 
-        private void Num_KeyPress(object sender, KeyPressEventArgs e)
+        private void FrmPuntoDeVenta_SizeChanged(object sender, EventArgs e)
         {
-            if (e.KeyChar == Convert.ToChar(Keys.Return))
+            DgvProdServ.Width = this.Width - DgvProdServ.Left - 27;
+            PnlTotales.Left = DgvProdServ.Right - PnlTotales.Width;
+            PnlTotales.Top = this.Height  - statusStrip.Height - PnlTotales.Height - 38;
+            DgvProdServ.Height = this.Height  - statusStrip.Height - DgvProdServ.Top - PnlTotales.Height - 38;
+        }
+
+        private void Num_Enter(object sender, EventArgs e)
+        {
+            ((NumericUpDown)sender).Select(0, ((NumericUpDown)sender).Text.Length);
+        }
+
+        private void Num_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
             {
                 e.Handled = true;
+                e.SuppressKeyPress = true;
                 SelectNextControl((NumericUpDown)sender, true, true, true, false);
             }
+        }
+
+        private void TsBtnDeshacer_Click(object sender, EventArgs e)
+        {
+            ClearCrt();
+        }
+
+        private void TsBtnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void Txt_KeyPress(object sender, KeyPressEventArgs e)
