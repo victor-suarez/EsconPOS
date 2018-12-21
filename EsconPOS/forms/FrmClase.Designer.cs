@@ -164,6 +164,7 @@
             this.TabClases.SelectedIndex = 0;
             this.TabClases.Size = new System.Drawing.Size(627, 378);
             this.TabClases.TabIndex = 0;
+            this.TabClases.SelectedIndexChanged += new System.EventHandler(this.Tab_SelectedIndexChanged);
             // 
             // PagLista
             // 

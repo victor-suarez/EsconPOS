@@ -52,6 +52,7 @@ namespace EsconPOS.forms
             TxtUnidadMedida.Text = "";
             TxtIniciales.Text = "";
             ChkActiva.Checked = false;
+            TxtCodigo.Focus();
         }
 
         private void Eliminar()
@@ -248,6 +249,11 @@ namespace EsconPOS.forms
             IncluirBtnClear(TxtFiltroCodigo);
             IncluirBtnClear(TxtFiltroUnidad);
             IncluirBtnClear(TxtFiltroIniciales);
+        }
+
+        private void Tab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectNextControl((TabControl)sender, true, true, true, false);
         }
 
         private void TsBtnDeshacer_Click(object sender, EventArgs e)

@@ -68,7 +68,7 @@
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.toolStrip.Size = new System.Drawing.Size(644, 54);
+            this.toolStrip.Size = new System.Drawing.Size(646, 54);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -130,14 +130,14 @@
             this.statusStrip.Location = new System.Drawing.Point(0, 443);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
-            this.statusStrip.Size = new System.Drawing.Size(644, 22);
+            this.statusStrip.Size = new System.Drawing.Size(646, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusStrip1";
             // 
             // TssLblStatus
             // 
             this.TssLblStatus.Name = "TssLblStatus";
-            this.TssLblStatus.Size = new System.Drawing.Size(316, 17);
+            this.TssLblStatus.Size = new System.Drawing.Size(318, 17);
             this.TssLblStatus.Spring = true;
             this.TssLblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -164,6 +164,7 @@
             this.TabMarcas.SelectedIndex = 0;
             this.TabMarcas.Size = new System.Drawing.Size(627, 378);
             this.TabMarcas.TabIndex = 0;
+            this.TabMarcas.SelectedIndexChanged += new System.EventHandler(this.Tab_SelectedIndexChanged);
             // 
             // PagLista
             // 
@@ -282,7 +283,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(644, 465);
+            this.ClientSize = new System.Drawing.Size(646, 465);
             this.Controls.Add(this.TabMarcas);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);

@@ -81,6 +81,7 @@
         <AssociationConnector Association="EsconPOS.FK_UnidadesMedidas_0_0" />
         <AssociationConnector Association="EsconPOS.FK_ItemsDocumentos_1_01" />
         <AssociationConnector Association="EsconPOS.FK_TiposDocumentos_0_0" />
+        <AssociationConnector Association="EsconPOS.FK_Documentos_5_0" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -40,6 +40,14 @@
             this.CmbTipoIDCli = new System.Windows.Forms.ComboBox();
             this.TxtNroIDCli = new System.Windows.Forms.TextBox();
             this.DgvProdServ = new System.Windows.Forms.DataGridView();
+            this.colCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colValorUnitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDescuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSubTotalItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colImpuestos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TxtProdCodigo = new System.Windows.Forms.TextBox();
             this.CmbMarcas = new System.Windows.Forms.ComboBox();
             this.CmbClases = new System.Windows.Forms.ComboBox();
@@ -57,34 +65,29 @@
             this.TssLblAgregado = new System.Windows.Forms.ToolStripStatusLabel();
             this.TssLblModificado = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.TsBtnGuardar = new System.Windows.Forms.ToolStripButton();
-            this.TsBtnDeshacer = new System.Windows.Forms.ToolStripButton();
-            this.TsBtnEliminar = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.TsBtnSalir = new System.Windows.Forms.ToolStripButton();
-            this.BtnQuitarItem = new System.Windows.Forms.Button();
-            this.BtnAgregarEmpleado = new System.Windows.Forms.Button();
-            this.BtnAgregarItem = new System.Windows.Forms.Button();
-            this.BtnAgregarCliente = new System.Windows.Forms.Button();
             this.PnlTotales = new System.Windows.Forms.Panel();
+            this.NumDctoGlobal = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cmbMonedas = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.LblMontoNeto = new System.Windows.Forms.Label();
             this.LblImpuestos = new System.Windows.Forms.Label();
             this.LblDescuentos = new System.Windows.Forms.Label();
             this.LblMontoBruto = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.cmbMonedas = new System.Windows.Forms.ComboBox();
-            this.colCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colValorUnitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDescuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSubTotalItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colImpuestos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BtnQuitarItem = new System.Windows.Forms.Button();
+            this.TsBtnGuardar = new System.Windows.Forms.ToolStripButton();
+            this.TsBtnDeshacer = new System.Windows.Forms.ToolStripButton();
+            this.TsBtnEliminar = new System.Windows.Forms.ToolStripButton();
+            this.TsBtnSalir = new System.Windows.Forms.ToolStripButton();
+            this.TsBtnImprimir = new System.Windows.Forms.ToolStripButton();
+            this.BtnAgregarEmpleado = new System.Windows.Forms.Button();
+            this.BtnAgregarItem = new System.Windows.Forms.Button();
+            this.BtnAgregarCliente = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DgvProdServ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumCantidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumValorUnit)).BeginInit();
@@ -92,6 +95,7 @@
             this.statusStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.PnlTotales.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumDctoGlobal)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -158,6 +162,81 @@
             this.DgvProdServ.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DgvProdServ.Size = new System.Drawing.Size(1144, 431);
             this.DgvProdServ.TabIndex = 19;
+            // 
+            // colCodigo
+            // 
+            this.colCodigo.HeaderText = "Código";
+            this.colCodigo.Name = "colCodigo";
+            this.colCodigo.ReadOnly = true;
+            this.colCodigo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCodigo.Width = 65;
+            // 
+            // colProducto
+            // 
+            this.colProducto.HeaderText = "Producto/Servicio";
+            this.colProducto.Name = "colProducto";
+            this.colProducto.ReadOnly = true;
+            this.colProducto.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colProducto.Width = 138;
+            // 
+            // colValorUnitario
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colValorUnitario.DefaultCellStyle = dataGridViewCellStyle2;
+            this.colValorUnitario.HeaderText = "Precio Unit.";
+            this.colValorUnitario.Name = "colValorUnitario";
+            this.colValorUnitario.ReadOnly = true;
+            this.colValorUnitario.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colValorUnitario.Width = 96;
+            // 
+            // colCantidad
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colCantidad.DefaultCellStyle = dataGridViewCellStyle3;
+            this.colCantidad.HeaderText = "Cantidad";
+            this.colCantidad.Name = "colCantidad";
+            this.colCantidad.ReadOnly = true;
+            this.colCantidad.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCantidad.Width = 79;
+            // 
+            // colDescuento
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colDescuento.DefaultCellStyle = dataGridViewCellStyle4;
+            this.colDescuento.HeaderText = "Descuento";
+            this.colDescuento.Name = "colDescuento";
+            this.colDescuento.ReadOnly = true;
+            this.colDescuento.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colDescuento.Width = 93;
+            // 
+            // colSubTotalItem
+            // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colSubTotalItem.DefaultCellStyle = dataGridViewCellStyle5;
+            this.colSubTotalItem.HeaderText = "Sub Total Item";
+            this.colSubTotalItem.Name = "colSubTotalItem";
+            this.colSubTotalItem.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colSubTotalItem.Width = 119;
+            // 
+            // colImpuestos
+            // 
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colImpuestos.DefaultCellStyle = dataGridViewCellStyle6;
+            this.colImpuestos.HeaderText = "Impuestos";
+            this.colImpuestos.Name = "colImpuestos";
+            this.colImpuestos.ReadOnly = true;
+            this.colImpuestos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colImpuestos.Width = 90;
+            // 
+            // colSubTotal
+            // 
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colSubTotal.DefaultCellStyle = dataGridViewCellStyle7;
+            this.colSubTotal.HeaderText = "SubTotal";
+            this.colSubTotal.Name = "colSubTotal";
+            this.colSubTotal.ReadOnly = true;
+            this.colSubTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colSubTotal.Width = 79;
             // 
             // TxtProdCodigo
             // 
@@ -347,6 +426,7 @@
             // 
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TsBtnGuardar,
+            this.TsBtnImprimir,
             this.TsBtnDeshacer,
             this.TsBtnEliminar,
             this.toolStripSeparator1,
@@ -358,6 +438,166 @@
             this.toolStrip.Stretch = true;
             this.toolStrip.TabIndex = 24;
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 54);
+            // 
+            // PnlTotales
+            // 
+            this.PnlTotales.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PnlTotales.Controls.Add(this.NumDctoGlobal);
+            this.PnlTotales.Controls.Add(this.label8);
+            this.PnlTotales.Controls.Add(this.label7);
+            this.PnlTotales.Controls.Add(this.cmbMonedas);
+            this.PnlTotales.Controls.Add(this.label6);
+            this.PnlTotales.Controls.Add(this.label5);
+            this.PnlTotales.Controls.Add(this.label4);
+            this.PnlTotales.Controls.Add(this.label3);
+            this.PnlTotales.Controls.Add(this.LblMontoNeto);
+            this.PnlTotales.Controls.Add(this.LblImpuestos);
+            this.PnlTotales.Controls.Add(this.LblDescuentos);
+            this.PnlTotales.Controls.Add(this.LblMontoBruto);
+            this.PnlTotales.Location = new System.Drawing.Point(249, 565);
+            this.PnlTotales.Name = "PnlTotales";
+            this.PnlTotales.Size = new System.Drawing.Size(906, 53);
+            this.PnlTotales.TabIndex = 22;
+            // 
+            // NumDctoGlobal
+            // 
+            this.NumDctoGlobal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.NumDctoGlobal.DecimalPlaces = 2;
+            this.NumDctoGlobal.Location = new System.Drawing.Point(629, 22);
+            this.NumDctoGlobal.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+            this.NumDctoGlobal.Name = "NumDctoGlobal";
+            this.NumDctoGlobal.Size = new System.Drawing.Size(146, 26);
+            this.NumDctoGlobal.TabIndex = 9;
+            this.NumDctoGlobal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumDctoGlobal.ThousandsSeparator = true;
+            this.NumDctoGlobal.ValueChanged += new System.EventHandler(this.NumDctoGlobal_ValueChanged);
+            this.NumDctoGlobal.Enter += new System.EventHandler(this.Num_Enter);
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(629, 2);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(118, 20);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Dcto. global";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(4, 18);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(67, 20);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Moneda";
+            // 
+            // cmbMonedas
+            // 
+            this.cmbMonedas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbMonedas.FormattingEnabled = true;
+            this.cmbMonedas.Location = new System.Drawing.Point(77, 15);
+            this.cmbMonedas.Name = "cmbMonedas";
+            this.cmbMonedas.Size = new System.Drawing.Size(174, 28);
+            this.cmbMonedas.TabIndex = 1;
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(777, 2);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(118, 20);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Monto neto";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(501, 2);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(118, 20);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Impuestos";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(377, 2);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(118, 20);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Dcto. por items";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(253, 2);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(118, 20);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Monto bruto";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LblMontoNeto
+            // 
+            this.LblMontoNeto.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.LblMontoNeto.Location = new System.Drawing.Point(781, 23);
+            this.LblMontoNeto.Name = "LblMontoNeto";
+            this.LblMontoNeto.Size = new System.Drawing.Size(118, 20);
+            this.LblMontoNeto.TabIndex = 11;
+            this.LblMontoNeto.Text = "9.999.999,99";
+            this.LblMontoNeto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LblMontoNeto.UseMnemonic = false;
+            // 
+            // LblImpuestos
+            // 
+            this.LblImpuestos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.LblImpuestos.Location = new System.Drawing.Point(505, 23);
+            this.LblImpuestos.Name = "LblImpuestos";
+            this.LblImpuestos.Size = new System.Drawing.Size(118, 20);
+            this.LblImpuestos.TabIndex = 7;
+            this.LblImpuestos.Text = "9.999.999,99";
+            this.LblImpuestos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LblImpuestos.UseMnemonic = false;
+            // 
+            // LblDescuentos
+            // 
+            this.LblDescuentos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.LblDescuentos.Location = new System.Drawing.Point(381, 23);
+            this.LblDescuentos.Name = "LblDescuentos";
+            this.LblDescuentos.Size = new System.Drawing.Size(118, 20);
+            this.LblDescuentos.TabIndex = 5;
+            this.LblDescuentos.Text = "9.999.999,99";
+            this.LblDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LblDescuentos.UseMnemonic = false;
+            // 
+            // LblMontoBruto
+            // 
+            this.LblMontoBruto.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.LblMontoBruto.Location = new System.Drawing.Point(257, 23);
+            this.LblMontoBruto.Name = "LblMontoBruto";
+            this.LblMontoBruto.Size = new System.Drawing.Size(118, 20);
+            this.LblMontoBruto.TabIndex = 3;
+            this.LblMontoBruto.Text = "9.999.999,99";
+            this.LblMontoBruto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LblMontoBruto.UseMnemonic = false;
+            // 
+            // BtnQuitarItem
+            // 
+            this.BtnQuitarItem.Image = global::EsconPOS.Properties.Resources.Quitar;
+            this.BtnQuitarItem.Location = new System.Drawing.Point(1118, 95);
+            this.BtnQuitarItem.Name = "BtnQuitarItem";
+            this.BtnQuitarItem.Size = new System.Drawing.Size(31, 26);
+            this.BtnQuitarItem.TabIndex = 18;
+            this.BtnQuitarItem.UseVisualStyleBackColor = true;
+            this.BtnQuitarItem.Click += new System.EventHandler(this.BtnQuitarItem_Click);
+            // 
             // TsBtnGuardar
             // 
             this.TsBtnGuardar.Image = global::EsconPOS.Properties.Resources.Guardar;
@@ -367,6 +607,7 @@
             this.TsBtnGuardar.Size = new System.Drawing.Size(53, 51);
             this.TsBtnGuardar.Text = "&Guardar";
             this.TsBtnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsBtnGuardar.Click += new System.EventHandler(this.TsBtnGuardar_Click);
             // 
             // TsBtnDeshacer
             // 
@@ -389,11 +630,6 @@
             this.TsBtnEliminar.Text = "&Eliminar";
             this.TsBtnEliminar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 54);
-            // 
             // TsBtnSalir
             // 
             this.TsBtnSalir.Image = global::EsconPOS.Properties.Resources.Close;
@@ -405,15 +641,15 @@
             this.TsBtnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsBtnSalir.Click += new System.EventHandler(this.TsBtnSalir_Click);
             // 
-            // BtnQuitarItem
+            // TsBtnImprimir
             // 
-            this.BtnQuitarItem.Image = global::EsconPOS.Properties.Resources.Quitar;
-            this.BtnQuitarItem.Location = new System.Drawing.Point(1118, 95);
-            this.BtnQuitarItem.Name = "BtnQuitarItem";
-            this.BtnQuitarItem.Size = new System.Drawing.Size(31, 26);
-            this.BtnQuitarItem.TabIndex = 18;
-            this.BtnQuitarItem.UseVisualStyleBackColor = true;
-            this.BtnQuitarItem.Click += new System.EventHandler(this.BtnQuitarItem_Click);
+            this.TsBtnImprimir.Image = global::EsconPOS.Properties.Resources.Imprimir;
+            this.TsBtnImprimir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TsBtnImprimir.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsBtnImprimir.Name = "TsBtnImprimir";
+            this.TsBtnImprimir.Size = new System.Drawing.Size(57, 51);
+            this.TsBtnImprimir.Text = "&Imprimir";
+            this.TsBtnImprimir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // BtnAgregarEmpleado
             // 
@@ -444,197 +680,6 @@
             this.BtnAgregarCliente.TabIndex = 4;
             this.BtnAgregarCliente.UseVisualStyleBackColor = true;
             this.BtnAgregarCliente.Click += new System.EventHandler(this.BtnAgregarCliente_Click);
-            // 
-            // PnlTotales
-            // 
-            this.PnlTotales.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PnlTotales.Controls.Add(this.label7);
-            this.PnlTotales.Controls.Add(this.cmbMonedas);
-            this.PnlTotales.Controls.Add(this.label6);
-            this.PnlTotales.Controls.Add(this.label5);
-            this.PnlTotales.Controls.Add(this.label4);
-            this.PnlTotales.Controls.Add(this.label3);
-            this.PnlTotales.Controls.Add(this.LblMontoNeto);
-            this.PnlTotales.Controls.Add(this.LblImpuestos);
-            this.PnlTotales.Controls.Add(this.LblDescuentos);
-            this.PnlTotales.Controls.Add(this.LblMontoBruto);
-            this.PnlTotales.Location = new System.Drawing.Point(401, 565);
-            this.PnlTotales.Name = "PnlTotales";
-            this.PnlTotales.Size = new System.Drawing.Size(754, 50);
-            this.PnlTotales.TabIndex = 22;
-            // 
-            // LblMontoNeto
-            // 
-            this.LblMontoNeto.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LblMontoNeto.Location = new System.Drawing.Point(629, 23);
-            this.LblMontoNeto.Name = "LblMontoNeto";
-            this.LblMontoNeto.Size = new System.Drawing.Size(118, 20);
-            this.LblMontoNeto.TabIndex = 3;
-            this.LblMontoNeto.Text = "9.999.999,99";
-            this.LblMontoNeto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.LblMontoNeto.UseMnemonic = false;
-            // 
-            // LblImpuestos
-            // 
-            this.LblImpuestos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LblImpuestos.Location = new System.Drawing.Point(505, 23);
-            this.LblImpuestos.Name = "LblImpuestos";
-            this.LblImpuestos.Size = new System.Drawing.Size(118, 20);
-            this.LblImpuestos.TabIndex = 2;
-            this.LblImpuestos.Text = "9.999.999,99";
-            this.LblImpuestos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.LblImpuestos.UseMnemonic = false;
-            // 
-            // LblDescuentos
-            // 
-            this.LblDescuentos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LblDescuentos.Location = new System.Drawing.Point(381, 23);
-            this.LblDescuentos.Name = "LblDescuentos";
-            this.LblDescuentos.Size = new System.Drawing.Size(118, 20);
-            this.LblDescuentos.TabIndex = 1;
-            this.LblDescuentos.Text = "9.999.999,99";
-            this.LblDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.LblDescuentos.UseMnemonic = false;
-            // 
-            // LblMontoBruto
-            // 
-            this.LblMontoBruto.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LblMontoBruto.Location = new System.Drawing.Point(257, 23);
-            this.LblMontoBruto.Name = "LblMontoBruto";
-            this.LblMontoBruto.Size = new System.Drawing.Size(118, 20);
-            this.LblMontoBruto.TabIndex = 0;
-            this.LblMontoBruto.Text = "9.999.999,99";
-            this.LblMontoBruto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.LblMontoBruto.UseMnemonic = false;
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(253, 2);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 20);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Monto bruto";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(377, 2);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(118, 20);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Descuentos";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            this.label5.Location = new System.Drawing.Point(501, 2);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(118, 20);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "Impuestos";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label6
-            // 
-            this.label6.Location = new System.Drawing.Point(625, 2);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(118, 20);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Monto neto";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(4, 18);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(67, 20);
-            this.label7.TabIndex = 20;
-            this.label7.Text = "Moneda";
-            // 
-            // cmbMonedas
-            // 
-            this.cmbMonedas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbMonedas.FormattingEnabled = true;
-            this.cmbMonedas.Location = new System.Drawing.Point(77, 15);
-            this.cmbMonedas.Name = "cmbMonedas";
-            this.cmbMonedas.Size = new System.Drawing.Size(174, 28);
-            this.cmbMonedas.TabIndex = 21;
-            // 
-            // colCodigo
-            // 
-            this.colCodigo.HeaderText = "Código";
-            this.colCodigo.Name = "colCodigo";
-            this.colCodigo.ReadOnly = true;
-            this.colCodigo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colCodigo.Width = 65;
-            // 
-            // colProducto
-            // 
-            this.colProducto.HeaderText = "Producto/Servicio";
-            this.colProducto.Name = "colProducto";
-            this.colProducto.ReadOnly = true;
-            this.colProducto.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colProducto.Width = 138;
-            // 
-            // colValorUnitario
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colValorUnitario.DefaultCellStyle = dataGridViewCellStyle2;
-            this.colValorUnitario.HeaderText = "Precio Unit.";
-            this.colValorUnitario.Name = "colValorUnitario";
-            this.colValorUnitario.ReadOnly = true;
-            this.colValorUnitario.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colValorUnitario.Width = 96;
-            // 
-            // colCantidad
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colCantidad.DefaultCellStyle = dataGridViewCellStyle3;
-            this.colCantidad.HeaderText = "Cantidad";
-            this.colCantidad.Name = "colCantidad";
-            this.colCantidad.ReadOnly = true;
-            this.colCantidad.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colCantidad.Width = 79;
-            // 
-            // colDescuento
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colDescuento.DefaultCellStyle = dataGridViewCellStyle4;
-            this.colDescuento.HeaderText = "Descuento";
-            this.colDescuento.Name = "colDescuento";
-            this.colDescuento.ReadOnly = true;
-            this.colDescuento.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colDescuento.Width = 93;
-            // 
-            // colSubTotalItem
-            // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colSubTotalItem.DefaultCellStyle = dataGridViewCellStyle5;
-            this.colSubTotalItem.HeaderText = "Sub Total Item";
-            this.colSubTotalItem.Name = "colSubTotalItem";
-            this.colSubTotalItem.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colSubTotalItem.Width = 119;
-            // 
-            // colImpuestos
-            // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colImpuestos.DefaultCellStyle = dataGridViewCellStyle6;
-            this.colImpuestos.HeaderText = "Impuestos";
-            this.colImpuestos.Name = "colImpuestos";
-            this.colImpuestos.ReadOnly = true;
-            this.colImpuestos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colImpuestos.Width = 90;
-            // 
-            // colSubTotal
-            // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colSubTotal.DefaultCellStyle = dataGridViewCellStyle7;
-            this.colSubTotal.HeaderText = "SubTotal";
-            this.colSubTotal.Name = "colSubTotal";
-            this.colSubTotal.ReadOnly = true;
-            this.colSubTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colSubTotal.Width = 79;
             // 
             // FrmPuntoDeVenta
             // 
@@ -668,7 +713,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FrmPuntoDeVenta";
-            this.Text = "FrmPuntoDeVenta";
+            this.Text = "Factura Directa";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.FrmPuntoDeVenta_Activated);
             this.Deactivate += new System.EventHandler(this.FrmPuntoDeVenta_Deactivate);
@@ -685,6 +730,7 @@
             this.toolStrip.PerformLayout();
             this.PnlTotales.ResumeLayout(false);
             this.PnlTotales.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumDctoGlobal)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -741,5 +787,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colSubTotalItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn colImpuestos;
         private System.Windows.Forms.DataGridViewTextBoxColumn colSubTotal;
+        private System.Windows.Forms.NumericUpDown NumDctoGlobal;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ToolStripButton TsBtnImprimir;
     }
 }

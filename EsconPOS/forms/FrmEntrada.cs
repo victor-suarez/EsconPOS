@@ -24,7 +24,7 @@ namespace EsconPOS.forms
             {
                 SetStatus("Abriendo la base de datos...");
 
-                using(var context = new mainEntities())
+                using (var context = new mainEntities())
                 {
                     try
                     {
@@ -54,13 +54,18 @@ namespace EsconPOS.forms
                         string passwd = Global.GetStringSha256Hash(txtContrasenia.Text.Trim());
                         var user = (from u in context.Usuarios
                                     where u.Login == TxtLogin.Text.ToUpper().Trim()
-                                    && u.PasswdHash == passwd
+                                    && (u.PasswdHash == passwd || u.PasswdHash == "")
                                     select u).FirstOrDefault();
                         if (user == null)
                         {
                             MessageBox.Show("Usuario o contraseña inválidos.", "Error buscando el usuario", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             return;
                         };
+                        if (user.PasswdHash == "")
+                        {
+                            // Primera vez que entra, no tiene contraseña!
+                            Global.CambiarContrasenia = true;
+                        }
                         Global.glUsuario = user.UsuarioID;
                     }
                     catch (Exception ex)
@@ -79,6 +84,7 @@ namespace EsconPOS.forms
                         {
                             Global.glEmpleado = emp.EmpleadoID;
                             Global.glNomEmpleado = emp.Nombre;
+                            Global.glEsAdministrador = (emp.EsAdministrador == 1);
                             SetStatus("Buscando datos de la empresa...");
                             var empr = emp.Empresas.First();
                             if (empr != null)
@@ -113,6 +119,21 @@ namespace EsconPOS.forms
             LoggedIN = true;
             SetStatus();
             Close();
+        }
+
+        private void IncluirBtnEye(TextBox txt)
+        {
+            var btn = new Button();
+            btn.AutoSize = false;
+            btn.Size = new Size(25, txt.ClientSize.Height + 2);
+            btn.Location = new Point(txt.ClientSize.Width - btn.Width, -1);
+            btn.Cursor = Cursors.Default;
+            btn.Image = Properties.Resources.Ver;
+            btn.TabStop = false;
+            btn.MouseDown += btn_MouseDown;
+            btn.MouseUp += btn_MouseUp;
+            //btn.Visible = false;
+            txt.Controls.Add(btn);
         }
 
         private void SetStatus(string StrStatus = "", bool Error = false)
@@ -151,6 +172,16 @@ namespace EsconPOS.forms
             InitializeComponent();
         }
 
+        private void btn_MouseDown(object sender, MouseEventArgs e)
+        {
+            ((TextBox)((Button)sender).Parent).UseSystemPasswordChar = false;
+        }
+
+        private void btn_MouseUp(object sender, MouseEventArgs e)
+        {
+            ((TextBox)((Button)sender).Parent).UseSystemPasswordChar = true;
+        }
+
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
             LoggedIN = false;
@@ -169,16 +200,12 @@ namespace EsconPOS.forms
             Global.LoggedIN = LoggedIN;
         }
 
-        private void TxtContrasenia_KeyPress(object sender, KeyPressEventArgs e)
+        private void FrmEntrada_Load(object sender, EventArgs e)
         {
-            if (e.KeyChar == Convert.ToChar(Keys.Return))
-            {
-                e.Handled = true;
-                SelectNextControl((TextBox)sender, true, true, true, false);
-            }
+            IncluirBtnEye(txtContrasenia);
         }
 
-        private void TxtUsuario_KeyPress(object sender, KeyPressEventArgs e)
+        private void Txt_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Return))
             {

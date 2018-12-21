@@ -167,6 +167,7 @@
             this.TabUnidades.SelectedIndex = 0;
             this.TabUnidades.Size = new System.Drawing.Size(820, 378);
             this.TabUnidades.TabIndex = 0;
+            this.TabUnidades.SelectedIndexChanged += new System.EventHandler(this.Tab_SelectedIndexChanged);
             // 
             // PagLista
             // 

@@ -87,6 +87,7 @@
             this.TabClientes.SelectedIndex = 0;
             this.TabClientes.Size = new System.Drawing.Size(883, 377);
             this.TabClientes.TabIndex = 0;
+            this.TabClientes.SelectedIndexChanged += new System.EventHandler(this.Tab_SelectedIndexChanged);
             // 
             // TabLista
             // 

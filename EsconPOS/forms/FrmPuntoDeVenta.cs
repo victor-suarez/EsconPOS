@@ -16,6 +16,30 @@ namespace EsconPOS.forms
         private mainEntities context = new mainEntities();
         private bool isLoading = true;
 
+        private TotalesDoc LineaTotales;
+
+        private struct TotalesDoc
+        {
+            public double MontoBruto;
+            public double MontoDescuentos;
+            public double MontoExcento;
+            public double MontoGravado;
+            public double MontoImpuestos;
+            public double MontoNeto;
+            public double SubTotal;
+
+            public TotalesDoc(decimal MtoBrut, decimal MtoGrav, decimal MtoImpts, decimal MtoExen, decimal MtoSubTotal, decimal MtoDesc, decimal MtoNeto)
+            {
+                MontoBruto = (double)MtoBrut;
+                MontoGravado = (double)MtoGrav;
+                MontoImpuestos = (double)MtoImpts;
+                MontoExcento = (double)MtoExen;
+                SubTotal = (double)MtoSubTotal;
+                MontoDescuentos = (double)MtoDesc;
+                MontoNeto = (double)MtoNeto;
+            }
+        }
+
         #endregion Variables y constantes
 
         #region Funciones
@@ -60,25 +84,44 @@ namespace EsconPOS.forms
         private void AgregarItemDoc()
         {
             if (!ValItemEntReq()) return;
-            if (ItemYaExiste(TxtProdCodigo.Text)) return;
+            if (ItemYaExiste(TxtProdCodigo.Text))
+            {
+                SetStatus("Item ya está seleccionado.", true);
+                return;
+            }
 
             // ((ValorUnitario * Cantidad) - Descuento) + ((ValorUnitario * Cantidad) - Descuento)  * (TasaImpuesto / 100))
-            decimal Precio = NumValorUnit.Value * NumCantidad.Value;
-            decimal SubTotalItem = Precio - NumDescuento.Value;
+            decimal SubTotalItem = (NumValorUnit.Value * NumCantidad.Value) - NumDescuento.Value;
             decimal FactorImpuesto = (decimal)(((Productos)CmbProductos.SelectedItem).Impuestos.Tasa / 100);
             decimal MontoImpuesto = SubTotalItem * FactorImpuesto;
             decimal TotalItem = SubTotalItem + MontoImpuesto;
 
-            DgvProdServ.Rows.Add(
-                                    TxtProdCodigo.Text,
-                                    CmbProductos.Text,
-                                    NumValorUnit.Value.ToString("N2"),
-                                    NumCantidad.Value.ToString("N2"),
-                                    NumDescuento.Value.ToString("N2"),
-                                    SubTotalItem.ToString("N2"),
-                                    MontoImpuesto.ToString("N2"),
-                                    TotalItem.ToString("N2")
-                                );
+            int idxRow = DgvProdServ.Rows.Add(
+                                                TxtProdCodigo.Text,                 // 0
+                                                CmbProductos.Text,                  // 1
+                                                NumValorUnit.Value.ToString("N2"),  // 2
+                                                NumCantidad.Value.ToString("N2"),   // 3
+                                                NumDescuento.Value.ToString("N2"),  // 4
+                                                SubTotalItem.ToString("N2"),        // 5
+                                                MontoImpuesto.ToString("N2"),       // 6
+                                                TotalItem.ToString("N2")            // 7
+                                            );
+            var Item = new ItemsDocumentos
+            {
+                DocumentoID = 0,
+                ItemID = idxRow + 1,
+                ProductoID = ((Productos)CmbProductos.SelectedItem).ProductoID,
+                ValorUnitario = ((Productos)CmbProductos.SelectedItem).ValorUnitario,
+                Cantidad = (long)NumValorUnit.Value,
+                ImpuestoID = ((Productos)CmbProductos.SelectedItem).ImpuestoID,
+                TasaImpuesto = ((Productos)CmbProductos.SelectedItem).Impuestos.Tasa,
+                MontoImpuesto = (double)MontoImpuesto,
+                MontoDescuento = (double)NumDescuento.Value,
+                MontoNeto = (double)TotalItem,
+                VendidoPor = ((Empleados)CmbEmpleados.SelectedItem).EmpleadoID,
+                EsDevolucion = 0
+            };
+            DgvProdServ.Rows[idxRow].Tag = Item;
             DgvProdServ.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
             AgregarTotalesDoc();
             ClearItem();
@@ -89,21 +132,29 @@ namespace EsconPOS.forms
         {
             if (DgvProdServ.RowCount == 0) return;
             decimal TotalMtoItems = 0;
-            decimal TotalMtoDctos = 0;
+            decimal TotalMtoGravado = 0;
             decimal TotalMtoImpuestos = 0;
+            decimal TotalMtoExcento = 0;
+            decimal TotalMtoDctos = 0;
             decimal SubTotalDoc = 0;
 
             foreach (DataGridViewRow r in DgvProdServ.Rows)
             {
-                TotalMtoItems += DecimalGringo(r.Cells[5].Value.ToString());
+                TotalMtoItems += (DecimalGringo(r.Cells[2].Value.ToString()) * DecimalGringo(r.Cells[3].Value.ToString()));
                 TotalMtoDctos += DecimalGringo(r.Cells[4].Value.ToString());
                 TotalMtoImpuestos += DecimalGringo(r.Cells[6].Value.ToString());
+                if (DecimalGringo(r.Cells[6].Value.ToString()) != 0)
+                    TotalMtoGravado += DecimalGringo(r.Cells[5].Value.ToString());
+                else
+                    TotalMtoExcento += DecimalGringo(r.Cells[5].Value.ToString());
                 SubTotalDoc += DecimalGringo(r.Cells[7].Value.ToString());
             }
             LblMontoBruto.Text = TotalMtoItems.ToString("N2");
             LblDescuentos.Text = TotalMtoDctos.ToString("N2");
             LblImpuestos.Text = TotalMtoImpuestos.ToString("N2");
-            LblMontoNeto.Text = SubTotalDoc.ToString("N2");
+            LblMontoNeto.Text = (SubTotalDoc - NumDctoGlobal.Value).ToString("N2");
+
+            LineaTotales = new TotalesDoc(TotalMtoItems, TotalMtoGravado, TotalMtoImpuestos, TotalMtoExcento, SubTotalDoc, TotalMtoDctos, SubTotalDoc - NumDctoGlobal.Value);
         }
 
         private void AgregarVendedorRapido()
@@ -152,7 +203,10 @@ namespace EsconPOS.forms
                                     .ToList();
             CmbClases.DisplayMember = "TipoProducto";
             CmbClases.ValueMember = "TipoProductoID";
-            CmbClases.SelectedIndex = -1;
+            if (CmbClases.Items.Count == 1)
+                CmbClases.SelectedIndex = 0;
+            else
+                CmbClases.SelectedIndex = -1;
         }
 
         private void CargarClientes()
@@ -167,7 +221,10 @@ namespace EsconPOS.forms
                                         .ToList();
             CmbClientes.DisplayMember = "Nombre";
             CmbClientes.ValueMember = "ClienteID";
-            CmbClientes.SelectedIndex = -1;
+            if (CmbClientes.Items.Count == 1)
+                CmbClientes.SelectedIndex = 0;
+            else
+                CmbClientes.SelectedIndex = -1;
         }
 
         private void CargarCombos()
@@ -199,15 +256,21 @@ namespace EsconPOS.forms
             CmbMarcas.DataSource = context.Marcas.Where(m => m.Activo == 1).ToList();
             CmbMarcas.DisplayMember = "Marca";
             CmbMarcas.ValueMember = "MarcaID";
-            CmbMarcas.SelectedIndex = -1;
+            if (CmbMarcas.Items.Count == 1)
+                CmbMarcas.SelectedIndex = 0;
+            else
+                CmbMarcas.SelectedIndex = -1;
         }
 
         private void CargarMonedas()
         {
-            cmbMonedas.DataSource = context.Monedas.Where(m => m.Activo == 1).OrderBy("Moneda").ToList();
+            cmbMonedas.DataSource = context.Monedas.Where(m => m.Activo == 1).OrderBy("MonedaID").ToList();
             cmbMonedas.DisplayMember = "Moneda";
             cmbMonedas.ValueMember = "MonedaID";
-            cmbMonedas.SelectedIndex = 0;
+            if (cmbMonedas.Items.Count == 1)
+                cmbMonedas.SelectedIndex = 0;
+            else
+                cmbMonedas.SelectedIndex = -1;
         }
 
         private void CargarProductos()
@@ -225,7 +288,13 @@ namespace EsconPOS.forms
                                         .ToList();
             CmbProductos.DisplayMember = "Producto";
             CmbProductos.ValueMember = "ProductoID";
-            if (MarcaID == -1 && TipoProductoID == -1) CmbProductos.SelectedIndex = -1;
+            if (MarcaID == -1 && TipoProductoID == -1)
+                CmbProductos.SelectedIndex = -1;
+            if (CmbProductos.Items.Count == 1)
+                CmbProductos.SelectedIndex = 0;
+            else
+                CmbProductos.SelectedIndex = -1;
+
             isLoading = false;
         }
 
@@ -241,7 +310,10 @@ namespace EsconPOS.forms
                                         .ToList();
             CmbEmpleados.DisplayMember = "Nombre";
             CmbEmpleados.ValueMember = "EmpleadoID";
-            CmbEmpleados.SelectedIndex = -1;
+            if (CmbEmpleados.Items.Count == 1)
+                CmbEmpleados.SelectedIndex = 0;
+            else
+                CmbEmpleados.SelectedIndex = -1;
         }
 
         private void ClearCrt()
@@ -265,6 +337,7 @@ namespace EsconPOS.forms
             LblDescuentos.Text = "0,00";
             LblImpuestos.Text = "0,00";
             LblMontoNeto.Text = "0,00";
+            CmbTipoIDCli.Focus();
         }
 
         private void ClearItem()
@@ -292,6 +365,104 @@ namespace EsconPOS.forms
             if (DgvProdServ.SelectedRows.Count == 0) return;
             DgvProdServ.Rows.RemoveAt(DgvProdServ.SelectedRows[0].Index);
             TxtProdCodigo.Focus();
+        }
+
+        private void GuardarDocumento()
+        {
+            if (!ValDocEntReq()) return;
+            Cursor.Current = Cursors.WaitCursor;
+
+            // Buscar el tipo de documento que se va a utilizar...
+            // Por ahora estoy buscando FAC.
+            TiposDocumentos td;
+            try
+            {
+                td = (from t in context.TiposDocumentos
+                      where t.Iniciales == "FAC"
+                      select t).FirstOrDefault();
+                if (td == null)
+                {
+                    MessageBox.Show("Tipo de documento no está definido en el sistema.", "Error buscando siguiente número de documento", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                Global.MensajeError(ex, "Error buscando siguiente número de documento.");
+                Cursor.Current = Cursors.Default;
+                return;
+            }
+            // Actualizar e siguiente número de documento
+            context.TiposDocumentos.Attach(td);
+            td.NroSiguiente = td.NroSiguiente + 1;
+            td.ModificadoPor = Global.glEmpleado;
+            td.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            //context.SaveChanges();
+
+            // Creo el nuevo documento
+            try
+            {
+                var doc = new Documentos
+                {
+                    NroDocumento = (long)td.NroSiguiente,
+                    TipoDocumentoID = td.TipoDocumentoID,
+                    FechaDocumento = DateTime.Now.ToString("yyyy-MM-dd"),
+                    HoraDocumento = DateTime.Now.ToString("HH:mm:ss"),
+                    EmpresaID = ((Empleados)CmbEmpleados.SelectedItem).Empresas.FirstOrDefault().EmpresaID,
+                    ClienteID = ((Clientes)CmbClientes.SelectedItem).ClienteID,
+                    EmpleadoID = ((Empleados)CmbEmpleados.SelectedItem).EmpleadoID,
+                    CajaID = Global.glCaja,
+                    MonedaID = ((Monedas)cmbMonedas.SelectedItem).MonedaID,
+                    TotalProductos = DgvProdServ.RowCount,
+                    MontoBruto = LineaTotales.MontoBruto,
+                    MontoGravado = LineaTotales.MontoGravado,
+                    MontoImpuestos = LineaTotales.MontoImpuestos,
+                    MontoExcento = LineaTotales.MontoExcento,
+                    SubTotal = LineaTotales.SubTotal,
+                    MontoDescuentos = (double)NumDctoGlobal.Value,
+                    MontoNeto = LineaTotales.MontoNeto - (double)NumDctoGlobal.Value,
+                    MontoPagado = 0,
+                    AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    AgregadoPor = Global.glEmpleado
+                };
+                context.Documentos.Add(doc);
+                // Agrego los items al documento agregado
+                foreach (DataGridViewRow r in DgvProdServ.Rows)
+                {
+                    var itm = new ItemsDocumentos
+                    {
+                        DocumentoID = (long)td.NroSiguiente,
+                        ItemID = ((ItemsDocumentos)r.Tag).ItemID,
+                        ProductoID = ((ItemsDocumentos)r.Tag).ProductoID,
+                        ValorUnitario = ((ItemsDocumentos)r.Tag).ValorUnitario,
+                        Cantidad = ((ItemsDocumentos)r.Tag).Cantidad,
+                        ImpuestoID = ((ItemsDocumentos)r.Tag).ImpuestoID,
+                        TasaImpuesto = ((ItemsDocumentos)r.Tag).TasaImpuesto,
+                        MontoImpuesto = ((ItemsDocumentos)r.Tag).MontoImpuesto,
+                        MontoDescuento = ((ItemsDocumentos)r.Tag).MontoDescuento,
+                        MontoNeto = ((ItemsDocumentos)r.Tag).MontoNeto,
+                        VendidoPor = ((ItemsDocumentos)r.Tag).VendidoPor,
+                        EsDevolucion = ((ItemsDocumentos)r.Tag).EsDevolucion
+                    };
+                    doc.ItemsDocumentos.Add(itm);
+                }
+            }
+            catch (Exception ex)
+            {
+                Global.MensajeError(ex, "Error guardando el documento.");
+                Cursor.Current = Cursors.Default;
+                return;
+            }
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Global.MensajeError(ex, "Error guardando el documento.");
+            }
+            ClearCrt();
+            Cursor.Current = Cursors.Default;
         }
 
         private bool ItemYaExiste(string Codigo)
@@ -339,6 +510,35 @@ namespace EsconPOS.forms
             {
                 CmbClientes.Focus();
                 MessageBox.Show("Debe transcribir el nombre del cliente.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValDocEntReq()
+        {
+            if (CmbClientes.SelectedIndex == -1)
+            {
+                CmbClientes.Focus();
+                MessageBox.Show("Debe seleccionar el cliente.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (CmbEmpleados.SelectedIndex == -1)
+            {
+                CmbEmpleados.Focus();
+                MessageBox.Show("Debe seleccionar el vendedor.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (DgvProdServ.RowCount == 0)
+            {
+                TxtProdCodigo.Focus();
+                MessageBox.Show("Debe seleccionar por lo menos un producto o servicio.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (cmbMonedas.SelectedIndex == -1)
+            {
+                cmbMonedas.Focus();
+                MessageBox.Show("Debe seleccionar la moneda de pago.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
             return true;
@@ -524,8 +724,8 @@ namespace EsconPOS.forms
         {
             DgvProdServ.Width = this.Width - DgvProdServ.Left - 27;
             PnlTotales.Left = DgvProdServ.Right - PnlTotales.Width;
-            PnlTotales.Top = this.Height  - statusStrip.Height - PnlTotales.Height - 38;
-            DgvProdServ.Height = this.Height  - statusStrip.Height - DgvProdServ.Top - PnlTotales.Height - 38;
+            PnlTotales.Top = this.Height - statusStrip.Height - PnlTotales.Height - 38;
+            DgvProdServ.Height = this.Height - statusStrip.Height - DgvProdServ.Top - PnlTotales.Height - 38;
         }
 
         private void Num_Enter(object sender, EventArgs e)
@@ -543,9 +743,19 @@ namespace EsconPOS.forms
             }
         }
 
+        private void NumDctoGlobal_ValueChanged(object sender, EventArgs e)
+        {
+            LblMontoNeto.Text = (LineaTotales.SubTotal - (double)NumDctoGlobal.Value).ToString("N2");
+        }
+
         private void TsBtnDeshacer_Click(object sender, EventArgs e)
         {
             ClearCrt();
+        }
+
+        private void TsBtnGuardar_Click(object sender, EventArgs e)
+        {
+            GuardarDocumento();
         }
 
         private void TsBtnSalir_Click(object sender, EventArgs e)

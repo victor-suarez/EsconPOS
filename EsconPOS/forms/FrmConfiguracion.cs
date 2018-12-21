@@ -1,6 +1,7 @@
 ﻿using EsconPOS.classes;
 using System;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Windows.Forms;
@@ -115,6 +116,20 @@ namespace EsconPOS.forms
             Close();
         }
 
+        private void IncluirBtnEye(TextBox txt)
+        {
+            var btn = new Button();
+            btn.AutoSize = false;
+            btn.Size = new Size(25, txt.ClientSize.Height + 2);
+            btn.Location = new Point(txt.ClientSize.Width - btn.Width, -1);
+            btn.Cursor = Cursors.Default;
+            btn.Image = Properties.Resources.Ver;
+            btn.MouseDown += btn_MouseDown;
+            btn.MouseUp += btn_MouseUp;
+            //btn.Visible = false;
+            txt.Controls.Add(btn);
+        }
+
         private bool ValEntReq()
         {
             if (CmbTipoIDEmpresa.SelectedIndex == -1)
@@ -199,6 +214,16 @@ namespace EsconPOS.forms
         public FrmConfiguracion()
         {
             InitializeComponent();
+        }
+
+        private void btn_MouseDown(object sender, MouseEventArgs e)
+        {
+            ((TextBox)((Button)sender).Parent).UseSystemPasswordChar = false;
+        }
+
+        private void btn_MouseUp(object sender, MouseEventArgs e)
+        {
+            ((TextBox)((Button)sender).Parent).UseSystemPasswordChar = true;
         }
 
         private void ChkEsSupervisor_KeyPress(object sender, KeyPressEventArgs e)
@@ -290,6 +315,7 @@ namespace EsconPOS.forms
         private void FrmConfiguracion_Load(object sender, EventArgs e)
         {
             CargarCombos();
+            IncluirBtnEye(TxtPassword);
         }
 
         private void Num_KeyDown(object sender, KeyEventArgs e)

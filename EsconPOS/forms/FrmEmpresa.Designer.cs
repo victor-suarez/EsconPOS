@@ -180,6 +180,7 @@
             this.TabEmpresas.SelectedIndex = 0;
             this.TabEmpresas.Size = new System.Drawing.Size(735, 413);
             this.TabEmpresas.TabIndex = 0;
+            this.TabEmpresas.SelectedIndexChanged += new System.EventHandler(this.Tab_SelectedIndexChanged);
             // 
             // TabLista
             // 

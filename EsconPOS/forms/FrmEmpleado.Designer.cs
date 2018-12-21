@@ -46,6 +46,8 @@
             this.CmbFiltroTipoID = new System.Windows.Forms.ComboBox();
             this.DgvEmpleados = new System.Windows.Forms.DataGridView();
             this.TabEditar = new System.Windows.Forms.TabPage();
+            this.CmbEmpresa = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.TxtUsuario = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.ChkEsSupervisor = new System.Windows.Forms.CheckBox();
@@ -179,6 +181,7 @@
             this.TabEmpleados.SelectedIndex = 0;
             this.TabEmpleados.Size = new System.Drawing.Size(883, 435);
             this.TabEmpleados.TabIndex = 0;
+            this.TabEmpleados.SelectedIndexChanged += new System.EventHandler(this.Tab_SelectedIndexChanged);
             // 
             // TabLista
             // 
@@ -253,6 +256,8 @@
             // 
             // TabEditar
             // 
+            this.TabEditar.Controls.Add(this.CmbEmpresa);
+            this.TabEditar.Controls.Add(this.label8);
             this.TabEditar.Controls.Add(this.TxtUsuario);
             this.TabEditar.Controls.Add(this.label7);
             this.TabEditar.Controls.Add(this.ChkEsSupervisor);
@@ -277,24 +282,45 @@
             this.TabEditar.Text = "Editar";
             this.TabEditar.UseVisualStyleBackColor = true;
             // 
+            // CmbEmpresa
+            // 
+            this.CmbEmpresa.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbEmpresa.FormattingEnabled = true;
+            this.CmbEmpresa.Location = new System.Drawing.Point(178, 298);
+            this.CmbEmpresa.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.CmbEmpresa.Name = "CmbEmpresa";
+            this.CmbEmpresa.Size = new System.Drawing.Size(340, 28);
+            this.CmbEmpresa.TabIndex = 13;
+            this.CmbEmpresa.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(10, 301);
+            this.label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(77, 20);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "Empresa:";
+            // 
             // TxtUsuario
             // 
             this.TxtUsuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.TxtUsuario.Location = new System.Drawing.Point(178, 337);
+            this.TxtUsuario.Location = new System.Drawing.Point(178, 363);
             this.TxtUsuario.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.TxtUsuario.MaxLength = 20;
             this.TxtUsuario.Name = "TxtUsuario";
             this.TxtUsuario.Size = new System.Drawing.Size(210, 26);
-            this.TxtUsuario.TabIndex = 14;
+            this.TxtUsuario.TabIndex = 16;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(11, 340);
+            this.label7.Location = new System.Drawing.Point(11, 366);
             this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(68, 20);
-            this.label7.TabIndex = 13;
+            this.label7.TabIndex = 15;
             this.label7.Text = "Usuario:";
             // 
             // ChkEsSupervisor
@@ -302,10 +328,10 @@
             this.ChkEsSupervisor.AutoSize = true;
             this.ChkEsSupervisor.BackColor = System.Drawing.Color.Transparent;
             this.ChkEsSupervisor.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.ChkEsSupervisor.Location = new System.Drawing.Point(178, 304);
+            this.ChkEsSupervisor.Location = new System.Drawing.Point(178, 330);
             this.ChkEsSupervisor.Name = "ChkEsSupervisor";
             this.ChkEsSupervisor.Size = new System.Drawing.Size(141, 24);
-            this.ChkEsSupervisor.TabIndex = 12;
+            this.ChkEsSupervisor.TabIndex = 14;
             this.ChkEsSupervisor.Text = "¿Es supervisor?";
             this.ChkEsSupervisor.UseVisualStyleBackColor = false;
             this.ChkEsSupervisor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Chk_KeyPress);
@@ -313,7 +339,7 @@
             // TxtCorreoElectronicoEmpleado
             // 
             this.TxtCorreoElectronicoEmpleado.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
-            this.TxtCorreoElectronicoEmpleado.Location = new System.Drawing.Point(178, 270);
+            this.TxtCorreoElectronicoEmpleado.Location = new System.Drawing.Point(178, 263);
             this.TxtCorreoElectronicoEmpleado.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.TxtCorreoElectronicoEmpleado.MaxLength = 255;
             this.TxtCorreoElectronicoEmpleado.Name = "TxtCorreoElectronicoEmpleado";
@@ -324,7 +350,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 273);
+            this.label3.Location = new System.Drawing.Point(11, 266);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(144, 20);
@@ -333,7 +359,7 @@
             // 
             // TxtTelefonoEmpleado
             // 
-            this.TxtTelefonoEmpleado.Location = new System.Drawing.Point(178, 237);
+            this.TxtTelefonoEmpleado.Location = new System.Drawing.Point(178, 230);
             this.TxtTelefonoEmpleado.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.TxtTelefonoEmpleado.MaxLength = 255;
             this.TxtTelefonoEmpleado.Name = "TxtTelefonoEmpleado";
@@ -344,7 +370,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 240);
+            this.label2.Location = new System.Drawing.Point(11, 233);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 20);
@@ -353,7 +379,7 @@
             // 
             // TxtDireccionEmpleado
             // 
-            this.TxtDireccionEmpleado.Location = new System.Drawing.Point(178, 126);
+            this.TxtDireccionEmpleado.Location = new System.Drawing.Point(178, 119);
             this.TxtDireccionEmpleado.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.TxtDireccionEmpleado.MaxLength = 255;
             this.TxtDireccionEmpleado.Multiline = true;
@@ -365,7 +391,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 126);
+            this.label1.Location = new System.Drawing.Point(10, 119);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(79, 20);
@@ -374,7 +400,7 @@
             // 
             // TxtNombreEmpleado
             // 
-            this.TxtNombreEmpleado.Location = new System.Drawing.Point(178, 93);
+            this.TxtNombreEmpleado.Location = new System.Drawing.Point(178, 86);
             this.TxtNombreEmpleado.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.TxtNombreEmpleado.MaxLength = 255;
             this.TxtNombreEmpleado.Name = "TxtNombreEmpleado";
@@ -385,7 +411,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(10, 96);
+            this.label6.Location = new System.Drawing.Point(10, 89);
             this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 20);
@@ -394,7 +420,7 @@
             // 
             // TxtNroIDEmpleado
             // 
-            this.TxtNroIDEmpleado.Location = new System.Drawing.Point(178, 60);
+            this.TxtNroIDEmpleado.Location = new System.Drawing.Point(178, 53);
             this.TxtNroIDEmpleado.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.TxtNroIDEmpleado.MaxLength = 20;
             this.TxtNroIDEmpleado.Name = "TxtNroIDEmpleado";
@@ -406,7 +432,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 63);
+            this.label5.Location = new System.Drawing.Point(10, 56);
             this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(158, 20);
@@ -417,7 +443,7 @@
             // 
             this.CmbTipoIDEmpleado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CmbTipoIDEmpleado.FormattingEnabled = true;
-            this.CmbTipoIDEmpleado.Location = new System.Drawing.Point(178, 25);
+            this.CmbTipoIDEmpleado.Location = new System.Drawing.Point(178, 18);
             this.CmbTipoIDEmpleado.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.CmbTipoIDEmpleado.Name = "CmbTipoIDEmpleado";
             this.CmbTipoIDEmpleado.Size = new System.Drawing.Size(340, 28);
@@ -428,7 +454,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 29);
+            this.label4.Location = new System.Drawing.Point(10, 22);
             this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(163, 20);
@@ -499,5 +525,7 @@
         private System.Windows.Forms.TextBox TxtUsuario;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox TxtFiltroNroID;
+        private System.Windows.Forms.ComboBox CmbEmpresa;
+        private System.Windows.Forms.Label label8;
     }
 }

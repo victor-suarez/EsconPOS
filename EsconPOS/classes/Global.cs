@@ -8,8 +8,10 @@ namespace EsconPOS.classes
     {
         #region Variables privadas
 
+        private static bool _CambiarContrasenia = false;
         private static string _CnxStr;
         private static bool _LoggedIN;
+        private static bool EsAdministrador;
         private static long ID_Caja;
         private static long ID_DistritoEmpresa;
         private static long ID_Empleado;
@@ -36,6 +38,12 @@ namespace EsconPOS.classes
         {
             get { return _Caja; }
             set { _Caja = value; }
+        }
+
+        public static bool CambiarContrasenia
+        {
+            get { return _CambiarContrasenia; }
+            set { _CambiarContrasenia = value; }
         }
 
         public static string CnxStr
@@ -78,6 +86,12 @@ namespace EsconPOS.classes
         {
             get { return ID_Empresa; }
             set { ID_Empresa = value; }
+        }
+
+        public static bool glEsAdministrador
+        {
+            get { return EsAdministrador; }
+            set { EsAdministrador = value; }
         }
 
         public static string glNomCaja
@@ -176,6 +190,7 @@ namespace EsconPOS.classes
             var fullErrorMessage = string.Join("; ", DbErrors);
             MessageBox.Show(fullErrorMessage, Msj, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
         #endregion Funciones privadas
     }
 }

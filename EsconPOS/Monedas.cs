@@ -18,6 +18,7 @@ namespace EsconPOS
         public Monedas()
         {
             this.Pagos = new HashSet<Pagos>();
+            this.Documentos = new HashSet<Documentos>();
         }
     
         public long MonedaID { get; set; }
@@ -32,5 +33,7 @@ namespace EsconPOS
         public virtual Empleados EmpleadoAdd { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pagos> Pagos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Documentos> Documentos { get; set; }
     }
 }

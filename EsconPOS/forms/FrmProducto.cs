@@ -352,7 +352,8 @@ namespace EsconPOS.forms
                 SelectNextControl((Button)sender, true, true, true, false);
             }
         }
-        private void btn_PreviewKeyDown(object sender ,PreviewKeyDownEventArgs e )
+
+        private void btn_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.Return) e.IsInputKey = true;
         }
@@ -485,6 +486,11 @@ namespace EsconPOS.forms
                 else
                     SelectNextControl((NumericUpDown)sender, true, true, true, false);
             }
+        }
+
+        private void Tab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectNextControl((TabControl)sender, true, true, true, false);
         }
 
         private void TsBtnDeshacer_Click(object sender, EventArgs e)

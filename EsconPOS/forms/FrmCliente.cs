@@ -62,6 +62,7 @@ namespace EsconPOS.forms
             TxtCorreoElectronicoCliente.Text = "";
             TssLblAgregado.Text = "";
             TssLblModificado.Text = "";
+            CmbTipoIDCliente.Focus();
         }
 
         private void Eliminar()
@@ -316,6 +317,7 @@ namespace EsconPOS.forms
             Left = 10;
             Top = 10;
         }
+
         private void Num_Enter(object sender, EventArgs e)
         {
             ((NumericUpDown)sender).Select(0, ((NumericUpDown)sender).Text.Length);
@@ -333,6 +335,11 @@ namespace EsconPOS.forms
                 else
                     SelectNextControl((NumericUpDown)sender, true, true, true, false);
             }
+        }
+
+        private void Tab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectNextControl((TabControl)sender, true, true, true, false);
         }
 
         private void TsBtnDeshacer_Click(object sender, EventArgs e)

@@ -16,8 +16,10 @@ namespace EsconPOS.forms
         private FrmCliente FrmCli = null;
         private FrmEmpleado FrmEmp = null;
         private FrmEmpresa FrmEpr = null;
+        private FrmFormasPago FrmFpg = null;
         private FrmMarca FrmMar = null;
         private FrmMoneda FrmMon = null;
+        private FrmContrasenia FrmPas = null;
         private FrmPuntoDeVenta FrmPos = null;
         private FrmProducto FrmPro = null;
         private FrmUnidadMedida FrmUnd = null;
@@ -25,6 +27,15 @@ namespace EsconPOS.forms
         #endregion Variables privadas
 
         #region Funciones privadas
+
+        public void SetStatus(string StrStatus = "", bool Error = false)
+        {
+            if (Error)
+                TsslStatus.ForeColor = Color.Red;
+            else
+                TsslStatus.ForeColor = SystemColors.ControlText;
+            TsslStatus.Text = StrStatus;
+        }
 
         private void AbrirCerrarCaja()
         {
@@ -54,6 +65,18 @@ namespace EsconPOS.forms
             Cursor.Current = Cursors.Default;
         }
 
+        private void IniciarBotones()
+        {
+            TssbCaja.Visible = true;
+            TssbAdministrar.Visible = true;
+            if (Global.glEsAdministrador)
+            {
+                TssbUbicacion.Visible = true;
+                TssbSunat.Visible = true;
+                TssbProductos.Visible = true;
+            }
+        }
+
         private void IniciarInfo()
         {
             this.Text = "EsconPOS V:" +
@@ -66,15 +89,6 @@ namespace EsconPOS.forms
             TsslFecha.Text = DateTime.Now.ToLongDateString();
             TsslHora.Text = DateTime.Now.ToShortTimeString();
             TmrHora.Start();
-        }
-
-        private void SetStatus(string StrStatus = "", bool Error = false)
-        {
-            if (Error)
-                TsslStatus.ForeColor = Color.Red;
-            else
-                TsslStatus.ForeColor = SystemColors.ControlText;
-            TsslStatus.Text = StrStatus;
         }
 
         #endregion Funciones privadas
@@ -96,6 +110,25 @@ namespace EsconPOS.forms
             IniciarInfo();
         }
 
+        private void MDIEsconPos_Shown(object sender, EventArgs e)
+        {
+            // Verificar permimsos????
+            if (!Global.CambiarContrasenia)
+                IniciarBotones();
+            else
+            {
+                FrmPas = new FrmContrasenia();
+                //FrmPas.MdiParent = this;
+                if (FrmPas.ShowDialog() == DialogResult.OK)
+                {
+                    IniciarBotones();
+                    SetStatus(FrmPas.MensajeRespuesta);
+                }
+                else
+                    SetStatus(FrmPas.MensajeRespuesta, true);
+            }
+        }
+
         private void TmrHora_Tick(object sender, EventArgs e)
         {
             TsslFecha.Text = DateTime.Now.ToLongDateString();
@@ -104,6 +137,11 @@ namespace EsconPOS.forms
 
         private void TsmiClases_Click(object sender, EventArgs e)
         {
+            if (FrmCla != null && !FrmCla.IsDisposed)
+            {
+                FrmCla.BringToFront();
+                return;
+            }
             FrmCla = new forms.FrmClase();
             FrmCla.MdiParent = this;
             FrmCla.Show();
@@ -111,6 +149,11 @@ namespace EsconPOS.forms
 
         private void TsmiClientes_Click(object sender, EventArgs e)
         {
+            if (FrmCli != null && !FrmCli.IsDisposed)
+            {
+                FrmCli.BringToFront();
+                return;
+            }
             FrmCli = new forms.FrmCliente();
             FrmCli.MdiParent = this;
             FrmCli.Show();
@@ -118,6 +161,11 @@ namespace EsconPOS.forms
 
         private void TsmiEmpleados_Click(object sender, EventArgs e)
         {
+            if (FrmEmp != null && !FrmEmp.IsDisposed)
+            {
+                FrmEmp.BringToFront();
+                return;
+            }
             FrmEmp = new forms.FrmEmpleado();
             FrmEmp.MdiParent = this;
             FrmEmp.Show();
@@ -125,13 +173,35 @@ namespace EsconPOS.forms
 
         private void TsmiEmpresas_Click(object sender, EventArgs e)
         {
+            if (FrmEpr != null && !FrmEpr.IsDisposed)
+            {
+                FrmEpr.BringToFront();
+                return;
+            }
             FrmEpr = new forms.FrmEmpresa();
             FrmEpr.MdiParent = this;
             FrmEpr.Show();
         }
 
+        private void TsmiFormasPago_Click(object sender, EventArgs e)
+        {
+            if (FrmFpg != null && !FrmFpg.IsDisposed)
+            {
+                FrmFpg.BringToFront();
+                return;
+            }
+            FrmFpg = new forms.FrmFormasPago();
+            FrmFpg.MdiParent = this;
+            FrmFpg.Show();
+        }
+
         private void TsmiIncluirFactura_Click(object sender, EventArgs e)
         {
+            if (FrmPos != null && !FrmPos.IsDisposed)
+            {
+                FrmPos.BringToFront();
+                return;
+            }
             FrmPos = new forms.FrmPuntoDeVenta();
             FrmPos.MdiParent = this;
             FrmPos.Show();
@@ -140,13 +210,36 @@ namespace EsconPOS.forms
 
         private void TsmiMarcas_Click(object sender, EventArgs e)
         {
+            if (FrmMar != null && !FrmMar.IsDisposed)
+            {
+                FrmMar.BringToFront();
+                return;
+            }
             FrmMar = new forms.FrmMarca();
             FrmMar.MdiParent = this;
             FrmMar.Show();
         }
 
+        private void TsmiMiContrasenia_Click(object sender, EventArgs e)
+        {
+            if (FrmPas != null && !FrmPas.IsDisposed)
+            {
+                FrmPas.BringToFront();
+                return;
+            }
+            FrmPas = new forms.FrmContrasenia();
+            FrmPas.MdiParent = this;
+            FrmPas.Show();
+            FrmPas.StartPosition = FormStartPosition.CenterParent;
+        }
+
         private void TsmiMonedas_Click(object sender, EventArgs e)
         {
+            if (FrmMon != null && !FrmMon.IsDisposed)
+            {
+                FrmMon.BringToFront();
+                return;
+            }
             FrmMon = new forms.FrmMoneda();
             FrmMon.MdiParent = this;
             FrmMon.Show();
@@ -154,6 +247,11 @@ namespace EsconPOS.forms
 
         private void TsmiProductosServicios_Click(object sender, EventArgs e)
         {
+            if (FrmPro != null && !FrmPro.IsDisposed)
+            {
+                FrmPro.BringToFront();
+                return;
+            }
             FrmPro = new forms.FrmProducto();
             FrmPro.MdiParent = this;
             FrmPro.Show();
@@ -161,6 +259,11 @@ namespace EsconPOS.forms
 
         private void TsmiUnidadesMedida_Click(object sender, EventArgs e)
         {
+            if (FrmUnd != null && !FrmUnd.IsDisposed)
+            {
+                FrmUnd.BringToFront();
+                return;
+            }
             FrmUnd = new forms.FrmUnidadMedida();
             FrmUnd.MdiParent = this;
             FrmUnd.Show();

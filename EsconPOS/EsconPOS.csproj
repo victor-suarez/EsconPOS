@@ -186,6 +186,12 @@
     <Compile Include="forms\FrmConfiguracion.Designer.cs">
       <DependentUpon>FrmConfiguracion.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\FrmContrasenia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FrmContrasenia.Designer.cs">
+      <DependentUpon>FrmContrasenia.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\FrmDepartamento.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -340,6 +346,9 @@
     <EmbeddedResource Include="forms\FrmConfiguracion.resx">
       <DependentUpon>FrmConfiguracion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmContrasenia.resx">
+      <DependentUpon>FrmContrasenia.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\FrmDepartamento.resx">
       <DependentUpon>FrmDepartamento.cs</DependentUpon>
     </EmbeddedResource>
@@ -433,6 +442,11 @@
       <LastGenOutput>EsconPOS.cs</LastGenOutput>
     </Content>
     <Content Include="POS.ico" />
+    <None Include="Resources\Imprimir.png" />
+    <None Include="Resources\Contraseña.png" />
+    <None Include="Resources\FormasPagos.png" />
+    <None Include="Resources\Contraseña.ico" />
+    <None Include="Resources\Ver.png" />
     <None Include="Resources\Logout.png" />
     <None Include="Resources\Quitar.png" />
     <None Include="Resources\ClearTxt.png" />

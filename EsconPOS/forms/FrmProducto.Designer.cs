@@ -188,6 +188,7 @@
             this.TabProductos.SelectedIndex = 0;
             this.TabProductos.Size = new System.Drawing.Size(970, 378);
             this.TabProductos.TabIndex = 0;
+            this.TabProductos.SelectedIndexChanged += new System.EventHandler(this.Tab_SelectedIndexChanged);
             // 
             // PagLista
             // 

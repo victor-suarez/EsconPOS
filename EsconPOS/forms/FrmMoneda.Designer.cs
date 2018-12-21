@@ -168,6 +168,7 @@
             this.TabMonedas.SelectedIndex = 0;
             this.TabMonedas.Size = new System.Drawing.Size(627, 378);
             this.TabMonedas.TabIndex = 0;
+            this.TabMonedas.SelectedIndexChanged += new System.EventHandler(this.Tab_SelectedIndexChanged);
             // 
             // PagLista
             // 

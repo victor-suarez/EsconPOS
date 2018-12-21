@@ -50,6 +50,7 @@ namespace EsconPOS.forms
             ChkActiva.Checked = false;
             TssLblAgregado.Text = "";
             TssLblModificado.Text = "";
+            TxtCodigo.Focus();
         }
 
         private void Eliminar()
@@ -237,6 +238,11 @@ namespace EsconPOS.forms
             IncluirBtnClear(TxtFiltroMarca);
             Left = 10;
             Top = 10;
+        }
+
+        private void Tab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectNextControl((TabControl)sender, true, true, true, false);
         }
 
         private void TsBtnDeshacer_Click(object sender, EventArgs e)

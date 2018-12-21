@@ -47,6 +47,7 @@
             this.TsmiEmpleados = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmiClientes = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmiFormasPago = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiMiContrasenia = new System.Windows.Forms.ToolStripMenuItem();
             this.TssbUbicacion = new System.Windows.Forms.ToolStripSplitButton();
             this.TsmiPaises = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmiDepartamentos = new System.Windows.Forms.ToolStripMenuItem();
@@ -145,6 +146,7 @@
             this.TssbCaja.Size = new System.Drawing.Size(75, 51);
             this.TssbCaja.Text = "Abrir &Caja";
             this.TssbCaja.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TssbCaja.Visible = false;
             this.TssbCaja.ButtonClick += new System.EventHandler(this.TssbCaja_ButtonClick);
             // 
             // TsmiIncluirFactura
@@ -173,7 +175,8 @@
             this.TsmiEmpresas,
             this.TsmiEmpleados,
             this.TsmiClientes,
-            this.TsmiFormasPago});
+            this.TsmiFormasPago,
+            this.TsmiMiContrasenia});
             this.TssbAdministrar.Image = global::EsconPOS.Properties.Resources.Administrar;
             this.TssbAdministrar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.TssbAdministrar.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -181,6 +184,7 @@
             this.TssbAdministrar.Size = new System.Drawing.Size(85, 51);
             this.TssbAdministrar.Text = "&Administrar";
             this.TssbAdministrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TssbAdministrar.Visible = false;
             // 
             // TsmiEmpresas
             // 
@@ -208,9 +212,19 @@
             // 
             // TsmiFormasPago
             // 
+            this.TsmiFormasPago.Image = global::EsconPOS.Properties.Resources.FormasPagos;
             this.TsmiFormasPago.Name = "TsmiFormasPago";
             this.TsmiFormasPago.Size = new System.Drawing.Size(159, 22);
             this.TsmiFormasPago.Text = "&Formas de pago";
+            this.TsmiFormasPago.Click += new System.EventHandler(this.TsmiFormasPago_Click);
+            // 
+            // TsmiMiContrasenia
+            // 
+            this.TsmiMiContrasenia.Image = global::EsconPOS.Properties.Resources.Contraseña1;
+            this.TsmiMiContrasenia.Name = "TsmiMiContrasenia";
+            this.TsmiMiContrasenia.Size = new System.Drawing.Size(159, 22);
+            this.TsmiMiContrasenia.Text = "M&i contraseña";
+            this.TsmiMiContrasenia.Click += new System.EventHandler(this.TsmiMiContrasenia_Click);
             // 
             // TssbUbicacion
             // 
@@ -226,6 +240,7 @@
             this.TssbUbicacion.Size = new System.Drawing.Size(76, 51);
             this.TssbUbicacion.Text = "&Ubicación";
             this.TssbUbicacion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TssbUbicacion.Visible = false;
             // 
             // TsmiPaises
             // 
@@ -269,6 +284,7 @@
             this.TssbSunat.Size = new System.Drawing.Size(60, 51);
             this.TssbSunat.Text = "SU&NAT";
             this.TssbSunat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TssbSunat.Visible = false;
             // 
             // TsmiImpuestos
             // 
@@ -312,6 +328,7 @@
             this.TssbProductos.Size = new System.Drawing.Size(85, 51);
             this.TssbProductos.Text = "&Prods/Servs";
             this.TssbProductos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TssbProductos.Visible = false;
             // 
             // TsmiMarcas
             // 
@@ -371,6 +388,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MDIEsconPos_FormClosing);
             this.Load += new System.EventHandler(this.MDIEsconPos_Load);
+            this.Shown += new System.EventHandler(this.MDIEsconPos_Shown);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.toolStrip.ResumeLayout(false);
@@ -415,6 +433,7 @@
         private System.Windows.Forms.ToolStripMenuItem TsmiIncluirFactura;
         private System.Windows.Forms.ToolStripMenuItem TsmiAbrirCuenta;
         public System.Windows.Forms.ToolStrip toolStrip;
+        private System.Windows.Forms.ToolStripMenuItem TsmiMiContrasenia;
     }
 }
 

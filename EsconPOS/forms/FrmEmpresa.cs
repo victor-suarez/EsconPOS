@@ -75,6 +75,7 @@ namespace EsconPOS.forms
             TxtCorreoElectronicoEmpresa.Text = "";
             TssLblAgregado.Text = "";
             TssLblModificado.Text = "";
+            CmbTipoIDEmpresa.Focus();
         }
 
         private void Eliminar()
@@ -336,6 +337,11 @@ namespace EsconPOS.forms
             TssLblModificado.Text = "";
             Left = 10;
             Top = 10;
+        }
+
+        private void Tab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectNextControl((TabControl)sender, true, true, true, false);
         }
 
         private void TsBtnDeshacer_Click(object sender, EventArgs e)

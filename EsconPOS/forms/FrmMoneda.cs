@@ -51,6 +51,7 @@ namespace EsconPOS.forms
             ChkActiva.Checked = false;
             TssLblAgregado.Text = "";
             TssLblModificado.Text = "";
+            TxtCodigo.Focus();
         }
 
         private void Eliminar()
@@ -238,6 +239,11 @@ namespace EsconPOS.forms
             Top = 10;
             IncluirBtnClear(TxtFiltroCodigo);
             IncluirBtnClear(TxtFiltroMoneda);
+        }
+
+        private void Tab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectNextControl((TabControl)sender, true, true, true, false);
         }
 
         private void TsBtnDeshacer_Click(object sender, EventArgs e)

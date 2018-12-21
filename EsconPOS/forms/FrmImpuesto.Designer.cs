@@ -143,7 +143,7 @@
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
             this.Name = "FrmImpuesto";
-            this.Text = "FrmImpuesto";
+            this.Text = "Administrar Impuestos";
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
