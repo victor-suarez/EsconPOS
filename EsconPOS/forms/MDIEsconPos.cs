@@ -12,6 +12,7 @@ namespace EsconPOS.forms
 
         private static bool CajaAbierta = false;
         private mainEntities context = new mainEntities();
+        private FrmBanco FrmBco = null;
         private FrmClase FrmCla = null;
         private FrmCliente FrmCli = null;
         private FrmEmpleado FrmEmp = null;
@@ -133,6 +134,18 @@ namespace EsconPOS.forms
         {
             TsslFecha.Text = DateTime.Now.ToLongDateString();
             TsslHora.Text = DateTime.Now.ToShortTimeString();
+        }
+
+        private void TsmiBancos_Click(object sender, EventArgs e)
+        {
+            if (FrmBco != null && !FrmBco.IsDisposed)
+            {
+                FrmBco.BringToFront();
+                return;
+            }
+            FrmBco = new forms.FrmBanco();
+            FrmBco.MdiParent = this;
+            FrmBco.Show();
         }
 
         private void TsmiClases_Click(object sender, EventArgs e)
@@ -269,9 +282,13 @@ namespace EsconPOS.forms
             FrmUnd.Show();
         }
 
-        private void TssbCaja_ButtonClick(object sender, EventArgs e)
+        private void Tssb_ButtonClick(object sender, EventArgs e)
         {
-            AbrirCerrarCaja();
+            if (((ToolStripSplitButton)sender).Name == "TssbCaja")
+            {
+                AbrirCerrarCaja();
+            }
+            ((ToolStripSplitButton)sender).ShowDropDown();
         }
 
         private void TssbSalir_Click(object sender, EventArgs e)

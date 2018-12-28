@@ -63,9 +63,9 @@ namespace EsconPOS.forms
             try
             {
                 long ID = long.Parse(TxtCodigo.Tag.ToString());
-                var cls = context.TiposProductos.Single(c => c.TipoProductoID == ID);
-                context.TiposProductos.Attach(cls);
-                context.TiposProductos.Remove(cls);
+                var clase = context.TiposProductos.Single(c => c.TipoProductoID == ID);
+                context.TiposProductos.Attach(clase);
+                context.TiposProductos.Remove(clase);
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -112,14 +112,15 @@ namespace EsconPOS.forms
                 try
                 {
                     long ID = long.Parse(TxtCodigo.Tag.ToString());
-                    var cls = context.TiposProductos.Single(c => c.TipoProductoID == ID);
-                    context.TiposProductos.Attach(cls);
+                    var clase = context.TiposProductos.Single(c => c.TipoProductoID == ID);
+                    context.TiposProductos.Attach(clase);
 
-                    cls.Codigo = TxtCodigo.Text;
-                    cls.TipoProducto = TxtClase.Text;
-                    cls.Activo = ChkActiva.Checked ? 1 : 0;
-                    cls.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    cls.ModificadoPor = Global.glUsuario;
+                    clase.TipoProductoID = ID;
+                    clase.Codigo = TxtCodigo.Text;
+                    clase.TipoProducto = TxtClase.Text;
+                    clase.Activo = ChkActiva.Checked ? 1 : 0;
+                    clase.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    clase.ModificadoPor = Global.glUsuario;
 
                     context.SaveChanges();
                 }

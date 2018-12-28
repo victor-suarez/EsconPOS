@@ -60,6 +60,9 @@ namespace EsconPOS.forms
             CmbDepartamento.SelectedIndex = -1;
             TxtNroTelefonicoCliente.Text = "";
             TxtCorreoElectronicoCliente.Text = "";
+            NumDiaNac.Value = 1;
+            NumMesNac.Value = 1;
+            NumAñoNac.Value = 1900;
             TssLblAgregado.Text = "";
             TssLblModificado.Text = "";
             CmbTipoIDCliente.Focus();
@@ -74,9 +77,9 @@ namespace EsconPOS.forms
             try
             {
                 long ID = long.Parse(CmbTipoIDCliente.Tag.ToString());
-                var cli = context.Clientes.Single(c => c.ClienteID == ID);
-                context.Clientes.Attach(cli);
-                context.Clientes.Remove(cli);
+                var cliente = context.Clientes.Single(c => c.ClienteID == ID);
+                context.Clientes.Attach(cliente);
+                context.Clientes.Remove(cliente);
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -90,6 +93,12 @@ namespace EsconPOS.forms
             Cursor.Current = Cursors.Default;
         }
 
+        private string FechaNac()
+        {
+            string fecha = NumAñoNac.Value.ToString() + "-" + NumMesNac.Value.ToString("00") + "-" + NumDiaNac.Value.ToString("00");
+            return fecha;
+        }
+
         private void Guardar()
         {
             if (!ValEntReq()) return;
@@ -98,7 +107,7 @@ namespace EsconPOS.forms
             {
                 try
                 {
-                    var clie = new Clientes
+                    var cliente = new Clientes
                     {
                         IdentificacionID = ((Identificaciones)CmbTipoIDCliente.SelectedItem).IdentificacionID,
                         NroDocIdent = TxtNroIDCliente.Text,
@@ -108,11 +117,12 @@ namespace EsconPOS.forms
                         DistritoID = ((Distritos)CmbDistrito.SelectedItem).DistritoID,
                         NroTelefonico = TxtNroTelefonicoCliente.Text.Trim() == "" ? null : TxtNroTelefonicoCliente.Text.Trim(),
                         CorreoElectronico = TxtCorreoElectronicoCliente.Text.Trim() == "" ? null : TxtCorreoElectronicoCliente.Text.Trim(),
+                        FechaNacimiento = FechaNac(),
                         Activo = 1,
                         AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                         AgregadoPor = Global.glUsuario
                     };
-                    context.Clientes.Add(clie);
+                    context.Clientes.Add(cliente);
                     context.SaveChanges();
                 }
                 catch (Exception ex)
@@ -127,18 +137,21 @@ namespace EsconPOS.forms
                 try
                 {
                     long ID = long.Parse(CmbTipoIDCliente.Tag.ToString());
-                    var cli = context.Clientes.Single(c => c.ClienteID == ID);
-                    context.Clientes.Attach(cli);
-                    cli.IdentificacionID = ((Identificaciones)CmbTipoIDCliente.SelectedItem).IdentificacionID;
-                    cli.NroDocIdent = TxtNroIDCliente.Text;
-                    cli.Nombre = TxtNombreCliente.Text;
-                    cli.Direccion = TxtDireccionCliente.Text.Trim() == "" ? null : TxtDireccionCliente.Text.Trim();
-                    cli.PaisID = ((Departamentos)CmbDepartamento.SelectedItem).PaisID;
-                    cli.DistritoID = ((Distritos)CmbDistrito.SelectedItem).DistritoID;
-                    cli.NroTelefonico = TxtNroTelefonicoCliente.Text.Trim() == "" ? null : TxtNroTelefonicoCliente.Text.Trim();
-                    cli.CorreoElectronico = TxtCorreoElectronicoCliente.Text.Trim() == "" ? null : TxtCorreoElectronicoCliente.Text.Trim();
-                    cli.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    cli.ModificadoPor = Global.glUsuario;
+                    var cliente = context.Clientes.Single(c => c.ClienteID == ID);
+                    context.Clientes.Attach(cliente);
+
+                    cliente.ClienteID = ID;
+                    cliente.IdentificacionID = ((Identificaciones)CmbTipoIDCliente.SelectedItem).IdentificacionID;
+                    cliente.NroDocIdent = TxtNroIDCliente.Text;
+                    cliente.Nombre = TxtNombreCliente.Text;
+                    cliente.Direccion = TxtDireccionCliente.Text.Trim() == "" ? null : TxtDireccionCliente.Text.Trim();
+                    cliente.PaisID = ((Departamentos)CmbDepartamento.SelectedItem).PaisID;
+                    cliente.DistritoID = ((Distritos)CmbDistrito.SelectedItem).DistritoID;
+                    cliente.NroTelefonico = TxtNroTelefonicoCliente.Text.Trim() == "" ? null : TxtNroTelefonicoCliente.Text.Trim();
+                    cliente.CorreoElectronico = TxtCorreoElectronicoCliente.Text.Trim() == "" ? null : TxtCorreoElectronicoCliente.Text.Trim();
+                    cliente.FechaNacimiento = FechaNac();
+                    cliente.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    cliente.ModificadoPor = Global.glUsuario;
                     context.SaveChanges();
                 }
                 catch (Exception ex)
@@ -155,22 +168,27 @@ namespace EsconPOS.forms
 
         private void MoverRegistroToCrt(long ID)
         {
-            var cli = (from c in context.Clientes
-                       where c.ClienteID == ID
-                       select c).First();
-            CmbTipoIDCliente.SelectedValue = cli.IdentificacionID;
+            var cliente = (from c in context.Clientes
+                           where c.ClienteID == ID
+                           select c).First();
+            CmbTipoIDCliente.SelectedValue = cliente.IdentificacionID;
             CmbTipoIDCliente.Tag = ID;
-            TxtNroIDCliente.Text = cli.NroDocIdent;
-            TxtNombreCliente.Text = cli.Nombre;
-            TxtDireccionCliente.Text = cli.Direccion ?? "";
-            TxtNroTelefonicoCliente.Text = cli.NroTelefonico ?? "";
-            TxtCorreoElectronicoCliente.Text = cli.CorreoElectronico ?? "";
-            CmbDepartamento.SelectedValue = cli.Distritos.Provincias.DepartamentoID;
-            CmbProvincia.SelectedValue = cli.Distritos.Provincias.ProvinciaID;
-            CmbDistrito.SelectedValue = cli.DistritoID;
-            TssLblAgregado.Text = cli.EmpleadoAdd.Login.ToLower() + " " + cli.AgregadoEl;
-            if (cli.EmpleadoUpd != null)
-                TssLblModificado.Text = (cli.EmpleadoUpd.Login.ToLower() + " " + cli.ModificadoEl) ?? "";
+            TxtNroIDCliente.Text = cliente.NroDocIdent;
+            TxtNombreCliente.Text = cliente.Nombre;
+            TxtDireccionCliente.Text = cliente.Direccion ?? "";
+            TxtNroTelefonicoCliente.Text = cliente.NroTelefonico ?? "";
+            TxtCorreoElectronicoCliente.Text = cliente.CorreoElectronico ?? "";
+            CmbDepartamento.SelectedValue = cliente.Distritos.Provincias.DepartamentoID;
+            CmbProvincia.SelectedValue = cliente.Distritos.Provincias.ProvinciaID;
+            CmbDistrito.SelectedValue = cliente.DistritoID;
+
+            NumDiaNac.Value = (decimal.Parse(cliente.FechaNacimiento == null ? "1" : cliente.FechaNacimiento.ToString().Substring(8, 2)));
+            NumMesNac.Value = (decimal.Parse(cliente.FechaNacimiento == null ? "1" : cliente.FechaNacimiento.ToString().Substring(5, 2)));
+            NumAñoNac.Value = (decimal.Parse(cliente.FechaNacimiento == null ? "1900" : cliente.FechaNacimiento.ToString().Substring(0, 4)));
+
+            TssLblAgregado.Text = cliente.EmpleadoAdd.Login.ToLower() + " " + cliente.AgregadoEl;
+            if (cliente.EmpleadoUpd != null)
+                TssLblModificado.Text = (cliente.EmpleadoUpd.Login.ToLower() + " " + cliente.ModificadoEl) ?? "";
             else
                 TssLblModificado.Text = "";
         }

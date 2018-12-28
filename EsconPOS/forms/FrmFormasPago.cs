@@ -65,9 +65,9 @@ namespace EsconPOS.forms
             try
             {
                 long ID = long.Parse(TxtCodigo.Tag.ToString());
-                var fp = context.FormasPagos.Single(f => f.FormaPagoID == ID);
-                context.FormasPagos.Attach(fp);
-                context.FormasPagos.Remove(fp);
+                var formapago = context.FormasPagos.Single(f => f.FormaPagoID == ID);
+                context.FormasPagos.Attach(formapago);
+                context.FormasPagos.Remove(formapago);
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -114,16 +114,17 @@ namespace EsconPOS.forms
                 try
                 {
                     long ID = long.Parse(TxtCodigo.Tag.ToString());
-                    var fp = context.FormasPagos.Single(f => f.FormaPagoID == ID);
-                    context.FormasPagos.Attach(fp);
+                    var formapago = context.FormasPagos.Single(f => f.FormaPagoID == ID);
+                    context.FormasPagos.Attach(formapago);
 
-                    fp.Codigo = TxtCodigo.Text;
-                    fp.FormaPago = TxtFormaPago.Text;
-                    fp.Orden = (long)NumOrden.Value;
-                    fp.RequiereAutorizacion = ChkRequiereAutorizacion.Checked ? 1 : 0;
-                    fp.Activo = ChkActiva.Checked ? 1 : 0;
-                    fp.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    fp.ModificadoPor = Global.glUsuario;
+                    formapago.FormaPagoID = ID;
+                    formapago.Codigo = TxtCodigo.Text;
+                    formapago.FormaPago = TxtFormaPago.Text;
+                    formapago.Orden = (long)NumOrden.Value;
+                    formapago.RequiereAutorizacion = ChkRequiereAutorizacion.Checked ? 1 : 0;
+                    formapago.Activo = ChkActiva.Checked ? 1 : 0;
+                    formapago.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    formapago.ModificadoPor = Global.glUsuario;
 
                     context.SaveChanges();
                 }
@@ -148,7 +149,6 @@ namespace EsconPOS.forms
             btn.Cursor = Cursors.Default;
             btn.Image = Properties.Resources.ClearTxt;
             btn.Click += btn_Click;
-            //btn.Visible = false;
             txt.Controls.Add(btn);
         }
 

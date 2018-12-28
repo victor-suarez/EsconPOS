@@ -44,6 +44,7 @@ namespace EsconPOS
             this.UnidadesMedidasUpdated = new HashSet<UnidadesMedidas>();
             this.ItemVentasAdded = new HashSet<ItemsDocumentos>();
             this.TiposDocumentosUpdated = new HashSet<TiposDocumentos>();
+            this.BancosUpdated = new HashSet<Bancos>();
         }
     
         public long EmpleadoID { get; set; }
@@ -120,5 +121,7 @@ namespace EsconPOS
         public virtual ICollection<ItemsDocumentos> ItemVentasAdded { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TiposDocumentos> TiposDocumentosUpdated { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bancos> BancosUpdated { get; set; }
     }
 }

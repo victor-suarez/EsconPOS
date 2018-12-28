@@ -5,6 +5,19 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="EsconPOS.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Users\vsuarez\VisualStudio\EsconPOS\EsconPOS\bin\Debug\database\EsconPOS.db;Foreign Keys=True" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bancos">
+          <Key>
+            <PropertyRef Name="BancoID" />
+          </Key>
+          <Property Name="BancoID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Iniciales" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Codigo" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="BIN" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Activo" Type="integer" Nullable="false" />
+          <Property Name="ModificadoEl" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ModificadoPor" Type="integer" />
+        </EntityType>
         <EntityType Name="CajaLog">
           <Key>
             <PropertyRef Name="CajaLogID" />
@@ -360,19 +373,19 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
           <Property Name="PasswdHash" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="EsAdministrador" Type="integer" Nullable="false" />
         </EntityType>
-        <Association Name="FK_CajaLog_0_0">
-          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
-          <End Role="CajaLog" Type="Self.CajaLog" Multiplicity="*" />
+        <Association Name="FK_Bancos_0_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="Bancos" Type="Self.Bancos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Empleados">
               <PropertyRef Name="EmpleadoID" />
             </Principal>
-            <Dependent Role="CajaLog">
-              <PropertyRef Name="EmpleadoID" />
+            <Dependent Role="Bancos">
+              <PropertyRef Name="ModificadoPor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CajaLog_1_0">
+        <Association Name="FK_CajaLog_0_0">
           <End Role="Transacciones" Type="Self.Transacciones" Multiplicity="1" />
           <End Role="CajaLog" Type="Self.CajaLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -384,7 +397,7 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CajaLog_2_0">
+        <Association Name="FK_CajaLog_1_0">
           <End Role="Cajas" Type="Self.Cajas" Multiplicity="1" />
           <End Role="CajaLog" Type="Self.CajaLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -396,31 +409,31 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Clientes_0_0">
-          <End Role="Distritos" Type="Self.Distritos" Multiplicity="1" />
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Distritos">
-              <PropertyRef Name="DistritoID" />
-            </Principal>
-            <Dependent Role="Clientes">
-              <PropertyRef Name="DistritoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Clientes_1_0">
+        <Association Name="FK_CajaLog_2_0">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <End Role="CajaLog" Type="Self.CajaLog" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Empleados">
               <PropertyRef Name="EmpleadoID" />
             </Principal>
-            <Dependent Role="Clientes">
-              <PropertyRef Name="AgregadoPor" />
+            <Dependent Role="CajaLog">
+              <PropertyRef Name="EmpleadoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Clientes_2_0">
+        <Association Name="FK_Clientes_0_0">
+          <End Role="Identificaciones" Type="Self.Identificaciones" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Identificaciones">
+              <PropertyRef Name="IdentificacionID" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="IdentificacionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clientes_1_0">
           <End Role="Paises" Type="Self.Paises" Multiplicity="0..1" />
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -432,7 +445,7 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Clientes_3_0">
+        <Association Name="FK_Clientes_2_0">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -444,15 +457,27 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Clientes_4_0">
-          <End Role="Identificaciones" Type="Self.Identificaciones" Multiplicity="1" />
+        <Association Name="FK_Clientes_3_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Identificaciones">
-              <PropertyRef Name="IdentificacionID" />
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
             </Principal>
             <Dependent Role="Clientes">
-              <PropertyRef Name="IdentificacionID" />
+              <PropertyRef Name="AgregadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clientes_4_0">
+          <End Role="Distritos" Type="Self.Distritos" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distritos">
+              <PropertyRef Name="DistritoID" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="DistritoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -505,54 +530,6 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Documentos_0_0">
-          <End Role="TiposDocumentos" Type="Self.TiposDocumentos" Multiplicity="1" />
-          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TiposDocumentos">
-              <PropertyRef Name="TipoDocumentoID" />
-            </Principal>
-            <Dependent Role="Documentos">
-              <PropertyRef Name="TipoDocumentoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Documentos_1_0">
-          <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
-          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empresas">
-              <PropertyRef Name="EmpresaID" />
-            </Principal>
-            <Dependent Role="Documentos">
-              <PropertyRef Name="EmpresaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Documentos_2_0">
-          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
-          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleados">
-              <PropertyRef Name="EmpleadoID" />
-            </Principal>
-            <Dependent Role="Documentos">
-              <PropertyRef Name="EmpleadoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Documentos_3_0">
-          <End Role="Cajas" Type="Self.Cajas" Multiplicity="1" />
-          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cajas">
-              <PropertyRef Name="CajaID" />
-            </Principal>
-            <Dependent Role="Documentos">
-              <PropertyRef Name="CajaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Documentos_4_0">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
           <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -564,7 +541,19 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Documentos_5_0">
+        <Association Name="FK_Documentos_1_0">
+          <End Role="Cajas" Type="Self.Cajas" Multiplicity="1" />
+          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cajas">
+              <PropertyRef Name="CajaID" />
+            </Principal>
+            <Dependent Role="Documentos">
+              <PropertyRef Name="CajaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documentos_2_0">
           <End Role="Monedas" Type="Self.Monedas" Multiplicity="1" />
           <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -573,6 +562,42 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Principal>
             <Dependent Role="Documentos">
               <PropertyRef Name="MonedaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documentos_3_0">
+          <End Role="TiposDocumentos" Type="Self.TiposDocumentos" Multiplicity="1" />
+          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposDocumentos">
+              <PropertyRef Name="TipoDocumentoID" />
+            </Principal>
+            <Dependent Role="Documentos">
+              <PropertyRef Name="TipoDocumentoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documentos_4_0">
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
+          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresas">
+              <PropertyRef Name="EmpresaID" />
+            </Principal>
+            <Dependent Role="Documentos">
+              <PropertyRef Name="EmpresaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documentos_5_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Documentos" Type="Self.Documentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Documentos">
+              <PropertyRef Name="EmpleadoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -589,18 +614,6 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Empleados_1_0">
-          <End Role="Identificaciones" Type="Self.Identificaciones" Multiplicity="1" />
-          <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Identificaciones">
-              <PropertyRef Name="IdentificacionID" />
-            </Principal>
-            <Dependent Role="Empleados">
-              <PropertyRef Name="IdentificacionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Empleados_2_0">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
           <End Role="Empleados1" Type="Self.Empleados" Multiplicity="*" />
           <ReferentialConstraint>
@@ -612,15 +625,27 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Empleados_2_0">
+          <End Role="Identificaciones" Type="Self.Identificaciones" Multiplicity="1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Identificaciones">
+              <PropertyRef Name="IdentificacionID" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="IdentificacionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Empresas_0_0">
-          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="Distritos" Type="Self.Distritos" Multiplicity="1" />
           <End Role="Empresas" Type="Self.Empresas" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Empleados">
-              <PropertyRef Name="EmpleadoID" />
+            <Principal Role="Distritos">
+              <PropertyRef Name="DistritoID" />
             </Principal>
             <Dependent Role="Empresas">
-              <PropertyRef Name="ModificadoPor" />
+              <PropertyRef Name="DistritoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -637,6 +662,18 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Empresas_2_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Empresas">
+              <PropertyRef Name="ModificadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empresas_3_0">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
           <End Role="Empresas" Type="Self.Empresas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -645,18 +682,6 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Principal>
             <Dependent Role="Empresas">
               <PropertyRef Name="AgregadoPor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Empresas_3_0">
-          <End Role="Distritos" Type="Self.Distritos" Multiplicity="1" />
-          <End Role="Empresas" Type="Self.Empresas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Distritos">
-              <PropertyRef Name="DistritoID" />
-            </Principal>
-            <Dependent Role="Empresas">
-              <PropertyRef Name="DistritoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -692,7 +717,7 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
               <PropertyRef Name="EmpleadoID" />
             </Principal>
             <Dependent Role="FormasPagos">
-              <PropertyRef Name="ModificadoPor" />
+              <PropertyRef Name="AgregadoPor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -704,7 +729,7 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
               <PropertyRef Name="EmpleadoID" />
             </Principal>
             <Dependent Role="FormasPagos">
-              <PropertyRef Name="AgregadoPor" />
+              <PropertyRef Name="ModificadoPor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -817,18 +842,30 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Pagos_0_0">
-          <End Role="Documentos" Type="Self.Documentos" Multiplicity="1" />
+          <End Role="Bancos" Type="Self.Bancos" Multiplicity="0..1" />
           <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Documentos">
-              <PropertyRef Name="DocumentoID" />
+            <Principal Role="Bancos">
+              <PropertyRef Name="BancoID" />
             </Principal>
             <Dependent Role="Pagos">
-              <PropertyRef Name="DocumentoID" />
+              <PropertyRef Name="BancoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Pagos_1_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Pagos">
+              <PropertyRef Name="ModificadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagos_2_0">
           <End Role="FormasPagos" Type="Self.FormasPagos" Multiplicity="1" />
           <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -840,7 +877,7 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Pagos_2_0">
+        <Association Name="FK_Pagos_3_0">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
           <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -852,7 +889,7 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Pagos_3_0">
+        <Association Name="FK_Pagos_4_0">
           <End Role="Monedas" Type="Self.Monedas" Multiplicity="1" />
           <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -864,15 +901,15 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Pagos_4_0">
-          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+        <Association Name="FK_Pagos_5_0">
+          <End Role="Documentos" Type="Self.Documentos" Multiplicity="1" />
           <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Empleados">
-              <PropertyRef Name="EmpleadoID" />
+            <Principal Role="Documentos">
+              <PropertyRef Name="DocumentoID" />
             </Principal>
             <Dependent Role="Pagos">
-              <PropertyRef Name="ModificadoPor" />
+              <PropertyRef Name="DocumentoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -889,6 +926,18 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Productos_1_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="AgregadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Productos_2_0">
           <End Role="TiposProductos" Type="Self.TiposProductos" Multiplicity="0..1" />
           <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -900,27 +949,15 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Productos_2_0">
-          <End Role="UnidadesMedidas" Type="Self.UnidadesMedidas" Multiplicity="1" />
-          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UnidadesMedidas">
-              <PropertyRef Name="UnidadMedidaID" />
-            </Principal>
-            <Dependent Role="Productos">
-              <PropertyRef Name="UnidadMedidaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Productos_3_0">
-          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Impuestos" Type="Self.Impuestos" Multiplicity="1" />
           <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Empleados">
-              <PropertyRef Name="EmpleadoID" />
+            <Principal Role="Impuestos">
+              <PropertyRef Name="ImpuestoID" />
             </Principal>
             <Dependent Role="Productos">
-              <PropertyRef Name="AgregadoPor" />
+              <PropertyRef Name="ImpuestoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -937,14 +974,14 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Productos_5_0">
-          <End Role="Impuestos" Type="Self.Impuestos" Multiplicity="1" />
+          <End Role="UnidadesMedidas" Type="Self.UnidadesMedidas" Multiplicity="1" />
           <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Impuestos">
-              <PropertyRef Name="ImpuestoID" />
+            <Principal Role="UnidadesMedidas">
+              <PropertyRef Name="UnidadMedidaID" />
             </Principal>
             <Dependent Role="Productos">
-              <PropertyRef Name="ImpuestoID" />
+              <PropertyRef Name="UnidadMedidaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -973,18 +1010,6 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TiposProductos_0_0">
-          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
-          <End Role="TiposProductos" Type="Self.TiposProductos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleados">
-              <PropertyRef Name="EmpleadoID" />
-            </Principal>
-            <Dependent Role="TiposProductos">
-              <PropertyRef Name="AgregadoPor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TiposProductos_1_0">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
           <End Role="TiposProductos" Type="Self.TiposProductos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -993,6 +1018,18 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
             </Principal>
             <Dependent Role="TiposProductos">
               <PropertyRef Name="ModificadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TiposProductos_1_0">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="TiposProductos" Type="Self.TiposProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="TiposProductos">
+              <PropertyRef Name="AgregadoPor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1009,6 +1046,7 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="EsconPOSStoreContainer">
+          <EntitySet Name="Bancos" EntityType="Self.Bancos" store:Type="Tables" />
           <EntitySet Name="CajaLog" EntityType="Self.CajaLog" store:Type="Tables" />
           <EntitySet Name="Cajas" EntityType="Self.Cajas" store:Type="Tables" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" store:Type="Tables" />
@@ -1042,28 +1080,32 @@ warning 6002: The table/view 'main.Usuarios' does not have a primary key defined
 [Usuarios].[EsAdministrador] AS [EsAdministrador]
 FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_CajaLog_0_0" Association="Self.FK_CajaLog_0_0">
+          <AssociationSet Name="FK_Bancos_0_0" Association="Self.FK_Bancos_0_0">
             <End Role="Empleados" EntitySet="Empleados" />
-            <End Role="CajaLog" EntitySet="CajaLog" />
+            <End Role="Bancos" EntitySet="Bancos" />
           </AssociationSet>
-          <AssociationSet Name="FK_CajaLog_1_0" Association="Self.FK_CajaLog_1_0">
+          <AssociationSet Name="FK_CajaLog_0_0" Association="Self.FK_CajaLog_0_0">
             <End Role="Transacciones" EntitySet="Transacciones" />
             <End Role="CajaLog" EntitySet="CajaLog" />
           </AssociationSet>
-          <AssociationSet Name="FK_CajaLog_2_0" Association="Self.FK_CajaLog_2_0">
+          <AssociationSet Name="FK_CajaLog_1_0" Association="Self.FK_CajaLog_1_0">
             <End Role="Cajas" EntitySet="Cajas" />
             <End Role="CajaLog" EntitySet="CajaLog" />
           </AssociationSet>
+          <AssociationSet Name="FK_CajaLog_2_0" Association="Self.FK_CajaLog_2_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="CajaLog" EntitySet="CajaLog" />
+          </AssociationSet>
           <AssociationSet Name="FK_Clientes_0_0" Association="Self.FK_Clientes_0_0">
-            <End Role="Distritos" EntitySet="Distritos" />
+            <End Role="Identificaciones" EntitySet="Identificaciones" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
           <AssociationSet Name="FK_Clientes_1_0" Association="Self.FK_Clientes_1_0">
-            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Paises" EntitySet="Paises" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
           <AssociationSet Name="FK_Clientes_2_0" Association="Self.FK_Clientes_2_0">
-            <End Role="Paises" EntitySet="Paises" />
+            <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
           <AssociationSet Name="FK_Clientes_3_0" Association="Self.FK_Clientes_3_0">
@@ -1071,7 +1113,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
           <AssociationSet Name="FK_Clientes_4_0" Association="Self.FK_Clientes_4_0">
-            <End Role="Identificaciones" EntitySet="Identificaciones" />
+            <End Role="Distritos" EntitySet="Distritos" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
           <AssociationSet Name="FK_Configuraciones_0_0" Association="Self.FK_Configuraciones_0_0">
@@ -1091,27 +1133,27 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="Distritos" EntitySet="Distritos" />
           </AssociationSet>
           <AssociationSet Name="FK_Documentos_0_0" Association="Self.FK_Documentos_0_0">
-            <End Role="TiposDocumentos" EntitySet="TiposDocumentos" />
-            <End Role="Documentos" EntitySet="Documentos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Documentos_1_0" Association="Self.FK_Documentos_1_0">
-            <End Role="Empresas" EntitySet="Empresas" />
-            <End Role="Documentos" EntitySet="Documentos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Documentos_2_0" Association="Self.FK_Documentos_2_0">
-            <End Role="Empleados" EntitySet="Empleados" />
-            <End Role="Documentos" EntitySet="Documentos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Documentos_3_0" Association="Self.FK_Documentos_3_0">
-            <End Role="Cajas" EntitySet="Cajas" />
-            <End Role="Documentos" EntitySet="Documentos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Documentos_4_0" Association="Self.FK_Documentos_4_0">
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="Documentos" EntitySet="Documentos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Documentos_5_0" Association="Self.FK_Documentos_5_0">
+          <AssociationSet Name="FK_Documentos_1_0" Association="Self.FK_Documentos_1_0">
+            <End Role="Cajas" EntitySet="Cajas" />
+            <End Role="Documentos" EntitySet="Documentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documentos_2_0" Association="Self.FK_Documentos_2_0">
             <End Role="Monedas" EntitySet="Monedas" />
+            <End Role="Documentos" EntitySet="Documentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documentos_3_0" Association="Self.FK_Documentos_3_0">
+            <End Role="TiposDocumentos" EntitySet="TiposDocumentos" />
+            <End Role="Documentos" EntitySet="Documentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documentos_4_0" Association="Self.FK_Documentos_4_0">
+            <End Role="Empresas" EntitySet="Empresas" />
+            <End Role="Documentos" EntitySet="Documentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documentos_5_0" Association="Self.FK_Documentos_5_0">
+            <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Documentos" EntitySet="Documentos" />
           </AssociationSet>
           <AssociationSet Name="FK_Empleados_0_0" Association="Self.FK_Empleados_0_0">
@@ -1119,15 +1161,15 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="Empleados1" EntitySet="Empleados" />
           </AssociationSet>
           <AssociationSet Name="FK_Empleados_1_0" Association="Self.FK_Empleados_1_0">
-            <End Role="Identificaciones" EntitySet="Identificaciones" />
-            <End Role="Empleados" EntitySet="Empleados" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Empleados_2_0" Association="Self.FK_Empleados_2_0">
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Empleados1" EntitySet="Empleados" />
           </AssociationSet>
-          <AssociationSet Name="FK_Empresas_0_0" Association="Self.FK_Empresas_0_0">
+          <AssociationSet Name="FK_Empleados_2_0" Association="Self.FK_Empleados_2_0">
+            <End Role="Identificaciones" EntitySet="Identificaciones" />
             <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empresas_0_0" Association="Self.FK_Empresas_0_0">
+            <End Role="Distritos" EntitySet="Distritos" />
             <End Role="Empresas" EntitySet="Empresas" />
           </AssociationSet>
           <AssociationSet Name="FK_Empresas_1_0" Association="Self.FK_Empresas_1_0">
@@ -1139,7 +1181,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="Empresas" EntitySet="Empresas" />
           </AssociationSet>
           <AssociationSet Name="FK_Empresas_3_0" Association="Self.FK_Empresas_3_0">
-            <End Role="Distritos" EntitySet="Distritos" />
+            <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Empresas" EntitySet="Empresas" />
           </AssociationSet>
           <AssociationSet Name="FK_EmpresasEmpleados_0_0" Association="Self.FK_EmpresasEmpleados_0_0">
@@ -1195,23 +1237,27 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="Monedas" EntitySet="Monedas" />
           </AssociationSet>
           <AssociationSet Name="FK_Pagos_0_0" Association="Self.FK_Pagos_0_0">
-            <End Role="Documentos" EntitySet="Documentos" />
+            <End Role="Bancos" EntitySet="Bancos" />
             <End Role="Pagos" EntitySet="Pagos" />
           </AssociationSet>
           <AssociationSet Name="FK_Pagos_1_0" Association="Self.FK_Pagos_1_0">
-            <End Role="FormasPagos" EntitySet="FormasPagos" />
+            <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Pagos" EntitySet="Pagos" />
           </AssociationSet>
           <AssociationSet Name="FK_Pagos_2_0" Association="Self.FK_Pagos_2_0">
-            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="FormasPagos" EntitySet="FormasPagos" />
             <End Role="Pagos" EntitySet="Pagos" />
           </AssociationSet>
           <AssociationSet Name="FK_Pagos_3_0" Association="Self.FK_Pagos_3_0">
-            <End Role="Monedas" EntitySet="Monedas" />
+            <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Pagos" EntitySet="Pagos" />
           </AssociationSet>
           <AssociationSet Name="FK_Pagos_4_0" Association="Self.FK_Pagos_4_0">
-            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Monedas" EntitySet="Monedas" />
+            <End Role="Pagos" EntitySet="Pagos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagos_5_0" Association="Self.FK_Pagos_5_0">
+            <End Role="Documentos" EntitySet="Documentos" />
             <End Role="Pagos" EntitySet="Pagos" />
           </AssociationSet>
           <AssociationSet Name="FK_Productos_0_0" Association="Self.FK_Productos_0_0">
@@ -1219,15 +1265,15 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_Productos_1_0" Association="Self.FK_Productos_1_0">
-            <End Role="TiposProductos" EntitySet="TiposProductos" />
+            <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_Productos_2_0" Association="Self.FK_Productos_2_0">
-            <End Role="UnidadesMedidas" EntitySet="UnidadesMedidas" />
+            <End Role="TiposProductos" EntitySet="TiposProductos" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_Productos_3_0" Association="Self.FK_Productos_3_0">
-            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Impuestos" EntitySet="Impuestos" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_Productos_4_0" Association="Self.FK_Productos_4_0">
@@ -1235,7 +1281,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_Productos_5_0" Association="Self.FK_Productos_5_0">
-            <End Role="Impuestos" EntitySet="Impuestos" />
+            <End Role="UnidadesMedidas" EntitySet="UnidadesMedidas" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_Provincias_0_0" Association="Self.FK_Provincias_0_0">
@@ -1442,6 +1488,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           <NavigationProperty Name="UnidadesMedidasUpdated" Relationship="EsconPOS.FK_UnidadesMedidas_0_0" FromRole="Empleados" ToRole="UnidadesMedidas" />
           <NavigationProperty Name="ItemVentasAdded" Relationship="EsconPOS.FK_ItemsDocumentos_1_01" FromRole="Empleados" ToRole="ItemsDocumentos" />
           <NavigationProperty Name="TiposDocumentosUpdated" Relationship="EsconPOS.FK_TiposDocumentos_0_0" FromRole="Empleados" ToRole="TiposDocumentos" />
+          <NavigationProperty Name="BancosUpdated" Relationship="EsconPOS.FK_Bancos_0_0" FromRole="Empleados" ToRole="Bancos" />
         </EntityType>
         <EntityType Name="Empresas">
           <Key>
@@ -1596,6 +1643,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           <NavigationProperty Name="EmpleadoUpd" Relationship="Self.FK_Pagos_4_0" FromRole="Pagos" ToRole="Empleados" />
           <NavigationProperty Name="FormasPagos" Relationship="Self.FK_Pagos_1_0" FromRole="Pagos" ToRole="FormasPagos" />
           <NavigationProperty Name="Monedas" Relationship="Self.FK_Pagos_3_0" FromRole="Pagos" ToRole="Monedas" />
+          <NavigationProperty Name="Bancos" Relationship="EsconPOS.FK_Pagos_4_01" FromRole="Pagos" ToRole="Bancos" />
         </EntityType>
         <EntityType Name="Paises">
           <Key>
@@ -2431,6 +2479,15 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             <End Role="Monedas" EntitySet="Monedas" />
             <End Role="Documentos" EntitySet="Documentos" />
           </AssociationSet>
+          <EntitySet Name="Bancos" EntityType="EsconPOS.Bancos" />
+          <AssociationSet Name="FK_Pagos_4_01" Association="EsconPOS.FK_Pagos_4_01">
+            <End Role="Bancos" EntitySet="Bancos" />
+            <End Role="Pagos" EntitySet="Pagos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bancos_0_0" Association="EsconPOS.FK_Bancos_0_0">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Bancos" EntitySet="Bancos" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Empleados_0_0">
           <End Type="EsconPOS.Identificaciones" Role="Identificaciones" Multiplicity="1" />
@@ -2573,6 +2630,45 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
             </Principal>
             <Dependent Role="Documentos">
               <PropertyRef Name="MonedaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Bancos">
+          <Key>
+            <PropertyRef Name="BancoID" />
+          </Key>
+          <Property Name="BancoID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Iniciales" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Codigo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="BIN" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="Activo" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Pagos" Relationship="EsconPOS.FK_Pagos_4_01" FromRole="Bancos" ToRole="Pagos" />
+          <Property Name="ModificadoEl" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ModificadoPor" Type="Int64" />
+          <NavigationProperty Name="EmpleadoUpd" Relationship="EsconPOS.FK_Bancos_0_0" FromRole="Bancos" ToRole="Empleados" />
+        </EntityType>
+        <Association Name="FK_Pagos_4_01">
+          <End Type="EsconPOS.Bancos" Role="Bancos" Multiplicity="0..1" />
+          <End Type="EsconPOS.Pagos" Role="Pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bancos">
+              <PropertyRef Name="BancoID" />
+            </Principal>
+            <Dependent Role="Pagos">
+              <PropertyRef Name="BancoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bancos_0_0">
+          <End Type="EsconPOS.Empleados" Role="Empleados" Multiplicity="0..1" />
+          <End Type="EsconPOS.Bancos" Role="Bancos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Bancos">
+              <PropertyRef Name="ModificadoPor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2954,6 +3050,20 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
               <ScalarProperty Name="EmpresaID" ColumnName="EmpresaID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Bancos">
+            <EntityTypeMapping TypeName="EsconPOS.Bancos">
+              <MappingFragment StoreEntitySet="Bancos">
+                <ScalarProperty Name="ModificadoPor" ColumnName="ModificadoPor" />
+                <ScalarProperty Name="ModificadoEl" ColumnName="ModificadoEl" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="BIN" ColumnName="BIN" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Iniciales" ColumnName="Iniciales" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="BancoID" ColumnName="BancoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

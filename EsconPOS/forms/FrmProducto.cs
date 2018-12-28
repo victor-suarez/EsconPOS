@@ -166,9 +166,9 @@ namespace EsconPOS.forms
             try
             {
                 long ID = long.Parse(TxtCodigo.Tag.ToString());
-                var pro = context.Productos.Single(p => p.ProductoID == ID);
-                context.Productos.Attach(pro);
-                context.Productos.Remove(pro);
+                var producto = context.Productos.Single(p => p.ProductoID == ID);
+                context.Productos.Attach(producto);
+                context.Productos.Remove(producto);
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -191,7 +191,7 @@ namespace EsconPOS.forms
             {
                 try
                 {
-                    var prod = new Productos
+                    var producto = new Productos
                     {
                         Codigo = TxtCodigo.Text.Trim(),
                         CodigoBarra = TxtCodigoBarra.Text.Trim(),
@@ -207,7 +207,7 @@ namespace EsconPOS.forms
                         AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                         AgregadoPor = Global.glUsuario
                     };
-                    context.Productos.Add(prod);
+                    context.Productos.Add(producto);
                     context.SaveChanges();
                 }
                 catch (Exception ex)
@@ -222,21 +222,22 @@ namespace EsconPOS.forms
                 try
                 {
                     long ID = long.Parse(TxtCodigo.Tag.ToString());
-                    var pro = context.Productos.Single(p => p.ProductoID == ID);
-                    context.Productos.Attach(pro);
+                    var producto = context.Productos.Single(p => p.ProductoID == ID);
+                    context.Productos.Attach(producto);
 
-                    pro.Codigo = TxtCodigo.Text.Trim();
-                    pro.CodigoBarra = TxtCodigoBarra.Text.Trim();
-                    pro.Producto = TxtProducto.Text.Trim();
-                    pro.TipoProductoID = ((TiposProductos)CmbTipos.SelectedItem).TipoProductoID;
-                    pro.MarcaID = ((Marcas)CmbMarcas.SelectedItem).MarcaID;
-                    pro.ImpuestoID = ((Impuestos)CmbImpuestos.SelectedItem).ImpuestoID;
-                    pro.UnidadMedidaID = ((UnidadesMedidas)CmbUnidades.SelectedItem).UnidadMedidaID;
-                    pro.Presentacion = TxtPresentacion.Text.Trim();
-                    pro.CostoUnitario = (Double)NumCostoUnitario.Value;
-                    pro.ValorUnitario = (Double)NumPrecioUnitario.Value;
-                    pro.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    pro.ModificadoPor = Global.glUsuario;
+                    producto.ProductoID = ID;
+                    producto.Codigo = TxtCodigo.Text.Trim();
+                    producto.CodigoBarra = TxtCodigoBarra.Text.Trim();
+                    producto.Producto = TxtProducto.Text.Trim();
+                    producto.TipoProductoID = ((TiposProductos)CmbTipos.SelectedItem).TipoProductoID;
+                    producto.MarcaID = ((Marcas)CmbMarcas.SelectedItem).MarcaID;
+                    producto.ImpuestoID = ((Impuestos)CmbImpuestos.SelectedItem).ImpuestoID;
+                    producto.UnidadMedidaID = ((UnidadesMedidas)CmbUnidades.SelectedItem).UnidadMedidaID;
+                    producto.Presentacion = TxtPresentacion.Text.Trim();
+                    producto.CostoUnitario = (Double)NumCostoUnitario.Value;
+                    producto.ValorUnitario = (Double)NumPrecioUnitario.Value;
+                    producto.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    producto.ModificadoPor = Global.glUsuario;
 
                     context.SaveChanges();
                 }

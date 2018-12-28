@@ -63,9 +63,9 @@ namespace EsconPOS.forms
             try
             {
                 long ID = long.Parse(TxtCodigo.Tag.ToString());
-                var mon = context.Monedas.Single(m => m.MonedaID == ID);
-                context.Monedas.Attach(mon);
-                context.Monedas.Remove(mon);
+                var moneda = context.Monedas.Single(m => m.MonedaID == ID);
+                context.Monedas.Attach(moneda);
+                context.Monedas.Remove(moneda);
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -112,14 +112,15 @@ namespace EsconPOS.forms
                 try
                 {
                     long ID = long.Parse(TxtCodigo.Tag.ToString());
-                    var mon = context.Monedas.Single(m => m.MonedaID == ID);
-                    context.Monedas.Attach(mon);
+                    var moneda = context.Monedas.Single(m => m.MonedaID == ID);
+                    context.Monedas.Attach(moneda);
 
-                    mon.Codigo = TxtCodigo.Text;
-                    mon.Moneda = TxtMoneda.Text;
-                    mon.PorDefecto = ChkPorDefecto.Checked ? 1 : 0;
-                    mon.FactorCambiario = (double)NumFactorCambio.Value;
-                    mon.Activo = ChkActiva.Checked ? 1 : 0;
+                    moneda.MonedaID = ID;
+                    moneda.Codigo = TxtCodigo.Text;
+                    moneda.Moneda = TxtMoneda.Text;
+                    moneda.PorDefecto = ChkPorDefecto.Checked ? 1 : 0;
+                    moneda.FactorCambiario = (double)NumFactorCambio.Value;
+                    moneda.Activo = ChkActiva.Checked ? 1 : 0;
 
                     context.SaveChanges();
                 }

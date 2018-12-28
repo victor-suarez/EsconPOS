@@ -39,12 +39,12 @@ namespace EsconPOS.forms
         private void Guardar()
         {
             if (!ValEntReq()) return;
-            Empresas empr;
-            Empleados empl;
+            Empresas empresa;
+            Empleados empleado;
             Cajas caja;
             try
             {
-                empr = new Empresas
+                empresa = new Empresas
                 {
                     IdentificacionID = ((Identificaciones)CmbTipoIDEmpresa.SelectedItem).IdentificacionID,
                     NroDocIdent = TxtNroIDEmpresa.Text,
@@ -58,7 +58,7 @@ namespace EsconPOS.forms
                     AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                     AgregadoPor = -1
                 };
-                context.Empresas.Add(empr);
+                context.Empresas.Add(empresa);
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -69,7 +69,7 @@ namespace EsconPOS.forms
 
             try
             {
-                empl = new Empleados
+                empleado = new Empleados
                 {
                     IdentificacionID = ((Identificaciones)CmbTipoIDEmpleado.SelectedItem).IdentificacionID,
                     NroDocIdent = TxtNroIDEmpleado.Text,
@@ -85,7 +85,7 @@ namespace EsconPOS.forms
                     AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                     AgregadoPor = -1
                 };
-                context.Empleados.Add(empl);
+                context.Empleados.Add(empleado);
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -94,7 +94,7 @@ namespace EsconPOS.forms
                 return;
             }
             // Guardar la relación Empleado / Empresa
-            empr.Empleados.Add(empl);
+            empresa.Empleados.Add(empleado);
             context.SaveChanges();
             try
             {

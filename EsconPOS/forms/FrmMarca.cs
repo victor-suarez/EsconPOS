@@ -62,9 +62,9 @@ namespace EsconPOS.forms
             try
             {
                 long ID = long.Parse(TxtCodigo.Tag.ToString());
-                var mar = context.Marcas.Single(m => m.MarcaID == ID);
-                context.Marcas.Attach(mar);
-                context.Marcas.Remove(mar);
+                var marca = context.Marcas.Single(m => m.MarcaID == ID);
+                context.Marcas.Attach(marca);
+                context.Marcas.Remove(marca);
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -109,14 +109,15 @@ namespace EsconPOS.forms
                 try
                 {
                     long ID = long.Parse(TxtCodigo.Tag.ToString());
-                    var mar = context.Marcas.Single(m => m.MarcaID == ID);
-                    context.Marcas.Attach(mar);
+                    var marca = context.Marcas.Single(m => m.MarcaID == ID);
+                    context.Marcas.Attach(marca);
 
-                    mar.Codigo = TxtCodigo.Text;
-                    mar.Marca = TxtMarca.Text;
-                    mar.Activo = ChkActiva.Checked ? 1 : 0;
-                    mar.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    mar.ModificadoPor = Global.glUsuario;
+                    marca.MarcaID = ID;
+                    marca.Codigo = TxtCodigo.Text;
+                    marca.Marca = TxtMarca.Text;
+                    marca.Activo = ChkActiva.Checked ? 1 : 0;
+                    marca.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    marca.ModificadoPor = Global.glUsuario;
 
                     context.SaveChanges();
                 }
@@ -272,6 +273,11 @@ namespace EsconPOS.forms
                 e.Handled = true;
                 SelectNextControl((TextBox)sender, true, true, true, false);
             }
+        }
+
+        private void TxtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            CargarMarcas();
         }
 
         #endregion Métodos

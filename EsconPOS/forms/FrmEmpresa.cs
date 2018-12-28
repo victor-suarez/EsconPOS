@@ -87,9 +87,9 @@ namespace EsconPOS.forms
             try
             {
                 long ID = long.Parse(CmbTipoIDEmpresa.Tag.ToString());
-                var emp = context.Empresas.Single(e => e.EmpresaID == ID);
-                context.Empresas.Attach(emp);
-                context.Empresas.Remove(emp);
+                var empresa = context.Empresas.Single(e => e.EmpresaID == ID);
+                context.Empresas.Attach(empresa);
+                context.Empresas.Remove(empresa);
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -111,7 +111,7 @@ namespace EsconPOS.forms
             {
                 try
                 {
-                    var empr = new Empresas
+                    var empresa = new Empresas
                     {
                         IdentificacionID = ((Identificaciones)CmbTipoIDEmpresa.SelectedItem).IdentificacionID,
                         NroDocIdent = TxtNroIDEmpresa.Text,
@@ -125,7 +125,7 @@ namespace EsconPOS.forms
                         AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                         AgregadoPor = Global.glUsuario
                     };
-                    context.Empresas.Add(empr);
+                    context.Empresas.Add(empresa);
                     context.SaveChanges();
                 }
                 catch (Exception ex)
@@ -140,19 +140,21 @@ namespace EsconPOS.forms
                 try
                 {
                     long ID = long.Parse(CmbTipoIDEmpresa.Tag.ToString());
-                    var emp = context.Empresas.Single(e => e.EmpresaID == ID);
-                    context.Empresas.Attach(emp);
-                    emp.IdentificacionID = ((Identificaciones)CmbTipoIDEmpresa.SelectedItem).IdentificacionID;
-                    emp.NroDocIdent = TxtNroIDEmpresa.Text;
-                    emp.NombreComercial = TxtNombreComercial.Text;
-                    emp.RazonSocial = TxtRazonSocial.Text;
-                    emp.Direccion = TxtDireccionEmpresa.Text.Trim() == "" ? null : TxtDireccionEmpresa.Text.Trim();
-                    emp.DistritoID = ((Distritos)CmbDistrito.SelectedItem).DistritoID;
-                    emp.Urbanizacion = TxtUrbanizacion.Text.Trim() == "" ? null : TxtUrbanizacion.Text.Trim();
-                    emp.NroTelefonico = TxtNroTelefonicoEmpresa.Text.Trim() == "" ? null : TxtNroTelefonicoEmpresa.Text.Trim();
-                    emp.CorreoElectronico = TxtCorreoElectronicoEmpresa.Text.Trim() == "" ? null : TxtCorreoElectronicoEmpresa.Text.Trim();
-                    emp.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    emp.ModificadoPor = Global.glUsuario;
+                    var empresa = context.Empresas.Single(e => e.EmpresaID == ID);
+                    context.Empresas.Attach(empresa);
+
+                    empresa.EmpresaID = ID;
+                    empresa.IdentificacionID = ((Identificaciones)CmbTipoIDEmpresa.SelectedItem).IdentificacionID;
+                    empresa.NroDocIdent = TxtNroIDEmpresa.Text;
+                    empresa.NombreComercial = TxtNombreComercial.Text;
+                    empresa.RazonSocial = TxtRazonSocial.Text;
+                    empresa.Direccion = TxtDireccionEmpresa.Text.Trim() == "" ? null : TxtDireccionEmpresa.Text.Trim();
+                    empresa.DistritoID = ((Distritos)CmbDistrito.SelectedItem).DistritoID;
+                    empresa.Urbanizacion = TxtUrbanizacion.Text.Trim() == "" ? null : TxtUrbanizacion.Text.Trim();
+                    empresa.NroTelefonico = TxtNroTelefonicoEmpresa.Text.Trim() == "" ? null : TxtNroTelefonicoEmpresa.Text.Trim();
+                    empresa.CorreoElectronico = TxtCorreoElectronicoEmpresa.Text.Trim() == "" ? null : TxtCorreoElectronicoEmpresa.Text.Trim();
+                    empresa.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    empresa.ModificadoPor = Global.glUsuario;
                     context.SaveChanges();
                 }
                 catch (Exception ex)

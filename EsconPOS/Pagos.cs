@@ -32,5 +32,6 @@ namespace EsconPOS
         public virtual Empleados EmpleadoUpd { get; set; }
         public virtual FormasPagos FormasPagos { get; set; }
         public virtual Monedas Monedas { get; set; }
+        public virtual Bancos Bancos { get; set; }
     }
 }

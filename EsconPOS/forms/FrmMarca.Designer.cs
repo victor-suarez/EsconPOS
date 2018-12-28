@@ -184,8 +184,10 @@
             this.TxtFiltroCodigo.Location = new System.Drawing.Point(3, 6);
             this.TxtFiltroCodigo.MaxLength = 3;
             this.TxtFiltroCodigo.Name = "TxtFiltroCodigo";
-            this.TxtFiltroCodigo.Size = new System.Drawing.Size(63, 26);
+            this.TxtFiltroCodigo.Size = new System.Drawing.Size(82, 26);
             this.TxtFiltroCodigo.TabIndex = 0;
+            this.TxtFiltroCodigo.TextChanged += new System.EventHandler(this.TxtFiltro_TextChanged);
+            this.TxtFiltroCodigo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // DgvMarcas
             // 
@@ -210,11 +212,13 @@
             // 
             // TxtFiltroMarca
             // 
-            this.TxtFiltroMarca.Location = new System.Drawing.Point(72, 6);
+            this.TxtFiltroMarca.Location = new System.Drawing.Point(91, 6);
             this.TxtFiltroMarca.MaxLength = 255;
             this.TxtFiltroMarca.Name = "TxtFiltroMarca";
-            this.TxtFiltroMarca.Size = new System.Drawing.Size(544, 26);
+            this.TxtFiltroMarca.Size = new System.Drawing.Size(525, 26);
             this.TxtFiltroMarca.TabIndex = 1;
+            this.TxtFiltroMarca.TextChanged += new System.EventHandler(this.TxtFiltro_TextChanged);
+            this.TxtFiltroMarca.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // PagEditar
             // 

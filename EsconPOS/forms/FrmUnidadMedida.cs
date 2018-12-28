@@ -64,9 +64,9 @@ namespace EsconPOS.forms
             try
             {
                 long ID = long.Parse(TxtCodigo.Tag.ToString());
-                var und = context.UnidadesMedidas.Single(u => u.UnidadMedidaID == ID);
-                context.UnidadesMedidas.Attach(und);
-                context.UnidadesMedidas.Remove(und);
+                var medida = context.UnidadesMedidas.Single(u => u.UnidadMedidaID == ID);
+                context.UnidadesMedidas.Attach(medida);
+                context.UnidadesMedidas.Remove(medida);
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -110,16 +110,16 @@ namespace EsconPOS.forms
                 try
                 {
                     long ID = long.Parse(TxtCodigo.Tag.ToString());
-                    var und = context.UnidadesMedidas.Single(u => u.UnidadMedidaID == ID);
-                    context.UnidadesMedidas.Attach(und);
+                    var medida = context.UnidadesMedidas.Single(u => u.UnidadMedidaID == ID);
+                    context.UnidadesMedidas.Attach(medida);
 
-                    und.UnidadMedidaID = long.Parse(TxtCodigo.Tag.ToString());
-                    und.Codigo = TxtCodigo.Text;
-                    und.UnidadMedida = TxtUnidadMedida.Text;
-                    und.Iniciales = string.IsNullOrEmpty(TxtIniciales.Text) ? null : TxtIniciales.Text.Length > 6 ? TxtIniciales.Text.Substring(0, 6) : TxtIniciales.Text;
-                    und.Activo = ChkActiva.Checked ? 1 : 0;
-                    und.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    und.ModificadoPor = Global.glUsuario;
+                    medida.UnidadMedidaID = ID;
+                    medida.Codigo = TxtCodigo.Text;
+                    medida.UnidadMedida = TxtUnidadMedida.Text;
+                    medida.Iniciales = string.IsNullOrEmpty(TxtIniciales.Text) ? null : TxtIniciales.Text.Length > 6 ? TxtIniciales.Text.Substring(0, 6) : TxtIniciales.Text;
+                    medida.Activo = ChkActiva.Checked ? 1 : 0;
+                    medida.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    medida.ModificadoPor = Global.glUsuario;
 
                     context.SaveChanges();
                 }

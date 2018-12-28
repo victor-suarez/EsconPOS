@@ -54,6 +54,7 @@
             this.TsmiProvincias = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmiDistritos = new System.Windows.Forms.ToolStripMenuItem();
             this.TssbSunat = new System.Windows.Forms.ToolStripSplitButton();
+            this.TsmiBancos = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmiImpuestos = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmiMonedas = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmiTiposDocumentos = new System.Windows.Forms.ToolStripMenuItem();
@@ -147,7 +148,7 @@
             this.TssbCaja.Text = "Abrir &Caja";
             this.TssbCaja.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TssbCaja.Visible = false;
-            this.TssbCaja.ButtonClick += new System.EventHandler(this.TssbCaja_ButtonClick);
+            this.TssbCaja.ButtonClick += new System.EventHandler(this.Tssb_ButtonClick);
             // 
             // TsmiIncluirFactura
             // 
@@ -185,6 +186,7 @@
             this.TssbAdministrar.Text = "&Administrar";
             this.TssbAdministrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TssbAdministrar.Visible = false;
+            this.TssbAdministrar.ButtonClick += new System.EventHandler(this.Tssb_ButtonClick);
             // 
             // TsmiEmpresas
             // 
@@ -241,6 +243,7 @@
             this.TssbUbicacion.Text = "&Ubicación";
             this.TssbUbicacion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TssbUbicacion.Visible = false;
+            this.TssbUbicacion.ButtonClick += new System.EventHandler(this.Tssb_ButtonClick);
             // 
             // TsmiPaises
             // 
@@ -273,6 +276,7 @@
             // TssbSunat
             // 
             this.TssbSunat.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TsmiBancos,
             this.TsmiImpuestos,
             this.TsmiMonedas,
             this.TsmiTiposDocumentos,
@@ -285,6 +289,15 @@
             this.TssbSunat.Text = "SU&NAT";
             this.TssbSunat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TssbSunat.Visible = false;
+            this.TssbSunat.ButtonClick += new System.EventHandler(this.Tssb_ButtonClick);
+            // 
+            // TsmiBancos
+            // 
+            this.TsmiBancos.Image = global::EsconPOS.Properties.Resources.Bancos;
+            this.TsmiBancos.Name = "TsmiBancos";
+            this.TsmiBancos.Size = new System.Drawing.Size(189, 22);
+            this.TsmiBancos.Text = "&Bancos";
+            this.TsmiBancos.Click += new System.EventHandler(this.TsmiBancos_Click);
             // 
             // TsmiImpuestos
             // 
@@ -328,7 +341,9 @@
             this.TssbProductos.Size = new System.Drawing.Size(85, 51);
             this.TssbProductos.Text = "&Prods/Servs";
             this.TssbProductos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TssbProductos.ToolTipText = "Productos/Servicios";
             this.TssbProductos.Visible = false;
+            this.TssbProductos.ButtonClick += new System.EventHandler(this.Tssb_ButtonClick);
             // 
             // TsmiMarcas
             // 
@@ -434,6 +449,7 @@
         private System.Windows.Forms.ToolStripMenuItem TsmiAbrirCuenta;
         public System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripMenuItem TsmiMiContrasenia;
+        private System.Windows.Forms.ToolStripMenuItem TsmiBancos;
     }
 }
 

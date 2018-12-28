@@ -83,6 +83,16 @@ namespace EsconPOS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Bancos {
+            get {
+                object obj = ResourceManager.GetObject("Bancos", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CajaAbierta {
             get {
                 object obj = ResourceManager.GetObject("CajaAbierta", resourceCulture);

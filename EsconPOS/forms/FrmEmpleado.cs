@@ -150,6 +150,7 @@ namespace EsconPOS.forms
                     var empleado = context.Empleados.Single(e => e.EmpleadoID == ID);
                     context.Empleados.Attach(empleado);
 
+                    empleado.EmpleadoID = ID;
                     empleado.IdentificacionID = ((Identificaciones)CmbTipoIDEmpleado.SelectedItem).IdentificacionID;
                     empleado.NroDocIdent = TxtNroIDEmpleado.Text;
                     empleado.Nombre = TxtNombreEmpleado.Text;

@@ -116,6 +116,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bancos.cs">
+      <DependentUpon>EsconPOS.tt</DependentUpon>
+    </Compile>
     <Compile Include="CajaLog.cs">
       <DependentUpon>EsconPOS.tt</DependentUpon>
     </Compile>
@@ -161,6 +164,12 @@
     </Compile>
     <Compile Include="FormasPagos.cs">
       <DependentUpon>EsconPOS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="forms\FrmBanco.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FrmBanco.Designer.cs">
+      <DependentUpon>FrmBanco.cs</DependentUpon>
     </Compile>
     <Compile Include="forms\FrmCaja.cs">
       <SubType>Form</SubType>
@@ -252,6 +261,12 @@
     <Compile Include="forms\FrmMoneda.Designer.cs">
       <DependentUpon>FrmMoneda.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\FrmPago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FrmPago.Designer.cs">
+      <DependentUpon>FrmPago.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\FrmPais.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -333,6 +348,9 @@
     <Compile Include="Usuarios.cs">
       <DependentUpon>EsconPOS.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="forms\FrmBanco.resx">
+      <DependentUpon>FrmBanco.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\FrmCaja.resx">
       <DependentUpon>FrmCaja.cs</DependentUpon>
     </EmbeddedResource>
@@ -378,6 +396,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="forms\FrmMoneda.resx">
       <DependentUpon>FrmMoneda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmPago.resx">
+      <DependentUpon>FrmPago.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\FrmPais.resx">
       <DependentUpon>FrmPais.cs</DependentUpon>
@@ -442,6 +463,7 @@
       <LastGenOutput>EsconPOS.cs</LastGenOutput>
     </Content>
     <Content Include="POS.ico" />
+    <None Include="Resources\Bancos.png" />
     <None Include="Resources\Imprimir.png" />
     <None Include="Resources\Contraseña.png" />
     <None Include="Resources\FormasPagos.png" />
