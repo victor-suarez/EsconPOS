@@ -30,6 +30,8 @@ namespace EsconPOS
         public Nullable<long> AgregadoPor { get; set; }
         public string ModificadoEl { get; set; }
         public Nullable<long> ModificadoPor { get; set; }
+        public long RequiereBanco { get; set; }
+        public long RequiereNumero { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pagos> Pagos { get; set; }

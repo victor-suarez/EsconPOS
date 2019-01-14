@@ -29,6 +29,8 @@ namespace EsconPOS.forms
                                         Código = f.Codigo,
                                         Descripción = f.FormaPago,
                                         Orden = f.Orden,
+                                        Requiere_Banco = f.RequiereBanco == 0 ? "NO" : "SI",
+                                        Requiere_Numero = f.RequiereNumero == 0 ? "NO" : "SI",
                                         Requiere_Aut = f.RequiereAutorizacion == 0 ? "NO" : "SI",
                                         En_Uso = f.Activo == 0 ? "NO" : "SI"
                                     })
@@ -49,6 +51,8 @@ namespace EsconPOS.forms
             TxtCodigo.Tag = null;
             TxtFormaPago.Text = "";
             NumOrden.Value = DgvFormasPago.RowCount + 1;
+            ChkRequiereBanco.Checked = false;
+            ChkRequiereNumero.Checked = false;
             ChkRequiereAutorizacion.Checked = false;
             ChkActiva.Checked = false;
             TssLblAgregado.Text = "";
@@ -94,6 +98,8 @@ namespace EsconPOS.forms
                         Codigo = TxtCodigo.Text,
                         FormaPago = TxtFormaPago.Text,
                         Orden = (long)NumOrden.Value,
+                        RequiereBanco = ChkRequiereBanco.Checked ? 1 : 0,
+                        RequiereNumero = ChkRequiereNumero.Checked ? 1 : 0,
                         RequiereAutorizacion = ChkRequiereAutorizacion.Checked ? 1 : 0,
                         Activo = ChkActiva.Checked ? 1 : 0,
                         AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
@@ -121,6 +127,8 @@ namespace EsconPOS.forms
                     formapago.Codigo = TxtCodigo.Text;
                     formapago.FormaPago = TxtFormaPago.Text;
                     formapago.Orden = (long)NumOrden.Value;
+                    formapago.RequiereBanco = ChkRequiereBanco.Checked ? 1 : 0;
+                    formapago.RequiereNumero = ChkRequiereNumero.Checked ? 1 : 0;
                     formapago.RequiereAutorizacion = ChkRequiereAutorizacion.Checked ? 1 : 0;
                     formapago.Activo = ChkActiva.Checked ? 1 : 0;
                     formapago.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -154,19 +162,21 @@ namespace EsconPOS.forms
 
         private void MoverRegistroToCrt(long ID)
         {
-            var fp = (from f in context.FormasPagos
-                      where f.FormaPagoID == ID
-                      select f).FirstOrDefault();
+            var formapago = (from f in context.FormasPagos
+                             where f.FormaPagoID == ID
+                             select f).FirstOrDefault();
 
-            TxtCodigo.Text = fp.Codigo;
-            TxtCodigo.Tag = fp.FormaPagoID;
-            TxtFormaPago.Text = fp.FormaPago;
-            NumOrden.Value = fp.Orden;
-            ChkRequiereAutorizacion.Checked = (fp.RequiereAutorizacion == 1);
-            ChkActiva.Checked = (fp.Activo == 1);
-            TssLblAgregado.Text = fp.EmpleadoAdd.Login.ToLower() + " " + fp.AgregadoEl;
-            if (fp.EmpleadoUpd != null)
-                TssLblModificado.Text = (fp.EmpleadoUpd.Login.ToLower() + " " + fp.ModificadoEl) ?? "";
+            TxtCodigo.Text = formapago.Codigo;
+            TxtCodigo.Tag = formapago.FormaPagoID;
+            TxtFormaPago.Text = formapago.FormaPago;
+            NumOrden.Value = formapago.Orden;
+            ChkRequiereBanco.Checked = (formapago.RequiereBanco == 1);
+            ChkRequiereNumero.Checked = (formapago.RequiereNumero == 1);
+            ChkRequiereAutorizacion.Checked = (formapago.RequiereAutorizacion == 1);
+            ChkActiva.Checked = (formapago.Activo == 1);
+            TssLblAgregado.Text = formapago.EmpleadoAdd.Login.ToLower() + " " + formapago.AgregadoEl;
+            if (formapago.EmpleadoUpd != null)
+                TssLblModificado.Text = (formapago.EmpleadoUpd.Login.ToLower() + " " + formapago.ModificadoEl) ?? "";
             else
                 TssLblModificado.Text = "";
         }
@@ -216,7 +226,10 @@ namespace EsconPOS.forms
             if (e.KeyChar == Convert.ToChar(Keys.Return))
             {
                 e.Handled = true;
-                SelectNextControl((CheckBox)sender, true, true, true, false);
+                if (((CheckBox)sender).Name == "ChkActiva")
+                    TsBtnGuardar_Click(sender, null);
+                else
+                    SelectNextControl((CheckBox)sender, true, true, true, false);
             }
         }
 

@@ -35,6 +35,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPuntoDeVenta));
             this.label1 = new System.Windows.Forms.Label();
             this.CmbTipoIDCli = new System.Windows.Forms.ComboBox();
@@ -65,8 +66,15 @@
             this.TssLblAgregado = new System.Windows.Forms.ToolStripStatusLabel();
             this.TssLblModificado = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.TsBtnRecibirPago = new System.Windows.Forms.ToolStripButton();
+            this.TsBtnImprimir = new System.Windows.Forms.ToolStripButton();
+            this.TsBtnDeshacer = new System.Windows.Forms.ToolStripButton();
+            this.TsBtnEliminar = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.TsBtnSalir = new System.Windows.Forms.ToolStripButton();
             this.PnlTotales = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.LblMontoPagado = new System.Windows.Forms.Label();
             this.NumDctoGlobal = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -79,15 +87,32 @@
             this.LblImpuestos = new System.Windows.Forms.Label();
             this.LblDescuentos = new System.Windows.Forms.Label();
             this.LblMontoBruto = new System.Windows.Forms.Label();
+            this.GbxPago = new System.Windows.Forms.GroupBox();
+            this.BtnQuitarPago = new System.Windows.Forms.Button();
+            this.BtnAgregarPago = new System.Windows.Forms.Button();
+            this.ChkTotal = new System.Windows.Forms.CheckBox();
+            this.GbxDatosAdicionales = new System.Windows.Forms.GroupBox();
+            this.LblBanco = new System.Windows.Forms.Label();
+            this.CmbBanco = new System.Windows.Forms.ComboBox();
+            this.LblNroDocPago = new System.Windows.Forms.Label();
+            this.TxtNroDocPago = new System.Windows.Forms.TextBox();
+            this.LblNroAutPago = new System.Windows.Forms.Label();
+            this.TxtNroAutPago = new System.Windows.Forms.TextBox();
+            this.DgvPagos = new System.Windows.Forms.DataGridView();
+            this.colFormaPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colMontoPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colBanco = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNroDocPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNroAutPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumMontoPago = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
+            this.CmbFormaPago = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.BtnQuitarItem = new System.Windows.Forms.Button();
-            this.TsBtnGuardar = new System.Windows.Forms.ToolStripButton();
-            this.TsBtnDeshacer = new System.Windows.Forms.ToolStripButton();
-            this.TsBtnEliminar = new System.Windows.Forms.ToolStripButton();
-            this.TsBtnSalir = new System.Windows.Forms.ToolStripButton();
-            this.TsBtnImprimir = new System.Windows.Forms.ToolStripButton();
             this.BtnAgregarEmpleado = new System.Windows.Forms.Button();
             this.BtnAgregarItem = new System.Windows.Forms.Button();
             this.BtnAgregarCliente = new System.Windows.Forms.Button();
+            this.PnlDatosEntrada = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.DgvProdServ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumCantidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumValorUnit)).BeginInit();
@@ -96,12 +121,17 @@
             this.toolStrip.SuspendLayout();
             this.PnlTotales.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumDctoGlobal)).BeginInit();
+            this.GbxPago.SuspendLayout();
+            this.GbxDatosAdicionales.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvPagos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumMontoPago)).BeginInit();
+            this.PnlDatosEntrada.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 29);
+            this.label1.Location = new System.Drawing.Point(11, 20);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 20);
@@ -112,7 +142,7 @@
             // 
             this.CmbTipoIDCli.DropDownWidth = 350;
             this.CmbTipoIDCli.FormattingEnabled = true;
-            this.CmbTipoIDCli.Location = new System.Drawing.Point(172, 25);
+            this.CmbTipoIDCli.Location = new System.Drawing.Point(172, 16);
             this.CmbTipoIDCli.Name = "CmbTipoIDCli";
             this.CmbTipoIDCli.Size = new System.Drawing.Size(60, 28);
             this.CmbTipoIDCli.TabIndex = 1;
@@ -123,7 +153,7 @@
             // TxtNroIDCli
             // 
             this.TxtNroIDCli.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.TxtNroIDCli.Location = new System.Drawing.Point(238, 26);
+            this.TxtNroIDCli.Location = new System.Drawing.Point(238, 17);
             this.TxtNroIDCli.Name = "TxtNroIDCli";
             this.TxtNroIDCli.Size = new System.Drawing.Size(151, 26);
             this.TxtNroIDCli.TabIndex = 2;
@@ -162,6 +192,7 @@
             this.DgvProdServ.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DgvProdServ.Size = new System.Drawing.Size(1144, 431);
             this.DgvProdServ.TabIndex = 19;
+            this.DgvProdServ.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Dgv_KeyDown);
             // 
             // colCodigo
             // 
@@ -240,7 +271,7 @@
             // 
             // TxtProdCodigo
             // 
-            this.TxtProdCodigo.Location = new System.Drawing.Point(11, 94);
+            this.TxtProdCodigo.Location = new System.Drawing.Point(11, 85);
             this.TxtProdCodigo.Name = "TxtProdCodigo";
             this.TxtProdCodigo.Size = new System.Drawing.Size(125, 26);
             this.TxtProdCodigo.TabIndex = 10;
@@ -251,7 +282,7 @@
             this.CmbMarcas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.CmbMarcas.DropDownWidth = 200;
             this.CmbMarcas.FormattingEnabled = true;
-            this.CmbMarcas.Location = new System.Drawing.Point(142, 93);
+            this.CmbMarcas.Location = new System.Drawing.Point(142, 84);
             this.CmbMarcas.Name = "CmbMarcas";
             this.CmbMarcas.Size = new System.Drawing.Size(68, 28);
             this.CmbMarcas.TabIndex = 11;
@@ -264,7 +295,7 @@
             this.CmbClases.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.CmbClases.DropDownWidth = 200;
             this.CmbClases.FormattingEnabled = true;
-            this.CmbClases.Location = new System.Drawing.Point(216, 93);
+            this.CmbClases.Location = new System.Drawing.Point(216, 84);
             this.CmbClases.Name = "CmbClases";
             this.CmbClases.Size = new System.Drawing.Size(68, 28);
             this.CmbClases.TabIndex = 12;
@@ -277,7 +308,7 @@
             this.CmbProductos.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.CmbProductos.DropDownWidth = 500;
             this.CmbProductos.FormattingEnabled = true;
-            this.CmbProductos.Location = new System.Drawing.Point(290, 93);
+            this.CmbProductos.Location = new System.Drawing.Point(290, 84);
             this.CmbProductos.Name = "CmbProductos";
             this.CmbProductos.Size = new System.Drawing.Size(435, 28);
             this.CmbProductos.TabIndex = 13;
@@ -287,7 +318,7 @@
             // NumCantidad
             // 
             this.NumCantidad.DecimalPlaces = 2;
-            this.NumCantidad.Location = new System.Drawing.Point(731, 94);
+            this.NumCantidad.Location = new System.Drawing.Point(731, 85);
             this.NumCantidad.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -303,7 +334,7 @@
             // TxtNroIDEmp
             // 
             this.TxtNroIDEmp.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.TxtNroIDEmp.Location = new System.Drawing.Point(238, 60);
+            this.TxtNroIDEmp.Location = new System.Drawing.Point(238, 51);
             this.TxtNroIDEmp.Name = "TxtNroIDEmp";
             this.TxtNroIDEmp.Size = new System.Drawing.Size(151, 26);
             this.TxtNroIDEmp.TabIndex = 7;
@@ -314,7 +345,7 @@
             // 
             this.CmbTipoIDEmp.DropDownWidth = 350;
             this.CmbTipoIDEmp.FormattingEnabled = true;
-            this.CmbTipoIDEmp.Location = new System.Drawing.Point(172, 59);
+            this.CmbTipoIDEmp.Location = new System.Drawing.Point(172, 50);
             this.CmbTipoIDEmp.Name = "CmbTipoIDEmp";
             this.CmbTipoIDEmp.Size = new System.Drawing.Size(60, 28);
             this.CmbTipoIDEmp.TabIndex = 6;
@@ -325,7 +356,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 63);
+            this.label2.Location = new System.Drawing.Point(11, 54);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(155, 20);
@@ -337,7 +368,7 @@
             this.CmbClientes.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.CmbClientes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbClientes.FormattingEnabled = true;
-            this.CmbClientes.Location = new System.Drawing.Point(395, 25);
+            this.CmbClientes.Location = new System.Drawing.Point(395, 16);
             this.CmbClientes.Name = "CmbClientes";
             this.CmbClientes.Size = new System.Drawing.Size(407, 28);
             this.CmbClientes.TabIndex = 3;
@@ -348,7 +379,7 @@
             this.CmbEmpleados.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.CmbEmpleados.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbEmpleados.FormattingEnabled = true;
-            this.CmbEmpleados.Location = new System.Drawing.Point(395, 59);
+            this.CmbEmpleados.Location = new System.Drawing.Point(395, 50);
             this.CmbEmpleados.Name = "CmbEmpleados";
             this.CmbEmpleados.Size = new System.Drawing.Size(407, 28);
             this.CmbEmpleados.TabIndex = 8;
@@ -357,15 +388,17 @@
             // NumValorUnit
             // 
             this.NumValorUnit.DecimalPlaces = 2;
-            this.NumValorUnit.Location = new System.Drawing.Point(815, 94);
+            this.NumValorUnit.Location = new System.Drawing.Point(815, 85);
             this.NumValorUnit.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
             this.NumValorUnit.Name = "NumValorUnit";
+            this.NumValorUnit.ReadOnly = true;
             this.NumValorUnit.Size = new System.Drawing.Size(127, 26);
             this.NumValorUnit.TabIndex = 15;
+            this.NumValorUnit.TabStop = false;
             this.NumValorUnit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NumValorUnit.ThousandsSeparator = true;
             this.NumValorUnit.Enter += new System.EventHandler(this.Num_Enter);
@@ -374,7 +407,7 @@
             // NumDescuento
             // 
             this.NumDescuento.DecimalPlaces = 2;
-            this.NumDescuento.Location = new System.Drawing.Point(948, 94);
+            this.NumDescuento.Location = new System.Drawing.Point(948, 85);
             this.NumDescuento.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -425,7 +458,7 @@
             // toolStrip
             // 
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.TsBtnGuardar,
+            this.TsBtnRecibirPago,
             this.TsBtnImprimir,
             this.TsBtnDeshacer,
             this.TsBtnEliminar,
@@ -438,14 +471,69 @@
             this.toolStrip.Stretch = true;
             this.toolStrip.TabIndex = 24;
             // 
+            // TsBtnRecibirPago
+            // 
+            this.TsBtnRecibirPago.Image = global::EsconPOS.Properties.Resources.Pago;
+            this.TsBtnRecibirPago.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TsBtnRecibirPago.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsBtnRecibirPago.Name = "TsBtnRecibirPago";
+            this.TsBtnRecibirPago.Size = new System.Drawing.Size(41, 51);
+            this.TsBtnRecibirPago.Text = "&Pagar";
+            this.TsBtnRecibirPago.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsBtnRecibirPago.Click += new System.EventHandler(this.TsBtnRecibirPago_Click);
+            // 
+            // TsBtnImprimir
+            // 
+            this.TsBtnImprimir.Image = global::EsconPOS.Properties.Resources.Imprimir;
+            this.TsBtnImprimir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TsBtnImprimir.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsBtnImprimir.Name = "TsBtnImprimir";
+            this.TsBtnImprimir.Size = new System.Drawing.Size(57, 51);
+            this.TsBtnImprimir.Text = "&Imprimir";
+            this.TsBtnImprimir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // TsBtnDeshacer
+            // 
+            this.TsBtnDeshacer.Image = global::EsconPOS.Properties.Resources.Limpiar;
+            this.TsBtnDeshacer.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TsBtnDeshacer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsBtnDeshacer.Name = "TsBtnDeshacer";
+            this.TsBtnDeshacer.Size = new System.Drawing.Size(59, 51);
+            this.TsBtnDeshacer.Text = "&Deshacer";
+            this.TsBtnDeshacer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsBtnDeshacer.Click += new System.EventHandler(this.TsBtnDeshacer_Click);
+            // 
+            // TsBtnEliminar
+            // 
+            this.TsBtnEliminar.Image = global::EsconPOS.Properties.Resources.Eliminar;
+            this.TsBtnEliminar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TsBtnEliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsBtnEliminar.Name = "TsBtnEliminar";
+            this.TsBtnEliminar.Size = new System.Drawing.Size(54, 51);
+            this.TsBtnEliminar.Text = "&Eliminar";
+            this.TsBtnEliminar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 54);
             // 
+            // TsBtnSalir
+            // 
+            this.TsBtnSalir.Image = global::EsconPOS.Properties.Resources.Close;
+            this.TsBtnSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TsBtnSalir.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.TsBtnSalir.Name = "TsBtnSalir";
+            this.TsBtnSalir.Size = new System.Drawing.Size(43, 51);
+            this.TsBtnSalir.Text = "&Cerrar";
+            this.TsBtnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsBtnSalir.Click += new System.EventHandler(this.TsBtnSalir_Click);
+            // 
             // PnlTotales
             // 
             this.PnlTotales.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PnlTotales.Controls.Add(this.label11);
+            this.PnlTotales.Controls.Add(this.LblMontoPagado);
             this.PnlTotales.Controls.Add(this.NumDctoGlobal);
             this.PnlTotales.Controls.Add(this.label8);
             this.PnlTotales.Controls.Add(this.label7);
@@ -458,10 +546,30 @@
             this.PnlTotales.Controls.Add(this.LblImpuestos);
             this.PnlTotales.Controls.Add(this.LblDescuentos);
             this.PnlTotales.Controls.Add(this.LblMontoBruto);
-            this.PnlTotales.Location = new System.Drawing.Point(249, 565);
+            this.PnlTotales.Location = new System.Drawing.Point(11, 565);
             this.PnlTotales.Name = "PnlTotales";
-            this.PnlTotales.Size = new System.Drawing.Size(906, 53);
+            this.PnlTotales.Size = new System.Drawing.Size(1144, 53);
             this.PnlTotales.TabIndex = 22;
+            // 
+            // label11
+            // 
+            this.label11.Location = new System.Drawing.Point(905, 2);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(118, 20);
+            this.label11.TabIndex = 12;
+            this.label11.Text = "Monto pagado";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LblMontoPagado
+            // 
+            this.LblMontoPagado.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.LblMontoPagado.Location = new System.Drawing.Point(909, 23);
+            this.LblMontoPagado.Name = "LblMontoPagado";
+            this.LblMontoPagado.Size = new System.Drawing.Size(118, 20);
+            this.LblMontoPagado.TabIndex = 13;
+            this.LblMontoPagado.Text = "9.999.999,99";
+            this.LblMontoPagado.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LblMontoPagado.UseMnemonic = false;
             // 
             // NumDctoGlobal
             // 
@@ -480,6 +588,7 @@
             this.NumDctoGlobal.ThousandsSeparator = true;
             this.NumDctoGlobal.ValueChanged += new System.EventHandler(this.NumDctoGlobal_ValueChanged);
             this.NumDctoGlobal.Enter += new System.EventHandler(this.Num_Enter);
+            this.NumDctoGlobal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Num_KeyDown);
             // 
             // label8
             // 
@@ -507,6 +616,7 @@
             this.cmbMonedas.Name = "cmbMonedas";
             this.cmbMonedas.Size = new System.Drawing.Size(174, 28);
             this.cmbMonedas.TabIndex = 1;
+            this.cmbMonedas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
             // 
             // label6
             // 
@@ -588,83 +698,257 @@
             this.LblMontoBruto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.LblMontoBruto.UseMnemonic = false;
             // 
+            // GbxPago
+            // 
+            this.GbxPago.Controls.Add(this.BtnQuitarPago);
+            this.GbxPago.Controls.Add(this.BtnAgregarPago);
+            this.GbxPago.Controls.Add(this.ChkTotal);
+            this.GbxPago.Controls.Add(this.GbxDatosAdicionales);
+            this.GbxPago.Controls.Add(this.DgvPagos);
+            this.GbxPago.Controls.Add(this.NumMontoPago);
+            this.GbxPago.Controls.Add(this.label9);
+            this.GbxPago.Controls.Add(this.CmbFormaPago);
+            this.GbxPago.Controls.Add(this.label10);
+            this.GbxPago.Location = new System.Drawing.Point(178, 175);
+            this.GbxPago.Name = "GbxPago";
+            this.GbxPago.Size = new System.Drawing.Size(837, 308);
+            this.GbxPago.TabIndex = 25;
+            this.GbxPago.TabStop = false;
+            this.GbxPago.Text = "Recibir pago";
+            this.GbxPago.Visible = false;
+            // 
+            // BtnQuitarPago
+            // 
+            this.BtnQuitarPago.Image = global::EsconPOS.Properties.Resources.Quitar;
+            this.BtnQuitarPago.Location = new System.Drawing.Point(334, 67);
+            this.BtnQuitarPago.Name = "BtnQuitarPago";
+            this.BtnQuitarPago.Size = new System.Drawing.Size(31, 26);
+            this.BtnQuitarPago.TabIndex = 6;
+            this.BtnQuitarPago.UseVisualStyleBackColor = true;
+            // 
+            // BtnAgregarPago
+            // 
+            this.BtnAgregarPago.Image = global::EsconPOS.Properties.Resources.Agregar;
+            this.BtnAgregarPago.Location = new System.Drawing.Point(297, 67);
+            this.BtnAgregarPago.Name = "BtnAgregarPago";
+            this.BtnAgregarPago.Size = new System.Drawing.Size(31, 26);
+            this.BtnAgregarPago.TabIndex = 5;
+            this.BtnAgregarPago.UseVisualStyleBackColor = true;
+            this.BtnAgregarPago.Click += new System.EventHandler(this.BtnAgregarPago_Click);
+            // 
+            // ChkTotal
+            // 
+            this.ChkTotal.AutoSize = true;
+            this.ChkTotal.Location = new System.Drawing.Point(76, 68);
+            this.ChkTotal.Name = "ChkTotal";
+            this.ChkTotal.Size = new System.Drawing.Size(73, 24);
+            this.ChkTotal.TabIndex = 3;
+            this.ChkTotal.Text = "(Total)";
+            this.ChkTotal.UseVisualStyleBackColor = true;
+            this.ChkTotal.Click += new System.EventHandler(this.ChkTotal_Click);
+            // 
+            // GbxDatosAdicionales
+            // 
+            this.GbxDatosAdicionales.Controls.Add(this.LblBanco);
+            this.GbxDatosAdicionales.Controls.Add(this.CmbBanco);
+            this.GbxDatosAdicionales.Controls.Add(this.LblNroDocPago);
+            this.GbxDatosAdicionales.Controls.Add(this.TxtNroDocPago);
+            this.GbxDatosAdicionales.Controls.Add(this.LblNroAutPago);
+            this.GbxDatosAdicionales.Controls.Add(this.TxtNroAutPago);
+            this.GbxDatosAdicionales.Location = new System.Drawing.Point(415, 14);
+            this.GbxDatosAdicionales.Name = "GbxDatosAdicionales";
+            this.GbxDatosAdicionales.Size = new System.Drawing.Size(407, 126);
+            this.GbxDatosAdicionales.TabIndex = 7;
+            this.GbxDatosAdicionales.TabStop = false;
+            this.GbxDatosAdicionales.Text = "Datos adicionales";
+            this.GbxDatosAdicionales.Visible = false;
+            // 
+            // LblBanco
+            // 
+            this.LblBanco.AutoSize = true;
+            this.LblBanco.Location = new System.Drawing.Point(7, 28);
+            this.LblBanco.Name = "LblBanco";
+            this.LblBanco.Size = new System.Drawing.Size(59, 20);
+            this.LblBanco.TabIndex = 0;
+            this.LblBanco.Text = "Banco:";
+            // 
+            // CmbBanco
+            // 
+            this.CmbBanco.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbBanco.FormattingEnabled = true;
+            this.CmbBanco.Location = new System.Drawing.Point(147, 25);
+            this.CmbBanco.Name = "CmbBanco";
+            this.CmbBanco.Size = new System.Drawing.Size(254, 28);
+            this.CmbBanco.TabIndex = 1;
+            this.CmbBanco.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
+            // 
+            // LblNroDocPago
+            // 
+            this.LblNroDocPago.AutoSize = true;
+            this.LblNroDocPago.Location = new System.Drawing.Point(7, 65);
+            this.LblNroDocPago.Name = "LblNroDocPago";
+            this.LblNroDocPago.Size = new System.Drawing.Size(120, 20);
+            this.LblNroDocPago.TabIndex = 2;
+            this.LblNroDocPago.Text = "Nro. Doc. Pago:";
+            // 
+            // TxtNroDocPago
+            // 
+            this.TxtNroDocPago.Location = new System.Drawing.Point(147, 59);
+            this.TxtNroDocPago.Name = "TxtNroDocPago";
+            this.TxtNroDocPago.Size = new System.Drawing.Size(208, 26);
+            this.TxtNroDocPago.TabIndex = 3;
+            this.TxtNroDocPago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
+            // 
+            // LblNroAutPago
+            // 
+            this.LblNroAutPago.AutoSize = true;
+            this.LblNroAutPago.Location = new System.Drawing.Point(7, 97);
+            this.LblNroAutPago.Name = "LblNroAutPago";
+            this.LblNroAutPago.Size = new System.Drawing.Size(134, 20);
+            this.LblNroAutPago.TabIndex = 4;
+            this.LblNroAutPago.Text = "Nro. Autorización:";
+            // 
+            // TxtNroAutPago
+            // 
+            this.TxtNroAutPago.Location = new System.Drawing.Point(147, 91);
+            this.TxtNroAutPago.Name = "TxtNroAutPago";
+            this.TxtNroAutPago.Size = new System.Drawing.Size(90, 26);
+            this.TxtNroAutPago.TabIndex = 5;
+            this.TxtNroAutPago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
+            // 
+            // DgvPagos
+            // 
+            this.DgvPagos.AllowUserToAddRows = false;
+            this.DgvPagos.AllowUserToDeleteRows = false;
+            this.DgvPagos.AllowUserToResizeRows = false;
+            this.DgvPagos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DgvPagos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DgvPagos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colFormaPago,
+            this.colMontoPago,
+            this.colBanco,
+            this.colNroDocPago,
+            this.colNroAutPago});
+            this.DgvPagos.Location = new System.Drawing.Point(16, 146);
+            this.DgvPagos.MultiSelect = false;
+            this.DgvPagos.Name = "DgvPagos";
+            this.DgvPagos.ReadOnly = true;
+            this.DgvPagos.RowHeadersVisible = false;
+            this.DgvPagos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.DgvPagos.RowTemplate.ReadOnly = true;
+            this.DgvPagos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DgvPagos.Size = new System.Drawing.Size(806, 149);
+            this.DgvPagos.TabIndex = 8;
+            // 
+            // colFormaPago
+            // 
+            this.colFormaPago.HeaderText = "Forma";
+            this.colFormaPago.MinimumWidth = 100;
+            this.colFormaPago.Name = "colFormaPago";
+            this.colFormaPago.ReadOnly = true;
+            // 
+            // colMontoPago
+            // 
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colMontoPago.DefaultCellStyle = dataGridViewCellStyle8;
+            this.colMontoPago.HeaderText = "Monto";
+            this.colMontoPago.MinimumWidth = 100;
+            this.colMontoPago.Name = "colMontoPago";
+            this.colMontoPago.ReadOnly = true;
+            // 
+            // colBanco
+            // 
+            this.colBanco.HeaderText = "Banco";
+            this.colBanco.MinimumWidth = 220;
+            this.colBanco.Name = "colBanco";
+            this.colBanco.ReadOnly = true;
+            this.colBanco.Width = 220;
+            // 
+            // colNroDocPago
+            // 
+            this.colNroDocPago.HeaderText = "Nro. Doc. Pago";
+            this.colNroDocPago.MinimumWidth = 200;
+            this.colNroDocPago.Name = "colNroDocPago";
+            this.colNroDocPago.ReadOnly = true;
+            this.colNroDocPago.Width = 200;
+            // 
+            // colNroAutPago
+            // 
+            this.colNroAutPago.HeaderText = "# Autorización";
+            this.colNroAutPago.MinimumWidth = 150;
+            this.colNroAutPago.Name = "colNroAutPago";
+            this.colNroAutPago.ReadOnly = true;
+            this.colNroAutPago.Width = 150;
+            // 
+            // NumMontoPago
+            // 
+            this.NumMontoPago.DecimalPlaces = 2;
+            this.NumMontoPago.Location = new System.Drawing.Point(155, 67);
+            this.NumMontoPago.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+            this.NumMontoPago.Name = "NumMontoPago";
+            this.NumMontoPago.Size = new System.Drawing.Size(136, 26);
+            this.NumMontoPago.TabIndex = 4;
+            this.NumMontoPago.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumMontoPago.ThousandsSeparator = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 69);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(58, 20);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Monto:";
+            // 
+            // CmbFormaPago
+            // 
+            this.CmbFormaPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbFormaPago.FormattingEnabled = true;
+            this.CmbFormaPago.Location = new System.Drawing.Point(155, 33);
+            this.CmbFormaPago.Name = "CmbFormaPago";
+            this.CmbFormaPago.Size = new System.Drawing.Size(254, 28);
+            this.CmbFormaPago.TabIndex = 1;
+            this.CmbFormaPago.SelectedIndexChanged += new System.EventHandler(this.CmbFormaPago_SelectedIndexChanged);
+            this.CmbFormaPago.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(12, 36);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(121, 20);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Forma de pago:";
+            // 
             // BtnQuitarItem
             // 
             this.BtnQuitarItem.Image = global::EsconPOS.Properties.Resources.Quitar;
-            this.BtnQuitarItem.Location = new System.Drawing.Point(1118, 95);
+            this.BtnQuitarItem.Location = new System.Drawing.Point(1118, 86);
             this.BtnQuitarItem.Name = "BtnQuitarItem";
             this.BtnQuitarItem.Size = new System.Drawing.Size(31, 26);
             this.BtnQuitarItem.TabIndex = 18;
             this.BtnQuitarItem.UseVisualStyleBackColor = true;
             this.BtnQuitarItem.Click += new System.EventHandler(this.BtnQuitarItem_Click);
             // 
-            // TsBtnGuardar
-            // 
-            this.TsBtnGuardar.Image = global::EsconPOS.Properties.Resources.Guardar;
-            this.TsBtnGuardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TsBtnGuardar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TsBtnGuardar.Name = "TsBtnGuardar";
-            this.TsBtnGuardar.Size = new System.Drawing.Size(53, 51);
-            this.TsBtnGuardar.Text = "&Guardar";
-            this.TsBtnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.TsBtnGuardar.Click += new System.EventHandler(this.TsBtnGuardar_Click);
-            // 
-            // TsBtnDeshacer
-            // 
-            this.TsBtnDeshacer.Image = global::EsconPOS.Properties.Resources.Limpiar;
-            this.TsBtnDeshacer.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TsBtnDeshacer.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TsBtnDeshacer.Name = "TsBtnDeshacer";
-            this.TsBtnDeshacer.Size = new System.Drawing.Size(59, 51);
-            this.TsBtnDeshacer.Text = "&Deshacer";
-            this.TsBtnDeshacer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.TsBtnDeshacer.Click += new System.EventHandler(this.TsBtnDeshacer_Click);
-            // 
-            // TsBtnEliminar
-            // 
-            this.TsBtnEliminar.Image = global::EsconPOS.Properties.Resources.Eliminar;
-            this.TsBtnEliminar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TsBtnEliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TsBtnEliminar.Name = "TsBtnEliminar";
-            this.TsBtnEliminar.Size = new System.Drawing.Size(54, 51);
-            this.TsBtnEliminar.Text = "&Eliminar";
-            this.TsBtnEliminar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // TsBtnSalir
-            // 
-            this.TsBtnSalir.Image = global::EsconPOS.Properties.Resources.Close;
-            this.TsBtnSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TsBtnSalir.ImageTransparentColor = System.Drawing.Color.Transparent;
-            this.TsBtnSalir.Name = "TsBtnSalir";
-            this.TsBtnSalir.Size = new System.Drawing.Size(43, 51);
-            this.TsBtnSalir.Text = "&Cerrar";
-            this.TsBtnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.TsBtnSalir.Click += new System.EventHandler(this.TsBtnSalir_Click);
-            // 
-            // TsBtnImprimir
-            // 
-            this.TsBtnImprimir.Image = global::EsconPOS.Properties.Resources.Imprimir;
-            this.TsBtnImprimir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TsBtnImprimir.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TsBtnImprimir.Name = "TsBtnImprimir";
-            this.TsBtnImprimir.Size = new System.Drawing.Size(57, 51);
-            this.TsBtnImprimir.Text = "&Imprimir";
-            this.TsBtnImprimir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
             // BtnAgregarEmpleado
             // 
             this.BtnAgregarEmpleado.Image = global::EsconPOS.Properties.Resources.Agregar;
-            this.BtnAgregarEmpleado.Location = new System.Drawing.Point(808, 60);
+            this.BtnAgregarEmpleado.Location = new System.Drawing.Point(808, 51);
             this.BtnAgregarEmpleado.Name = "BtnAgregarEmpleado";
             this.BtnAgregarEmpleado.Size = new System.Drawing.Size(31, 26);
             this.BtnAgregarEmpleado.TabIndex = 9;
             this.BtnAgregarEmpleado.UseVisualStyleBackColor = true;
             this.BtnAgregarEmpleado.Click += new System.EventHandler(this.BtnAgregarEmpleado_Click);
+            this.BtnAgregarEmpleado.Enter += new System.EventHandler(this.BtnAgregar_Enter);
             // 
             // BtnAgregarItem
             // 
             this.BtnAgregarItem.Image = global::EsconPOS.Properties.Resources.Agregar;
-            this.BtnAgregarItem.Location = new System.Drawing.Point(1081, 94);
+            this.BtnAgregarItem.Location = new System.Drawing.Point(1081, 85);
             this.BtnAgregarItem.Name = "BtnAgregarItem";
             this.BtnAgregarItem.Size = new System.Drawing.Size(31, 26);
             this.BtnAgregarItem.TabIndex = 17;
@@ -674,41 +958,51 @@
             // BtnAgregarCliente
             // 
             this.BtnAgregarCliente.Image = global::EsconPOS.Properties.Resources.Agregar;
-            this.BtnAgregarCliente.Location = new System.Drawing.Point(808, 26);
+            this.BtnAgregarCliente.Location = new System.Drawing.Point(808, 17);
             this.BtnAgregarCliente.Name = "BtnAgregarCliente";
             this.BtnAgregarCliente.Size = new System.Drawing.Size(31, 26);
             this.BtnAgregarCliente.TabIndex = 4;
             this.BtnAgregarCliente.UseVisualStyleBackColor = true;
             this.BtnAgregarCliente.Click += new System.EventHandler(this.BtnAgregarCliente_Click);
+            this.BtnAgregarCliente.Enter += new System.EventHandler(this.BtnAgregar_Enter);
+            // 
+            // PnlDatosEntrada
+            // 
+            this.PnlDatosEntrada.Controls.Add(this.BtnQuitarItem);
+            this.PnlDatosEntrada.Controls.Add(this.NumDescuento);
+            this.PnlDatosEntrada.Controls.Add(this.NumValorUnit);
+            this.PnlDatosEntrada.Controls.Add(this.CmbEmpleados);
+            this.PnlDatosEntrada.Controls.Add(this.CmbClientes);
+            this.PnlDatosEntrada.Controls.Add(this.BtnAgregarEmpleado);
+            this.PnlDatosEntrada.Controls.Add(this.TxtNroIDEmp);
+            this.PnlDatosEntrada.Controls.Add(this.CmbTipoIDEmp);
+            this.PnlDatosEntrada.Controls.Add(this.label2);
+            this.PnlDatosEntrada.Controls.Add(this.BtnAgregarItem);
+            this.PnlDatosEntrada.Controls.Add(this.BtnAgregarCliente);
+            this.PnlDatosEntrada.Controls.Add(this.NumCantidad);
+            this.PnlDatosEntrada.Controls.Add(this.CmbProductos);
+            this.PnlDatosEntrada.Controls.Add(this.CmbClases);
+            this.PnlDatosEntrada.Controls.Add(this.CmbMarcas);
+            this.PnlDatosEntrada.Controls.Add(this.TxtProdCodigo);
+            this.PnlDatosEntrada.Controls.Add(this.TxtNroIDCli);
+            this.PnlDatosEntrada.Controls.Add(this.CmbTipoIDCli);
+            this.PnlDatosEntrada.Controls.Add(this.label1);
+            this.PnlDatosEntrada.Location = new System.Drawing.Point(0, 9);
+            this.PnlDatosEntrada.Name = "PnlDatosEntrada";
+            this.PnlDatosEntrada.Size = new System.Drawing.Size(1192, 119);
+            this.PnlDatosEntrada.TabIndex = 26;
             // 
             // FrmPuntoDeVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1192, 659);
-            this.Controls.Add(this.PnlTotales);
-            this.Controls.Add(this.BtnQuitarItem);
             this.Controls.Add(this.toolStrip);
+            this.Controls.Add(this.PnlDatosEntrada);
+            this.Controls.Add(this.GbxPago);
+            this.Controls.Add(this.PnlTotales);
             this.Controls.Add(this.statusStrip);
-            this.Controls.Add(this.NumDescuento);
-            this.Controls.Add(this.NumValorUnit);
-            this.Controls.Add(this.CmbEmpleados);
-            this.Controls.Add(this.CmbClientes);
-            this.Controls.Add(this.BtnAgregarEmpleado);
-            this.Controls.Add(this.TxtNroIDEmp);
-            this.Controls.Add(this.CmbTipoIDEmp);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.BtnAgregarItem);
-            this.Controls.Add(this.BtnAgregarCliente);
-            this.Controls.Add(this.NumCantidad);
-            this.Controls.Add(this.CmbProductos);
-            this.Controls.Add(this.CmbClases);
-            this.Controls.Add(this.CmbMarcas);
-            this.Controls.Add(this.TxtProdCodigo);
             this.Controls.Add(this.DgvProdServ);
-            this.Controls.Add(this.TxtNroIDCli);
-            this.Controls.Add(this.CmbTipoIDCli);
-            this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -731,6 +1025,14 @@
             this.PnlTotales.ResumeLayout(false);
             this.PnlTotales.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumDctoGlobal)).EndInit();
+            this.GbxPago.ResumeLayout(false);
+            this.GbxPago.PerformLayout();
+            this.GbxDatosAdicionales.ResumeLayout(false);
+            this.GbxDatosAdicionales.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvPagos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumMontoPago)).EndInit();
+            this.PnlDatosEntrada.ResumeLayout(false);
+            this.PnlDatosEntrada.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -761,7 +1063,6 @@
         private System.Windows.Forms.ToolStripStatusLabel TssLblStatus;
         private System.Windows.Forms.ToolStripStatusLabel TssLblAgregado;
         private System.Windows.Forms.ToolStripStatusLabel TssLblModificado;
-        private System.Windows.Forms.ToolStripButton TsBtnGuardar;
         private System.Windows.Forms.ToolStripButton TsBtnDeshacer;
         private System.Windows.Forms.ToolStripButton TsBtnEliminar;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -790,5 +1091,30 @@
         private System.Windows.Forms.NumericUpDown NumDctoGlobal;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ToolStripButton TsBtnImprimir;
+        private System.Windows.Forms.ToolStripButton TsBtnRecibirPago;
+        private System.Windows.Forms.GroupBox GbxPago;
+        private System.Windows.Forms.GroupBox GbxDatosAdicionales;
+        private System.Windows.Forms.Label LblBanco;
+        private System.Windows.Forms.ComboBox CmbBanco;
+        private System.Windows.Forms.Label LblNroDocPago;
+        private System.Windows.Forms.TextBox TxtNroDocPago;
+        private System.Windows.Forms.Label LblNroAutPago;
+        private System.Windows.Forms.TextBox TxtNroAutPago;
+        private System.Windows.Forms.DataGridView DgvPagos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFormaPago;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colMontoPago;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colBanco;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNroDocPago;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNroAutPago;
+        private System.Windows.Forms.NumericUpDown NumMontoPago;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox CmbFormaPago;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.CheckBox ChkTotal;
+        private System.Windows.Forms.Panel PnlDatosEntrada;
+        private System.Windows.Forms.Button BtnAgregarPago;
+        private System.Windows.Forms.Button BtnQuitarPago;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label LblMontoPagado;
     }
 }

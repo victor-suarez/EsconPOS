@@ -47,6 +47,7 @@ namespace EsconPOS
         public string DocumentoEnviado { get; set; }
         public string ReciboRecibido { get; set; }
         public long MonedaID { get; set; }
+        public string CodDocumento { get; set; }
     
         public virtual Cajas Cajas { get; set; }
         public virtual Clientes Clientes { get; set; }

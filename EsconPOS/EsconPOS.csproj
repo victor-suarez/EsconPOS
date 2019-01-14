@@ -463,6 +463,9 @@
       <LastGenOutput>EsconPOS.cs</LastGenOutput>
     </Content>
     <Content Include="POS.ico" />
+    <None Include="Resources\Pago.png" />
+    <None Include="Resources\Quitar32.png" />
+    <None Include="Resources\Agregar32.png" />
     <None Include="Resources\Bancos.png" />
     <None Include="Resources\Imprimir.png" />
     <None Include="Resources\Contraseña.png" />

@@ -13,30 +13,94 @@ namespace EsconPOS.forms
     {
         #region Variables y constantes
 
+        private const string Numeros = "0123456789";
         private mainEntities context = new mainEntities();
         private bool isLoading = true;
-
         private TotalesDoc LineaTotales;
 
         private struct TotalesDoc
         {
-            public double MontoBruto;
-            public double MontoDescuentos;
-            public double MontoExcento;
-            public double MontoGravado;
-            public double MontoImpuestos;
-            public double MontoNeto;
-            public double SubTotal;
+            // Estos campos son por item
+            private decimal _MontoBruto;
 
-            public TotalesDoc(decimal MtoBrut, decimal MtoGrav, decimal MtoImpts, decimal MtoExen, decimal MtoSubTotal, decimal MtoDesc, decimal MtoNeto)
+            // Estos campos son por documento
+            private decimal _MontoDescuento;
+
+            private decimal _MontoDtoXItems;
+            private decimal _MontoExcento;
+            private decimal _MontoGravado;
+            private decimal _MontoImpuestos;
+            private decimal _MontoNeto;
+
+            // Estos campos son por pago
+            private decimal _MontoPago;
+
+            private decimal _SubTotal;
+
+            //public TotalesDoc(decimal MtoBrut, decimal MtoGrav, decimal MtoImpts, decimal MtoExen, decimal MtoSubTotal, decimal MtoDesc, decimal MtoNeto)
+            //{
+            //    MontoBruto = MtoBrut;
+            //    MontoGravado = MtoGrav;
+            //    MontoImpuestos = MtoImpts;
+            //    MontoExcento = MtoExen;
+            //    SubTotal = MtoSubTotal;
+            //    MontoDescuentos = MtoDesc;
+            //    MontoNeto = MtoNeto;
+            //}
+            public double MontoBruto { get { return (double)_MontoBruto; } }
+
+            public double MontoDescuento { get { return (double)_MontoDescuento; } }
+
+            public double MontoDtoXItems { get { return (double)_MontoDtoXItems; } }
+
+            public double MontoExcento { get { return (double)_MontoExcento; } }
+
+            public double MontoGravado { get { return (double)_MontoGravado; } }
+
+            public double MontoImpuestos { get { return (double)_MontoImpuestos; } }
+
+            public double MontoNeto { get { return (double)_MontoNeto; } }
+
+            public double MontoPagado { get { return (double)_MontoPago; } }
+
+            public double SubTotal { get { return (double)_SubTotal; } }
+
+            public void AgregaPago(decimal MontoPago)
             {
-                MontoBruto = (double)MtoBrut;
-                MontoGravado = (double)MtoGrav;
-                MontoImpuestos = (double)MtoImpts;
-                MontoExcento = (double)MtoExen;
-                SubTotal = (double)MtoSubTotal;
-                MontoDescuentos = (double)MtoDesc;
-                MontoNeto = (double)MtoNeto;
+                _MontoPago += MontoPago;
+            }
+
+            public void CalculaTotalDocumento(decimal MontoBruto, decimal MontoDctoXItem, decimal MontoImpuesto, decimal MontoDescuento)
+            {
+                _MontoBruto += MontoBruto;
+                _MontoDtoXItems += MontoDctoXItem;
+                if (MontoImpuesto == 0)
+                    _MontoExcento += (MontoBruto - MontoDctoXItem);
+                else
+                    _MontoGravado += (MontoBruto - MontoDctoXItem);
+                _MontoImpuestos += MontoImpuesto;
+                _SubTotal += (MontoBruto - MontoDctoXItem + MontoImpuesto);
+
+                _MontoDescuento = MontoDescuento;
+                _MontoNeto = _SubTotal - MontoDescuento;
+            }
+
+            public void Clear()
+            {
+                _MontoBruto = 0;
+                _MontoDescuento = 0;
+                _MontoDtoXItems = 0;
+                _MontoExcento = 0;
+                _MontoGravado = 0;
+                _MontoImpuestos = 0;
+                _MontoNeto = 0;
+                _MontoPago = 0;
+                _SubTotal = 0;
+            }
+
+            public decimal PorPagar()
+            {
+                return _MontoNeto - _MontoPago;
             }
         }
 
@@ -44,8 +108,13 @@ namespace EsconPOS.forms
 
         #region Funciones
 
-        private void Agregar()
+        private void ActualizaTotalesDoc()
         {
+            LblMontoBruto.Text = LineaTotales.MontoBruto.ToString("N2");
+            LblDescuentos.Text = LineaTotales.MontoDtoXItems.ToString("N2");
+            LblImpuestos.Text = LineaTotales.MontoImpuestos.ToString("N2");
+            LblMontoNeto.Text = LineaTotales.MontoNeto.ToString("N2");
+            LblMontoPagado.Text = LineaTotales.MontoPagado.ToString("N2");
         }
 
         private void AgregarClienteRapido()
@@ -81,6 +150,44 @@ namespace EsconPOS.forms
             }
         }
 
+        private void AgregarFormaPago()
+        {
+            if (!ExisteFormaPago(((FormasPagos)CmbFormaPago.SelectedItem).FormaPagoID))
+            {
+                // Agregar fila al grid
+                int NewRowIdx = DgvPagos.Rows.Add(
+                                                    ((FormasPagos)CmbFormaPago.SelectedItem).Codigo,
+                                                    NumMontoPago.Value.ToString("N2"),
+                                                    CmbBanco.SelectedIndex == -1 ? "" : ((Bancos)CmbBanco.SelectedItem).Iniciales,
+                                                    TxtNroDocPago.Text.Trim(),
+                                                    TxtNroAutPago.Text.Trim()
+                                                );
+
+                DgvPagos.Rows[NewRowIdx].Tag = new Pagos
+                {
+                    FormaPagoID = ((FormasPagos)CmbFormaPago.SelectedItem).FormaPagoID,
+                    MonedaID = ((Monedas)cmbMonedas.SelectedItem).MonedaID,
+                    MontoPago = (double)NumMontoPago.Value,
+                    BancoID = CmbBanco.SelectedIndex == -1 ? -1 : ((Bancos)CmbBanco.SelectedItem).BancoID,
+                    NroDocPago = TxtNroDocPago.Text.Trim() == "" ? null : TxtNroDocPago.Text.Trim(),
+                    Autorizacion = TxtNroAutPago.Text.Trim() == "" ? null : TxtNroAutPago.Text.Trim(),
+                    AgregadoEl = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    AgregadoPor = Global.glEmpleado
+                };
+                LineaTotales.AgregaPago(NumMontoPago.Value);
+                ActualizaTotalesDoc();
+                if (LineaTotales.MontoPagado == LineaTotales.MontoNeto)
+                {
+                    GuardarDocumento();
+                    ClearCrt();
+                }
+                else
+                {
+                    ClearFormaPago();
+                }
+            }
+        }
+
         private void AgregarItemDoc()
         {
             if (!ValItemEntReq()) return;
@@ -106,9 +213,8 @@ namespace EsconPOS.forms
                                                 MontoImpuesto.ToString("N2"),       // 6
                                                 TotalItem.ToString("N2")            // 7
                                             );
-            var Item = new ItemsDocumentos
+            DgvProdServ.Rows[idxRow].Tag = new ItemsDocumentos
             {
-                DocumentoID = 0,
                 ItemID = idxRow + 1,
                 ProductoID = ((Productos)CmbProductos.SelectedItem).ProductoID,
                 ValorUnitario = ((Productos)CmbProductos.SelectedItem).ValorUnitario,
@@ -121,40 +227,11 @@ namespace EsconPOS.forms
                 VendidoPor = ((Empleados)CmbEmpleados.SelectedItem).EmpleadoID,
                 EsDevolucion = 0
             };
-            DgvProdServ.Rows[idxRow].Tag = Item;
             DgvProdServ.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-            AgregarTotalesDoc();
+            LineaTotales.CalculaTotalDocumento((NumValorUnit.Value * NumCantidad.Value), NumDescuento.Value, MontoImpuesto, NumDctoGlobal.Value);
+            ActualizaTotalesDoc();
             ClearItem();
             TxtProdCodigo.Focus();
-        }
-
-        private void AgregarTotalesDoc()
-        {
-            if (DgvProdServ.RowCount == 0) return;
-            decimal TotalMtoItems = 0;
-            decimal TotalMtoGravado = 0;
-            decimal TotalMtoImpuestos = 0;
-            decimal TotalMtoExcento = 0;
-            decimal TotalMtoDctos = 0;
-            decimal SubTotalDoc = 0;
-
-            foreach (DataGridViewRow r in DgvProdServ.Rows)
-            {
-                TotalMtoItems += (DecimalGringo(r.Cells[2].Value.ToString()) * DecimalGringo(r.Cells[3].Value.ToString()));
-                TotalMtoDctos += DecimalGringo(r.Cells[4].Value.ToString());
-                TotalMtoImpuestos += DecimalGringo(r.Cells[6].Value.ToString());
-                if (DecimalGringo(r.Cells[6].Value.ToString()) != 0)
-                    TotalMtoGravado += DecimalGringo(r.Cells[5].Value.ToString());
-                else
-                    TotalMtoExcento += DecimalGringo(r.Cells[5].Value.ToString());
-                SubTotalDoc += DecimalGringo(r.Cells[7].Value.ToString());
-            }
-            LblMontoBruto.Text = TotalMtoItems.ToString("N2");
-            LblDescuentos.Text = TotalMtoDctos.ToString("N2");
-            LblImpuestos.Text = TotalMtoImpuestos.ToString("N2");
-            LblMontoNeto.Text = (SubTotalDoc - NumDctoGlobal.Value).ToString("N2");
-
-            LineaTotales = new TotalesDoc(TotalMtoItems, TotalMtoGravado, TotalMtoImpuestos, TotalMtoExcento, SubTotalDoc, TotalMtoDctos, SubTotalDoc - NumDctoGlobal.Value);
         }
 
         private void AgregarVendedorRapido()
@@ -191,8 +268,18 @@ namespace EsconPOS.forms
             }
         }
 
-        private void CalcularTotales()
+        private void CargarBancos()
         {
+            CmbBanco.DataSource = context.Bancos
+                                  .Where(b => b.Activo == 1)
+                                  .OrderBy("Nombre")
+                                  .ToList();
+            CmbBanco.DisplayMember = "Nombre";
+            CmbBanco.ValueMember = "BancoID";
+            if (CmbBanco.Items.Count == 1)
+                CmbBanco.SelectedIndex = 0;
+            else
+                CmbBanco.SelectedIndex = -1;
         }
 
         private void CargarClases()
@@ -236,6 +323,20 @@ namespace EsconPOS.forms
             CargarClases();
             CargarProductos();
             CargarMonedas();
+            CargarBancos();
+            CargarFormasPago();
+        }
+
+        private void CargarFormasPago()
+        {
+            CmbFormaPago.DataSource = context.FormasPagos
+                                        .Where(f => f.Activo == 1)
+                                        .OrderBy("Orden")
+                                        .ToList();
+            CmbFormaPago.DisplayMember = "FormaPago";
+            CmbFormaPago.ValueMember = "FormaPagoID";
+            if (CmbFormaPago.Items.Count > 0)
+                CmbFormaPago.SelectedIndex = 0;
         }
 
         private void CargarIdent()
@@ -267,10 +368,8 @@ namespace EsconPOS.forms
             cmbMonedas.DataSource = context.Monedas.Where(m => m.Activo == 1).OrderBy("MonedaID").ToList();
             cmbMonedas.DisplayMember = "Moneda";
             cmbMonedas.ValueMember = "MonedaID";
-            if (cmbMonedas.Items.Count == 1)
+            if (cmbMonedas.Items.Count > 0)
                 cmbMonedas.SelectedIndex = 0;
-            else
-                cmbMonedas.SelectedIndex = -1;
         }
 
         private void CargarProductos()
@@ -337,7 +436,33 @@ namespace EsconPOS.forms
             LblDescuentos.Text = "0,00";
             LblImpuestos.Text = "0,00";
             LblMontoNeto.Text = "0,00";
+            LblMontoPagado.Text = "0,00";
+            // Limpiar / Ocultar forma de pago.
+            CmbFormaPago.SelectedIndex = 0;
+            ChkTotal.Checked = false;
+            NumMontoPago.Value = 0;
+            CmbBanco.SelectedIndex = -1;
+            TxtNroDocPago.Text = "";
+            TxtNroAutPago.Text = "";
+            DgvPagos.Rows.Clear();
+
+            PnlDatosEntrada.Enabled = true;
+            DgvProdServ.Enabled = true;
+            PnlTotales.Enabled = true;
+            GbxPago.Visible = false;
+            LineaTotales.Clear();
+
             CmbTipoIDCli.Focus();
+        }
+
+        private void ClearFormaPago()
+        {
+            CmbBanco.SelectedIndex = -1;
+            TxtNroDocPago.Text = "";
+            TxtNroAutPago.Text = "";
+            GbxPago.Visible = false;
+            NumMontoPago.Value = 0;
+            CmbFormaPago.Focus();
         }
 
         private void ClearItem()
@@ -356,31 +481,54 @@ namespace EsconPOS.forms
             return decimal.Parse(Num.ToString().Replace(".", "").Replace(",", "."), new CultureInfo("us-US"));
         }
 
-        private void Eliminar()
+        private void EliminarItem(object sender, int Idx)
         {
+            if (((DataGridView)sender).Name == "DgvProdServ")
+            {
+                decimal MontoBruto = (decimal)DgvProdServ["colValorUnitario", Idx].Value * (decimal)DgvProdServ["colCantidad", Idx].Value;
+                decimal MontoDcto = (decimal)DgvProdServ["colDescuento", Idx].Value;
+                decimal MontoImpuesto = (decimal)DgvProdServ["colImpuestos", Idx].Value;
+                // Negativos (* -1) porque estoy eliminando la línea
+                LineaTotales.CalculaTotalDocumento(MontoBruto * -1, MontoDcto * -1, MontoImpuesto * -1, NumDctoGlobal.Value);
+                ActualizaTotalesDoc();
+                TxtProdCodigo.Focus();
+            }
+            else if (((DataGridView)sender).Name == "DgvPagos")
+            {
+                decimal MontoPago = (decimal)DgvPagos["colMontoPago", Idx].Value;
+                // Negativo (* -1) porque estoy eliminando la línea
+                LineaTotales.AgregaPago(MontoPago * -1);
+                CmbFormaPago.Focus();
+            }
+           ((DataGridView)sender).Rows.RemoveAt(((DataGridView)sender).SelectedRows[0].Index);
         }
 
-        private void EliminarItem()
+        private bool ExisteFormaPago(long ID)
         {
-            if (DgvProdServ.SelectedRows.Count == 0) return;
-            DgvProdServ.Rows.RemoveAt(DgvProdServ.SelectedRows[0].Index);
-            TxtProdCodigo.Focus();
+            foreach (DataGridViewRow row in DgvPagos.Rows)
+            {
+                if ((long)row.Tag == ID) return true;
+            };
+            return false;
         }
 
         private void GuardarDocumento()
         {
+            Documentos documento = null;
             if (!ValDocEntReq()) return;
             Cursor.Current = Cursors.WaitCursor;
 
+            //
             // Buscar el tipo de documento que se va a utilizar...
             // Por ahora estoy buscando FAC.
-            TiposDocumentos td;
+            //
+            TiposDocumentos TiposDoc;
             try
             {
-                td = (from t in context.TiposDocumentos
-                      where t.Iniciales == "FAC"
-                      select t).FirstOrDefault();
-                if (td == null)
+                TiposDoc = (from t in context.TiposDocumentos
+                            where t.Iniciales == "FAC"
+                            select t).FirstOrDefault();
+                if (TiposDoc == null)
                 {
                     MessageBox.Show("Tipo de documento no está definido en el sistema.", "Error buscando siguiente número de documento", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
@@ -392,20 +540,31 @@ namespace EsconPOS.forms
                 Cursor.Current = Cursors.Default;
                 return;
             }
-            // Actualizar e siguiente número de documento
-            context.TiposDocumentos.Attach(td);
-            td.NroSiguiente = td.NroSiguiente + 1;
-            td.ModificadoPor = Global.glEmpleado;
-            td.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            //context.SaveChanges();
 
+            //
+            // Actualizar e siguiente número de documento
+            //
+            context.TiposDocumentos.Attach(TiposDoc);
+            TiposDoc.NroSiguiente = TiposDoc.NroSiguiente + 1;
+            TiposDoc.ModificadoPor = Global.glEmpleado;
+            TiposDoc.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            context.SaveChanges();
+
+            //
+            // Abro una Mega Transacción...
+            //
+            context.Database.BeginTransaction();
+
+            //
             // Creo el nuevo documento
+            //
             try
             {
-                var doc = new Documentos
+                documento = new Documentos
                 {
-                    NroDocumento = (long)td.NroSiguiente,
-                    TipoDocumentoID = td.TipoDocumentoID,
+                    NroDocumento = (long)TiposDoc.NroSiguiente,
+                    TipoDocumentoID = TiposDoc.TipoDocumentoID,
+                    CodDocumento = TiposDoc.Iniciales + "-" + TiposDoc.NroSiguiente.ToString("00000000"),
                     FechaDocumento = DateTime.Now.ToString("yyyy-MM-dd"),
                     HoraDocumento = DateTime.Now.ToString("HH:mm:ss"),
                     EmpresaID = ((Empleados)CmbEmpleados.SelectedItem).Empresas.FirstOrDefault().EmpresaID,
@@ -414,54 +573,106 @@ namespace EsconPOS.forms
                     CajaID = Global.glCaja,
                     MonedaID = ((Monedas)cmbMonedas.SelectedItem).MonedaID,
                     TotalProductos = DgvProdServ.RowCount,
-                    MontoBruto = LineaTotales.MontoBruto,
-                    MontoGravado = LineaTotales.MontoGravado,
-                    MontoImpuestos = LineaTotales.MontoImpuestos,
-                    MontoExcento = LineaTotales.MontoExcento,
-                    SubTotal = LineaTotales.SubTotal,
+                    MontoBruto = (double)LineaTotales.MontoBruto,
+                    MontoGravado = (double)LineaTotales.MontoGravado,
+                    MontoImpuestos = (double)LineaTotales.MontoImpuestos,
+                    MontoExcento = (double)LineaTotales.MontoExcento,
+                    SubTotal = (double)LineaTotales.SubTotal,
                     MontoDescuentos = (double)NumDctoGlobal.Value,
-                    MontoNeto = LineaTotales.MontoNeto - (double)NumDctoGlobal.Value,
-                    MontoPagado = 0,
+                    MontoNeto = (double)LineaTotales.MontoNeto - (double)NumDctoGlobal.Value,
+                    MontoPagado = LineaTotales.MontoPagado,
                     AgregadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                     AgregadoPor = Global.glEmpleado
                 };
-                context.Documentos.Add(doc);
-                // Agrego los items al documento agregado
-                foreach (DataGridViewRow r in DgvProdServ.Rows)
-                {
-                    var itm = new ItemsDocumentos
-                    {
-                        DocumentoID = (long)td.NroSiguiente,
-                        ItemID = ((ItemsDocumentos)r.Tag).ItemID,
-                        ProductoID = ((ItemsDocumentos)r.Tag).ProductoID,
-                        ValorUnitario = ((ItemsDocumentos)r.Tag).ValorUnitario,
-                        Cantidad = ((ItemsDocumentos)r.Tag).Cantidad,
-                        ImpuestoID = ((ItemsDocumentos)r.Tag).ImpuestoID,
-                        TasaImpuesto = ((ItemsDocumentos)r.Tag).TasaImpuesto,
-                        MontoImpuesto = ((ItemsDocumentos)r.Tag).MontoImpuesto,
-                        MontoDescuento = ((ItemsDocumentos)r.Tag).MontoDescuento,
-                        MontoNeto = ((ItemsDocumentos)r.Tag).MontoNeto,
-                        VendidoPor = ((ItemsDocumentos)r.Tag).VendidoPor,
-                        EsDevolucion = ((ItemsDocumentos)r.Tag).EsDevolucion
-                    };
-                    doc.ItemsDocumentos.Add(itm);
-                }
-            }
-            catch (Exception ex)
-            {
-                Global.MensajeError(ex, "Error guardando el documento.");
-                Cursor.Current = Cursors.Default;
-                return;
-            }
-            try
-            {
+                context.Documentos.Add(documento);
                 context.SaveChanges();
             }
             catch (Exception ex)
             {
-                Global.MensajeError(ex, "Error guardando el documento.");
+                context.Database.CurrentTransaction.Rollback();
+                Global.MensajeError(ex, "Error guardando inicialmente del documento.");
+                Cursor.Current = Cursors.Default;
+                return;
             }
-            ClearCrt();
+
+            //
+            // Agrego los items al documento agregado
+            //
+            foreach (DataGridViewRow row in DgvProdServ.Rows)
+            {
+                try
+                {
+                    var itemDoc = new ItemsDocumentos
+                    {
+                        //DocumentoID = (long)TiposDoc.NroSiguiente,
+                        ItemID = ((ItemsDocumentos)row.Tag).ItemID,
+                        ProductoID = ((ItemsDocumentos)row.Tag).ProductoID,
+                        ValorUnitario = ((ItemsDocumentos)row.Tag).ValorUnitario,
+                        Cantidad = ((ItemsDocumentos)row.Tag).Cantidad,
+                        ImpuestoID = ((ItemsDocumentos)row.Tag).ImpuestoID,
+                        TasaImpuesto = ((ItemsDocumentos)row.Tag).TasaImpuesto,
+                        MontoImpuesto = ((ItemsDocumentos)row.Tag).MontoImpuesto,
+                        MontoDescuento = ((ItemsDocumentos)row.Tag).MontoDescuento,
+                        MontoNeto = ((ItemsDocumentos)row.Tag).MontoNeto,
+                        VendidoPor = ((ItemsDocumentos)row.Tag).VendidoPor,
+                        EsDevolucion = ((ItemsDocumentos)row.Tag).EsDevolucion
+                    };
+                    documento.ItemsDocumentos.Add(itemDoc);
+                    context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    context.Database.CurrentTransaction.Rollback();
+                    Global.MensajeError(ex, "Error guardando un detalle del documento.");
+                    Cursor.Current = Cursors.Default;
+                    return;
+                }
+            }
+
+            //
+            // Agregar los pagos al documento agregado
+            //
+            foreach (DataGridViewRow row in DgvPagos.Rows)
+            {
+                try
+                {
+                    var pago = new Pagos
+                    {
+                        //DocumentoID = documento.DocumentoID,
+                        FormaPagoID = ((Pagos)row.Tag).FormaPagoID,
+                        MonedaID = ((Pagos)row.Tag).MonedaID,
+                        MontoPago = ((Pagos)row.Tag).MontoPago,
+                        BancoID = ((Pagos)row.Tag).BancoID == -1 ? null : ((Pagos)row.Tag).BancoID,
+                        NroDocPago = ((Pagos)row.Tag).NroDocPago,
+                        Autorizacion = ((Pagos)row.Tag).Autorizacion,
+                        AgregadoEl = ((Pagos)row.Tag).AgregadoEl,
+                        AgregadoPor = ((Pagos)row.Tag).AgregadoPor
+                    };
+                    documento.Pagos.Add(pago);
+                    context.SaveChanges();
+                }
+                catch (System.Exception ex)
+                {
+                    context.Database.CurrentTransaction.Rollback();
+                    Global.MensajeError(ex, "Error guardando una forma de pago.");
+                    Cursor.Current = Cursors.Default;
+                    return;
+                }
+            }
+
+            //
+            // Guardar todo en la base de datos
+            //
+            try
+            {
+                context.Database.CurrentTransaction.Commit();
+            }
+            catch (System.Exception ex)
+            {
+                Global.MensajeError(ex, "Error guardando el documento en la base de datos.");
+                Cursor.Current = Cursors.Default;
+                return;
+            }
             Cursor.Current = Cursors.Default;
         }
 
@@ -475,12 +686,33 @@ namespace EsconPOS.forms
             return false;
         }
 
+        private void RecibirPago()
+        {
+            // ¿Hay un documento abierto?
+            if (DgvProdServ.RowCount == 0)
+            {
+                SetStatus("No hay un documento abierto!", true);
+                return;
+            }
+            PnlDatosEntrada.Enabled = false;
+            DgvProdServ.Enabled = false;
+            PnlTotales.Enabled = false;
+            GbxPago.Visible = true;
+
+            //FrmPago fPago = new FrmPago();
+            //fPago.documento = doc;
+            //fPago.MtoFaltante = doc.MontoNeto;
+            //fPago.MtoPagado = 0;
+            //fPago.MtoSobrante = 0;
+            //fPago.ShowDialog();
+        }
+
         private void SeleccionarProducto()
         {
             if (CmbProductos.SelectedIndex == -1) return;
-            var pro = (Productos)CmbProductos.SelectedItem;
-            TxtProdCodigo.Text = pro.Codigo;
-            NumValorUnit.Value = (Decimal)pro.ValorUnitario;
+            var producto = (Productos)CmbProductos.SelectedItem;
+            TxtProdCodigo.Text = producto.Codigo;
+            NumValorUnit.Value = (Decimal)producto.ValorUnitario;
         }
 
         private void SetStatus(string Status = "", bool Error = false)
@@ -579,6 +811,41 @@ namespace EsconPOS.forms
             return true;
         }
 
+        private bool ValPagEntReq()
+        {
+            if (CmbFormaPago.SelectedIndex == -1)
+            {
+                CmbFormaPago.Focus();
+                MessageBox.Show("Debe seleccionar la forma del pago de la lista.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (NumMontoPago.Value == 0)
+            {
+                NumMontoPago.Focus();
+                MessageBox.Show("Debe transcribir el monto del pago.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (((FormasPagos)CmbFormaPago.SelectedItem).RequiereBanco == 1 && CmbBanco.SelectedIndex == -1)
+            {
+                CmbBanco.Focus();
+                MessageBox.Show("Debe seleccionar el banco emisor del documento de pago de la lista.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (((FormasPagos)CmbFormaPago.SelectedItem).RequiereNumero == 1 && TxtNroDocPago.Text.Trim().Length == 0)
+            {
+                TxtNroDocPago.Focus();
+                MessageBox.Show("Debe transcribir el número del documento de pago.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (((FormasPagos)CmbFormaPago.SelectedItem).RequiereAutorizacion == 1 && TxtNroAutPago.Text.Trim().Length == 0)
+            {
+                TxtNroAutPago.Focus();
+                MessageBox.Show("Debe transcribir el código de autorización emitido por el emisor del documento de pago.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            return true;
+        }
+
         private bool ValVenEntReq()
         {
             if (CmbTipoIDEmp.SelectedIndex == -1)
@@ -602,6 +869,22 @@ namespace EsconPOS.forms
             return true;
         }
 
+        private void VerifPagCamposReq()
+        {
+            if (CmbFormaPago.SelectedIndex == -1) return;
+            var formapago = (FormasPagos)CmbFormaPago.SelectedItem;
+
+            LblBanco.Visible = (formapago.RequiereBanco == 1);
+            CmbBanco.Visible = (formapago.RequiereBanco == 1);
+            LblNroDocPago.Visible = (formapago.RequiereNumero == 1);
+            TxtNroDocPago.Visible = (formapago.RequiereNumero == 1);
+            LblNroAutPago.Visible = (formapago.RequiereAutorizacion == 1);
+            TxtNroAutPago.Visible = (formapago.RequiereAutorizacion == 1);
+
+            if (formapago.RequiereBanco == 1 || formapago.RequiereNumero == 1 || formapago.RequiereAutorizacion == 1)
+                GbxDatosAdicionales.Visible = true;
+        }
+
         #endregion Funciones
 
         #region Métodos
@@ -609,6 +892,18 @@ namespace EsconPOS.forms
         public FrmPuntoDeVenta()
         {
             InitializeComponent();
+        }
+
+        private void BtnAgregar_Enter(object sender, EventArgs e)
+        {
+            if (((Button)sender).Name == "BtnAgregarCliente")
+            {
+                if (CmbClientes.SelectedIndex != -1) SelectNextControl((Button)sender, true, true, true, false);
+            }
+            else if (((Button)sender).Name == "BtnAgregarEmpleado")
+            {
+                if (CmbEmpleados.SelectedIndex != -1) SelectNextControl((Button)sender, true, true, true, false);
+            }
         }
 
         private void BtnAgregarCliente_Click(object sender, EventArgs e)
@@ -621,6 +916,11 @@ namespace EsconPOS.forms
             AgregarVendedorRapido();
         }
 
+        private void BtnAgregarPago_Click(object sender, EventArgs e)
+        {
+            AgregarFormaPago();
+        }
+
         private void BtnAgregarProducto_Click(object sender, EventArgs e)
         {
             AgregarItemDoc();
@@ -628,9 +928,19 @@ namespace EsconPOS.forms
 
         private void BtnQuitarItem_Click(object sender, EventArgs e)
         {
-            EliminarItem();
+            if (DgvProdServ.SelectedRows.Count == 0) return;
+            EliminarItem(DgvProdServ, DgvProdServ.SelectedRows[0].Index);
         }
 
+        private void ChkTotal_Click(object sender, EventArgs e)
+        {
+            if (ChkTotal.Checked)
+            {
+                NumMontoPago.Value = LineaTotales.PorPagar();
+            }
+        }
+
+        // Siguiente campo cuando presiona [ENTER]. Limpia selección cuando presiona [ESC].
         private void Cmb_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
@@ -643,7 +953,10 @@ namespace EsconPOS.forms
             {
                 e.Handled = true;
                 e.SuppressKeyPress = true;
-                ((ComboBox)sender).SelectedIndex = -1;
+                if (((ComboBox)sender).Name == "CmbFormaPago")
+                    ((ComboBox)sender).SelectedIndex = 0;
+                else
+                    ((ComboBox)sender).SelectedIndex = -1;
             }
         }
 
@@ -655,6 +968,11 @@ namespace EsconPOS.forms
         private void CmbClases_SelectedIndexChanged(object sender, EventArgs e)
         {
             CargarProductos();
+        }
+
+        private void CmbFormaPago_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            VerifPagCamposReq();
         }
 
         private void CmbMarcas_Format(object sender, ListControlConvertEventArgs e)
@@ -688,6 +1006,15 @@ namespace EsconPOS.forms
             CargarVendedores();
         }
 
+        private void Dgv_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                if (((DataGridView)sender).SelectedRows.Count == 0) return;
+                EliminarItem(sender, ((DataGridView)sender).SelectedRows[0].Index);
+            }
+        }
+
         private void FrmPuntoDeVenta_Activated(object sender, EventArgs e)
         {
             ToolStripManager.Merge(this.toolStrip, (ToolStrip)this.MdiParent.Controls["toolStrip"]);
@@ -717,6 +1044,7 @@ namespace EsconPOS.forms
             LblDescuentos.Text = "0,00";
             LblImpuestos.Text = "0,00";
             LblMontoNeto.Text = "0,00";
+            LblMontoPagado.Text = "0,00";
             CargarCombos();
         }
 
@@ -739,7 +1067,12 @@ namespace EsconPOS.forms
             {
                 e.Handled = true;
                 e.SuppressKeyPress = true;
-                SelectNextControl((NumericUpDown)sender, true, true, true, false);
+                if (((NumericUpDown)sender).Name == "NumDctoGlobal")
+                    TsBtnRecibirPago_Click(null, null);
+                else if (((NumericUpDown)sender).Name == "NumMontoPago" && !GbxDatosAdicionales.Visible)
+                    BtnAgregarPago_Click(null, null);
+                else
+                    SelectNextControl((NumericUpDown)sender, true, true, true, false);
             }
         }
 
@@ -753,9 +1086,9 @@ namespace EsconPOS.forms
             ClearCrt();
         }
 
-        private void TsBtnGuardar_Click(object sender, EventArgs e)
+        private void TsBtnRecibirPago_Click(object sender, EventArgs e)
         {
-            GuardarDocumento();
+            RecibirPago();
         }
 
         private void TsBtnSalir_Click(object sender, EventArgs e)
@@ -769,6 +1102,15 @@ namespace EsconPOS.forms
             {
                 e.Handled = true;
                 SelectNextControl((TextBox)sender, true, true, true, false);
+            }
+            else
+            {
+                // Reciben solamente dígitos numéricos
+                if (((TextBox)sender).Name == "TxtNroDocPago" || ((TextBox)sender).Name == "TxtNroAutPago")
+                {
+                    if (!Numeros.Contains(e.KeyChar.ToString()))
+                        e.Handled = true;
+                }
             }
         }
 

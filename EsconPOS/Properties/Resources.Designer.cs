@@ -83,6 +83,16 @@ namespace EsconPOS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Agregar32 {
+            get {
+                object obj = ResourceManager.GetObject("Agregar32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Bancos {
             get {
                 object obj = ResourceManager.GetObject("Bancos", resourceCulture);
@@ -273,6 +283,16 @@ namespace EsconPOS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Pago {
+            get {
+                object obj = ResourceManager.GetObject("Pago", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Paises {
             get {
                 object obj = ResourceManager.GetObject("Paises", resourceCulture);
@@ -306,6 +326,16 @@ namespace EsconPOS.Properties {
         internal static System.Drawing.Bitmap Quitar {
             get {
                 object obj = ResourceManager.GetObject("Quitar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Quitar32 {
+            get {
+                object obj = ResourceManager.GetObject("Quitar32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
