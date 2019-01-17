@@ -204,7 +204,7 @@
           <Property Name="Codigo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Impuesto" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Tipo" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
-          <Property Name="Categoria" Type="blob" Nullable="false" />
+          <Property Name="Categoria" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Iniciales" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Tasa" Type="real" Nullable="false" />
           <Property Name="ValidoDesde" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
@@ -1559,7 +1559,7 @@ FROM [Usuarios] AS [Usuarios]</DefiningQuery>
           <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Impuesto" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Tipo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Categoria" Type="Binary" MaxLength="10" FixedLength="false" Nullable="false" />
+          <Property Name="Categoria" Type="String" Nullable="false" Unicode="true" FixedLength="false" MaxLength="1" />
           <Property Name="Iniciales" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Tasa" Type="Double" Nullable="false" />
           <Property Name="ValidoDesde" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />

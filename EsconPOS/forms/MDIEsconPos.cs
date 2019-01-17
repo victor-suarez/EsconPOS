@@ -1,5 +1,6 @@
 ﻿using EsconPOS.classes;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,6 +9,13 @@ namespace EsconPOS.forms
 {
     public partial class MDIEsconPos : Form
     {
+        #region Mdi Childs Forms List
+
+        private static int ChildCont = 1;
+        private List<Form> ChildFormList = new List<Form>();
+
+        #endregion Mdi Childs Forms List
+
         #region Variables privadas
 
         private static bool CajaAbierta = false;
@@ -23,7 +31,9 @@ namespace EsconPOS.forms
         private FrmContrasenia FrmPas = null;
         private FrmPuntoDeVenta FrmPos = null;
         private FrmProducto FrmPro = null;
+        private FrmImpuesto FrmTax = null;
         private FrmUnidadMedida FrmUnd = null;
+        private bool IsClosing = false;
 
         #endregion Variables privadas
 
@@ -59,22 +69,22 @@ namespace EsconPOS.forms
             pos.Abierta = CajaAbierta ? 1 : 0;
             pos.FechaHoraEstado = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             context.SaveChanges();
-            TssbCaja.Image = CajaAbierta ? Properties.Resources.CajaAbierta : Properties.Resources.CajaCerrada;
-            TssbCaja.Text = CajaAbierta ? "Cerrar &Caja" : "Abrir &Caja";
-            TsmiIncluirFactura.Visible = CajaAbierta;
-            TsmiAbrirCuenta.Visible = CajaAbierta;
+            TssbPpalCaja.Image = CajaAbierta ? Properties.Resources.CajaAbierta : Properties.Resources.CajaCerrada;
+            TssbPpalCaja.Text = CajaAbierta ? "Cerrar &Caja" : "Abrir &Caja";
+            TsmiCajaIncluirFactura.Visible = CajaAbierta;
+            TsmiCajaAbrirCuenta.Visible = CajaAbierta;
             Cursor.Current = Cursors.Default;
         }
 
         private void IniciarBotones()
         {
-            TssbCaja.Visible = true;
-            TssbAdministrar.Visible = true;
+            TssbPpalCaja.Visible = true;
+            TssbPpalAdministrar.Visible = true;
             if (Global.glEsAdministrador)
             {
-                TssbUbicacion.Visible = true;
-                TssbSunat.Visible = true;
-                TssbProductos.Visible = true;
+                TssbPpalUbicacion.Visible = true;
+                TssbPpalSunat.Visible = true;
+                TssbPpalProductos.Visible = true;
             }
         }
 
@@ -103,6 +113,7 @@ namespace EsconPOS.forms
 
         private void MDIEsconPos_FormClosing(object sender, FormClosingEventArgs e)
         {
+            IsClosing = true;
             if (CajaAbierta) AbrirCerrarCaja();
         }
 
@@ -136,31 +147,7 @@ namespace EsconPOS.forms
             TsslHora.Text = DateTime.Now.ToShortTimeString();
         }
 
-        private void TsmiBancos_Click(object sender, EventArgs e)
-        {
-            if (FrmBco != null && !FrmBco.IsDisposed)
-            {
-                FrmBco.BringToFront();
-                return;
-            }
-            FrmBco = new forms.FrmBanco();
-            FrmBco.MdiParent = this;
-            FrmBco.Show();
-        }
-
-        private void TsmiClases_Click(object sender, EventArgs e)
-        {
-            if (FrmCla != null && !FrmCla.IsDisposed)
-            {
-                FrmCla.BringToFront();
-                return;
-            }
-            FrmCla = new forms.FrmClase();
-            FrmCla.MdiParent = this;
-            FrmCla.Show();
-        }
-
-        private void TsmiClientes_Click(object sender, EventArgs e)
+        private void TsmiAdminClientes_Click(object sender, EventArgs e)
         {
             if (FrmCli != null && !FrmCli.IsDisposed)
             {
@@ -172,7 +159,7 @@ namespace EsconPOS.forms
             FrmCli.Show();
         }
 
-        private void TsmiEmpleados_Click(object sender, EventArgs e)
+        private void TsmiAdminEmpleados_Click(object sender, EventArgs e)
         {
             if (FrmEmp != null && !FrmEmp.IsDisposed)
             {
@@ -184,7 +171,7 @@ namespace EsconPOS.forms
             FrmEmp.Show();
         }
 
-        private void TsmiEmpresas_Click(object sender, EventArgs e)
+        private void TsmiAdminEmpresas_Click(object sender, EventArgs e)
         {
             if (FrmEpr != null && !FrmEpr.IsDisposed)
             {
@@ -196,7 +183,7 @@ namespace EsconPOS.forms
             FrmEpr.Show();
         }
 
-        private void TsmiFormasPago_Click(object sender, EventArgs e)
+        private void TsmiAdminFormasPago_Click(object sender, EventArgs e)
         {
             if (FrmFpg != null && !FrmFpg.IsDisposed)
             {
@@ -208,32 +195,7 @@ namespace EsconPOS.forms
             FrmFpg.Show();
         }
 
-        private void TsmiIncluirFactura_Click(object sender, EventArgs e)
-        {
-            if (FrmPos != null && !FrmPos.IsDisposed)
-            {
-                FrmPos.BringToFront();
-                return;
-            }
-            FrmPos = new forms.FrmPuntoDeVenta();
-            FrmPos.MdiParent = this;
-            FrmPos.Show();
-            //ToolStripManager.Merge(FrmPos.toolStrip, this.toolStrip);
-        }
-
-        private void TsmiMarcas_Click(object sender, EventArgs e)
-        {
-            if (FrmMar != null && !FrmMar.IsDisposed)
-            {
-                FrmMar.BringToFront();
-                return;
-            }
-            FrmMar = new forms.FrmMarca();
-            FrmMar.MdiParent = this;
-            FrmMar.Show();
-        }
-
-        private void TsmiMiContrasenia_Click(object sender, EventArgs e)
+        private void TsmiAdminMiContrasenia_Click(object sender, EventArgs e)
         {
             if (FrmPas != null && !FrmPas.IsDisposed)
             {
@@ -246,19 +208,44 @@ namespace EsconPOS.forms
             FrmPas.StartPosition = FormStartPosition.CenterParent;
         }
 
-        private void TsmiMonedas_Click(object sender, EventArgs e)
+        private void TsmiCajaIncluirFactura_Click(object sender, EventArgs e)
         {
-            if (FrmMon != null && !FrmMon.IsDisposed)
+            if (FrmPos != null && !FrmPos.IsDisposed)
             {
-                FrmMon.BringToFront();
+                FrmPos.BringToFront();
                 return;
             }
-            FrmMon = new forms.FrmMoneda();
-            FrmMon.MdiParent = this;
-            FrmMon.Show();
+            FrmPos = new forms.FrmPuntoDeVenta();
+            FrmPos.MdiParent = this;
+            FrmPos.Show();
+            //ToolStripManager.Merge(FrmPos.toolStrip, this.toolStrip);
         }
 
-        private void TsmiProductosServicios_Click(object sender, EventArgs e)
+        private void TsmiProdClases_Click(object sender, EventArgs e)
+        {
+            if (FrmCla != null && !FrmCla.IsDisposed)
+            {
+                FrmCla.BringToFront();
+                return;
+            }
+            FrmCla = new forms.FrmClase();
+            FrmCla.MdiParent = this;
+            FrmCla.Show();
+        }
+
+        private void TsmiProdMarcas_Click(object sender, EventArgs e)
+        {
+            if (FrmMar != null && !FrmMar.IsDisposed)
+            {
+                FrmMar.BringToFront();
+                return;
+            }
+            FrmMar = new forms.FrmMarca();
+            FrmMar.MdiParent = this;
+            FrmMar.Show();
+        }
+
+        private void TsmiProdServicios_Click(object sender, EventArgs e)
         {
             if (FrmPro != null && !FrmPro.IsDisposed)
             {
@@ -270,7 +257,43 @@ namespace EsconPOS.forms
             FrmPro.Show();
         }
 
-        private void TsmiUnidadesMedida_Click(object sender, EventArgs e)
+        private void TsmiSunatBancos_Click(object sender, EventArgs e)
+        {
+            if (FrmBco != null && !FrmBco.IsDisposed)
+            {
+                FrmBco.BringToFront();
+                return;
+            }
+            FrmBco = new forms.FrmBanco();
+            FrmBco.MdiParent = this;
+            FrmBco.Show();
+        }
+
+        private void TsmiSunatImpuestos_Click(object sender, EventArgs e)
+        {
+            if (FrmTax != null && !FrmTax.IsDisposed)
+            {
+                FrmTax.BringToFront();
+                return;
+            }
+            FrmTax = new forms.FrmImpuesto();
+            FrmTax.MdiParent = this;
+            FrmTax.Show();
+        }
+
+        private void TsmiSunatMonedas_Click(object sender, EventArgs e)
+        {
+            if (FrmMon != null && !FrmMon.IsDisposed)
+            {
+                FrmMon.BringToFront();
+                return;
+            }
+            FrmMon = new forms.FrmMoneda();
+            FrmMon.MdiParent = this;
+            FrmMon.Show();
+        }
+
+        private void TsmiSunatUnidadesMedida_Click(object sender, EventArgs e)
         {
             if (FrmUnd != null && !FrmUnd.IsDisposed)
             {
@@ -280,6 +303,32 @@ namespace EsconPOS.forms
             FrmUnd = new forms.FrmUnidadMedida();
             FrmUnd.MdiParent = this;
             FrmUnd.Show();
+        }
+
+        private void TsmiWindowCierraTodas_Click(object sender, EventArgs e)
+        {
+            foreach (Form ChildForm in this.MdiChildren)
+            {
+                ChildForm.Close();
+            }
+        }
+
+        private void TsmiWindowHorizontal_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.TileHorizontal);
+        }
+
+        private void TsmiWindowMinimizarTodas_Click(object sender, EventArgs e)
+        {
+            foreach (Form ChildForm in this.MdiChildren)
+            {
+                ChildForm.WindowState = FormWindowState.Minimized;
+            }
+        }
+
+        private void TsmiWindowVertical_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.TileVertical);
         }
 
         private void Tssb_ButtonClick(object sender, EventArgs e)
@@ -297,6 +346,81 @@ namespace EsconPOS.forms
                 Close();
         }
 
+        private void TssbWindowCascada_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.Cascade);
+        }
+
         #endregion Propiedades y métodos
+
+        private void AddItemToWindowList(Form f)
+        {
+            ToolStripItem item = TssbPpalWindow.DropDownItems.Add(ChildCont++.ToString("##") + " " + f.Text);
+            item.Tag = f;
+            item.Click += TssbChildFormList_Click;
+            f.Activate();
+        }
+
+        private void ChildFormClosed(object sender, FormClosedEventArgs e)
+        {
+            Form f = (Form)sender;
+            RemoveItemFromWindowList(f);
+        }
+
+        private void MDIEsconPos_MdiChildActivate(object sender, EventArgs e)
+        {
+            Form f = this.ActiveMdiChild;
+
+            if (f == null)
+            {
+                //the last child form was just closed
+                return;
+            }
+
+            if (!ChildFormList.Contains(f))
+            {
+                //a new child form was created
+                ChildFormList.Add(f);
+                AddItemToWindowList(f);
+                f.FormClosed += new FormClosedEventHandler(ChildFormClosed);
+            }
+            else
+            {
+                //activated existing form
+                foreach (var item in TssbPpalWindow.DropDownItems)
+                {
+                    if (item.GetType() == typeof(ToolStripMenuItem))
+                    {
+                        if (((ToolStripMenuItem)item).Text.Contains(f.Text))
+                            ((ToolStripMenuItem)item).Checked = true;
+                        else
+                            ((ToolStripMenuItem)item).Checked = false;
+                    }
+                }
+            }
+        }
+
+        private void RemoveItemFromWindowList(Form f)
+        {
+            if (IsClosing) return;
+            ChildFormList.Remove(f);
+            ChildCont = 1;
+            for (int idx = TssbPpalWindow.DropDownItems.Count; idx > 0; idx--)
+            {
+                ToolStripItem tsi = TssbPpalWindow.DropDownItems[idx - 1];
+                if (tsi.Tag != null) TssbPpalWindow.DropDownItems.Remove(tsi);
+            }
+            // Re-create Childs Forms List
+            foreach (Form child in ChildFormList)
+            {
+                AddItemToWindowList(child);
+                f.FormClosed += new FormClosedEventHandler(ChildFormClosed);
+            }
+        }
+
+        private void TssbChildFormList_Click(object sender, EventArgs e)
+        {
+            ((Form)((ToolStripItem)sender).Tag).Activate();
+        }
     }
 }

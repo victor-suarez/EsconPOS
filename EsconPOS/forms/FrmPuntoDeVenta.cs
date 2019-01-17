@@ -13,10 +13,11 @@ namespace EsconPOS.forms
     {
         #region Variables y constantes
 
-        private const string Numeros = "0123456789";
         private mainEntities context = new mainEntities();
         private bool isLoading = true;
         private TotalesDoc LineaTotales;
+        private string Numeros = "0123456789" + Convert.ToChar(Keys.Return) + Convert.ToChar(Keys.Back);
+        private FrmImpresora vPrinter;
 
         private struct TotalesDoc
         {
@@ -152,6 +153,7 @@ namespace EsconPOS.forms
 
         private void AgregarFormaPago()
         {
+            if (!ValPagEntReq()) return;
             if (!ExisteFormaPago(((FormasPagos)CmbFormaPago.SelectedItem).FormaPagoID))
             {
                 // Agregar fila al grid
@@ -431,25 +433,24 @@ namespace EsconPOS.forms
             NumValorUnit.Value = 0;
             NumDescuento.Value = 0;
             DgvProdServ.Rows.Clear();
+
             cmbMonedas.SelectedIndex = 0;
-            LblMontoBruto.Text = "0,00";
-            LblDescuentos.Text = "0,00";
-            LblImpuestos.Text = "0,00";
-            LblMontoNeto.Text = "0,00";
-            LblMontoPagado.Text = "0,00";
+            LblMontoBruto.Text = 0.ToString("N2");
+            LblDescuentos.Text = 0.ToString("N2");
+            LblImpuestos.Text = 0.ToString("N2");
+            LblMontoNeto.Text = 0.ToString("N2");
+            LblMontoPagado.Text = 0.ToString("N2");
+
+            TssLblAgregado.Text = "";
+            TssLblModificado.Text = "";
+
             // Limpiar / Ocultar forma de pago.
-            CmbFormaPago.SelectedIndex = 0;
-            ChkTotal.Checked = false;
-            NumMontoPago.Value = 0;
-            CmbBanco.SelectedIndex = -1;
-            TxtNroDocPago.Text = "";
-            TxtNroAutPago.Text = "";
             DgvPagos.Rows.Clear();
+            GbxPago.Visible = false;
 
             PnlDatosEntrada.Enabled = true;
             DgvProdServ.Enabled = true;
             PnlTotales.Enabled = true;
-            GbxPago.Visible = false;
             LineaTotales.Clear();
 
             CmbTipoIDCli.Focus();
@@ -457,11 +458,12 @@ namespace EsconPOS.forms
 
         private void ClearFormaPago()
         {
+            CmbFormaPago.SelectedIndex = 0;
+            ChkTotal.Checked = false;
+            NumMontoPago.Value = 0;
             CmbBanco.SelectedIndex = -1;
             TxtNroDocPago.Text = "";
             TxtNroAutPago.Text = "";
-            GbxPago.Visible = false;
-            NumMontoPago.Value = 0;
             CmbFormaPago.Focus();
         }
 
@@ -699,6 +701,12 @@ namespace EsconPOS.forms
             PnlTotales.Enabled = false;
             GbxPago.Visible = true;
 
+            vPrinter = new FrmImpresora();
+            vPrinter.MdiParent = this.MdiParent;
+            vPrinter.PrinterWidth = 40;
+            vPrinter.InicializaPrinter();
+            vPrinter.Show();
+
             //FrmPago fPago = new FrmPago();
             //fPago.documento = doc;
             //fPago.MtoFaltante = doc.MontoNeto;
@@ -918,6 +926,7 @@ namespace EsconPOS.forms
 
         private void BtnAgregarPago_Click(object sender, EventArgs e)
         {
+            vPrinter.Print("BtnAgregarPago_Click");
             AgregarFormaPago();
         }
 
@@ -934,9 +943,32 @@ namespace EsconPOS.forms
 
         private void ChkTotal_Click(object sender, EventArgs e)
         {
+            vPrinter.Print("ChkTotal_Click");
             if (ChkTotal.Checked)
             {
                 NumMontoPago.Value = LineaTotales.PorPagar();
+            }
+        }
+
+        // Siguiente campo cuando presiona [ENTER].
+        private void ChkTotal_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                vPrinter.Print("ChkTotal_KeyDown [RETURN]");
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+                SelectNextControl((CheckBox)sender, true, true, true, false);
+            }
+        }
+
+        private void ChkTotal_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Return))
+            {
+                vPrinter.Print("ChkTotal_KeyPress [RETURN]");
+                e.Handled = true;
+                SelectNextControl((CheckBox)sender, true, true, true, false);
             }
         }
 
@@ -1038,13 +1070,17 @@ namespace EsconPOS.forms
 
         private void FrmPuntoDeVenta_Load(object sender, EventArgs e)
         {
-            TssLblAgregado.Text = "";
-            TssLblModificado.Text = "";
-            LblMontoBruto.Text = "0,00";
-            LblDescuentos.Text = "0,00";
-            LblImpuestos.Text = "0,00";
-            LblMontoNeto.Text = "0,00";
-            LblMontoPagado.Text = "0,00";
+            this.Top = 0;
+            this.Left = 0;
+            //this.WindowState = FormWindowState.Normal;
+
+            this.Width = this.MdiParent.ClientSize.Width - 6;
+            this.Height= this.MdiParent.ClientSize.Height - 90;
+
+            DgvProdServ.Width = this.Width - DgvProdServ.Left - 27;
+            PnlTotales.Left = DgvProdServ.Right - PnlTotales.Width;
+            PnlTotales.Top = this.Height - statusStrip.Height - PnlTotales.Height - 38;
+            DgvProdServ.Height = this.Height - statusStrip.Height - DgvProdServ.Top - PnlTotales.Height - 38;
             CargarCombos();
         }
 
@@ -1056,8 +1092,19 @@ namespace EsconPOS.forms
             DgvProdServ.Height = this.Height - statusStrip.Height - DgvProdServ.Top - PnlTotales.Height - 38;
         }
 
+        private void GbxPago_VisibleChanged(object sender, EventArgs e)
+        {
+            if (GbxPago.Visible)
+                CmbFormaPago.Focus();
+            else
+            {
+                ClearFormaPago();
+            }
+        }
+
         private void Num_Enter(object sender, EventArgs e)
         {
+            if (((NumericUpDown)sender).Name == "NumMontoPago") vPrinter.Print("Num_Enter:" + ((NumericUpDown)sender).Name);
             ((NumericUpDown)sender).Select(0, ((NumericUpDown)sender).Text.Length);
         }
 
@@ -1065,12 +1112,21 @@ namespace EsconPOS.forms
         {
             if (e.KeyCode == Keys.Enter)
             {
+                if (((NumericUpDown)sender).Name == "NumMontoPago") vPrinter.Print("Num_KeyDown [ENTER]:" + ((NumericUpDown)sender).Name);
                 e.Handled = true;
                 e.SuppressKeyPress = true;
                 if (((NumericUpDown)sender).Name == "NumDctoGlobal")
                     TsBtnRecibirPago_Click(null, null);
-                else if (((NumericUpDown)sender).Name == "NumMontoPago" && !GbxDatosAdicionales.Visible)
+                else if (((NumericUpDown)sender).Name == "NumMontoPago" && !GbxDatosAdicionales.Visible && ((NumericUpDown)sender).Value != 0)
+                {
+                    vPrinter.Print("Num_KeyDown [ENTER]:" + ((NumericUpDown)sender).Name + ":InVisible");
                     BtnAgregarPago_Click(null, null);
+                }
+                else if (((NumericUpDown)sender).Name == "NumMontoPago" && GbxDatosAdicionales.Visible && ((NumericUpDown)sender).Value != 0)
+                {
+                    vPrinter.Print("Num_KeyDown [ENTER]:" + ((NumericUpDown)sender).Name + ":Visible");
+                    CmbBanco.Focus();
+                }
                 else
                     SelectNextControl((NumericUpDown)sender, true, true, true, false);
             }
@@ -1093,17 +1149,28 @@ namespace EsconPOS.forms
 
         private void TsBtnSalir_Click(object sender, EventArgs e)
         {
+            if (vPrinter != null) vPrinter.Close();
+            vPrinter = null;
             this.Close();
+        }
+
+        private void Txt_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if(vPrinter!=null) vPrinter.Print("Num_KeyDown [ENTER]:" + ((TextBox)sender).Name);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                if (((TextBox)sender).Name == "TxtNroAutPago")
+                    BtnAgregarPago_Click(null, null);
+                else
+                    SelectNextControl((TextBox)sender, true, true, true, false);
+            }
         }
 
         private void Txt_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == Convert.ToChar(Keys.Return))
-            {
-                e.Handled = true;
-                SelectNextControl((TextBox)sender, true, true, true, false);
-            }
-            else
+            if (e.KeyChar != Convert.ToChar(Keys.Return))
             {
                 // Reciben solamente dígitos numéricos
                 if (((TextBox)sender).Name == "TxtNroDocPago" || ((TextBox)sender).Name == "TxtNroAutPago")
@@ -1112,6 +1179,8 @@ namespace EsconPOS.forms
                         e.Handled = true;
                 }
             }
+            else
+                if(vPrinter!=null) vPrinter.Print("Txt_KeyPress [ENTER]:" + ((TextBox)sender).Name);
         }
 
         private void TxtNroIDCli_TextChanged(object sender, EventArgs e)

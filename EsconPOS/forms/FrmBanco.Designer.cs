@@ -30,7 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmBanco));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.TsBtnGuardar = new System.Windows.Forms.ToolStripButton();
+            this.TsBtnDeshacer = new System.Windows.Forms.ToolStripButton();
+            this.TsBtnEliminar = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.TsBtnSalir = new System.Windows.Forms.ToolStripButton();
             this.TabBancos = new System.Windows.Forms.TabControl();
             this.PagLista = new System.Windows.Forms.TabPage();
             this.TxtFiltroIniciales = new System.Windows.Forms.TextBox();
@@ -50,10 +54,6 @@
             this.TssLblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.TssLblAgregado = new System.Windows.Forms.ToolStripStatusLabel();
             this.TssLblModificado = new System.Windows.Forms.ToolStripStatusLabel();
-            this.TsBtnGuardar = new System.Windows.Forms.ToolStripButton();
-            this.TsBtnDeshacer = new System.Windows.Forms.ToolStripButton();
-            this.TsBtnEliminar = new System.Windows.Forms.ToolStripButton();
-            this.TsBtnSalir = new System.Windows.Forms.ToolStripButton();
             this.toolStrip.SuspendLayout();
             this.TabBancos.SuspendLayout();
             this.PagLista.SuspendLayout();
@@ -77,10 +77,54 @@
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip1";
             // 
+            // TsBtnGuardar
+            // 
+            this.TsBtnGuardar.Image = global::EsconPOS.Properties.Resources.Guardar;
+            this.TsBtnGuardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TsBtnGuardar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsBtnGuardar.Name = "TsBtnGuardar";
+            this.TsBtnGuardar.Size = new System.Drawing.Size(53, 51);
+            this.TsBtnGuardar.Text = "&Guardar";
+            this.TsBtnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsBtnGuardar.Click += new System.EventHandler(this.TsBtnGuardar_Click);
+            // 
+            // TsBtnDeshacer
+            // 
+            this.TsBtnDeshacer.Image = global::EsconPOS.Properties.Resources.Limpiar;
+            this.TsBtnDeshacer.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TsBtnDeshacer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsBtnDeshacer.Name = "TsBtnDeshacer";
+            this.TsBtnDeshacer.Size = new System.Drawing.Size(59, 51);
+            this.TsBtnDeshacer.Text = "&Deshacer";
+            this.TsBtnDeshacer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsBtnDeshacer.Click += new System.EventHandler(this.TsBtnDeshacer_Click);
+            // 
+            // TsBtnEliminar
+            // 
+            this.TsBtnEliminar.Image = global::EsconPOS.Properties.Resources.Eliminar;
+            this.TsBtnEliminar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TsBtnEliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsBtnEliminar.Name = "TsBtnEliminar";
+            this.TsBtnEliminar.Size = new System.Drawing.Size(54, 51);
+            this.TsBtnEliminar.Text = "&Eliminar";
+            this.TsBtnEliminar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsBtnEliminar.Click += new System.EventHandler(this.TsBtnEliminar_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 54);
+            // 
+            // TsBtnSalir
+            // 
+            this.TsBtnSalir.Image = global::EsconPOS.Properties.Resources.Close;
+            this.TsBtnSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TsBtnSalir.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.TsBtnSalir.Name = "TsBtnSalir";
+            this.TsBtnSalir.Size = new System.Drawing.Size(43, 51);
+            this.TsBtnSalir.Text = "&Cerrar";
+            this.TsBtnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsBtnSalir.Click += new System.EventHandler(this.TsBtnSalir_Click);
             // 
             // TabBancos
             // 
@@ -288,50 +332,6 @@
             this.TssLblModificado.Size = new System.Drawing.Size(155, 17);
             this.TssLblModificado.Text = "Modificado por 99-99-9999 99:99:99";
             // 
-            // TsBtnGuardar
-            // 
-            this.TsBtnGuardar.Image = global::EsconPOS.Properties.Resources.Guardar;
-            this.TsBtnGuardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TsBtnGuardar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TsBtnGuardar.Name = "TsBtnGuardar";
-            this.TsBtnGuardar.Size = new System.Drawing.Size(53, 51);
-            this.TsBtnGuardar.Text = "&Guardar";
-            this.TsBtnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.TsBtnGuardar.Click += new System.EventHandler(this.TsBtnGuardar_Click);
-            // 
-            // TsBtnDeshacer
-            // 
-            this.TsBtnDeshacer.Image = global::EsconPOS.Properties.Resources.Limpiar;
-            this.TsBtnDeshacer.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TsBtnDeshacer.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TsBtnDeshacer.Name = "TsBtnDeshacer";
-            this.TsBtnDeshacer.Size = new System.Drawing.Size(59, 51);
-            this.TsBtnDeshacer.Text = "&Deshacer";
-            this.TsBtnDeshacer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.TsBtnDeshacer.Click += new System.EventHandler(this.TsBtnDeshacer_Click);
-            // 
-            // TsBtnEliminar
-            // 
-            this.TsBtnEliminar.Image = global::EsconPOS.Properties.Resources.Eliminar;
-            this.TsBtnEliminar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TsBtnEliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TsBtnEliminar.Name = "TsBtnEliminar";
-            this.TsBtnEliminar.Size = new System.Drawing.Size(54, 51);
-            this.TsBtnEliminar.Text = "&Eliminar";
-            this.TsBtnEliminar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.TsBtnEliminar.Click += new System.EventHandler(this.TsBtnEliminar_Click);
-            // 
-            // TsBtnSalir
-            // 
-            this.TsBtnSalir.Image = global::EsconPOS.Properties.Resources.Close;
-            this.TsBtnSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TsBtnSalir.ImageTransparentColor = System.Drawing.Color.Transparent;
-            this.TsBtnSalir.Name = "TsBtnSalir";
-            this.TsBtnSalir.Size = new System.Drawing.Size(43, 51);
-            this.TsBtnSalir.Text = "&Cerrar";
-            this.TsBtnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.TsBtnSalir.Click += new System.EventHandler(this.TsBtnSalir_Click);
-            // 
             // FrmBanco
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -346,6 +346,7 @@
             this.Name = "FrmBanco";
             this.Text = "Administrar Entidades Financieras";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmBanco_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmBanco_FormClosed);
             this.Load += new System.EventHandler(this.FrmBanco_Load);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();

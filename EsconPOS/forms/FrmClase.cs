@@ -151,17 +151,17 @@ namespace EsconPOS.forms
 
         private void MoverRegistroToCrt(long ID)
         {
-            var cls = (from c in context.TiposProductos
-                       where c.TipoProductoID == ID
-                       select c).First();
+            var clase = (from c in context.TiposProductos
+                         where c.TipoProductoID == ID
+                         select c).First();
 
-            TxtCodigo.Text = cls.Codigo;
-            TxtCodigo.Tag = cls.TipoProductoID;
-            TxtClase.Text = cls.TipoProducto;
-            ChkActiva.Checked = (cls.Activo == 1);
-            TssLblAgregado.Text = cls.EmpleadoAdd.Login.ToLower() + " " + cls.AgregadoEl;
-            if (cls.EmpleadoUpd != null)
-                TssLblModificado.Text = (cls.EmpleadoUpd.Login.ToLower() + " " + cls.ModificadoEl) ?? "";
+            TxtCodigo.Text = clase.Codigo;
+            TxtCodigo.Tag = clase.TipoProductoID;
+            TxtClase.Text = clase.TipoProducto;
+            ChkActiva.Checked = (clase.Activo == 1);
+            TssLblAgregado.Text = clase.EmpleadoAdd.Login.ToLower() + " " + clase.AgregadoEl;
+            if (clase.EmpleadoUpd != null)
+                TssLblModificado.Text = (clase.EmpleadoUpd.Login.ToLower() + " " + clase.ModificadoEl) ?? "";
             else
                 TssLblModificado.Text = "";
         }

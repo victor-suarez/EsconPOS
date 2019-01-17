@@ -98,8 +98,8 @@
             this.TsBtnSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.TsBtnSalir.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.TsBtnSalir.Name = "TsBtnSalir";
-            this.TsBtnSalir.Size = new System.Drawing.Size(36, 51);
-            this.TsBtnSalir.Text = "&Salir";
+            this.TsBtnSalir.Size = new System.Drawing.Size(43, 51);
+            this.TsBtnSalir.Text = "&Cerrar";
             this.TsBtnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // statusStrip
@@ -143,7 +143,7 @@
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
             this.Name = "FrmDocumento";
-            this.Text = "FrmDocumento";
+            this.Text = "Administrar Tipos de Documento";
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);

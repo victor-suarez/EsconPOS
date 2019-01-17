@@ -309,5 +309,10 @@ namespace EsconPOS.forms
         }
 
         #endregion Métodos
+
+        private void FrmBanco_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
+        }
     }
 }

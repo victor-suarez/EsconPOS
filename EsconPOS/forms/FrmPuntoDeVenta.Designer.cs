@@ -158,6 +158,7 @@
             this.TxtNroIDCli.Size = new System.Drawing.Size(151, 26);
             this.TxtNroIDCli.TabIndex = 2;
             this.TxtNroIDCli.TextChanged += new System.EventHandler(this.TxtNroIDCli_TextChanged);
+            this.TxtNroIDCli.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txt_KeyDown);
             this.TxtNroIDCli.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // DgvProdServ
@@ -275,6 +276,7 @@
             this.TxtProdCodigo.Name = "TxtProdCodigo";
             this.TxtProdCodigo.Size = new System.Drawing.Size(125, 26);
             this.TxtProdCodigo.TabIndex = 10;
+            this.TxtProdCodigo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txt_KeyDown);
             this.TxtProdCodigo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // CmbMarcas
@@ -339,6 +341,7 @@
             this.TxtNroIDEmp.Size = new System.Drawing.Size(151, 26);
             this.TxtNroIDEmp.TabIndex = 7;
             this.TxtNroIDEmp.TextChanged += new System.EventHandler(this.TxtNroIDEmp_TextChanged);
+            this.TxtNroIDEmp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txt_KeyDown);
             this.TxtNroIDEmp.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // CmbTipoIDEmp
@@ -388,6 +391,7 @@
             // NumValorUnit
             // 
             this.NumValorUnit.DecimalPlaces = 2;
+            this.NumValorUnit.Enabled = false;
             this.NumValorUnit.Location = new System.Drawing.Point(815, 85);
             this.NumValorUnit.Maximum = new decimal(new int[] {
             1000000,
@@ -437,7 +441,7 @@
             // TssLblStatus
             // 
             this.TssLblStatus.Name = "TssLblStatus";
-            this.TssLblStatus.Size = new System.Drawing.Size(864, 17);
+            this.TssLblStatus.Size = new System.Drawing.Size(1169, 17);
             this.TssLblStatus.Spring = true;
             this.TssLblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -445,15 +449,13 @@
             // 
             this.TssLblAgregado.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TssLblAgregado.Name = "TssLblAgregado";
-            this.TssLblAgregado.Size = new System.Drawing.Size(150, 17);
-            this.TssLblAgregado.Text = "Agregado por 99-99-9999 99:99:99";
+            this.TssLblAgregado.Size = new System.Drawing.Size(0, 17);
             // 
             // TssLblModificado
             // 
             this.TssLblModificado.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TssLblModificado.Name = "TssLblModificado";
-            this.TssLblModificado.Size = new System.Drawing.Size(155, 17);
-            this.TssLblModificado.Text = "Modificado por 99-99-9999 99:99:99";
+            this.TssLblModificado.Size = new System.Drawing.Size(0, 17);
             // 
             // toolStrip
             // 
@@ -567,7 +569,6 @@
             this.LblMontoPagado.Name = "LblMontoPagado";
             this.LblMontoPagado.Size = new System.Drawing.Size(118, 20);
             this.LblMontoPagado.TabIndex = 13;
-            this.LblMontoPagado.Text = "9.999.999,99";
             this.LblMontoPagado.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.LblMontoPagado.UseMnemonic = false;
             // 
@@ -661,7 +662,6 @@
             this.LblMontoNeto.Name = "LblMontoNeto";
             this.LblMontoNeto.Size = new System.Drawing.Size(118, 20);
             this.LblMontoNeto.TabIndex = 11;
-            this.LblMontoNeto.Text = "9.999.999,99";
             this.LblMontoNeto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.LblMontoNeto.UseMnemonic = false;
             // 
@@ -672,7 +672,6 @@
             this.LblImpuestos.Name = "LblImpuestos";
             this.LblImpuestos.Size = new System.Drawing.Size(118, 20);
             this.LblImpuestos.TabIndex = 7;
-            this.LblImpuestos.Text = "9.999.999,99";
             this.LblImpuestos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.LblImpuestos.UseMnemonic = false;
             // 
@@ -683,7 +682,6 @@
             this.LblDescuentos.Name = "LblDescuentos";
             this.LblDescuentos.Size = new System.Drawing.Size(118, 20);
             this.LblDescuentos.TabIndex = 5;
-            this.LblDescuentos.Text = "9.999.999,99";
             this.LblDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.LblDescuentos.UseMnemonic = false;
             // 
@@ -694,7 +692,6 @@
             this.LblMontoBruto.Name = "LblMontoBruto";
             this.LblMontoBruto.Size = new System.Drawing.Size(118, 20);
             this.LblMontoBruto.TabIndex = 3;
-            this.LblMontoBruto.Text = "9.999.999,99";
             this.LblMontoBruto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.LblMontoBruto.UseMnemonic = false;
             // 
@@ -716,6 +713,7 @@
             this.GbxPago.TabStop = false;
             this.GbxPago.Text = "Recibir pago";
             this.GbxPago.Visible = false;
+            this.GbxPago.VisibleChanged += new System.EventHandler(this.GbxPago_VisibleChanged);
             // 
             // BtnQuitarPago
             // 
@@ -746,6 +744,7 @@
             this.ChkTotal.Text = "(Total)";
             this.ChkTotal.UseVisualStyleBackColor = true;
             this.ChkTotal.Click += new System.EventHandler(this.ChkTotal_Click);
+            this.ChkTotal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ChkTotal_KeyPress);
             // 
             // GbxDatosAdicionales
             // 
@@ -797,6 +796,7 @@
             this.TxtNroDocPago.Name = "TxtNroDocPago";
             this.TxtNroDocPago.Size = new System.Drawing.Size(208, 26);
             this.TxtNroDocPago.TabIndex = 3;
+            this.TxtNroDocPago.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txt_KeyDown);
             this.TxtNroDocPago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // LblNroAutPago
@@ -814,6 +814,7 @@
             this.TxtNroAutPago.Name = "TxtNroAutPago";
             this.TxtNroAutPago.Size = new System.Drawing.Size(90, 26);
             this.TxtNroAutPago.TabIndex = 5;
+            this.TxtNroAutPago.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txt_KeyDown);
             this.TxtNroAutPago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // DgvPagos
@@ -894,6 +895,8 @@
             this.NumMontoPago.TabIndex = 4;
             this.NumMontoPago.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NumMontoPago.ThousandsSeparator = true;
+            this.NumMontoPago.Enter += new System.EventHandler(this.Num_Enter);
+            this.NumMontoPago.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Num_KeyDown);
             // 
             // label9
             // 
@@ -1008,7 +1011,6 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FrmPuntoDeVenta";
             this.Text = "Factura Directa";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.FrmPuntoDeVenta_Activated);
             this.Deactivate += new System.EventHandler(this.FrmPuntoDeVenta_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmPuntoDeVenta_FormClosing);
