@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MDIEsconPos));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.TsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.TsslEmpleado = new System.Windows.Forms.ToolStripStatusLabel();
@@ -164,6 +163,7 @@
             this.TssbPpalCaja.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TsmiCajaIncluirFactura,
             this.TsmiCajaAbrirCuenta});
+            this.TssbPpalCaja.Image = global::EsconPOS.Properties.Resources.CajaCerrada;
             this.TssbPpalCaja.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.TssbPpalCaja.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TssbPpalCaja.Name = "TssbPpalCaja";
@@ -176,7 +176,7 @@
             // TsmiCajaIncluirFactura
             // 
             this.TsmiCajaIncluirFactura.Name = "TsmiCajaIncluirFactura";
-            this.TsmiCajaIncluirFactura.Size = new System.Drawing.Size(149, 22);
+            this.TsmiCajaIncluirFactura.Size = new System.Drawing.Size(152, 22);
             this.TsmiCajaIncluirFactura.Text = "Incluir &Factura";
             this.TsmiCajaIncluirFactura.Visible = false;
             this.TsmiCajaIncluirFactura.Click += new System.EventHandler(this.TsmiCajaIncluirFactura_Click);
@@ -184,7 +184,7 @@
             // TsmiCajaAbrirCuenta
             // 
             this.TsmiCajaAbrirCuenta.Name = "TsmiCajaAbrirCuenta";
-            this.TsmiCajaAbrirCuenta.Size = new System.Drawing.Size(149, 22);
+            this.TsmiCajaAbrirCuenta.Size = new System.Drawing.Size(152, 22);
             this.TsmiCajaAbrirCuenta.Text = "Abrir &Cuenta";
             this.TsmiCajaAbrirCuenta.Visible = false;
             // 
@@ -196,6 +196,7 @@
             this.TsmiAdminClientes,
             this.TsmiAdminFormasPago,
             this.TsmiAdminMiContrasenia});
+            this.TssbPpalAdministrar.Image = global::EsconPOS.Properties.Resources.Administrar;
             this.TssbPpalAdministrar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.TssbPpalAdministrar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TssbPpalAdministrar.Name = "TssbPpalAdministrar";
@@ -207,6 +208,7 @@
             // 
             // TsmiAdminEmpresas
             // 
+            this.TsmiAdminEmpresas.Image = global::EsconPOS.Properties.Resources.Empresas;
             this.TsmiAdminEmpresas.Name = "TsmiAdminEmpresas";
             this.TsmiAdminEmpresas.Size = new System.Drawing.Size(159, 22);
             this.TsmiAdminEmpresas.Text = "&Empresas";
@@ -214,6 +216,7 @@
             // 
             // TsmiAdminEmpleados
             // 
+            this.TsmiAdminEmpleados.Image = global::EsconPOS.Properties.Resources.Empleados;
             this.TsmiAdminEmpleados.Name = "TsmiAdminEmpleados";
             this.TsmiAdminEmpleados.Size = new System.Drawing.Size(159, 22);
             this.TsmiAdminEmpleados.Text = "E&mpleados";
@@ -221,6 +224,7 @@
             // 
             // TsmiAdminClientes
             // 
+            this.TsmiAdminClientes.Image = global::EsconPOS.Properties.Resources.Clientes;
             this.TsmiAdminClientes.Name = "TsmiAdminClientes";
             this.TsmiAdminClientes.Size = new System.Drawing.Size(159, 22);
             this.TsmiAdminClientes.Text = "&Clientes";
@@ -228,6 +232,7 @@
             // 
             // TsmiAdminFormasPago
             // 
+            this.TsmiAdminFormasPago.Image = global::EsconPOS.Properties.Resources.FormasPagos;
             this.TsmiAdminFormasPago.Name = "TsmiAdminFormasPago";
             this.TsmiAdminFormasPago.Size = new System.Drawing.Size(159, 22);
             this.TsmiAdminFormasPago.Text = "&Formas de pago";
@@ -247,6 +252,7 @@
             this.TsmiUbigeoDepartamentos,
             this.TsmiUbigeoProvincias,
             this.TsmiUbigeoDistritos});
+            this.TssbPpalUbicacion.Image = global::EsconPOS.Properties.Resources.Ubigeo;
             this.TssbPpalUbicacion.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.TssbPpalUbicacion.ImageTransparentColor = System.Drawing.Color.White;
             this.TssbPpalUbicacion.Name = "TssbPpalUbicacion";
@@ -258,24 +264,28 @@
             // 
             // TsmiUbigeoPaises
             // 
+            this.TsmiUbigeoPaises.Image = global::EsconPOS.Properties.Resources.Paises;
             this.TsmiUbigeoPaises.Name = "TsmiUbigeoPaises";
             this.TsmiUbigeoPaises.Size = new System.Drawing.Size(155, 22);
             this.TsmiUbigeoPaises.Text = "&Paises";
             // 
             // TsmiUbigeoDepartamentos
             // 
+            this.TsmiUbigeoDepartamentos.Image = global::EsconPOS.Properties.Resources.Departamentos;
             this.TsmiUbigeoDepartamentos.Name = "TsmiUbigeoDepartamentos";
             this.TsmiUbigeoDepartamentos.Size = new System.Drawing.Size(155, 22);
             this.TsmiUbigeoDepartamentos.Text = "&Departamentos";
             // 
             // TsmiUbigeoProvincias
             // 
+            this.TsmiUbigeoProvincias.Image = global::EsconPOS.Properties.Resources.Provincias;
             this.TsmiUbigeoProvincias.Name = "TsmiUbigeoProvincias";
             this.TsmiUbigeoProvincias.Size = new System.Drawing.Size(155, 22);
             this.TsmiUbigeoProvincias.Text = "P&rovincias";
             // 
             // TsmiUbigeoDistritos
             // 
+            this.TsmiUbigeoDistritos.Image = global::EsconPOS.Properties.Resources.Ubicacion;
             this.TsmiUbigeoDistritos.Name = "TsmiUbigeoDistritos";
             this.TsmiUbigeoDistritos.Size = new System.Drawing.Size(155, 22);
             this.TsmiUbigeoDistritos.Text = "D&istritos";
@@ -288,6 +298,7 @@
             this.TsmiSunatMonedas,
             this.TsmiSunatTiposDocumentos,
             this.TsmiSunatUnidadesMedida});
+            this.TssbPpalSunat.Image = global::EsconPOS.Properties.Resources.SUNAT;
             this.TssbPpalSunat.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.TssbPpalSunat.ImageTransparentColor = System.Drawing.Color.White;
             this.TssbPpalSunat.Name = "TssbPpalSunat";
@@ -299,6 +310,7 @@
             // 
             // TsmiSunatBancos
             // 
+            this.TsmiSunatBancos.Image = global::EsconPOS.Properties.Resources.Bancos;
             this.TsmiSunatBancos.Name = "TsmiSunatBancos";
             this.TsmiSunatBancos.Size = new System.Drawing.Size(189, 22);
             this.TsmiSunatBancos.Text = "&Bancos";
@@ -306,6 +318,7 @@
             // 
             // TsmiSunatImpuestos
             // 
+            this.TsmiSunatImpuestos.Image = global::EsconPOS.Properties.Resources.Impuestos;
             this.TsmiSunatImpuestos.Name = "TsmiSunatImpuestos";
             this.TsmiSunatImpuestos.Size = new System.Drawing.Size(189, 22);
             this.TsmiSunatImpuestos.Text = "&Impuestos";
@@ -313,6 +326,7 @@
             // 
             // TsmiSunatMonedas
             // 
+            this.TsmiSunatMonedas.Image = global::EsconPOS.Properties.Resources.Monedas;
             this.TsmiSunatMonedas.Name = "TsmiSunatMonedas";
             this.TsmiSunatMonedas.Size = new System.Drawing.Size(189, 22);
             this.TsmiSunatMonedas.Text = "&Monedas";
@@ -320,12 +334,14 @@
             // 
             // TsmiSunatTiposDocumentos
             // 
+            this.TsmiSunatTiposDocumentos.Image = global::EsconPOS.Properties.Resources.Documentos;
             this.TsmiSunatTiposDocumentos.Name = "TsmiSunatTiposDocumentos";
             this.TsmiSunatTiposDocumentos.Size = new System.Drawing.Size(189, 22);
             this.TsmiSunatTiposDocumentos.Text = "&Tipos de documentos";
             // 
             // TsmiSunatUnidadesMedida
             // 
+            this.TsmiSunatUnidadesMedida.Image = global::EsconPOS.Properties.Resources.UnidsMeds;
             this.TsmiSunatUnidadesMedida.Name = "TsmiSunatUnidadesMedida";
             this.TsmiSunatUnidadesMedida.Size = new System.Drawing.Size(189, 22);
             this.TsmiSunatUnidadesMedida.Text = "&Unidades de medida";
@@ -337,6 +353,7 @@
             this.TsmiProdMarcas,
             this.TsmiProdClases,
             this.TsmiProdServicios});
+            this.TssbPpalProductos.Image = global::EsconPOS.Properties.Resources.Productos;
             this.TssbPpalProductos.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.TssbPpalProductos.ImageTransparentColor = System.Drawing.Color.White;
             this.TssbPpalProductos.Name = "TssbPpalProductos";
@@ -349,6 +366,7 @@
             // 
             // TsmiProdMarcas
             // 
+            this.TsmiProdMarcas.Image = global::EsconPOS.Properties.Resources.Marcas;
             this.TsmiProdMarcas.Name = "TsmiProdMarcas";
             this.TsmiProdMarcas.Size = new System.Drawing.Size(179, 22);
             this.TsmiProdMarcas.Text = "&Marcas";
@@ -356,6 +374,7 @@
             // 
             // TsmiProdClases
             // 
+            this.TsmiProdClases.Image = global::EsconPOS.Properties.Resources.Tipos;
             this.TsmiProdClases.Name = "TsmiProdClases";
             this.TsmiProdClases.Size = new System.Drawing.Size(179, 22);
             this.TsmiProdClases.Text = "&Clases";
@@ -363,6 +382,7 @@
             // 
             // TsmiProdServicios
             // 
+            this.TsmiProdServicios.Image = global::EsconPOS.Properties.Resources.Productos1;
             this.TsmiProdServicios.Name = "TsmiProdServicios";
             this.TsmiProdServicios.Size = new System.Drawing.Size(179, 22);
             this.TsmiProdServicios.Text = "&Productos/Servicios";
@@ -377,7 +397,7 @@
             this.TsmiWindowMinimizarTodas,
             this.TsmiWindowCierraTodas,
             this.TsmiWindowFiller});
-            this.TssbPpalWindow.Image = ((System.Drawing.Image)(resources.GetObject("TssbPpalWindow.Image")));
+            this.TssbPpalWindow.Image = global::EsconPOS.Properties.Resources.Window;
             this.TssbPpalWindow.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.TssbPpalWindow.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TssbPpalWindow.Name = "TssbPpalWindow";
@@ -427,6 +447,7 @@
             // 
             // TssbPpalSalir
             // 
+            this.TssbPpalSalir.Image = global::EsconPOS.Properties.Resources.Logout;
             this.TssbPpalSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.TssbPpalSalir.ImageTransparentColor = System.Drawing.Color.White;
             this.TssbPpalSalir.Name = "TssbPpalSalir";

@@ -25,7 +25,7 @@ namespace EsconPOS
         public string Codigo { get; set; }
         public string Impuesto { get; set; }
         public string Tipo { get; set; }
-        public byte[] Categoria { get; set; }
+        public string Categoria { get; set; }
         public string Iniciales { get; set; }
         public double Tasa { get; set; }
         public string ValidoDesde { get; set; }

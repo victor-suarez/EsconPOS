@@ -243,6 +243,12 @@
     <Compile Include="forms\FrmFormasPago.Designer.cs">
       <DependentUpon>FrmFormasPago.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\FrmImpresora.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\FrmImpresora.Designer.cs">
+      <DependentUpon>FrmImpresora.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\FrmImpuesto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -388,6 +394,9 @@
     <EmbeddedResource Include="forms\FrmFormasPago.resx">
       <DependentUpon>FrmFormasPago.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="forms\FrmImpresora.resx">
+      <DependentUpon>FrmImpresora.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\FrmImpuesto.resx">
       <DependentUpon>FrmImpuesto.cs</DependentUpon>
     </EmbeddedResource>
@@ -396,6 +405,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="forms\FrmMoneda.resx">
       <DependentUpon>FrmMoneda.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\FrmPago.resx">
       <DependentUpon>FrmPago.cs</DependentUpon>
@@ -417,6 +427,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="forms\MDIEsconPos.resx">
       <DependentUpon>MDIEsconPos.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -463,6 +474,13 @@
       <LastGenOutput>EsconPOS.cs</LastGenOutput>
     </Content>
     <Content Include="POS.ico" />
+    <None Include="Resources\UnidsMeds.png" />
+    <None Include="Resources\Window.png" />
+    <None Include="Resources\Tipos.png" />
+    <None Include="Resources\Marcas.png" />
+    <None Include="Resources\Productos1.png" />
+    <None Include="Resources\Impuestos.png" />
+    <None Include="Resources\Documentos.png" />
     <None Include="Resources\Pago.png" />
     <None Include="Resources\Quitar32.png" />
     <None Include="Resources\Agregar32.png" />
@@ -492,7 +510,6 @@
     <None Include="Resources\Clientes.png" />
     <None Include="Resources\Unidades.png" />
     <None Include="Resources\Monedas.png" />
-    <None Include="Resources\Impuestos.png" />
     <None Include="Resources\Ubicacion1.png" />
     <None Include="Resources\Ubicacion.png" />
     <None Include="Resources\Provincias.png" />

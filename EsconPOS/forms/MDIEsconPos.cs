@@ -333,7 +333,7 @@ namespace EsconPOS.forms
 
         private void Tssb_ButtonClick(object sender, EventArgs e)
         {
-            if (((ToolStripSplitButton)sender).Name == "TssbCaja")
+            if (((ToolStripSplitButton)sender).Name == "TssbPpalCaja")
             {
                 AbrirCerrarCaja();
             }
