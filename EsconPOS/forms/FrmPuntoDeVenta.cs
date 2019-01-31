@@ -17,7 +17,9 @@ namespace EsconPOS.forms
         private bool isLoading = true;
         private TotalesDoc LineaTotales;
         private string Numeros = "0123456789" + Convert.ToChar(Keys.Return) + Convert.ToChar(Keys.Back);
-        private FrmImpresora vPrinter;
+        private Documentos UltimoDoc;
+        private FrmImpresora vPrinter = null;
+        // Esto para sacar los datos de impresión.
 
         private struct TotalesDoc
         {
@@ -154,7 +156,7 @@ namespace EsconPOS.forms
         private void AgregarFormaPago()
         {
             if (!ValPagEntReq()) return;
-            if (!ExisteFormaPago(((FormasPagos)CmbFormaPago.SelectedItem).FormaPagoID))
+            //if (!ExisteFormaPago(((FormasPagos)CmbFormaPago.SelectedItem).FormaPagoID))
             {
                 // Agregar fila al grid
                 int NewRowIdx = DgvPagos.Rows.Add(
@@ -181,7 +183,6 @@ namespace EsconPOS.forms
                 if (LineaTotales.MontoPagado == LineaTotales.MontoNeto)
                 {
                     GuardarDocumento();
-                    ClearCrt();
                 }
                 else
                 {
@@ -204,7 +205,8 @@ namespace EsconPOS.forms
             decimal FactorImpuesto = (decimal)(((Productos)CmbProductos.SelectedItem).Impuestos.Tasa / 100);
             decimal MontoImpuesto = SubTotalItem * FactorImpuesto;
             decimal TotalItem = SubTotalItem + MontoImpuesto;
-
+            //DataGridViewImageCell DgvImage = new DataGridViewImageCell();
+            //DgvImage.Value = Properties.Resources.Quitar;
             int idxRow = DgvProdServ.Rows.Add(
                                                 TxtProdCodigo.Text,                 // 0
                                                 CmbProductos.Text,                  // 1
@@ -220,11 +222,12 @@ namespace EsconPOS.forms
                 ItemID = idxRow + 1,
                 ProductoID = ((Productos)CmbProductos.SelectedItem).ProductoID,
                 ValorUnitario = ((Productos)CmbProductos.SelectedItem).ValorUnitario,
-                Cantidad = (long)NumValorUnit.Value,
+                Cantidad = (long)NumCantidad.Value,
+                MontoDescuento = (double)NumDescuento.Value,
+                SubTotal = (double)SubTotalItem,
                 ImpuestoID = ((Productos)CmbProductos.SelectedItem).ImpuestoID,
                 TasaImpuesto = ((Productos)CmbProductos.SelectedItem).Impuestos.Tasa,
                 MontoImpuesto = (double)MontoImpuesto,
-                MontoDescuento = (double)NumDescuento.Value,
                 MontoNeto = (double)TotalItem,
                 VendidoPor = ((Empleados)CmbEmpleados.SelectedItem).EmpleadoID,
                 EsDevolucion = 0
@@ -432,6 +435,7 @@ namespace EsconPOS.forms
             NumCantidad.Value = 0;
             NumValorUnit.Value = 0;
             NumDescuento.Value = 0;
+            UltimoDoc = null;
             DgvProdServ.Rows.Clear();
 
             cmbMonedas.SelectedIndex = 0;
@@ -478,7 +482,7 @@ namespace EsconPOS.forms
             NumDescuento.Value = 0;
         }
 
-        private decimal DecimalGringo(string Num)
+        private decimal ToDecimalGringo(string Num)
         {
             return decimal.Parse(Num.ToString().Replace(".", "").Replace(",", "."), new CultureInfo("us-US"));
         }
@@ -487,9 +491,9 @@ namespace EsconPOS.forms
         {
             if (((DataGridView)sender).Name == "DgvProdServ")
             {
-                decimal MontoBruto = (decimal)DgvProdServ["colValorUnitario", Idx].Value * (decimal)DgvProdServ["colCantidad", Idx].Value;
-                decimal MontoDcto = (decimal)DgvProdServ["colDescuento", Idx].Value;
-                decimal MontoImpuesto = (decimal)DgvProdServ["colImpuestos", Idx].Value;
+                decimal MontoBruto = ToDecimalGringo(DgvProdServ["colProdServValorUnitario", Idx].Value.ToString()) * ToDecimalGringo(DgvProdServ["colProdServCantidad", Idx].Value.ToString());
+                decimal MontoDcto = ToDecimalGringo(DgvProdServ["colProdServDescuento", Idx].Value.ToString());
+                decimal MontoImpuesto = ToDecimalGringo(DgvProdServ["colProdServImpuestos", Idx].Value.ToString());
                 // Negativos (* -1) porque estoy eliminando la línea
                 LineaTotales.CalculaTotalDocumento(MontoBruto * -1, MontoDcto * -1, MontoImpuesto * -1, NumDctoGlobal.Value);
                 ActualizaTotalesDoc();
@@ -497,9 +501,10 @@ namespace EsconPOS.forms
             }
             else if (((DataGridView)sender).Name == "DgvPagos")
             {
-                decimal MontoPago = (decimal)DgvPagos["colMontoPago", Idx].Value;
+                decimal MontoPago = ToDecimalGringo(DgvPagos["colFormaPagoMonto", Idx].Value.ToString());
                 // Negativo (* -1) porque estoy eliminando la línea
                 LineaTotales.AgregaPago(MontoPago * -1);
+                ActualizaTotalesDoc();
                 CmbFormaPago.Focus();
             }
            ((DataGridView)sender).Rows.RemoveAt(((DataGridView)sender).SelectedRows[0].Index);
@@ -509,7 +514,7 @@ namespace EsconPOS.forms
         {
             foreach (DataGridViewRow row in DgvPagos.Rows)
             {
-                if ((long)row.Tag == ID) return true;
+                if (((Pagos)row.Tag).FormaPagoID == ID) return true;
             };
             return false;
         }
@@ -522,13 +527,19 @@ namespace EsconPOS.forms
 
             //
             // Buscar el tipo de documento que se va a utilizar...
-            // Por ahora estoy buscando FAC.
+            // Usos de los tipos de documentos:
+            // "FAC" para faturas
+            // "DEV" para devoluciones
+            // "NCR" para notas de crédito
+            // "NDB" paea notas de débito
             //
             TiposDocumentos TiposDoc;
             try
             {
                 TiposDoc = (from t in context.TiposDocumentos
-                            where t.Iniciales == "FAC"
+                            join u in context.UsosDocumentos
+                            on t.UsoID equals u.UsoID
+                            where u.Codigo == "FAC"
                             select t).FirstOrDefault();
                 if (TiposDoc == null)
                 {
@@ -588,6 +599,7 @@ namespace EsconPOS.forms
                 };
                 context.Documentos.Add(documento);
                 context.SaveChanges();
+                UltimoDoc = documento;
             }
             catch (Exception ex)
             {
@@ -675,7 +687,79 @@ namespace EsconPOS.forms
                 Cursor.Current = Cursors.Default;
                 return;
             }
+            ImprimirFactura();
+            vPrinter.Show();
+            ClearCrt();
             Cursor.Current = Cursors.Default;
+        }
+
+        private void ImprimirFactura()
+        {
+            Empresas empresa;
+            vPrinter = new FrmImpresora();
+            vPrinter.MdiParent = this.MdiParent;
+            vPrinter.PrinterWidth = 40;
+
+            // HEADER EMPRESA
+            try
+            {
+                empresa = (from e in context.Empresas
+                           where e.EmpresaID == Global.glEmpresa
+                           select e).Single();
+            }
+            catch (Exception ex)
+            {
+                Global.MensajeError(ex, "Error buscando los datos de la empresa.");
+                return;
+            }
+            vPrinter.Print(empresa.RazonSocial, 'C');
+            vPrinter.Print(empresa.Identificaciones.Iniciales + ": " + empresa.NroDocIdent.ToString(), 'C');
+            vPrinter.Print(empresa.Direccion, 'C');
+            vPrinter.Print(empresa.NroTelefonico, 'C');
+            vPrinter.Print();
+
+            // HEADER FACTURA
+            vPrinter.Print("Factura: " + UltimoDoc.CodDocumento);
+            vPrinter.Print(UltimoDoc.FechaDocumento + "  " + UltimoDoc.HoraDocumento);
+            vPrinter.Print(new string('.', 40));
+
+            // DATOS CLIENTE
+            vPrinter.Print("Cliente: " + UltimoDoc.Clientes.Nombre);
+            vPrinter.Print(UltimoDoc.Clientes.Identificaciones.Iniciales + ": " + UltimoDoc.Clientes.NroDocIdent.ToString());
+            vPrinter.Print();
+
+            // DATOS CAJERO
+            vPrinter.Print(Global.glNomCaja);
+            vPrinter.Print(Global.glNomEmpleado);
+            vPrinter.Print(new string('.', 40));
+
+            // PRODUCTOS
+            foreach (DataGridViewRow row in DgvProdServ.Rows)
+            {
+                ItemsDocumentos item = (ItemsDocumentos)row.Tag;
+                vPrinter.Print(item.Cantidad.ToString("##") + " X " + item.ValorUnitario.ToString("N2"));
+
+                string descripcion = context.Productos.Where(p => p.ProductoID == item.ProductoID).Select(p => p.Producto).Single();
+                if (descripcion.Length > 20)
+                    vPrinter.Print(descripcion.Substring(0, 20) + (item.MontoImpuesto == 0 ? " E " : " G ") + item.SubTotal.ToString("N2").PadLeft(16));
+                else
+                    vPrinter.Print(descripcion.PadRight(20) + (item.MontoImpuesto == 0 ? " E " : " G ") + item.SubTotal.ToString("N2").PadLeft(16));
+            }
+            // FORMAS DE PAGO
+            vPrinter.Print("FORMA DE PAGO");
+            foreach (DataGridViewRow row in DgvPagos.Rows)
+            {
+                string Codigo = context.FormasPagos.Where(f => f.FormaPagoID == ((Pagos)row.Tag).FormaPagoID).Select(f => f.Codigo).Single();
+                vPrinter.Print(Codigo + ((Pagos)row.Tag).MontoPago.ToString("N2").PadLeft(39 - Codigo.Length));
+            }
+            // TOTALES
+            vPrinter.Print("num. de items = " + DgvProdServ.Rows.Count.ToString("F0"));
+            vPrinter.Print(new string('.', 40));
+            vPrinter.Print("SubTotal:  " + UltimoDoc.MontoBruto.ToString("N2").PadLeft(28));
+            vPrinter.Print("Impuestos: " + UltimoDoc.MontoImpuestos.ToString("N2").PadLeft(28));
+            vPrinter.Print("Total:     " + UltimoDoc.MontoNeto.ToString("N2").PadLeft(28));
+            // CIERRE
+            vPrinter.Print(new string('.', 40));
         }
 
         private bool ItemYaExiste(string Codigo)
@@ -701,12 +785,6 @@ namespace EsconPOS.forms
             PnlTotales.Enabled = false;
             GbxPago.Visible = true;
 
-            vPrinter = new FrmImpresora();
-            vPrinter.MdiParent = this.MdiParent;
-            vPrinter.PrinterWidth = 40;
-            vPrinter.InicializaPrinter();
-            vPrinter.Show();
-
             //FrmPago fPago = new FrmPago();
             //fPago.documento = doc;
             //fPago.MtoFaltante = doc.MontoNeto;
@@ -720,6 +798,7 @@ namespace EsconPOS.forms
             if (CmbProductos.SelectedIndex == -1) return;
             var producto = (Productos)CmbProductos.SelectedItem;
             TxtProdCodigo.Text = producto.Codigo;
+            if (producto.PorFraccion == 0) NumCantidad.Value = 1;
             NumValorUnit.Value = (Decimal)producto.ValorUnitario;
         }
 
@@ -786,6 +865,18 @@ namespace EsconPOS.forms
 
         private bool ValItemEntReq()
         {
+            if (CmbClientes.SelectedIndex == -1)
+            {
+                CmbClientes.Focus();
+                MessageBox.Show("Debe seleccionar el cliente de la lista.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (CmbEmpleados.SelectedIndex == -1)
+            {
+                CmbEmpleados.Focus();
+                MessageBox.Show("Debe seleccionar el empleado/vendedor de la lista.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
             if (TxtProdCodigo.Text.Length == 0)
             {
                 TxtProdCodigo.Focus();
@@ -889,8 +980,7 @@ namespace EsconPOS.forms
             LblNroAutPago.Visible = (formapago.RequiereAutorizacion == 1);
             TxtNroAutPago.Visible = (formapago.RequiereAutorizacion == 1);
 
-            if (formapago.RequiereBanco == 1 || formapago.RequiereNumero == 1 || formapago.RequiereAutorizacion == 1)
-                GbxDatosAdicionales.Visible = true;
+            GbxDatosAdicionales.Visible = ((formapago.RequiereBanco == 1) || (formapago.RequiereNumero == 1) || formapago.RequiereAutorizacion == 1);
         }
 
         #endregion Funciones
@@ -926,7 +1016,6 @@ namespace EsconPOS.forms
 
         private void BtnAgregarPago_Click(object sender, EventArgs e)
         {
-            vPrinter.Print("BtnAgregarPago_Click");
             AgregarFormaPago();
         }
 
@@ -935,42 +1024,48 @@ namespace EsconPOS.forms
             AgregarItemDoc();
         }
 
+        private void BtnCancelarPago_Click(object sender, EventArgs e)
+        {
+            // Limpiar / Ocultar forma de pago.
+            LineaTotales.AgregaPago((decimal)LineaTotales.MontoPagado * -1);
+            ActualizaTotalesDoc();
+
+            DgvPagos.Rows.Clear();
+            GbxPago.Visible = false;
+
+            PnlDatosEntrada.Enabled = true;
+            DgvProdServ.Enabled = true;
+            PnlTotales.Enabled = true;
+        }
+
         private void BtnQuitarItem_Click(object sender, EventArgs e)
         {
-            if (DgvProdServ.SelectedRows.Count == 0) return;
-            EliminarItem(DgvProdServ, DgvProdServ.SelectedRows[0].Index);
+            if (((DataGridView)sender).SelectedRows.Count == 0) return;
+            EliminarItem(sender, ((DataGridView)sender).SelectedRows[0].Index);
         }
 
         private void ChkTotal_Click(object sender, EventArgs e)
         {
-            vPrinter.Print("ChkTotal_Click");
             if (ChkTotal.Checked)
             {
                 NumMontoPago.Value = LineaTotales.PorPagar();
             }
         }
 
-        // Siguiente campo cuando presiona [ENTER].
+        // Siguiente campo cuando presiona[ENTER].
         private void ChkTotal_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
             {
-                vPrinter.Print("ChkTotal_KeyDown [RETURN]");
                 e.SuppressKeyPress = true;
                 e.Handled = true;
                 SelectNextControl((CheckBox)sender, true, true, true, false);
             }
         }
 
-        private void ChkTotal_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == Convert.ToChar(Keys.Return))
-            {
-                vPrinter.Print("ChkTotal_KeyPress [RETURN]");
-                e.Handled = true;
-                SelectNextControl((CheckBox)sender, true, true, true, false);
-            }
-        }
+        //private void ChkTotal_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+        //}
 
         // Siguiente campo cuando presiona [ENTER]. Limpia selección cuando presiona [ESC].
         private void Cmb_KeyDown(object sender, KeyEventArgs e)
@@ -1038,6 +1133,14 @@ namespace EsconPOS.forms
             CargarVendedores();
         }
 
+        private void Dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Solo para la columna de Quitar.
+            if (((DataGridView)sender).Name == "DgvProdServ" && (e.RowIndex < 0 || e.ColumnIndex != 8)) return;
+            if (((DataGridView)sender).Name == "DgvPagos" && (e.RowIndex < 0 || e.ColumnIndex != 5)) return;
+            EliminarItem(sender, e.RowIndex);
+        }
+
         private void Dgv_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
@@ -1075,13 +1178,14 @@ namespace EsconPOS.forms
             //this.WindowState = FormWindowState.Normal;
 
             this.Width = this.MdiParent.ClientSize.Width - 6;
-            this.Height= this.MdiParent.ClientSize.Height - 90;
+            this.Height = this.MdiParent.ClientSize.Height - 90;
 
             DgvProdServ.Width = this.Width - DgvProdServ.Left - 27;
             PnlTotales.Left = DgvProdServ.Right - PnlTotales.Width;
             PnlTotales.Top = this.Height - statusStrip.Height - PnlTotales.Height - 38;
             DgvProdServ.Height = this.Height - statusStrip.Height - DgvProdServ.Top - PnlTotales.Height - 38;
             CargarCombos();
+            CmbTipoIDCli.Focus();
         }
 
         private void FrmPuntoDeVenta_SizeChanged(object sender, EventArgs e)
@@ -1104,7 +1208,6 @@ namespace EsconPOS.forms
 
         private void Num_Enter(object sender, EventArgs e)
         {
-            if (((NumericUpDown)sender).Name == "NumMontoPago") vPrinter.Print("Num_Enter:" + ((NumericUpDown)sender).Name);
             ((NumericUpDown)sender).Select(0, ((NumericUpDown)sender).Text.Length);
         }
 
@@ -1112,20 +1215,20 @@ namespace EsconPOS.forms
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (((NumericUpDown)sender).Name == "NumMontoPago") vPrinter.Print("Num_KeyDown [ENTER]:" + ((NumericUpDown)sender).Name);
                 e.Handled = true;
                 e.SuppressKeyPress = true;
                 if (((NumericUpDown)sender).Name == "NumDctoGlobal")
                     TsBtnRecibirPago_Click(null, null);
-                else if (((NumericUpDown)sender).Name == "NumMontoPago" && !GbxDatosAdicionales.Visible && ((NumericUpDown)sender).Value != 0)
+                else if (((NumericUpDown)sender).Name == "NumMontoPago")
                 {
-                    vPrinter.Print("Num_KeyDown [ENTER]:" + ((NumericUpDown)sender).Name + ":InVisible");
-                    BtnAgregarPago_Click(null, null);
-                }
-                else if (((NumericUpDown)sender).Name == "NumMontoPago" && GbxDatosAdicionales.Visible && ((NumericUpDown)sender).Value != 0)
-                {
-                    vPrinter.Print("Num_KeyDown [ENTER]:" + ((NumericUpDown)sender).Name + ":Visible");
-                    CmbBanco.Focus();
+                    if (!GbxDatosAdicionales.Visible)
+                    {
+                        BtnAgregarPago_Click(NumMontoPago, null);
+                    }
+                    else
+                    {
+                        CmbBanco.Focus();
+                    }
                 }
                 else
                     SelectNextControl((NumericUpDown)sender, true, true, true, false);
@@ -1158,7 +1261,6 @@ namespace EsconPOS.forms
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if(vPrinter!=null) vPrinter.Print("Num_KeyDown [ENTER]:" + ((TextBox)sender).Name);
                 e.Handled = true;
                 e.SuppressKeyPress = true;
                 if (((TextBox)sender).Name == "TxtNroAutPago")
@@ -1179,8 +1281,6 @@ namespace EsconPOS.forms
                         e.Handled = true;
                 }
             }
-            else
-                if(vPrinter!=null) vPrinter.Print("Txt_KeyPress [ENTER]:" + ((TextBox)sender).Name);
         }
 
         private void TxtNroIDCli_TextChanged(object sender, EventArgs e)

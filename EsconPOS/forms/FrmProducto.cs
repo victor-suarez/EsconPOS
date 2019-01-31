@@ -140,6 +140,7 @@ namespace EsconPOS.forms
             TxtProducto.Text = "";
             TxtPresentacion.Text = "";
             CmbUnidades.SelectedIndex = -1;
+            ChkPorFraccion.Checked = false;
             CmbImpuestos.SelectedIndex = -1;
             NumCostoUnitario.Value = 0;
             NumPrecioUnitario.Value = 0;
@@ -200,6 +201,7 @@ namespace EsconPOS.forms
                         MarcaID = ((Marcas)CmbMarcas.SelectedItem).MarcaID,
                         ImpuestoID = ((Impuestos)CmbImpuestos.SelectedItem).ImpuestoID,
                         UnidadMedidaID = ((UnidadesMedidas)CmbUnidades.SelectedItem).UnidadMedidaID,
+                        PorFraccion = ChkPorFraccion.Checked ? 1 : 0,
                         Presentacion = TxtPresentacion.Text.Trim(),
                         CostoUnitario = (Double)NumCostoUnitario.Value,
                         ValorUnitario = (Double)NumPrecioUnitario.Value,
@@ -233,6 +235,7 @@ namespace EsconPOS.forms
                     producto.MarcaID = ((Marcas)CmbMarcas.SelectedItem).MarcaID;
                     producto.ImpuestoID = ((Impuestos)CmbImpuestos.SelectedItem).ImpuestoID;
                     producto.UnidadMedidaID = ((UnidadesMedidas)CmbUnidades.SelectedItem).UnidadMedidaID;
+                    producto.PorFraccion = ChkPorFraccion.Checked ? 1 : 0;
                     producto.Presentacion = TxtPresentacion.Text.Trim();
                     producto.CostoUnitario = (Double)NumCostoUnitario.Value;
                     producto.ValorUnitario = (Double)NumPrecioUnitario.Value;
@@ -270,24 +273,25 @@ namespace EsconPOS.forms
 
         private void MoverRegistroToCrt(long ID)
         {
-            var pro = (from p in context.Productos
-                       where p.ProductoID == ID
-                       select p).First();
+            var producto = (from p in context.Productos
+                            where p.ProductoID == ID
+                            select p).First();
 
-            TxtCodigo.Text = pro.Codigo;
-            TxtCodigo.Tag = pro.ProductoID;
-            TxtCodigoBarra.Text = pro.CodigoBarra;
-            CmbMarcas.SelectedValue = pro.MarcaID;
-            CmbTipos.SelectedValue = pro.TipoProductoID;
-            TxtProducto.Text = pro.Producto;
-            TxtPresentacion.Text = pro.Presentacion;
-            CmbUnidades.SelectedValue = pro.UnidadMedidaID;
-            CmbImpuestos.SelectedValue = pro.ImpuestoID;
-            NumCostoUnitario.Value = (decimal)pro.CostoUnitario;
-            NumPrecioUnitario.Value = (decimal)pro.ValorUnitario;
-            TssLblAgregado.Text = pro.EmpleadoAdd.Login.ToLower() + " " + pro.AgregadoEl;
-            if (pro.EmpleadoUpd != null)
-                TssLblModificado.Text = (pro.EmpleadoUpd.Login.ToLower() + " " + pro.ModificadoEl) ?? "";
+            TxtCodigo.Text = producto.Codigo;
+            TxtCodigo.Tag = producto.ProductoID;
+            TxtCodigoBarra.Text = producto.CodigoBarra;
+            CmbMarcas.SelectedValue = producto.MarcaID;
+            CmbTipos.SelectedValue = producto.TipoProductoID;
+            TxtProducto.Text = producto.Producto;
+            TxtPresentacion.Text = producto.Presentacion;
+            CmbUnidades.SelectedValue = producto.UnidadMedidaID;
+            ChkPorFraccion.Checked = (producto.PorFraccion == 1);
+            CmbImpuestos.SelectedValue = producto.ImpuestoID;
+            NumCostoUnitario.Value = (decimal)producto.CostoUnitario;
+            NumPrecioUnitario.Value = (decimal)producto.ValorUnitario;
+            TssLblAgregado.Text = producto.EmpleadoAdd.Login.ToLower() + " " + producto.AgregadoEl;
+            if (producto.EmpleadoUpd != null)
+                TssLblModificado.Text = (producto.EmpleadoUpd.Login.ToLower() + " " + producto.ModificadoEl) ?? "";
             else
                 TssLblModificado.Text = "";
         }
@@ -359,6 +363,11 @@ namespace EsconPOS.forms
             if (e.KeyCode == Keys.Return) e.IsInputKey = true;
         }
 
+        private void BtnAgregarImpuesto_Click(object sender, EventArgs e)
+        {
+            if (CmbImpuestos.Text.Trim() == "" || CmbImpuestos.SelectedIndex != -1) return;
+        }
+
         private void BtnAgregarMarca_Click(object sender, EventArgs e)
         {
             if (CmbMarcas.Text.Trim() == "" || CmbMarcas.SelectedIndex != -1) return;
@@ -411,6 +420,11 @@ namespace EsconPOS.forms
             SetStatus("Clase de productos agregada.");
         }
 
+        private void BtnAgregarUnidad_Click(object sender, EventArgs e)
+        {
+            if (CmbUnidades.Text.Trim() == "" || CmbUnidades.SelectedIndex != -1) return;
+        }
+
         private void Cmb_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
@@ -444,7 +458,6 @@ namespace EsconPOS.forms
 
         private void CmbMarcas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BtnAgregarMarca.TabStop = (CmbMarcas.SelectedIndex < 0);
         }
 
         private void CmbTipos_SelectedIndexChanged(object sender, EventArgs e)

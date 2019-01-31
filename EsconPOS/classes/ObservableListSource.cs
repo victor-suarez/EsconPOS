@@ -12,7 +12,7 @@ using System.Data.Entity;
 
 namespace EsconPOS.forms
 {
-    public class ObservableListSource<T> : ObservableCollection<T>, IListSource
+    public sealed class ObservableListSource<T> : ObservableCollection<T>, IListSource
         where T : class
     {
         private IBindingList _bindingList;

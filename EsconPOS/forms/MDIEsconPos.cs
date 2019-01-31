@@ -1,8 +1,10 @@
 ﻿using EsconPOS.classes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace EsconPOS.forms
@@ -19,10 +21,12 @@ namespace EsconPOS.forms
         #region Variables privadas
 
         private static bool CajaAbierta = false;
+        private bool _keepRunning = false;
         private mainEntities context = new mainEntities();
         private FrmBanco FrmBco = null;
         private FrmClase FrmCla = null;
         private FrmCliente FrmCli = null;
+        private FrmDocumento FrmDoc = null;
         private FrmEmpleado FrmEmp = null;
         private FrmEmpresa FrmEpr = null;
         private FrmFormasPago FrmFpg = null;
@@ -34,19 +38,17 @@ namespace EsconPOS.forms
         private FrmImpuesto FrmTax = null;
         private FrmUnidadMedida FrmUnd = null;
         private bool IsClosing = false;
+        private BackgroundWorker ProcesoSUNAT = null;
+
+        public bool KeepRunning
+        {
+            get { return _keepRunning; }
+            set { _keepRunning = value; }
+        }
 
         #endregion Variables privadas
 
         #region Funciones privadas
-
-        public void SetStatus(string StrStatus = "", bool Error = false)
-        {
-            if (Error)
-                TsslStatus.ForeColor = Color.Red;
-            else
-                TsslStatus.ForeColor = SystemColors.ControlText;
-            TsslStatus.Text = StrStatus;
-        }
 
         private void AbrirCerrarCaja()
         {
@@ -76,6 +78,17 @@ namespace EsconPOS.forms
             Cursor.Current = Cursors.Default;
         }
 
+        private void InicializarProcesoSUNAT()
+        {
+            ProcesoSUNAT = new BackgroundWorker();
+            ProcesoSUNAT.ProgressChanged += ProcesoSUNAT_ProgressChanged;
+            ProcesoSUNAT.DoWork += ProcesoSUNAT_DoWork;
+            ProcesoSUNAT.RunWorkerCompleted += ProcesoSUNAT_RunWorkerCompleted;
+            ProcesoSUNAT.WorkerReportsProgress = true;
+            ProcesoSUNAT.WorkerSupportsCancellation = true;
+
+        }
+
         private void IniciarBotones()
         {
             TssbPpalCaja.Visible = true;
@@ -85,6 +98,12 @@ namespace EsconPOS.forms
                 TssbPpalUbicacion.Visible = true;
                 TssbPpalSunat.Visible = true;
                 TssbPpalProductos.Visible = true;
+                // Acciones en Administrar (solo dejar Mi Contraseña)
+                TsmiAdminEmpresas.Visible = true;
+                TsmiAdminEmpleados.Visible = true;
+                TsmiAdminClientes.Visible = true;
+                TsmiAdminFormasPago.Visible = true;
+                TsmiAdminTiposDeDocumentos.Visible = true;
             }
         }
 
@@ -102,6 +121,12 @@ namespace EsconPOS.forms
             TmrHora.Start();
         }
 
+        public void SetStatus(string StrStatus = "", bool Error = false)
+        {
+            TsslStatus.ForeColor = Error ? Color.Red : SystemColors.ControlText;
+            TsslStatus.Text = StrStatus;
+        }
+
         #endregion Funciones privadas
 
         #region Propiedades y métodos
@@ -109,17 +134,20 @@ namespace EsconPOS.forms
         public MDIEsconPos()
         {
             InitializeComponent();
+            InicializarProcesoSUNAT();
         }
 
         private void MDIEsconPos_FormClosing(object sender, FormClosingEventArgs e)
         {
             IsClosing = true;
             if (CajaAbierta) AbrirCerrarCaja();
+            ProcesoSUNAT.CancelAsync();
         }
 
         private void MDIEsconPos_Load(object sender, EventArgs e)
         {
             IniciarInfo();
+            ProcesoSUNAT.RunWorkerAsync();
         }
 
         private void MDIEsconPos_Shown(object sender, EventArgs e)
@@ -139,6 +167,73 @@ namespace EsconPOS.forms
                 else
                     SetStatus(FrmPas.MensajeRespuesta, true);
             }
+        }
+
+        private void ProcesoSUNAT_DoWork(object sender, DoWorkEventArgs e)
+        {
+            // Da Real Job!!!
+            KeepRunning = true;
+            while (KeepRunning)
+            {
+                Thread.Sleep(60000);
+                SetStatus("Process is running...");
+                // Steps...
+                // Test for Internet?
+                //
+                // Query sended but unreceived response documents
+                // For each unreceived document
+                ///// Prepare document (toJson? toXML? toText?)
+                ///// Try
+                /////// Send document
+                ///// Catch
+                /////// No Internet?
+                ///// End
+                ///// Try
+                /////// Receive response
+                /////// Update document (response received)
+                ///// Catch
+                /////// No Internet?
+                ///// End
+                //
+                //
+                // Query unsended documents
+                // For each unsended document
+                ///// Prepare document (toJson? toXML? toText?)
+                ///// Try
+                /////// Send document
+                /////// Update document (sended)
+                ///// Catch
+                /////// No Internet?
+                ///// End
+                ///// Try
+                /////// Receive response
+                /////// Update document (response received)
+                ///// Catch
+                /////// No Internet?
+                ///// End
+                // Next
+                if (ProcesoSUNAT.CancellationPending)
+                {
+                    // this is important as it set the cancelled property of RunWorkerCompletedEventArgs to true
+                    e.Cancel = true;
+                    break;
+                }
+            }
+        }
+
+        private void ProcesoSUNAT_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            // Is working...
+            SetStatus(e.UserState.ToString());
+        }
+
+        private void ProcesoSUNAT_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // Task complete!
+            if (e.Cancelled)
+                SetStatus("Cancelled!");
+            else
+                SetStatus("Stopped.");
         }
 
         private void TmrHora_Tick(object sender, EventArgs e)
@@ -206,6 +301,18 @@ namespace EsconPOS.forms
             FrmPas.MdiParent = this;
             FrmPas.Show();
             FrmPas.StartPosition = FormStartPosition.CenterParent;
+        }
+
+        private void TsmiAdminTiposDeDocumentos_Click(object sender, EventArgs e)
+        {
+            if (FrmDoc != null && !FrmDoc.IsDisposed)
+            {
+                FrmDoc.BringToFront();
+                return;
+            }
+            FrmDoc = new forms.FrmDocumento();
+            FrmDoc.MdiParent = this;
+            FrmDoc.Show();
         }
 
         private void TsmiCajaIncluirFactura_Click(object sender, EventArgs e)
@@ -340,6 +447,11 @@ namespace EsconPOS.forms
             ((ToolStripSplitButton)sender).ShowDropDown();
         }
 
+        private void TssbChildFormList_Click(object sender, EventArgs e)
+        {
+            ((Form)((ToolStripItem)sender).Tag).Activate();
+        }
+
         private void TssbSalir_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("¿Seguro desea cerrar el sistema?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -352,6 +464,8 @@ namespace EsconPOS.forms
         }
 
         #endregion Propiedades y métodos
+
+        #region Open Windows list
 
         private void AddItemToWindowList(Form f)
         {
@@ -418,9 +532,6 @@ namespace EsconPOS.forms
             }
         }
 
-        private void TssbChildFormList_Click(object sender, EventArgs e)
-        {
-            ((Form)((ToolStripItem)sender).Tag).Activate();
-        }
+        #endregion Open Windows list
     }
 }

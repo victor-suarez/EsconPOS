@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace EsconPOS.forms
@@ -8,7 +9,16 @@ namespace EsconPOS.forms
         #region Variables, constantes privadas y propiedades públicas
 
         private int _PrinterWidth;
-        public int PrinterWidth { get { return _PrinterWidth; } set { _PrinterWidth = value; } }
+        public int PrinterWidth
+        {
+            get { return _PrinterWidth; }
+            set
+            {
+                if (value > 132) value = 132;
+                if (value < 40) value = 40;
+                _PrinterWidth = value;
+            }
+        }
 
         #endregion Variables, constantes privadas y propiedades públicas
 
@@ -19,44 +29,84 @@ namespace EsconPOS.forms
             TxtPrn.Clear();
         }
 
+        public void InicializaPrinter()
+        {
+            Font ActualFont = TxtPrn.Font;
+            Size TextSize = TextRenderer.MeasureText(new string('W', PrinterWidth), ActualFont);
+            this.Width = TextSize.Width + 24;
+            //if (PrinterWidth > 40)
+            //{
+            //    this.Width = this.MdiParent.ClientSize.Width - 12;
+            //}
+            //else
+            //{
+            //    this.Width = (int)(this.MdiParent.ClientSize.Width / 2.5);
+            //}
+            this.Top = this.MdiParent.ClientRectangle.Top;
+            this.Left = this.MdiParent.ClientSize.Width - this.Width - 12;
+            this.Height = this.MdiParent.ClientSize.Height - 90;
+            TxtPrn.Height = this.Height - PnlButtons.Height - 6;
+            PnlButtons.Top = this.Height - PnlButtons.Height - 6;
+            PnlButtons.Left = (int)((this.Width - PnlButtons.Width) / 2);
+        }
+
         public void Print(string Value = "", char Padded = 'L')
         {
-            if (Value != "")
+            if (Value != "" && Value != null)
             {
-                if (Padded == 'L')
+                if (Value.Trim().Length > PrinterWidth)
+                    PrintLongLines(Value, Padded);
+                else
                 {
-                    TxtPrn.AppendText(Value);
-                }
-                else if (Padded == 'R')
-                {
-                    if (Value.Length > PrinterWidth) Value = Value.Substring(0, PrinterWidth);
-                    TxtPrn.AppendText(Value.PadLeft(PrinterWidth));
-                }
-                else if (Padded == 'C')
-                {
-                    string Filler = new string(' ', (int)((PrinterWidth - Value.Length) / 2));
-                    TxtPrn.AppendText(Filler + Value);
-                }
+                    if (Padded == 'L')
+                    {
+                        TxtPrn.AppendText(Value.TrimStart());
+                    }
+                    else if (Padded == 'R')
+                    {
+                        if (Value.TrimEnd().Length > PrinterWidth) Value = Value.Substring(0, PrinterWidth);
+                        TxtPrn.AppendText(Value.PadLeft(PrinterWidth));
+                    }
+                    else if (Padded == 'C')
+                    {
+                        int left = (PrinterWidth - Value.TrimEnd().Length) / 2;
+                        TxtPrn.AppendText(Value.TrimEnd().PadLeft(left + Value.TrimEnd().Length));
+                    }
+               }
             }
             TxtPrn.AppendText("\r\n");
         }
 
-        public void InicializaPrinter()
+        private void PrintLongLines(string Value, char Padded)
         {
-            if (PrinterWidth > 40)
+            int ChunkSize = 0;
+            for (int ChrIdx = 0; ChrIdx < Value.Length; ChrIdx += PrinterWidth)
             {
-                this.Width = this.MdiParent.ClientSize.Width - 12;
+                if (PrinterWidth + ChrIdx > Value.Length)
+                    ChunkSize = Value.Length - ChrIdx;
+                else
+                    ChunkSize = PrinterWidth;
+                if (Padded == 'L')
+                {
+                    TxtPrn.AppendText(Value.Substring(ChrIdx, ChunkSize).Trim());
+                }
+                if (Padded == 'R')
+                {
+                    TxtPrn.AppendText(Value.Substring(ChrIdx, ChunkSize).Trim().PadLeft(PrinterWidth));
+                }
+                if (Padded == 'C')
+                {
+                    int left = 0;
+                    if(ChunkSize == PrinterWidth)
+                        TxtPrn.AppendText(Value.Substring(ChrIdx, ChunkSize).Trim());
+                    else
+                    {
+                        left = (PrinterWidth - ChunkSize) / 2;
+                        TxtPrn.AppendText(Value.Substring(ChrIdx, ChunkSize).PadLeft(left + ChunkSize));
+                    }
+                }
+                TxtPrn.AppendText("\r\n");
             }
-            else
-            {
-                this.Width = (int)(this.MdiParent.ClientSize.Width / 2.5);
-            }
-            this.Top = 0;
-            this.Left = this.MdiParent.ClientSize.Width - this.Width - 3;
-            this.Height = this.MdiParent.ClientSize.Height - 90;
-            TxtPrn.Height = this.Height - PnlButtons.Height- 6;
-            PnlButtons.Top = this.Height - PnlButtons.Height - 6;
-            PnlButtons.Left = (int)((this.Width - PnlButtons.Width) / 2);
         }
 
         #endregion Funciones
@@ -90,6 +140,7 @@ namespace EsconPOS.forms
         private void FrmImpresora_Load(object sender, EventArgs e)
         {
             //InicializaPrinter();
+            InicializaPrinter();
             this.BringToFront();
         }
 
@@ -97,7 +148,6 @@ namespace EsconPOS.forms
 
         private void FrmImpresora_Activated(object sender, EventArgs e)
         {
-
         }
     }
 }

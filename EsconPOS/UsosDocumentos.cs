@@ -12,27 +12,19 @@ namespace EsconPOS
     using System;
     using System.Collections.Generic;
     
-    public partial class TiposDocumentos
+    public partial class UsosDocumentos
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TiposDocumentos()
+        public UsosDocumentos()
         {
-            this.Documentos = new HashSet<Documentos>();
+            this.TiposDocumentos = new HashSet<TiposDocumentos>();
         }
     
-        public long TipoDocumentoID { get; set; }
+        public long UsoID { get; set; }
         public string Codigo { get; set; }
-        public string TipoDocumento { get; set; }
-        public string Iniciales { get; set; }
-        public long NroSiguiente { get; set; }
-        public string ModificadoEl { get; set; }
-        public Nullable<long> ModificadoPor { get; set; }
-        public long Activo { get; set; }
-        public Nullable<long> UsoID { get; set; }
+        public string Uso { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Documentos> Documentos { get; set; }
-        public virtual Empleados EmpleadoUpd { get; set; }
-        public virtual UsosDocumentos UsosDocumentos { get; set; }
+        public virtual ICollection<TiposDocumentos> TiposDocumentos { get; set; }
     }
 }

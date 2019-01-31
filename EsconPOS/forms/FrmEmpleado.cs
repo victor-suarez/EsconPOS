@@ -27,6 +27,7 @@ namespace EsconPOS.forms
             CmbFiltroTipoID.DataSource = context.Identificaciones.OrderBy("Codigo").ToList();
             CmbFiltroTipoID.DisplayMember = "Iniciales";
             CmbFiltroTipoID.ValueMember = "IdentificacionID";
+            CmbFiltroTipoID.SelectedIndex = -1;
 
             CmbEmpresa.DataSource = context.Empresas.OrderBy("RazonSocial").ToList();
             CmbEmpresa.DisplayMember = "RazonSocial";
@@ -102,6 +103,33 @@ namespace EsconPOS.forms
                 return;
             }
             SetStatus("Empleado eliminado.");
+            ClearCrt();
+            CargarEmpleados();
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void EliminarContrasenia()
+        {
+            if (CmbTipoIDEmpleado.Tag == null) return;
+            if (MessageBox.Show("¿Seguro desea inicializar la contraseña del empleado seleccionado?", "Eliminar contraseña", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+            Cursor.Current = Cursors.WaitCursor;
+            try
+            {
+                long ID = long.Parse(CmbTipoIDEmpleado.Tag.ToString());
+                var empleado = context.Empleados.Single(e => e.EmpleadoID == ID);
+                context.Empleados.Attach(empleado);
+                empleado.PasswdHash = "";
+                empleado.ModificadoEl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                empleado.ModificadoPor = Global.glUsuario;
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Global.MensajeError(ex, "Error inicializando la contraseña del empleado.");
+                return;
+            }
+            SetStatus("Contraseña inicializada.");
             ClearCrt();
             CargarEmpleados();
             Cursor.Current = Cursors.Default;
@@ -363,5 +391,10 @@ namespace EsconPOS.forms
         }
 
         #endregion Métodos
+
+        private void TsBtnInitPasswd_Click(object sender, EventArgs e)
+        {
+            EliminarContrasenia();
+        }
     }
 }

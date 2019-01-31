@@ -29,26 +29,18 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPuntoDeVenta));
             this.label1 = new System.Windows.Forms.Label();
             this.CmbTipoIDCli = new System.Windows.Forms.ComboBox();
             this.TxtNroIDCli = new System.Windows.Forms.TextBox();
             this.DgvProdServ = new System.Windows.Forms.DataGridView();
-            this.colCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colValorUnitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDescuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSubTotalItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colImpuestos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TxtProdCodigo = new System.Windows.Forms.TextBox();
             this.CmbMarcas = new System.Windows.Forms.ComboBox();
             this.CmbClases = new System.Windows.Forms.ComboBox();
@@ -99,11 +91,6 @@
             this.LblNroAutPago = new System.Windows.Forms.Label();
             this.TxtNroAutPago = new System.Windows.Forms.TextBox();
             this.DgvPagos = new System.Windows.Forms.DataGridView();
-            this.colFormaPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colMontoPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colBanco = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNroDocPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNroAutPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NumMontoPago = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.CmbFormaPago = new System.Windows.Forms.ComboBox();
@@ -113,6 +100,22 @@
             this.BtnAgregarItem = new System.Windows.Forms.Button();
             this.BtnAgregarCliente = new System.Windows.Forms.Button();
             this.PnlDatosEntrada = new System.Windows.Forms.Panel();
+            this.BtnCancelarPago = new System.Windows.Forms.Button();
+            this.colFormaPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFormaPagoMonto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFormaPagoBanco = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFormaPagoNroDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFormaPagoNroAut = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFormaPagoQuitar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.colProdServCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colProdServProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colProdServValorUnitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colProdServCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colProdServDescuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colProdServSubTotalItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colProdServImpuestos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colProdServSubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colProdServEliminar = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DgvProdServ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumCantidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumValorUnit)).BeginInit();
@@ -178,14 +181,15 @@
             this.DgvProdServ.ColumnHeadersHeight = 30;
             this.DgvProdServ.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DgvProdServ.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colCodigo,
-            this.colProducto,
-            this.colValorUnitario,
-            this.colCantidad,
-            this.colDescuento,
-            this.colSubTotalItem,
-            this.colImpuestos,
-            this.colSubTotal});
+            this.colProdServCodigo,
+            this.colProdServProducto,
+            this.colProdServValorUnitario,
+            this.colProdServCantidad,
+            this.colProdServDescuento,
+            this.colProdServSubTotalItem,
+            this.colProdServImpuestos,
+            this.colProdServSubTotal,
+            this.colProdServEliminar});
             this.DgvProdServ.Location = new System.Drawing.Point(11, 128);
             this.DgvProdServ.MultiSelect = false;
             this.DgvProdServ.Name = "DgvProdServ";
@@ -193,82 +197,8 @@
             this.DgvProdServ.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DgvProdServ.Size = new System.Drawing.Size(1144, 431);
             this.DgvProdServ.TabIndex = 19;
+            this.DgvProdServ.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dgv_CellContentClick);
             this.DgvProdServ.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Dgv_KeyDown);
-            // 
-            // colCodigo
-            // 
-            this.colCodigo.HeaderText = "Código";
-            this.colCodigo.Name = "colCodigo";
-            this.colCodigo.ReadOnly = true;
-            this.colCodigo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colCodigo.Width = 65;
-            // 
-            // colProducto
-            // 
-            this.colProducto.HeaderText = "Producto/Servicio";
-            this.colProducto.Name = "colProducto";
-            this.colProducto.ReadOnly = true;
-            this.colProducto.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colProducto.Width = 138;
-            // 
-            // colValorUnitario
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colValorUnitario.DefaultCellStyle = dataGridViewCellStyle2;
-            this.colValorUnitario.HeaderText = "Precio Unit.";
-            this.colValorUnitario.Name = "colValorUnitario";
-            this.colValorUnitario.ReadOnly = true;
-            this.colValorUnitario.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colValorUnitario.Width = 96;
-            // 
-            // colCantidad
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colCantidad.DefaultCellStyle = dataGridViewCellStyle3;
-            this.colCantidad.HeaderText = "Cantidad";
-            this.colCantidad.Name = "colCantidad";
-            this.colCantidad.ReadOnly = true;
-            this.colCantidad.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colCantidad.Width = 79;
-            // 
-            // colDescuento
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colDescuento.DefaultCellStyle = dataGridViewCellStyle4;
-            this.colDescuento.HeaderText = "Descuento";
-            this.colDescuento.Name = "colDescuento";
-            this.colDescuento.ReadOnly = true;
-            this.colDescuento.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colDescuento.Width = 93;
-            // 
-            // colSubTotalItem
-            // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colSubTotalItem.DefaultCellStyle = dataGridViewCellStyle5;
-            this.colSubTotalItem.HeaderText = "Sub Total Item";
-            this.colSubTotalItem.Name = "colSubTotalItem";
-            this.colSubTotalItem.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colSubTotalItem.Width = 119;
-            // 
-            // colImpuestos
-            // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colImpuestos.DefaultCellStyle = dataGridViewCellStyle6;
-            this.colImpuestos.HeaderText = "Impuestos";
-            this.colImpuestos.Name = "colImpuestos";
-            this.colImpuestos.ReadOnly = true;
-            this.colImpuestos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colImpuestos.Width = 90;
-            // 
-            // colSubTotal
-            // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colSubTotal.DefaultCellStyle = dataGridViewCellStyle7;
-            this.colSubTotal.HeaderText = "SubTotal";
-            this.colSubTotal.Name = "colSubTotal";
-            this.colSubTotal.ReadOnly = true;
-            this.colSubTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colSubTotal.Width = 79;
             // 
             // TxtProdCodigo
             // 
@@ -480,7 +410,7 @@
             this.TsBtnRecibirPago.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TsBtnRecibirPago.Name = "TsBtnRecibirPago";
             this.TsBtnRecibirPago.Size = new System.Drawing.Size(41, 51);
-            this.TsBtnRecibirPago.Text = "&Pagar";
+            this.TsBtnRecibirPago.Text = "Pa&gar";
             this.TsBtnRecibirPago.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsBtnRecibirPago.Click += new System.EventHandler(this.TsBtnRecibirPago_Click);
             // 
@@ -697,6 +627,7 @@
             // 
             // GbxPago
             // 
+            this.GbxPago.Controls.Add(this.BtnCancelarPago);
             this.GbxPago.Controls.Add(this.BtnQuitarPago);
             this.GbxPago.Controls.Add(this.BtnAgregarPago);
             this.GbxPago.Controls.Add(this.ChkTotal);
@@ -706,9 +637,9 @@
             this.GbxPago.Controls.Add(this.label9);
             this.GbxPago.Controls.Add(this.CmbFormaPago);
             this.GbxPago.Controls.Add(this.label10);
-            this.GbxPago.Location = new System.Drawing.Point(178, 175);
+            this.GbxPago.Location = new System.Drawing.Point(159, 175);
             this.GbxPago.Name = "GbxPago";
-            this.GbxPago.Size = new System.Drawing.Size(837, 308);
+            this.GbxPago.Size = new System.Drawing.Size(874, 308);
             this.GbxPago.TabIndex = 25;
             this.GbxPago.TabStop = false;
             this.GbxPago.Text = "Recibir pago";
@@ -723,6 +654,7 @@
             this.BtnQuitarPago.Size = new System.Drawing.Size(31, 26);
             this.BtnQuitarPago.TabIndex = 6;
             this.BtnQuitarPago.UseVisualStyleBackColor = true;
+            this.BtnQuitarPago.Click += new System.EventHandler(this.BtnQuitarItem_Click);
             // 
             // BtnAgregarPago
             // 
@@ -744,7 +676,7 @@
             this.ChkTotal.Text = "(Total)";
             this.ChkTotal.UseVisualStyleBackColor = true;
             this.ChkTotal.Click += new System.EventHandler(this.ChkTotal_Click);
-            this.ChkTotal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ChkTotal_KeyPress);
+            this.ChkTotal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ChkTotal_KeyDown);
             // 
             // GbxDatosAdicionales
             // 
@@ -757,7 +689,7 @@
             this.GbxDatosAdicionales.Location = new System.Drawing.Point(415, 14);
             this.GbxDatosAdicionales.Name = "GbxDatosAdicionales";
             this.GbxDatosAdicionales.Size = new System.Drawing.Size(407, 126);
-            this.GbxDatosAdicionales.TabIndex = 7;
+            this.GbxDatosAdicionales.TabIndex = 8;
             this.GbxDatosAdicionales.TabStop = false;
             this.GbxDatosAdicionales.Text = "Datos adicionales";
             this.GbxDatosAdicionales.Visible = false;
@@ -826,10 +758,11 @@
             this.DgvPagos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DgvPagos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colFormaPago,
-            this.colMontoPago,
-            this.colBanco,
-            this.colNroDocPago,
-            this.colNroAutPago});
+            this.colFormaPagoMonto,
+            this.colFormaPagoBanco,
+            this.colFormaPagoNroDoc,
+            this.colFormaPagoNroAut,
+            this.colFormaPagoQuitar});
             this.DgvPagos.Location = new System.Drawing.Point(16, 146);
             this.DgvPagos.MultiSelect = false;
             this.DgvPagos.Name = "DgvPagos";
@@ -838,48 +771,9 @@
             this.DgvPagos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.DgvPagos.RowTemplate.ReadOnly = true;
             this.DgvPagos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DgvPagos.Size = new System.Drawing.Size(806, 149);
-            this.DgvPagos.TabIndex = 8;
-            // 
-            // colFormaPago
-            // 
-            this.colFormaPago.HeaderText = "Forma";
-            this.colFormaPago.MinimumWidth = 100;
-            this.colFormaPago.Name = "colFormaPago";
-            this.colFormaPago.ReadOnly = true;
-            // 
-            // colMontoPago
-            // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colMontoPago.DefaultCellStyle = dataGridViewCellStyle8;
-            this.colMontoPago.HeaderText = "Monto";
-            this.colMontoPago.MinimumWidth = 100;
-            this.colMontoPago.Name = "colMontoPago";
-            this.colMontoPago.ReadOnly = true;
-            // 
-            // colBanco
-            // 
-            this.colBanco.HeaderText = "Banco";
-            this.colBanco.MinimumWidth = 220;
-            this.colBanco.Name = "colBanco";
-            this.colBanco.ReadOnly = true;
-            this.colBanco.Width = 220;
-            // 
-            // colNroDocPago
-            // 
-            this.colNroDocPago.HeaderText = "Nro. Doc. Pago";
-            this.colNroDocPago.MinimumWidth = 200;
-            this.colNroDocPago.Name = "colNroDocPago";
-            this.colNroDocPago.ReadOnly = true;
-            this.colNroDocPago.Width = 200;
-            // 
-            // colNroAutPago
-            // 
-            this.colNroAutPago.HeaderText = "# Autorización";
-            this.colNroAutPago.MinimumWidth = 150;
-            this.colNroAutPago.Name = "colNroAutPago";
-            this.colNroAutPago.ReadOnly = true;
-            this.colNroAutPago.Width = 150;
+            this.DgvPagos.Size = new System.Drawing.Size(841, 149);
+            this.DgvPagos.TabIndex = 9;
+            this.DgvPagos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dgv_CellContentClick);
             // 
             // NumMontoPago
             // 
@@ -896,7 +790,7 @@
             this.NumMontoPago.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NumMontoPago.ThousandsSeparator = true;
             this.NumMontoPago.Enter += new System.EventHandler(this.Num_Enter);
-            this.NumMontoPago.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Num_KeyDown);
+            this.NumMontoPago.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Num_KeyDown);
             // 
             // label9
             // 
@@ -995,6 +889,156 @@
             this.PnlDatosEntrada.Size = new System.Drawing.Size(1192, 119);
             this.PnlDatosEntrada.TabIndex = 26;
             // 
+            // BtnCancelarPago
+            // 
+            this.BtnCancelarPago.Image = global::EsconPOS.Properties.Resources.Salir;
+            this.BtnCancelarPago.Location = new System.Drawing.Point(371, 68);
+            this.BtnCancelarPago.Name = "BtnCancelarPago";
+            this.BtnCancelarPago.Size = new System.Drawing.Size(31, 26);
+            this.BtnCancelarPago.TabIndex = 7;
+            this.BtnCancelarPago.UseVisualStyleBackColor = true;
+            this.BtnCancelarPago.Click += new System.EventHandler(this.BtnCancelarPago_Click);
+            // 
+            // colFormaPago
+            // 
+            this.colFormaPago.HeaderText = "Forma";
+            this.colFormaPago.MinimumWidth = 100;
+            this.colFormaPago.Name = "colFormaPago";
+            this.colFormaPago.ReadOnly = true;
+            this.colFormaPago.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // colFormaPagoMonto
+            // 
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colFormaPagoMonto.DefaultCellStyle = dataGridViewCellStyle8;
+            this.colFormaPagoMonto.HeaderText = "Monto";
+            this.colFormaPagoMonto.MinimumWidth = 100;
+            this.colFormaPagoMonto.Name = "colFormaPagoMonto";
+            this.colFormaPagoMonto.ReadOnly = true;
+            this.colFormaPagoMonto.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // colFormaPagoBanco
+            // 
+            this.colFormaPagoBanco.HeaderText = "Banco";
+            this.colFormaPagoBanco.MinimumWidth = 220;
+            this.colFormaPagoBanco.Name = "colFormaPagoBanco";
+            this.colFormaPagoBanco.ReadOnly = true;
+            this.colFormaPagoBanco.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colFormaPagoBanco.Width = 220;
+            // 
+            // colFormaPagoNroDoc
+            // 
+            this.colFormaPagoNroDoc.HeaderText = "Nro. Doc. Pago";
+            this.colFormaPagoNroDoc.MinimumWidth = 200;
+            this.colFormaPagoNroDoc.Name = "colFormaPagoNroDoc";
+            this.colFormaPagoNroDoc.ReadOnly = true;
+            this.colFormaPagoNroDoc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colFormaPagoNroDoc.Width = 200;
+            // 
+            // colFormaPagoNroAut
+            // 
+            this.colFormaPagoNroAut.HeaderText = "# Autorización";
+            this.colFormaPagoNroAut.MaxInputLength = 10;
+            this.colFormaPagoNroAut.MinimumWidth = 96;
+            this.colFormaPagoNroAut.Name = "colFormaPagoNroAut";
+            this.colFormaPagoNroAut.ReadOnly = true;
+            this.colFormaPagoNroAut.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colFormaPagoNroAut.Width = 116;
+            // 
+            // colFormaPagoQuitar
+            // 
+            this.colFormaPagoQuitar.HeaderText = "Quitar";
+            this.colFormaPagoQuitar.Image = global::EsconPOS.Properties.Resources.Quitar;
+            this.colFormaPagoQuitar.Name = "colFormaPagoQuitar";
+            this.colFormaPagoQuitar.ReadOnly = true;
+            this.colFormaPagoQuitar.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colFormaPagoQuitar.ToolTipText = "Eliminar pago de la lista";
+            this.colFormaPagoQuitar.Width = 58;
+            // 
+            // colProdServCodigo
+            // 
+            this.colProdServCodigo.HeaderText = "Código";
+            this.colProdServCodigo.Name = "colProdServCodigo";
+            this.colProdServCodigo.ReadOnly = true;
+            this.colProdServCodigo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colProdServCodigo.Width = 65;
+            // 
+            // colProdServProducto
+            // 
+            this.colProdServProducto.HeaderText = "Producto/Servicio";
+            this.colProdServProducto.Name = "colProdServProducto";
+            this.colProdServProducto.ReadOnly = true;
+            this.colProdServProducto.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colProdServProducto.Width = 138;
+            // 
+            // colProdServValorUnitario
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colProdServValorUnitario.DefaultCellStyle = dataGridViewCellStyle2;
+            this.colProdServValorUnitario.HeaderText = "Precio Unit.";
+            this.colProdServValorUnitario.Name = "colProdServValorUnitario";
+            this.colProdServValorUnitario.ReadOnly = true;
+            this.colProdServValorUnitario.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colProdServValorUnitario.Width = 96;
+            // 
+            // colProdServCantidad
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colProdServCantidad.DefaultCellStyle = dataGridViewCellStyle3;
+            this.colProdServCantidad.HeaderText = "Cantidad";
+            this.colProdServCantidad.Name = "colProdServCantidad";
+            this.colProdServCantidad.ReadOnly = true;
+            this.colProdServCantidad.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colProdServCantidad.Width = 79;
+            // 
+            // colProdServDescuento
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colProdServDescuento.DefaultCellStyle = dataGridViewCellStyle4;
+            this.colProdServDescuento.HeaderText = "Descuento";
+            this.colProdServDescuento.Name = "colProdServDescuento";
+            this.colProdServDescuento.ReadOnly = true;
+            this.colProdServDescuento.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colProdServDescuento.Width = 93;
+            // 
+            // colProdServSubTotalItem
+            // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colProdServSubTotalItem.DefaultCellStyle = dataGridViewCellStyle5;
+            this.colProdServSubTotalItem.HeaderText = "Sub Total Item";
+            this.colProdServSubTotalItem.Name = "colProdServSubTotalItem";
+            this.colProdServSubTotalItem.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colProdServSubTotalItem.Width = 119;
+            // 
+            // colProdServImpuestos
+            // 
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colProdServImpuestos.DefaultCellStyle = dataGridViewCellStyle6;
+            this.colProdServImpuestos.HeaderText = "Impuestos";
+            this.colProdServImpuestos.Name = "colProdServImpuestos";
+            this.colProdServImpuestos.ReadOnly = true;
+            this.colProdServImpuestos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colProdServImpuestos.Width = 90;
+            // 
+            // colProdServSubTotal
+            // 
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colProdServSubTotal.DefaultCellStyle = dataGridViewCellStyle7;
+            this.colProdServSubTotal.HeaderText = "SubTotal";
+            this.colProdServSubTotal.Name = "colProdServSubTotal";
+            this.colProdServSubTotal.ReadOnly = true;
+            this.colProdServSubTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colProdServSubTotal.Width = 79;
+            // 
+            // colProdServEliminar
+            // 
+            this.colProdServEliminar.HeaderText = "Quitar";
+            this.colProdServEliminar.Image = global::EsconPOS.Properties.Resources.Quitar;
+            this.colProdServEliminar.Name = "colProdServEliminar";
+            this.colProdServEliminar.ReadOnly = true;
+            this.colProdServEliminar.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colProdServEliminar.Width = 58;
+            // 
             // FrmPuntoDeVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1082,14 +1126,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cmbMonedas;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCodigo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colProducto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colValorUnitario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCantidad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colDescuento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colSubTotalItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colImpuestos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colSubTotal;
         private System.Windows.Forms.NumericUpDown NumDctoGlobal;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ToolStripButton TsBtnImprimir;
@@ -1103,11 +1139,6 @@
         private System.Windows.Forms.Label LblNroAutPago;
         private System.Windows.Forms.TextBox TxtNroAutPago;
         private System.Windows.Forms.DataGridView DgvPagos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colFormaPago;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colMontoPago;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colBanco;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colNroDocPago;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colNroAutPago;
         private System.Windows.Forms.NumericUpDown NumMontoPago;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox CmbFormaPago;
@@ -1118,5 +1149,21 @@
         private System.Windows.Forms.Button BtnQuitarPago;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label LblMontoPagado;
+        private System.Windows.Forms.Button BtnCancelarPago;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFormaPago;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFormaPagoMonto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFormaPagoBanco;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFormaPagoNroDoc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFormaPagoNroAut;
+        private System.Windows.Forms.DataGridViewImageColumn colFormaPagoQuitar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colProdServCodigo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colProdServProducto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colProdServValorUnitario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colProdServCantidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colProdServDescuento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colProdServSubTotalItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colProdServImpuestos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colProdServSubTotal;
+        private System.Windows.Forms.DataGridViewImageColumn colProdServEliminar;
     }
 }

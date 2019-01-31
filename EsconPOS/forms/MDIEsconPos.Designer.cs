@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MDIEsconPos));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.TsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.TsslEmpleado = new System.Windows.Forms.ToolStripStatusLabel();
@@ -38,17 +39,16 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.TmrHora = new System.Windows.Forms.Timer(this.components);
             this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.TssPpalFiller1 = new System.Windows.Forms.ToolStripSeparator();
-            this.TssPpalFiller2 = new System.Windows.Forms.ToolStripSeparator();
-            this.TssPpalFiller3 = new System.Windows.Forms.ToolStripSeparator();
             this.TssbPpalCaja = new System.Windows.Forms.ToolStripSplitButton();
             this.TsmiCajaIncluirFactura = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmiCajaAbrirCuenta = new System.Windows.Forms.ToolStripMenuItem();
+            this.TssPpalFiller1 = new System.Windows.Forms.ToolStripSeparator();
             this.TssbPpalAdministrar = new System.Windows.Forms.ToolStripSplitButton();
             this.TsmiAdminEmpresas = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmiAdminEmpleados = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmiAdminClientes = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmiAdminFormasPago = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiAdminTiposDeDocumentos = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmiAdminMiContrasenia = new System.Windows.Forms.ToolStripMenuItem();
             this.TssbPpalUbicacion = new System.Windows.Forms.ToolStripSplitButton();
             this.TsmiUbigeoPaises = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,6 +65,7 @@
             this.TsmiProdMarcas = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmiProdClases = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmiProdServicios = new System.Windows.Forms.ToolStripMenuItem();
+            this.TssPpalFiller2 = new System.Windows.Forms.ToolStripSeparator();
             this.TssbPpalWindow = new System.Windows.Forms.ToolStripSplitButton();
             this.TsmiWindowCascada = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmiWindowVertical = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,6 +74,8 @@
             this.TsmiWindowCierraTodas = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmiWindowFiller = new System.Windows.Forms.ToolStripSeparator();
             this.TssbPpalSalir = new System.Windows.Forms.ToolStripButton();
+            this.TssPpalFiller3 = new System.Windows.Forms.ToolStripSeparator();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.statusStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -143,21 +146,6 @@
             this.toolStrip.Size = new System.Drawing.Size(948, 54);
             this.toolStrip.TabIndex = 4;
             // 
-            // TssPpalFiller1
-            // 
-            this.TssPpalFiller1.Name = "TssPpalFiller1";
-            this.TssPpalFiller1.Size = new System.Drawing.Size(6, 54);
-            // 
-            // TssPpalFiller2
-            // 
-            this.TssPpalFiller2.Name = "TssPpalFiller2";
-            this.TssPpalFiller2.Size = new System.Drawing.Size(6, 54);
-            // 
-            // TssPpalFiller3
-            // 
-            this.TssPpalFiller3.Name = "TssPpalFiller3";
-            this.TssPpalFiller3.Size = new System.Drawing.Size(6, 54);
-            // 
             // TssbPpalCaja
             // 
             this.TssbPpalCaja.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -176,7 +164,7 @@
             // TsmiCajaIncluirFactura
             // 
             this.TsmiCajaIncluirFactura.Name = "TsmiCajaIncluirFactura";
-            this.TsmiCajaIncluirFactura.Size = new System.Drawing.Size(152, 22);
+            this.TsmiCajaIncluirFactura.Size = new System.Drawing.Size(149, 22);
             this.TsmiCajaIncluirFactura.Text = "Incluir &Factura";
             this.TsmiCajaIncluirFactura.Visible = false;
             this.TsmiCajaIncluirFactura.Click += new System.EventHandler(this.TsmiCajaIncluirFactura_Click);
@@ -184,9 +172,14 @@
             // TsmiCajaAbrirCuenta
             // 
             this.TsmiCajaAbrirCuenta.Name = "TsmiCajaAbrirCuenta";
-            this.TsmiCajaAbrirCuenta.Size = new System.Drawing.Size(152, 22);
+            this.TsmiCajaAbrirCuenta.Size = new System.Drawing.Size(149, 22);
             this.TsmiCajaAbrirCuenta.Text = "Abrir &Cuenta";
             this.TsmiCajaAbrirCuenta.Visible = false;
+            // 
+            // TssPpalFiller1
+            // 
+            this.TssPpalFiller1.Name = "TssPpalFiller1";
+            this.TssPpalFiller1.Size = new System.Drawing.Size(6, 54);
             // 
             // TssbPpalAdministrar
             // 
@@ -195,6 +188,7 @@
             this.TsmiAdminEmpleados,
             this.TsmiAdminClientes,
             this.TsmiAdminFormasPago,
+            this.TsmiAdminTiposDeDocumentos,
             this.TsmiAdminMiContrasenia});
             this.TssbPpalAdministrar.Image = global::EsconPOS.Properties.Resources.Administrar;
             this.TssbPpalAdministrar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -210,38 +204,50 @@
             // 
             this.TsmiAdminEmpresas.Image = global::EsconPOS.Properties.Resources.Empresas;
             this.TsmiAdminEmpresas.Name = "TsmiAdminEmpresas";
-            this.TsmiAdminEmpresas.Size = new System.Drawing.Size(159, 22);
+            this.TsmiAdminEmpresas.Size = new System.Drawing.Size(189, 22);
             this.TsmiAdminEmpresas.Text = "&Empresas";
+            this.TsmiAdminEmpresas.Visible = false;
             this.TsmiAdminEmpresas.Click += new System.EventHandler(this.TsmiAdminEmpresas_Click);
             // 
             // TsmiAdminEmpleados
             // 
             this.TsmiAdminEmpleados.Image = global::EsconPOS.Properties.Resources.Empleados;
             this.TsmiAdminEmpleados.Name = "TsmiAdminEmpleados";
-            this.TsmiAdminEmpleados.Size = new System.Drawing.Size(159, 22);
+            this.TsmiAdminEmpleados.Size = new System.Drawing.Size(189, 22);
             this.TsmiAdminEmpleados.Text = "E&mpleados";
+            this.TsmiAdminEmpleados.Visible = false;
             this.TsmiAdminEmpleados.Click += new System.EventHandler(this.TsmiAdminEmpleados_Click);
             // 
             // TsmiAdminClientes
             // 
             this.TsmiAdminClientes.Image = global::EsconPOS.Properties.Resources.Clientes;
             this.TsmiAdminClientes.Name = "TsmiAdminClientes";
-            this.TsmiAdminClientes.Size = new System.Drawing.Size(159, 22);
+            this.TsmiAdminClientes.Size = new System.Drawing.Size(189, 22);
             this.TsmiAdminClientes.Text = "&Clientes";
+            this.TsmiAdminClientes.Visible = false;
             this.TsmiAdminClientes.Click += new System.EventHandler(this.TsmiAdminClientes_Click);
             // 
             // TsmiAdminFormasPago
             // 
             this.TsmiAdminFormasPago.Image = global::EsconPOS.Properties.Resources.FormasPagos;
             this.TsmiAdminFormasPago.Name = "TsmiAdminFormasPago";
-            this.TsmiAdminFormasPago.Size = new System.Drawing.Size(159, 22);
+            this.TsmiAdminFormasPago.Size = new System.Drawing.Size(189, 22);
             this.TsmiAdminFormasPago.Text = "&Formas de pago";
+            this.TsmiAdminFormasPago.Visible = false;
             this.TsmiAdminFormasPago.Click += new System.EventHandler(this.TsmiAdminFormasPago_Click);
+            // 
+            // TsmiAdminTiposDeDocumentos
+            // 
+            this.TsmiAdminTiposDeDocumentos.Name = "TsmiAdminTiposDeDocumentos";
+            this.TsmiAdminTiposDeDocumentos.Size = new System.Drawing.Size(189, 22);
+            this.TsmiAdminTiposDeDocumentos.Text = "&Tipos de documentos";
+            this.TsmiAdminTiposDeDocumentos.Visible = false;
+            this.TsmiAdminTiposDeDocumentos.Click += new System.EventHandler(this.TsmiAdminTiposDeDocumentos_Click);
             // 
             // TsmiAdminMiContrasenia
             // 
             this.TsmiAdminMiContrasenia.Name = "TsmiAdminMiContrasenia";
-            this.TsmiAdminMiContrasenia.Size = new System.Drawing.Size(159, 22);
+            this.TsmiAdminMiContrasenia.Size = new System.Drawing.Size(189, 22);
             this.TsmiAdminMiContrasenia.Text = "M&i contraseña";
             this.TsmiAdminMiContrasenia.Click += new System.EventHandler(this.TsmiAdminMiContrasenia_Click);
             // 
@@ -388,6 +394,11 @@
             this.TsmiProdServicios.Text = "&Productos/Servicios";
             this.TsmiProdServicios.Click += new System.EventHandler(this.TsmiProdServicios_Click);
             // 
+            // TssPpalFiller2
+            // 
+            this.TssPpalFiller2.Name = "TssPpalFiller2";
+            this.TssPpalFiller2.Size = new System.Drawing.Size(6, 54);
+            // 
             // TssbPpalWindow
             // 
             this.TssbPpalWindow.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -456,6 +467,16 @@
             this.TssbPpalSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TssbPpalSalir.Click += new System.EventHandler(this.TssbSalir_Click);
             // 
+            // TssPpalFiller3
+            // 
+            this.TssPpalFiller3.Name = "TssPpalFiller3";
+            this.TssPpalFiller3.Size = new System.Drawing.Size(6, 54);
+            // 
+            // notifyIcon
+            // 
+            this.notifyIcon.Text = "notifyIcon";
+            this.notifyIcon.Visible = true;
+            // 
             // MDIEsconPos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -464,6 +485,7 @@
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.statusStrip);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -527,6 +549,8 @@
         private System.Windows.Forms.ToolStripMenuItem TsmiWindowMinimizarTodas;
         private System.Windows.Forms.ToolStripMenuItem TsmiWindowCierraTodas;
         private System.Windows.Forms.ToolStripSeparator TsmiWindowFiller;
+        private System.Windows.Forms.ToolStripMenuItem TsmiAdminTiposDeDocumentos;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
     }
 }
 

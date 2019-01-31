@@ -48,7 +48,7 @@
             this.TxtFiltroProducto = new System.Windows.Forms.TextBox();
             this.PagEditar = new System.Windows.Forms.TabPage();
             this.BtnAgregarImpuesto = new System.Windows.Forms.Button();
-            this.BtnAgragarUnidad = new System.Windows.Forms.Button();
+            this.BtnAgregarUnidad = new System.Windows.Forms.Button();
             this.BtnAgregarTipo = new System.Windows.Forms.Button();
             this.BtnAgregarMarca = new System.Windows.Forms.Button();
             this.NumPrecioUnitario = new System.Windows.Forms.NumericUpDown();
@@ -71,6 +71,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.TxtCodigo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.ChkPorFraccion = new System.Windows.Forms.CheckBox();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.TabProductos.SuspendLayout();
@@ -151,7 +152,7 @@
             this.TssLblStatus,
             this.TssLblAgregado,
             this.TssLblModificado});
-            this.statusStrip.Location = new System.Drawing.Point(0, 439);
+            this.statusStrip.Location = new System.Drawing.Point(0, 467);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
             this.statusStrip.Size = new System.Drawing.Size(994, 22);
@@ -186,7 +187,7 @@
             this.TabProductos.Location = new System.Drawing.Point(12, 57);
             this.TabProductos.Name = "TabProductos";
             this.TabProductos.SelectedIndex = 0;
-            this.TabProductos.Size = new System.Drawing.Size(970, 378);
+            this.TabProductos.Size = new System.Drawing.Size(970, 407);
             this.TabProductos.TabIndex = 0;
             this.TabProductos.SelectedIndexChanged += new System.EventHandler(this.Tab_SelectedIndexChanged);
             // 
@@ -201,7 +202,7 @@
             this.PagLista.Location = new System.Drawing.Point(4, 29);
             this.PagLista.Name = "PagLista";
             this.PagLista.Padding = new System.Windows.Forms.Padding(3);
-            this.PagLista.Size = new System.Drawing.Size(962, 345);
+            this.PagLista.Size = new System.Drawing.Size(962, 374);
             this.PagLista.TabIndex = 0;
             this.PagLista.Text = "Lista";
             this.PagLista.UseVisualStyleBackColor = true;
@@ -264,7 +265,7 @@
             this.DgvProductos.ReadOnly = true;
             this.DgvProductos.RowHeadersVisible = false;
             this.DgvProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DgvProductos.Size = new System.Drawing.Size(956, 302);
+            this.DgvProductos.Size = new System.Drawing.Size(956, 331);
             this.DgvProductos.TabIndex = 5;
             this.DgvProductos.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvProductos_ColumnHeaderMouseClick);
             // 
@@ -279,8 +280,9 @@
             // 
             // PagEditar
             // 
+            this.PagEditar.Controls.Add(this.ChkPorFraccion);
             this.PagEditar.Controls.Add(this.BtnAgregarImpuesto);
-            this.PagEditar.Controls.Add(this.BtnAgragarUnidad);
+            this.PagEditar.Controls.Add(this.BtnAgregarUnidad);
             this.PagEditar.Controls.Add(this.BtnAgregarTipo);
             this.PagEditar.Controls.Add(this.BtnAgregarMarca);
             this.PagEditar.Controls.Add(this.NumPrecioUnitario);
@@ -306,7 +308,7 @@
             this.PagEditar.Location = new System.Drawing.Point(4, 29);
             this.PagEditar.Name = "PagEditar";
             this.PagEditar.Padding = new System.Windows.Forms.Padding(3);
-            this.PagEditar.Size = new System.Drawing.Size(962, 345);
+            this.PagEditar.Size = new System.Drawing.Size(962, 374);
             this.PagEditar.TabIndex = 1;
             this.PagEditar.Text = "Editar";
             this.PagEditar.UseVisualStyleBackColor = true;
@@ -314,20 +316,22 @@
             // BtnAgregarImpuesto
             // 
             this.BtnAgregarImpuesto.Image = global::EsconPOS.Properties.Resources.Agregar;
-            this.BtnAgregarImpuesto.Location = new System.Drawing.Point(524, 242);
+            this.BtnAgregarImpuesto.Location = new System.Drawing.Point(524, 272);
             this.BtnAgregarImpuesto.Name = "BtnAgregarImpuesto";
             this.BtnAgregarImpuesto.Size = new System.Drawing.Size(28, 28);
-            this.BtnAgregarImpuesto.TabIndex = 23;
+            this.BtnAgregarImpuesto.TabIndex = 20;
             this.BtnAgregarImpuesto.UseVisualStyleBackColor = true;
+            this.BtnAgregarImpuesto.Click += new System.EventHandler(this.BtnAgregarImpuesto_Click);
             // 
-            // BtnAgragarUnidad
+            // BtnAgregarUnidad
             // 
-            this.BtnAgragarUnidad.Image = global::EsconPOS.Properties.Resources.Agregar;
-            this.BtnAgragarUnidad.Location = new System.Drawing.Point(524, 208);
-            this.BtnAgragarUnidad.Name = "BtnAgragarUnidad";
-            this.BtnAgragarUnidad.Size = new System.Drawing.Size(28, 28);
-            this.BtnAgragarUnidad.TabIndex = 22;
-            this.BtnAgragarUnidad.UseVisualStyleBackColor = true;
+            this.BtnAgregarUnidad.Image = global::EsconPOS.Properties.Resources.Agregar;
+            this.BtnAgregarUnidad.Location = new System.Drawing.Point(524, 208);
+            this.BtnAgregarUnidad.Name = "BtnAgregarUnidad";
+            this.BtnAgregarUnidad.Size = new System.Drawing.Size(28, 28);
+            this.BtnAgregarUnidad.TabIndex = 16;
+            this.BtnAgregarUnidad.UseVisualStyleBackColor = true;
+            this.BtnAgregarUnidad.Click += new System.EventHandler(this.BtnAgregarUnidad_Click);
             // 
             // BtnAgregarTipo
             // 
@@ -352,7 +356,7 @@
             // NumPrecioUnitario
             // 
             this.NumPrecioUnitario.DecimalPlaces = 2;
-            this.NumPrecioUnitario.Location = new System.Drawing.Point(200, 308);
+            this.NumPrecioUnitario.Location = new System.Drawing.Point(200, 338);
             this.NumPrecioUnitario.Maximum = new decimal(new int[] {
             100000000,
             0,
@@ -360,7 +364,7 @@
             0});
             this.NumPrecioUnitario.Name = "NumPrecioUnitario";
             this.NumPrecioUnitario.Size = new System.Drawing.Size(143, 26);
-            this.NumPrecioUnitario.TabIndex = 21;
+            this.NumPrecioUnitario.TabIndex = 24;
             this.NumPrecioUnitario.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NumPrecioUnitario.ThousandsSeparator = true;
             this.NumPrecioUnitario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Num_KeyDown);
@@ -368,17 +372,17 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(7, 310);
+            this.label10.Location = new System.Drawing.Point(7, 340);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(113, 20);
-            this.label10.TabIndex = 20;
+            this.label10.TabIndex = 23;
             this.label10.Text = "Precio unitario:";
             // 
             // NumCostoUnitario
             // 
             this.NumCostoUnitario.DecimalPlaces = 2;
-            this.NumCostoUnitario.Location = new System.Drawing.Point(200, 276);
+            this.NumCostoUnitario.Location = new System.Drawing.Point(200, 306);
             this.NumCostoUnitario.Maximum = new decimal(new int[] {
             100000000,
             0,
@@ -386,7 +390,7 @@
             0});
             this.NumCostoUnitario.Name = "NumCostoUnitario";
             this.NumCostoUnitario.Size = new System.Drawing.Size(143, 26);
-            this.NumCostoUnitario.TabIndex = 19;
+            this.NumCostoUnitario.TabIndex = 22;
             this.NumCostoUnitario.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NumCostoUnitario.ThousandsSeparator = true;
             this.NumCostoUnitario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Num_KeyDown);
@@ -394,11 +398,11 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(7, 278);
+            this.label9.Location = new System.Drawing.Point(7, 308);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(111, 20);
-            this.label9.TabIndex = 18;
+            this.label9.TabIndex = 21;
             this.label9.Text = "Costo unitario:";
             // 
             // TxtProducto
@@ -425,20 +429,20 @@
             this.CmbImpuestos.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.CmbImpuestos.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CmbImpuestos.FormattingEnabled = true;
-            this.CmbImpuestos.Location = new System.Drawing.Point(200, 242);
+            this.CmbImpuestos.Location = new System.Drawing.Point(200, 272);
             this.CmbImpuestos.Name = "CmbImpuestos";
             this.CmbImpuestos.Size = new System.Drawing.Size(318, 28);
-            this.CmbImpuestos.TabIndex = 17;
+            this.CmbImpuestos.TabIndex = 19;
             this.CmbImpuestos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cmb_KeyDown);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 245);
+            this.label7.Location = new System.Drawing.Point(7, 275);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(80, 20);
-            this.label7.TabIndex = 16;
+            this.label7.TabIndex = 18;
             this.label7.Text = "Impuesto:";
             // 
             // CmbUnidades
@@ -563,11 +567,21 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Código interno:";
             // 
+            // ChkPorFraccion
+            // 
+            this.ChkPorFraccion.AutoSize = true;
+            this.ChkPorFraccion.Location = new System.Drawing.Point(200, 242);
+            this.ChkPorFraccion.Name = "ChkPorFraccion";
+            this.ChkPorFraccion.Size = new System.Drawing.Size(129, 24);
+            this.ChkPorFraccion.TabIndex = 17;
+            this.ChkPorFraccion.Text = "Por fracciones";
+            this.ChkPorFraccion.UseVisualStyleBackColor = true;
+            // 
             // FrmProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(994, 461);
+            this.ClientSize = new System.Drawing.Size(994, 489);
             this.Controls.Add(this.TabProductos);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
@@ -634,10 +648,11 @@
         private System.Windows.Forms.TextBox TxtFiltroProducto;
         private System.Windows.Forms.DataGridView DgvProductos;
         private System.Windows.Forms.Button BtnAgregarImpuesto;
-        private System.Windows.Forms.Button BtnAgragarUnidad;
+        private System.Windows.Forms.Button BtnAgregarUnidad;
         private System.Windows.Forms.TextBox TxtFiltroCodigo;
         private System.Windows.Forms.TextBox TxtFiltroCodigoBarra;
         private System.Windows.Forms.ComboBox CmbFiltroTipo;
         private System.Windows.Forms.ComboBox CmbFiltroMarca;
+        private System.Windows.Forms.CheckBox ChkPorFraccion;
     }
 }

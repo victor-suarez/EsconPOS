@@ -351,6 +351,9 @@
     <Compile Include="UnidadesMedidas.cs">
       <DependentUpon>EsconPOS.tt</DependentUpon>
     </Compile>
+    <Compile Include="UsosDocumentos.cs">
+      <DependentUpon>EsconPOS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Usuarios.cs">
       <DependentUpon>EsconPOS.tt</DependentUpon>
     </Compile>
@@ -474,6 +477,7 @@
       <LastGenOutput>EsconPOS.cs</LastGenOutput>
     </Content>
     <Content Include="POS.ico" />
+    <None Include="Resources\EliminaContraseña.png" />
     <None Include="Resources\UnidsMeds.png" />
     <None Include="Resources\Window.png" />
     <None Include="Resources\Tipos.png" />
@@ -520,7 +524,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="controls\" />
-    <Folder Include="models\" />
     <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <ItemGroup>
