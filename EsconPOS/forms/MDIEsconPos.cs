@@ -1,8 +1,10 @@
 ﻿using EsconPOS.classes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -39,7 +41,8 @@ namespace EsconPOS.forms
         private FrmUnidadMedida FrmUnd = null;
         private bool IsClosing = false;
         private BackgroundWorker ProcesoSUNAT = null;
-
+        private NumberFormatInfo NFI_US = new CultureInfo("en-US", false).NumberFormat;
+ 
         public bool KeepRunning
         {
             get { return _keepRunning; }
@@ -86,7 +89,6 @@ namespace EsconPOS.forms
             ProcesoSUNAT.RunWorkerCompleted += ProcesoSUNAT_RunWorkerCompleted;
             ProcesoSUNAT.WorkerReportsProgress = true;
             ProcesoSUNAT.WorkerSupportsCancellation = true;
-
         }
 
         private void IniciarBotones()
@@ -175,7 +177,6 @@ namespace EsconPOS.forms
             KeepRunning = true;
             while (KeepRunning)
             {
-                Thread.Sleep(60000);
                 SetStatus("Process is running...");
                 // Steps...
                 // Test for Internet?
@@ -196,15 +197,169 @@ namespace EsconPOS.forms
                 ///// End
                 //
                 //
-                // Query unsended documents
+                // Query unsended documents (join related entities)
+                var NoEnviados = (from NoEnv in context.Documentos
+                                      //from Items in NoEnv.ItemsDocumentos
+                                      //join Empre in context.Empresas on NoEnv.EmpresaID equals Empre.EmpresaID
+                                      //join Clien in context.Clientes on NoEnv.ClienteID equals Clien.ClienteID
+                                  where (NoEnv.DocumentoEnviado == null)
+                                  select NoEnv.DocumentoID).ToList();
+
+                //new
+                //{
+                //    IDE = new {
+                //          NoEnv.DocumentoID,
+                //          numeracion = NoEnv.CodDocumento,
+                //          fechaEmision = NoEnv.FechaDocumento,
+                //          horaEmision = NoEnv.HoraDocumento,
+                //          codTipoDocumento = NoEnv.TiposDocumentos.Codigo,
+                //          tipoMoneda = NoEnv.Monedas.Codigo
+                //    },
+                //    EMI = new {
+                //          tipoDocId = Empre.Identificaciones.Codigo,
+                //          numeroDocId = Empre.NroDocIdent,
+                //          nombreComercial = Empre.NombreComercial,
+                //          razonSocial = Empre.RazonSocial,
+                //          ubigeo = Empre.Distritos.UBIGEO,
+                //          direccion = Empre.Direccion,
+                //          urbanizacion =  Empre.Urbanizacion,
+                //          provincia = Empre.Distritos.Provincias.Provincia,
+                //          departamento = Empre.Distritos.Provincias.Departamentos.Departamento,
+                //          distrito = Empre.Distritos.Distrito,
+                //          codPais = Empre.Distritos.Provincias.Departamentos.Paises.Codigo,
+                //          telefono = Empre.NroTelefonico,
+                //          correoElectronico = Empre.CorreoElectronico,
+                //          codigoAsigSUNAT = "0000"
+                //    },
+                //    REC = new {
+                //          tipoDocId = Clien.Identificaciones.Codigo,
+                //          numeroDocId = Clien.NroDocIdent,
+                //          razonSocial = Clien.Nombre,
+                //          direccion = Clien.Direccion,
+                //          departamento = Clien.Distritos.Provincias.Departamentos.Departamento,
+                //          provincia = Clien.Distritos.Provincias.Provincia,
+                //          distrito = Clien.Distritos.Distrito,
+                //          codPais = Clien.Distritos.Provincias.Departamentos.Paises.Codigo,
+                //          telefono = Clien.NroTelefonico,
+                //          correoElectronico = Clien.CorreoElectronico
+                //    },
+                //    DET = new {
+                //          numeroItem = Items.ItemID,
+                //          codigoProducto = Items.Productos.Codigo,
+                //          descripcionProducto = Items.Productos.Producto,
+                //          cantidadItems = Items.Cantidad,
+                //          unidad = Items.Productos.UnidadesMedidas.Codigo,
+                //          valorUnitario = Items.Productos.ValorUnitario,
+                //          precioUnitario = Items.ValorUnitario
+                //    },
+                //    NoEnv.DocumentoEnviado
+                //}).ToList();
                 // For each unsended document
-                ///// Prepare document (toJson? toXML? toText?)
-                ///// Try
-                /////// Send document
-                /////// Update document (sended)
-                ///// Catch
-                /////// No Internet?
-                ///// End
+                foreach (var ne in NoEnviados)
+                {
+                    SetStatus("Sending " + ne.ToString() + "...");
+                    var ide = (from doc in context.Documentos where doc.DocumentoID == ne select doc).First();
+                    var emi = (from emp in context.Empresas where emp.EmpresaID == ide.EmpresaID select emp).First();
+                    var rec = (from cli in context.Clientes where cli.ClienteID == ide.ClienteID select cli).First();
+                    //var det = (from itm in context.ItemsDocumentos.AsEnumerable() where itm.DocumentoID == ide.DocumentoID select itm).ToList();
+
+                    var factura = new
+                    {
+                        IDE = new
+                        {
+                            numeracion = ide.CodDocumento,
+                            fechaEmision = ide.FechaDocumento,
+                            horaEmision = ide.HoraDocumento,
+                            codTipoDocumento = ide.TiposDocumentos.Codigo,
+                            tipoMoneda = ide.Monedas.Codigo
+                        },
+                        EMI = new
+                        {
+                            tipoDocId = emi.Identificaciones.Codigo,
+                            numeroDocId = emi.NroDocIdent,
+                            nombreComercial = emi.NombreComercial,
+                            razonSocial = emi.RazonSocial,
+                            ubigeo = emi.Distritos.UBIGEO,
+                            direccion = emi.Direccion,
+                            urbanizacion = emi.Urbanizacion,
+                            provincia = emi.Distritos.Provincias.Provincia,
+                            departamento = emi.Distritos.Provincias.Departamentos.Departamento,
+                            distrito = emi.Distritos.Distrito,
+                            codPais = emi.Distritos.Provincias.Departamentos.Paises.Codigo,
+                            telefono = emi.NroTelefonico,
+                            correoElectronico = emi.CorreoElectronico,
+                            codigoAsigSUNAT = "0000"
+                        },
+                        REC = new
+                        {
+                            tipoDocId = rec.Identificaciones.Codigo,
+                            numeroDocId = rec.NroDocIdent,
+                            razonSocial = rec.Nombre,
+                            direccion = rec.Direccion,
+                            departamento = rec.Distritos.Provincias.Departamentos.Departamento,
+                            provincia = rec.Distritos.Provincias.Provincia,
+                            distrito = rec.Distritos.Distrito,
+                            codPais = rec.Distritos.Provincias.Departamentos.Paises.Codigo,
+                            telefono = rec.NroTelefonico,
+                            correoElectronico = rec.CorreoElectronico
+                        },
+                        CAB = new
+                        {
+                            gravadas =  new
+                            {
+                                codigo = "1000",
+                                totalVentas = ide.MontoNeto
+                            },
+                            inafectas = new
+                            {
+                                codigo = "",
+                                totalVentas = ""
+                            },
+                            totalImpuestos = new
+                            {
+                                idImpuesto = "",
+                                montoImpuesto = ""
+                            }
+                        },
+                        DET =
+                           (from itm in context.ItemsDocumentos.AsEnumerable()
+                            where itm.DocumentoID == ide.DocumentoID
+                            select new
+                            {
+                                numeroItem = itm.ItemID.ToString("000"),
+                                codigoProducto = itm.Productos.Codigo,
+                                descripcionProducto = itm.Productos.Producto,
+                                cantidadItems = itm.Cantidad.ToString("F2", NFI_US),
+                                unidad = itm.Productos.UnidadesMedidas.Codigo,
+                                valorUnitario = itm.Productos.ValorUnitario.ToString("F2", NFI_US),
+                                precioUnitario = itm.ValorUnitario.ToString("F2", NFI_US),
+                                totalImpuestos = (from tax in context.Impuestos.AsEnumerable()
+                                                  where tax.ImpuestoID == itm.ImpuestoID
+                                                  select new
+                                                  {
+                                                      idImpuesto = itm.Impuestos.Codigo,
+                                                      montoImpuesto = (itm.ValorUnitario * (itm.TasaImpuesto / 100)).ToString("F2", NFI_US),
+                                                      tipoAfectacion = "10",
+                                                      montoBase = itm.ValorUnitario.ToString("F2", NFI_US),
+                                                      porcentaje = itm.TasaImpuesto.ToString("F2", NFI_US)
+                                                  }
+                                                 ).ToList(),
+                                valorVenta = itm.MontoNeto.ToString("F2", NFI_US),
+                                montoTotalImpuestos = itm.MontoImpuesto.ToString("F2", NFI_US)
+                            }
+                           ).ToList()
+                    }; // var factura
+                       // Prepare document (toJson? toXML? toText?)
+                    string OutputJSON = JsonConvert.SerializeObject(factura, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                    Console.WriteLine(OutputJSON);
+                }; // foreach()
+
+                // Try
+                ////// Send document
+                ////// Update document (sended)
+                // Catch
+                ////// No Internet?
+                // End
                 ///// Try
                 /////// Receive response
                 /////// Update document (response received)
@@ -218,8 +373,9 @@ namespace EsconPOS.forms
                     e.Cancel = true;
                     break;
                 }
-            }
-        }
+                Thread.Sleep(60000);
+            } // while()
+        } // do_work()
 
         private void ProcesoSUNAT_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {

@@ -1,0 +1,100 @@
+{
+	"factura": {
+		"IDE": {
+			"numeracion": "FESC-00000238",
+			"fechaEmision": "2018-11-22",
+			"horaEmision": "11:39:28",
+			"codTipoDocumento": "01",
+			"tipoMoneda": "PEN",
+			"fechaVencimiento": "2018-11-27"
+		},
+		"EMI": {
+			"tipoDocId": "6",
+			"numeroDocId": "20100070031",
+			"razonSocial": "VOLVO S.A.",
+			"direccion": "CAR.PANAMERICANA SUR KM 23.88 KM. 23.8 URB. PANAMERICANA SUR (CONCHAN)",
+			"codigoAsigSUNAT": "0000"
+		},
+		"REC": {
+			"tipoDocId": "6",
+			"numeroDocId": "20101362702",
+			"razonSocial": "CONFECCIONES TEXTIMAX S.A.",
+			"direccion": "Av. Huarochirí Nº 151- Santa Anita",
+			"departamento": "Lima",
+			"provincia": "Lima",
+			"distrito": "Santa Anita"
+		},
+		"CAB": {
+			"gravadas": {
+				"codigo": "1001",
+				"totalVentas": "100.00"
+			},
+			"totalImpuestos": [
+				{
+					"idImpuesto": "1000",
+					"montoImpuesto": "18.00"
+				}
+			],
+			"importeTotal": "118.00",
+			"tipoOperacion": "0101",
+			"leyenda": [
+				{
+					"codigo": "1000",
+					"descripcion": "CIENTO DIECIOCHO CON 00/100 SOLES"
+				}
+			],
+			"montoTotalImpuestos": "18.00",
+			"cargoDescuento": [
+				{
+					"indicadorCargoDescuento": "false",
+					"codigoCargoDescuento": "02",
+					"factorCargoDescuento": "0.50",
+					"montoCargoDescuento": "100.00",
+					"montoBaseCargoDescuento": "200.00"
+				}
+			]
+		},
+		"DET": [
+			{
+				"numeroItem": "1",
+				"codigoProducto": "01342",
+				"descripcionProducto": "CARBONATO DE SODIO LIV. SOLVAY",
+				"cantidadItems": "1.00",
+				"unidad": "BG",
+				"valorUnitario": "100.0000",
+				"precioVentaUnitario": "118.0000",
+				"totalImpuestos": [
+					{
+						"idImpuesto": "1000",
+						"montoImpuesto": "18.00",
+						"tipoAfectacion": "10",
+						"montoBase": "100.00",
+						"porcentaje": "18.00"
+					}
+				],
+				"valorVenta": "100.00",
+				"montoTotalImpuestos": "18.00"
+			},
+			{
+				"numeroItem": "2",
+				"codigoProducto": "011000",
+				"descripcionProducto": "SODA CAUSTICA EN PERLAS CHINA",
+				"cantidadItems": "1.00",
+				"unidad": "KGM",
+				"valorUnitario": "100.0000",
+				"precioVentaUnitario": "118.0000",
+				"totalImpuestos": [
+					{
+						"idImpuesto": "1000",
+						"montoImpuesto": "18.00",
+						"tipoAfectacion": "10",
+						"montoBase": "100.00",
+						"porcentaje": "18.00"
+					}
+				],
+				"valorVenta": "100.00",
+				"montoTotalImpuestos": "18.00"
+			}
+		]
+	}
+}

@@ -1,0 +1,147 @@
+{
+"factura":{
+   "IDE":{
+      "numeracion" : "FQA1-00000023",
+      "fechaEmision": "2018-11-06",
+      "horaEmision": "08:51:23",
+      "codTipoDocumento": "01",
+      "tipoMoneda": "PEN",
+      "numeroOrdenCompra": "123456789"
+   },
+   "EMI":{
+      "tipoDocId": "6",
+      "numeroDocId": "20100070031",
+      "nombreComercial": "ASBANC",
+      "razonSocial": "ASOCIACION DE BANCOS DEL PERU",
+      "ubigeo": "150131",
+      "direccion": "CAL.41 NRO. 975",
+      "urbanizacion": "URB. CORPAC",
+      "provincia": "LIMA",
+      "departamento": "LIMA",
+      "distrito": "SAN ISIDRO",
+      "codigoPais": "PE",
+      "telefono": "9999-9999",
+      "correoElectronico": "informes@dominio.com",
+      "codigoAsigSUNAT": "0000"
+   },
+   "REC":{
+      "tipoDocId": "6",
+      "numeroDocId": "20381235051",
+      "razonSocial": "ENTIDAD FINANCIERA LIMA",
+      "direccion": "LOS LAURELES 889 PISO 7",
+      "departamento": "LIMA",
+      "provincia": "LIMA",
+      "distrito": "SAN ISIDRO",
+      "codigoPais": "PE",
+      "telefono": "555-5555",
+      "correoElectronico": "correo@micorreo.com"
+   },  
+   "DRF":[
+      {
+         "tipoDocRelacionado": "09",
+         "numeroDocRelacionado": "G083-548745"
+      }
+   ],
+   "CAB": {
+      "gravadas":{
+         "codigo": "1001",
+         "totalVentas": "4237.28"
+      },
+      "inafectas":{
+         "codigo": "1002",
+         "totalVentas": "1500.00"
+      },
+      "totalImpuestos":[
+         {
+         "idImpuesto":"1000",
+         "montoImpuesto": "762.72"
+         },
+         {
+         "idImpuesto":"9998",
+         "montoImpuesto": "0.00"
+         }
+      ],      
+      "importeTotal": "6500.00",
+      "tipoOperacion": "0101",
+      "leyenda":[
+      {
+         "codigo": "1000",
+         "descripcion": "SEIS MIL QUINIENTOS CON 00/100 NUEVOS SOLES"
+      }
+      ],
+      "montoTotalImpuestos": "762.72"
+   },
+   "DET":[
+   {
+      "numeroItem": "001",
+      "codigoProducto": "4587487",
+      "descripcionProducto": "SERVICIO DE CONSULTORIA A",
+      "cantidadItems": "1.00",
+      "unidad": "NIU",
+      "valorUnitario": "2118.64",
+      "precioVentaUnitario": "2500.00",
+      "totalImpuestos":[
+         {
+         "idImpuesto":"1000",
+         "montoImpuesto": "381.36",
+         "tipoAfectacion":"10",
+         "montoBase": "2118.64",
+         "porcentaje": "18.00"
+         }
+      ], 
+      "valorVenta": "2118.64",
+      "montoTotalImpuestos": "381.36"
+   },
+   {
+      "numeroItem": "002",
+      "codigoProducto": "4587486",
+      "descripcionProducto": "SERVICIO DE CONSULTORIA B",
+      "cantidadItems": "1.00",
+      "unidad": "NIU",
+      "valorUnitario": "2118.64",
+      "precioVentaUnitario": "2500.00",
+      "totalImpuestos":[
+         {
+         "idImpuesto":"1000",
+         "montoImpuesto": "381.36",
+         "tipoAfectacion":"10",
+         "montoBase": "2118.64",
+         "porcentaje": "18.00"
+         }
+      ], 
+      "valorVenta": "2118.64",
+      "montoTotalImpuestos": "381.36"
+   },
+   {
+      "numeroItem": "003",
+      "codigoProducto": "0000054",
+      "descripcionProducto": "DESCRIPCION INAFECTA 01",
+      "cantidadItems": "1.00",
+      "unidad": "NIU",
+      "valorUnitario": "1500.00",
+      "precioVentaUnitario": "1500.00",
+      "totalImpuestos":[
+         {
+         "idImpuesto":"9998",
+         "montoImpuesto": "0.00",
+         "tipoAfectacion":"30",
+         "montoBase": "1500.00",
+         "porcentaje": "0.00"
+         }
+      ], 
+      "valorVenta": "1500.00",
+      "montoTotalImpuestos": "0.00"
+   }
+   ],
+   "ADI":[
+      {
+         "tituloAdicional": "Parametro Adicional", 
+         "valorAdicional": "23"
+      },
+      {
+         "tituloAdicional": "Otro Parametro Adicional", 
+         "valorAdicional": "854-8547"
+      }
+   ]
+}
+}
